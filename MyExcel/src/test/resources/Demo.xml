@@ -51,7 +51,7 @@
 			<title>删除标记</title>
 		</column>
 	</sheet>
-	<sheet name="2018年财政教育经费投入情况调查表" freezes="1">
+	<sheet name="2018年财政教育经费投入情况调查表" freezes="2">
 		<column field="province">
 			<title>省（直辖市）</title>
 		</column>
@@ -69,8 +69,8 @@
 			number-format=",###.##">
 			<title split="-">财政教育经费投入（万元）-总计</title>
 		</column>
-		<column field="eduFinanceJysyfTotalAmount" prefix="￥" suffix="万元"
-			number-format=",###.##">
+		<column field="eduFinanceJysyfTotalAmount" prefix="￥"
+			suffix="万元" number-format=",###.##">
 			<title split="-">财政教育经费投入（万元）-教育事业费-合计-金额</title>
 		</column>
 		<column field="eduFinanceJysyfTotalIncrease" suffix="%"
