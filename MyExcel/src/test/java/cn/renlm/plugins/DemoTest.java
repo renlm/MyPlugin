@@ -23,7 +23,7 @@ public class DemoTest {
 	@Test
 	@SneakyThrows
 	public void template() {
-		String path = FileUtil.getUserHomePath() + "/Desktop/template.xlsx";
+		String path = FileUtil.getUserHomePath() + "/Desktop/Template.xlsx";
 		FileUtil.del(path);
 		OutputStream stream = new FileOutputStream(path);
 		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", true);
@@ -36,7 +36,7 @@ public class DemoTest {
 	@Test
 	@SneakyThrows
 	public void export() {
-		String path = FileUtil.getUserHomePath() + "/Desktop/export.xlsx";
+		String path = FileUtil.getUserHomePath() + "/Desktop/Export.xlsx";
 		FileUtil.del(path);
 		OutputStream stream = new FileOutputStream(path);
 		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", false, sh1 -> {

@@ -43,6 +43,9 @@
 		</column>
 	</sheet>
 	<sheet name="2016年财政教育经费投入情况调查表" freezes="1">
+		<column field="schoolName" width256="24">
+			<title>学校名称</title>
+		</column>
 		<column field="schoolType">
 			<title>学校类别</title>
 			<annotation>如果下拉选中类别补全，请自行填写对应的学校类别</annotation>
