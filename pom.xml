@@ -15,8 +15,8 @@
 
 	<modules>
 		<module>MyAll</module>
-		<module>MyCodeGenerator</module>
 		<module>MyExcel</module>
+		<module>MyGenerator</module>
 	</modules>
 
 	<properties>
