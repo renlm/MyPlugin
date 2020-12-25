@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="schema/Generator.xsd">
+	xsi:noNamespaceSchemaLocation=".Generator.xsd">
 
 	<url>jdbc:mysql://114.67.87.80:3308/crawler?serverTimezone=Asia/Shanghai</url>
 	<username>crawler</username>
