@@ -51,7 +51,7 @@ public class MyGeneratorUtil {
 	static final String mapperSuffix 			= "Mapper";
 	static final String mapperOutputDir 		= projectPath + "/src/main/resources/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
-	static final String serviceImplTemplatePath	= "templates/serviceImpl.java";
+	static final String serviceImplTemplatePath	= "ServiceImpl.java";
 
 	/**
 	 * 读取配置并运行
