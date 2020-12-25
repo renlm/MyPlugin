@@ -17,7 +17,7 @@
 		</column>
 		<column field="sex" align="center">
 			<title>性别</title>
-			<dict type="value">
+			<dict type="value" force-check="true">
 				<item value="男" key="M"></item>
 				<item value="女" key="F"></item>
 			</dict>
@@ -31,7 +31,7 @@
 		</column>
 		<column field="annualIncomeType" optional="true">
 			<title>收入级别</title>
-			<dict type="key">
+			<dict type="key" convert-to-field="annualIncomeTypeStr">
 				<item value="低收入" key="1"></item>
 				<item value="中等收入" key="2"></item>
 				<item value="高收入" key="3"></item>
