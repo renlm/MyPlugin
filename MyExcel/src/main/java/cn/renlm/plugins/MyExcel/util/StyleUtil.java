@@ -28,6 +28,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyExcel.config.MyColumn;
 import cn.renlm.plugins.MyExcel.config.column.Annotation;
 import cn.renlm.plugins.MyExcel.config.column.Dict;
+import cn.renlm.plugins.MyExcel.config.column.Dict.DictType;
 import cn.renlm.plugins.MyExcel.entity.CellUnit;
 import lombok.experimental.UtilityClass;
 
@@ -108,8 +109,13 @@ public class StyleUtil {
 				MyColumn column = cellUnit.getColumn();
 				Dict dict = column.getDict();
 				if (dict != null && dict.getItems().size() > 0) {
-					List<String> items = dict.getItems().stream().map(it -> it.getValue())
-							.filter(it -> StrUtil.isNotBlank(it)).distinct().collect(Collectors.toList());
+					List<String> items = dict.getItems().stream().map(it -> {
+						if (dict.getType() == DictType.key) {
+							return it.getKey();
+						} else {
+							return it.getValue();
+						}
+					}).filter(it -> StrUtil.isNotBlank(it)).distinct().collect(Collectors.toList());
 					if (items.size() > 0) {
 						CellRangeAddressList cellRangeAddressList = new CellRangeAddressList(dataPos, 65535, colNum,
 								colNum);
