@@ -14,7 +14,7 @@
 
 	<artifactId>MyGenerator</artifactId>
 	<name>${project.artifactId}</name>
-	<description>公共组件</description>
+	<description>MyBatis-Plus代码生成</description>
 
 	<properties>
 		<dynamic-datasource.version>3.2.1</dynamic-datasource.version>
