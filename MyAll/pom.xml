@@ -19,12 +19,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>cn.renlm.plugins</groupId>
+			<groupId>cn.renlm</groupId>
 			<artifactId>MyCom</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.renlm.plugins</groupId>
+			<groupId>cn.renlm</groupId>
 			<artifactId>MyExcel</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
