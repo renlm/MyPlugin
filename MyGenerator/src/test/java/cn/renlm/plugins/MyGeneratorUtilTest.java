@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author renlm
  *
  */
-public class MyCodeGeneratorUtilTest {
+public class MyGeneratorUtilTest {
 
 	@Test
 	public void run() {
