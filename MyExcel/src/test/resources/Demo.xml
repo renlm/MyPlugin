@@ -2,7 +2,7 @@
 <excel name="Demo" csv-charset="GBK" ref="备注.xlsx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation=".MyExcel.xsd">
-	<sheet name="年收入情况调查表" freezes="2">
+	<sheet name="年收入情况调查表">
 		<column field="year">
 			<title>年度</title>
 		</column>
@@ -13,6 +13,7 @@
 			<title>身份证号码</title>
 			<alias>身份证号</alias>
 			<alias>身份证</alias>
+			<annotation>请在身份证号码前添加前缀#</annotation>
 		</column>
 		<column field="sex">
 			<title>性别</title>
@@ -32,6 +33,12 @@
 	<sheet name="2016年财政教育经费投入情况调查表" freezes="1">
 		<column field="schoolType">
 			<title>学校类别</title>
+			<dict type="value">
+				<item value="小学" key="1"></item>
+				<item value="初中" key="2"></item>
+				<item value="高中" key="3"></item>
+				<item value="大学" key="4"></item>
+			</dict>
 		</column>
 		<column field="eduFinanceTotalAmount">
 			<title split="-">财政教育经费投入（万元）-总计</title>
@@ -98,6 +105,9 @@
 		</column>
 		<column field="zlbcXxhjsXywBnjcs">
 			<title split="-">补充资料-信息化建设-校园网数（个）-本年建成数</title>
+		</column>
+		<column field="remark" width256="32">
+			<title>备注</title>
 		</column>
 	</sheet>
 </excel>
