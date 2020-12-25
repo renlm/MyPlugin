@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+	<xsd:element name="generator" type="Generator">
+		<xsd:key name="module">
+			<xsd:selector xpath="module"></xsd:selector>
+			<xsd:field xpath="@package"></xsd:field>
+			<xsd:field xpath="@name"></xsd:field>
+		</xsd:key>
+	</xsd:element>
+
+	<xsd:complexType name="Generator">
+		<xsd:sequence>
+			<xsd:element name="url" />
+			<xsd:element name="username" />
+			<xsd:element name="password" />
+			<xsd:element name="driverName" />
+			<xsd:element name="module" type="Module" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="dsName" type="xsd:string"
+			use="optional" />
+	</xsd:complexType>
+
+	<xsd:complexType name="Module">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="table">
+				<xsd:complexType mixed="true">
+					<xsd:attribute name="schema" type="xsd:string"
+						use="optional" />
+					<xsd:attribute name="author" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="name" type="xsd:string"
+						use="required" />
+					<xsd:attribute name="idType" use="optional"
+						default="AUTO">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="AUTO" />
+								<xsd:enumeration value="NONE" />
+								<xsd:enumeration value="INPUT" />
+								<xsd:enumeration value="ASSIGN_ID" />
+								<xsd:enumeration value="ASSIGN_UUID" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string"
+			use="required" />
+		<xsd:attribute name="package" type="xsd:string"
+			use="required" />
+	</xsd:complexType>
+</xsd:schema>
