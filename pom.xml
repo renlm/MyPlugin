@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 
 	<groupId>cn.renlm</groupId>
-	<artifactId>plugins</artifactId>
+	<artifactId>MyPlugin-parent</artifactId>
 	<version>1.0.0</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路集</description>

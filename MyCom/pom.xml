@@ -8,7 +8,7 @@
 
 	<parent>
 		<groupId>cn.renlm</groupId>
-		<artifactId>plugins</artifactId>
+		<artifactId>MyPlugin-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
