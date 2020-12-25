@@ -65,11 +65,12 @@
 				<item value="大学" key="4"></item>
 			</dict>
 		</column>
-		<column field="eduFinanceTotalAmount" prefix="￥" suffix="元"
+		<column field="eduFinanceTotalAmount" prefix="￥" suffix="万元"
 			number-format=",###.##">
 			<title split="-">财政教育经费投入（万元）-总计</title>
 		</column>
-		<column field="eduFinanceJysyfTotalAmount">
+		<column field="eduFinanceJysyfTotalAmount" prefix="￥" suffix="万元"
+			number-format=",###.##">
 			<title split="-">财政教育经费投入（万元）-教育事业费-合计-金额</title>
 		</column>
 		<column field="eduFinanceJysyfTotalIncrease" suffix="%"
