@@ -35,9 +35,9 @@ public class MyPlugin {
 	 */
 	public static final void printAllUtils() {
 		final Set<Class<?>> allUtils = getAllUtils();
-		final ConsoleTable consoleTable = ConsoleTable.create().addHeader("工具类名", "所在包");
+		final ConsoleTable consoleTable = ConsoleTable.create().addHeader("版本", "工具类名", "所在包");
 		for (Class<?> clazz : allUtils) {
-			consoleTable.addBody(clazz.getSimpleName(), clazz.getPackage().getName());
+			consoleTable.addBody(VERSION, clazz.getSimpleName(), clazz.getPackage().getName());
 		}
 		consoleTable.print();
 	}
