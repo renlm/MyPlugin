@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified" attributeFormDefault="qualified">
+	<!-- 根节点定义 -->
+    <xsd:element name="excel-csv" type="ExcelCsv">
+    	<!-- 实体字段名为唯一约束 -->
+        <xsd:key name="column">
+           <xsd:selector xpath="column"></xsd:selector>
+           <xsd:field xpath="@field"></xsd:field>
+        </xsd:key>
+    </xsd:element>
+
+	<!-- 页签 -->
+    <xsd:complexType name="ExcelCsv">
+    	<!-- 列（可选） -->
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="column">
+                <xsd:complexType mixed="true">
+                	<xsd:sequence>
+                		<!-- 标题（只能一个，多级标题可用分隔符连接） -->
+                		<xsd:element name="title" type="Title" minOccurs="1" maxOccurs="1"/>
+                		<!-- 标题别名 -->
+			            <xsd:element name="alias" type="TitleAlias" minOccurs="0" maxOccurs="unbounded"/>
+                		<!-- 标题批注 -->
+			            <xsd:element name="annotation" type="TitleAnnotation" minOccurs="0" maxOccurs="1"/>
+                		<!-- 枚举字典（类型为编码时，配置字段取枚举值；类型为枚举值时，配置字段保持原值并将转换后的编码存在转换值存储字段中） -->
+			            <xsd:element name="dict" type="Dict" minOccurs="0" maxOccurs="1"/>
+			        </xsd:sequence>
+                    <!-- 实体字段名（必须） -->
+                    <xsd:attribute name="field" type="xsd:string" use="required"/>
+                    <!-- 数据值前缀（可选） -->
+                    <xsd:attribute name="data-prefix" type="xsd:string" use="optional"/>
+                    <!-- 日期格式（可选，默认yyyy/MM/dd） -->
+                    <xsd:attribute name="date-format" type="xsd:string" use="optional" default="yyyy/MM/dd"/>
+                    <!-- 是否忽略（可选，忽略时导入导出均不处理，默认false） -->
+                    <xsd:attribute name="ignore" type="xsd:boolean" use="optional" default="false"/>
+                    <!-- 列对齐方式（可选，默认左对齐，数字及日期右对齐，布尔型居中） -->
+                    <xsd:attribute name="align" use="optional">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="left"/>
+                                <xsd:enumeration value="right"/>
+                                <xsd:enumeration value="center"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                    <!-- 是否不允许为空（可选，默认false） -->
+                    <xsd:attribute name="not-allow-null" type="xsd:boolean" use="optional" default="false"/>
+                    <!-- 是否可选列（可选，默认false） -->
+                    <xsd:attribute name="optional" type="xsd:boolean" use="optional" default="false"/>
+                    <!-- 是否模板字段中排除（可选，根据该选项决定下载导入模板时是否包含，默认false） -->
+                    <xsd:attribute name="template-exclude" type="xsd:boolean" use="optional" default="false"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+        <!-- 页签名称（必须） -->
+        <xsd:attribute name="sheet-name" use="required">
+        	<xsd:simpleType>
+        		<xsd:restriction base="xsd:string">
+        			<xsd:minLength value="1"></xsd:minLength>
+        		</xsd:restriction>
+        	</xsd:simpleType>
+        </xsd:attribute>
+        <!-- 页签索引（可选，默认0） -->
+        <xsd:attribute name="sheet-no" type="xsd:int" use="optional" default="0"/>
+        <!-- 标题行起始位置（可选，默认0） -->
+        <xsd:attribute name="title-start" type="xsd:int" use="optional" default="0"/>
+        <!-- 固定列数（左侧，可选，默认0） -->
+        <xsd:attribute name="freeze-cols" type="xsd:int" use="optional" default="0"/>
+    </xsd:complexType>
+    
+    <!-- 字段标题基础定义 -->
+    <xsd:complexType name="TitleBase">
+    	<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<!-- 标题分割符（可选，默认不分割） -->
+				<xsd:attribute name="split" use="optional" default="-">
+					<xsd:simpleType>
+						<!-- 长度限定，至少一个字符 -->
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+    </xsd:complexType>
+    
+    <!-- 字段标题 -->
+	<xsd:complexType name="Title">
+		<xsd:simpleContent>
+			<!-- 长度限定，至少一个字符 -->
+			<xsd:restriction base="TitleBase">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<!-- 标题别名 -->
+	<xsd:simpleType name="TitleAlias">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"></xsd:minLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<!-- 标题批注 -->
+	<xsd:simpleType name="TitleAnnotation">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"></xsd:minLength>
+		</xsd:restriction>
+	</xsd:simpleType>
+    
+    <!-- 枚举字典（类型为编码时，配置字段取枚举值；类型为枚举值时，配置字段保持原值并将转换后的编码存在转换值存储字段中） -->
+    <xsd:complexType name="Dict">
+    	<!-- 字典项（至少一个） -->
+		<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="item">
+		        <xsd:complexType mixed="true">
+		  			<!-- 枚举值（必须） -->
+		            <xsd:attribute name="value" type="xsd:string" use="required"/>
+		  			<!-- 枚举编码（可选） -->
+		            <xsd:attribute name="key" type="xsd:string" use="optional"/>
+		        </xsd:complexType>
+		    </xsd:element>
+		</xsd:choice>
+       	<!-- 当前字段类型（必须，key或value） -->
+        <xsd:attribute name="type" use="required">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="key"/>
+                    <xsd:enumeration value="value"/>
+                </xsd:restriction>
+        	</xsd:simpleType>
+        </xsd:attribute>
+        <!-- 转换值存储字段（可选，保存配置字段原值的字典映射） -->
+        <xsd:attribute name="convert-to-field" type="xsd:string" use="optional"/>
+        <!-- 是否强制检查（可选，默认false） -->
+        <xsd:attribute name="force-check" type="xsd:boolean" use="optional" default="false"/>
+    </xsd:complexType>
+</xsd:schema>

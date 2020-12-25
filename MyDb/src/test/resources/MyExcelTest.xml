@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excel name="扶贫对象" csv-charset="GBK" ref="MyExcelTest/0.备注.xlsx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation=".MyExcel.xsd">
+	<sheet name="贫困户">
+		<column field="year">
+			<title>年度</title>
+		</column>
+		<column field="county">
+			<title>县（区）</title>
+			<alias>县</alias>
+			<alias>区</alias>
+		</column>
+		<column field="town">
+			<title>镇（乡）</title>
+			<alias>乡镇</alias>
+			<alias>镇</alias>
+			<alias>乡</alias>
+		</column>
+		<column field="village">
+			<title>行政村</title>
+			<alias>村</alias>
+		</column>
+		<column field="householdNumber" prefix="#" not-null="true">
+			<title>户编号</title>
+		</column>
+		<column field="householder">
+			<title>户主姓名</title>
+		</column>
+		<column field="householderCertificate" prefix="#">
+			<title>户主证件号码</title>
+		</column>
+		<column field="familySize">
+			<title>家庭人口数</title>
+		</column>
+		<column field="tuopinProperty">
+			<title>脱贫属性</title>
+			<alias>脱贫标志</alias>
+		</column>
+		<column field="isDangerousHouseholds">
+			<title>是否危房户</title>
+			<dict type="value">
+				<item value="是" key="true"></item>
+				<item value="否" key="false"></item>
+			</dict>
+		</column>
+		<column field="perNetIncome" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title>人均纯收入（元）</title>
+			<alias>人均纯收入</alias>
+		</column>
+		<column field="annualIncome" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title>年收入（元）</title>
+			<alias>年收入</alias>
+		</column>
+		<column field="identificationDate" date-format="yyyy/MM/dd">
+			<title>识别时间</title>
+		</column>
+	</sheet>
+	<sheet name="受益项目列表" freezes="2">
+		<column field="year">
+			<title>年度</title>
+			<alias>年份</alias>
+		</column>
+		<column field="householder">
+			<title>户主姓名</title>
+		</column>
+		<column field="householdNumber" prefix="#">
+			<title>户编号</title>
+		</column>
+		<column field="householderCertificateNumber" prefix="#">
+			<title>户主证件号码</title>
+		</column>
+		<column field="county">
+			<title>区县</title>
+			<alias>县</alias>
+		</column>
+		<column field="countyCode" prefix="#">
+			<title>县编码</title>
+		</column>
+		<column field="town">
+			<title>乡镇</title>
+		</column>
+		<column field="townCode" prefix="#">
+			<title>镇编码</title>
+		</column>
+		<column field="administrativeVillage">
+			<title>行政村</title>
+			<alias>村</alias>
+		</column>
+		<column field="villageCode" prefix="#" optional="true">
+			<title>村编码</title>
+		</column>
+		<column field="projectCode" prefix="#">
+			<title>项目编号</title>
+		</column>
+		<column field="projectName">
+			<title>项目名称</title>
+		</column>
+		<column field="projectType">
+			<title>项目类型</title>
+		</column>
+		<column field="projectSubtype">
+			<title>项目子类型</title>
+		</column>
+		<column field="startTime" date-format="yyyyMMdd">
+			<title>开始时间</title>
+			<alias>开始日期</alias>
+		</column>
+		<column field="endTime" date-format="yyyyMMdd">
+			<title>结束时间</title>
+			<alias>结束日期</alias>
+		</column>
+		<column field="batchNumber" ignore="true">
+			<title>批次号</title>
+		</column>
+		<column field="createdAt" ignore="true">
+			<title>创建时间</title>
+		</column>
+		<column field="updatedAt" ignore="true">
+			<title>更新时间</title>
+		</column>
+		<column field="deleted" ignore="true">
+			<title>是否删除</title>
+		</column>
+	</sheet>
+	<sheet name="建档立卡贫困户产业发展排查表（一）" freezes="2">
+		<column field="year" align="right">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-年度</title>
+		</column>
+		<column field="householder">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-户主姓名</title>
+		</column>
+		<column field="identificationNumber" prefix="#">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-户主身份证号码</title>
+		</column>
+		<column field="householdNumber" prefix="#" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-户编号</title>
+		</column>
+		<column field="householderIdCard" prefix="#" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-户主身份证号码</title>
+		</column>
+		<column field="county">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-县（区）</title>
+		</column>
+		<column field="countyCode" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-县编码</title>
+		</column>
+		<column field="town">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-乡镇</title>
+		</column>
+		<column field="townCode" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-镇编号</title>
+		</column>
+		<column field="administrativeVillage">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-行政村</title>
+		</column>
+		<column field="villageCode" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-村编号</title>
+		</column>
+		<column field="poorHouseholdProperty" optional="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-贫困户属性</title>
+		</column>
+		<column field="tuopinProperty" optional="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-脱贫属性</title>
+		</column>
+		<column field="realOvercomePovertyYear" optional="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-实际脱贫年份</title>
+		</column>
+		<column field="idCard" prefix="#" ignore="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-身份证号码</title>
+		</column>
+		<column field="familySize" optional="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-家庭人数（人）</title>
+		</column>
+		<column field="labourSize" optional="true">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-有劳动能力人数（人）</title>
+		</column>
+		<column field="plantCorn">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-玉米</title>
+		</column>
+		<column field="plantMinorCereals">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-小杂粮</title>
+		</column>
+		<column field="plantPotato">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-马铃薯</title>
+		</column>
+		<column field="plantChineseMedicine">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-中药材</title>
+		</column>
+		<column field="plantOpenVegetables">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-露地菜</title>
+		</column>
+		<column field="plantOther01Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业1-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value" force-check="true">
+				<item value="茶叶" key="茶叶"></item>
+				<item value="红薯" key="红薯"></item>
+				<item value="黄芪（中药材）" key="黄芪（中药材）"></item>
+				<item value="烤烟" key="烤烟"></item>
+				<item value="小杂粮" key="小杂粮"></item>
+				<item value="花圃" key="花圃"></item>
+				<item value="菌草" key="菌草"></item>
+				<item value="绿豆" key="绿"></item>
+				<item value="黄花菜" key="黄花菜"></item>
+				<item value="油葵" key="油葵"></item>
+				<item value="大豆" key="大豆"></item>
+				<item value="花生" key="花生"></item>
+				<item value="油用牡丹" key="油用牡丹"></item>
+				<item value="粽叶" key="粽叶"></item>
+				<item value="魔芋" key="魔芋"></item>
+				<item value="小麦" key="小麦"></item>
+				<item value="油菜" key="油菜"></item>
+				<item value="种苗" key="种苗"></item>
+				<item value="红葱" key="红葱"></item>
+				<item value="芦苇" key="芦苇"></item>
+				<item value="草莓" key="草莓"></item>
+				<item value="马铃薯" key="马铃薯"></item>
+				<item value="水稻" key="水稻"></item>
+				<item value="菜籽" key="菜籽"></item>
+				<item value="籽麻" key="籽麻"></item>
+				<item value="高粱" key="高粱"></item>
+				<item value="树苗" key="树苗"></item>
+				<item value="文冠果" key="文冠果"></item>
+				<item value="苜蓿" key="苜蓿"></item>
+				<item value="西瓜" key="西瓜"></item>
+				<item value="芋子" key="芋子"></item>
+				<item value="其他种植业" key="其他种植业"></item>
+			</dict>
+		</column>
+		<column field="plantOther01Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业1-规模</title>
+		</column>
+		<column field="plantOther02Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业2-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value">
+				<item value="茶叶" key="茶叶"></item>
+				<item value="红薯" key="红薯"></item>
+				<item value="黄芪（中药材）" key="黄芪（中药材）"></item>
+				<item value="烤烟" key="烤烟"></item>
+				<item value="小杂粮" key="小杂粮"></item>
+				<item value="花圃" key="花圃"></item>
+				<item value="菌草" key="菌草"></item>
+				<item value="绿豆" key="绿"></item>
+				<item value="黄花菜" key="黄花菜"></item>
+				<item value="油葵" key="油葵"></item>
+				<item value="大豆" key="大豆"></item>
+				<item value="花生" key="花生"></item>
+				<item value="油用牡丹" key="油用牡丹"></item>
+				<item value="粽叶" key="粽叶"></item>
+				<item value="魔芋" key="魔芋"></item>
+				<item value="小麦" key="小麦"></item>
+				<item value="油菜" key="油菜"></item>
+				<item value="种苗" key="种苗"></item>
+				<item value="红葱" key="红葱"></item>
+				<item value="芦苇" key="芦苇"></item>
+				<item value="草莓" key="草莓"></item>
+				<item value="马铃薯" key="马铃薯"></item>
+				<item value="水稻" key="水稻"></item>
+				<item value="菜籽" key="菜籽"></item>
+				<item value="籽麻" key="籽麻"></item>
+				<item value="高粱" key="高粱"></item>
+				<item value="树苗" key="树苗"></item>
+				<item value="文冠果" key="文冠果"></item>
+				<item value="苜蓿" key="苜蓿"></item>
+				<item value="西瓜" key="西瓜"></item>
+				<item value="芋子" key="芋子"></item>
+				<item value="其他种植业" key="其他种植业"></item>
+			</dict>
+		</column>
+		<column field="plantOther02Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业2-规模</title>
+		</column>
+		<column field="plantOther03Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业3-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value">
+				<item value="茶叶" key="茶叶"></item>
+				<item value="红薯" key="红薯"></item>
+				<item value="黄芪（中药材）" key="黄芪（中药材）"></item>
+				<item value="烤烟" key="烤烟"></item>
+				<item value="小杂粮" key="小杂粮"></item>
+				<item value="花圃" key="花圃"></item>
+				<item value="菌草" key="菌草"></item>
+				<item value="绿豆" key="绿"></item>
+				<item value="黄花菜" key="黄花菜"></item>
+				<item value="油葵" key="油葵"></item>
+				<item value="大豆" key="大豆"></item>
+				<item value="花生" key="花生"></item>
+				<item value="油用牡丹" key="油用牡丹"></item>
+				<item value="粽叶" key="粽叶"></item>
+				<item value="魔芋" key="魔芋"></item>
+				<item value="小麦" key="小麦"></item>
+				<item value="油菜" key="油菜"></item>
+				<item value="种苗" key="种苗"></item>
+				<item value="红葱" key="红葱"></item>
+				<item value="芦苇" key="芦苇"></item>
+				<item value="草莓" key="草莓"></item>
+				<item value="马铃薯" key="马铃薯"></item>
+				<item value="水稻" key="水稻"></item>
+				<item value="菜籽" key="菜籽"></item>
+				<item value="籽麻" key="籽麻"></item>
+				<item value="高粱" key="高粱"></item>
+				<item value="树苗" key="树苗"></item>
+				<item value="文冠果" key="文冠果"></item>
+				<item value="苜蓿" key="苜蓿"></item>
+				<item value="西瓜" key="西瓜"></item>
+				<item value="芋子" key="芋子"></item>
+				<item value="其他种植业" key="其他种植业"></item>
+			</dict>
+		</column>
+		<column field="plantOther03Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-种植业（亩）-其它产业3-规模</title>
+		</column>
+		<column field="aquaculturePig">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-猪</title>
+		</column>
+		<column field="aquacultureCattle">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-牛</title>
+		</column>
+		<column field="aquacultureSheep">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-羊</title>
+		</column>
+		<column field="aquacultureChicken">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-鸡</title>
+		</column>
+		<column field="aquacultureDonkey">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-驴</title>
+		</column>
+		<column field="aquacultureBee">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-蜂</title>
+		</column>
+		<column field="aquacultureOther01Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业1-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value" force-check="true">
+				<item value="蝗虫" key="蝗虫"></item>
+				<item value="淡水鱼养殖" key="淡水鱼养殖"></item>
+				<item value="红头雁" key="红头雁"></item>
+				<item value="鹅" key="鹅"></item>
+				<item value="小龙虾" key="小龙虾"></item>
+				<item value="蚕桑" key="蚕桑"></item>
+				<item value="兔" key="兔"></item>
+				<item value="狗" key="狗"></item>
+				<item value="蝎子" key="蝎子"></item>
+				<item value="鸽子" key="鸽子"></item>
+				<item value="骡子" key="骡子"></item>
+				<item value="鸭" key="鸭"></item>
+				<item value="其他养殖业" key="其他养殖业"></item>
+			</dict>
+		</column>
+		<column field="aquacultureOther01Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业1-规模</title>
+		</column>
+		<column field="aquacultureOther02Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业2-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value" force-check="true">
+				<item value="蝗虫" key="蝗虫"></item>
+				<item value="淡水鱼养殖" key="淡水鱼养殖"></item>
+				<item value="红头雁" key="红头雁"></item>
+				<item value="鹅" key="鹅"></item>
+				<item value="小龙虾" key="小龙虾"></item>
+				<item value="蚕桑" key="蚕桑"></item>
+				<item value="兔" key="兔"></item>
+				<item value="狗" key="狗"></item>
+				<item value="蝎子" key="蝎子"></item>
+				<item value="鸽子" key="鸽子"></item>
+				<item value="骡子" key="骡子"></item>
+				<item value="鸭" key="鸭"></item>
+				<item value="其他养殖业" key="其他养殖业"></item>
+			</dict>
+		</column>
+		<column field="aquacultureOther02Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业2-规模</title>
+		</column>
+		<column field="aquacultureOther03Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业3-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value" force-check="true">
+				<item value="蝗虫" key="蝗虫"></item>
+				<item value="淡水鱼养殖" key="淡水鱼养殖"></item>
+				<item value="红头雁" key="红头雁"></item>
+				<item value="鹅" key="鹅"></item>
+				<item value="小龙虾" key="小龙虾"></item>
+				<item value="蚕桑" key="蚕桑"></item>
+				<item value="兔" key="兔"></item>
+				<item value="狗" key="狗"></item>
+				<item value="蝎子" key="蝎子"></item>
+				<item value="鸽子" key="鸽子"></item>
+				<item value="骡子" key="骡子"></item>
+				<item value="鸭" key="鸭"></item>
+				<item value="其他养殖业" key="其他养殖业"></item>
+			</dict>
+		</column>
+		<column field="aquacultureOther03Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-养殖业（头、只、箱）-其它产业3-规模</title>
+		</column>
+		<column field="shedSunlightGreenhouse">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-棚栽业（亩、棒）-日光温室</title>
+		</column>
+		<column field="shedBow">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-棚栽业（亩、棒）-弓棚</title>
+		</column>
+		<column field="shedEdibleFungi">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-棚栽业（亩、棒）-食用菌</title>
+		</column>
+		<column field="littleMelon">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-产业种类及规模-棚栽业（亩、棒）-小瓜</title>
+			<alias>建档立卡贫困户产业发展排查表（一）-产业种类及规模-棚栽业-小瓜（亩）</alias>
+		</column>
+		<column field="fruitAppleArea">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-苹果-面积</title>
+		</column>
+		<column field="fruitAppleHangArea">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-苹果-挂果面积</title>
+		</column>
+		<column field="fruitAppleYield">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-苹果-年度产量（斤)</title>
+		</column>
+		<column field="fruitRedDates">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-红枣</title>
+		</column>
+		<column field="fruitWalnut">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-核桃</title>
+		</column>
+		<column field="fruitPepper">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-花椒</title>
+		</column>
+		<column field="fruitOther01Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业1-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value">
+				<item value="苗圃" key="苗圃"></item>
+				<item value="桃" key="桃"></item>
+				<item value="葡萄" key="葡萄"></item>
+				<item value="核桃" key="核桃"></item>
+				<item value="梨" key="梨"></item>
+				<item value="杏" key="杏"></item>
+				<item value="松树" key="松树"></item>
+				<item value="槐树" key="槐树"></item>
+				<item value="李子" key="李子"></item>
+				<item value="果桑" key="果桑"></item>
+				<item value="板栗" key="板栗"></item>
+				<item value="樱桃" key="樱桃"></item>
+				<item value="柏树" key="柏树"></item>
+				<item value="杨树" key="杨树"></item>
+				<item value="五角枫" key="五角枫"></item>
+				<item value="花椒" key="花椒"></item>
+				<item value="柳树" key="柳树"></item>
+				<item value="银杏" key="银杏"></item>
+				<item value="黄姜" key="黄姜"></item>
+				<item value="其他林果业" key="其他林果业"></item>
+			</dict>
+		</column>
+		<column field="fruitOther01Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业1-规模</title>
+		</column>
+		<column field="fruitOther02Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业2-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value">
+				<item value="苗圃" key="苗圃"></item>
+				<item value="桃" key="桃"></item>
+				<item value="葡萄" key="葡萄"></item>
+				<item value="核桃" key="核桃"></item>
+				<item value="梨" key="梨"></item>
+				<item value="杏" key="杏"></item>
+				<item value="松树" key="松树"></item>
+				<item value="槐树" key="槐树"></item>
+				<item value="李子" key="李子"></item>
+				<item value="果桑" key="果桑"></item>
+				<item value="板栗" key="板栗"></item>
+				<item value="樱桃" key="樱桃"></item>
+				<item value="柏树" key="柏树"></item>
+				<item value="杨树" key="杨树"></item>
+				<item value="五角枫" key="五角枫"></item>
+				<item value="花椒" key="花椒"></item>
+				<item value="柳树" key="柳树"></item>
+				<item value="银杏" key="银杏"></item>
+				<item value="黄姜" key="黄姜"></item>
+				<item value="其他林果业" key="其他林果业"></item>
+			</dict>
+		</column>
+		<column field="fruitOther02Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业2-规模</title>
+		</column>
+		<column field="fruitOther03Name">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业3-名称</title>
+			<annotation>请在下拉选项中选择，否则将无法通过系统校验</annotation>
+			<dict type="value">
+				<item value="苗圃" key="苗圃"></item>
+				<item value="桃" key="桃"></item>
+				<item value="葡萄" key="葡萄"></item>
+				<item value="核桃" key="核桃"></item>
+				<item value="梨" key="梨"></item>
+				<item value="杏" key="杏"></item>
+				<item value="松树" key="松树"></item>
+				<item value="槐树" key="槐树"></item>
+				<item value="李子" key="李子"></item>
+				<item value="果桑" key="果桑"></item>
+				<item value="板栗" key="板栗"></item>
+				<item value="樱桃" key="樱桃"></item>
+				<item value="柏树" key="柏树"></item>
+				<item value="杨树" key="杨树"></item>
+				<item value="五角枫" key="五角枫"></item>
+				<item value="花椒" key="花椒"></item>
+				<item value="柳树" key="柳树"></item>
+				<item value="银杏" key="银杏"></item>
+				<item value="黄姜" key="黄姜"></item>
+				<item value="其他林果业" key="其他林果业"></item>
+			</dict>
+		</column>
+		<column field="fruitOther03Scale">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-林果业（亩）-其它产业3-规模</title>
+		</column>
+		<column field="photovoltaicStartDate" date-format="yyyy/MM/dd">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-光伏-享受收益起始时间（年/月）</title>
+		</column>
+		<column field="photovoltaicBonus" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-光伏-年度分红（元）</title>
+		</column>
+		<column field="veconomyName">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-村集体经济-村集体经济名称</title>
+		</column>
+		<column field="veconomyBonus" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-村集体经济-年度分红（元）</title>
+		</column>
+		<column field="remark" width256="16">
+			<title split="-">建档立卡贫困户产业发展排查表（一）-备注</title>
+		</column>
+	</sheet>
+</excel>
