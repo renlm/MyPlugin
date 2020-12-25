@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="schema/Generator.xsd">
+
+	<url>jdbc:mysql://114.67.87.80:3308/crawler?serverTimezone=Asia/Shanghai</url>
+	<username>crawler</username>
+	<password>crawler@(ddf_^)</password>
+	<driverName>com.mysql.cj.jdbc.Driver</driverName>
+
+	<module name="sys" package="cn.renlm.crawler">
+		<table author="任黎明" name="sys_user" />
+		<table author="任黎明" name="sys_user_role" />
+		<table author="任黎明" name="sys_role" />
+		<table author="任黎明" name="sys_role_resource" />
+		<table author="任黎明" name="sys_resource" />
+	</module>
+
+	<module name="log" package="cn.renlm.crawler">
+		<table author="任黎明" name="log_quartz" />
+		<table author="任黎明" name="log_oshi" />
+		<table author="任黎明" name="log_login" />
+	</module>
+</generator>
