@@ -12,7 +12,7 @@ public class MyCodeGeneratorUtilTest {
 
 	@Test
 	public void run() {
-		MyCodeGeneratorUtil.run("Generator.MySQL.xml");
-		MyCodeGeneratorUtil.run("Generator.PostgreSQL.xml");
+		MyGeneratorUtil.run("Generator.MySQL.xml");
+		MyGeneratorUtil.run("Generator.PostgreSQL.xml");
 	}
 }
