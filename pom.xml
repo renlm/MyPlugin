@@ -10,13 +10,13 @@
 	<artifactId>plugins</artifactId>
 	<version>1.0.0</version>
 	<name>MyPlugin</name>
-	<description>Java常用功能插件集</description>
+	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
 
 	<modules>
-		<module>MyBotPls</module>
-		<module>MyDb</module>
+		<module>MyAll</module>
 		<module>MyExcel</module>
+		<module>MyPlus</module>
 	</modules>
 
 	<properties>
