@@ -16,27 +16,20 @@
 	<name>${project.artifactId}</name>
 	<description>公共组件</description>
 
+	<properties>
+		<dynamic-datasource.version>3.2.1</dynamic-datasource.version>
+		<mybatis-plus.version>3.3.2</mybatis-plus.version>
+		<xstream.version>1.4.15</xstream.version>
+		<freemarker.version>2.3.30</freemarker.version>
+		<mysql.version>8.0.20</mysql.version>
+		<postgresql.version>42.2.12</postgresql.version>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.3.2</version>
-			<scope>compile</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-			<version>3.2.1</version>
-			<scope>compile</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.4.15</version>
+			<version>${mybatis-plus.version}</version>
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
@@ -44,7 +37,39 @@
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-generator</artifactId>
-			<version>3.3.2</version>
+			<version>${mybatis-plus.version}</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+			<version>${dynamic-datasource.version}</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>${xstream.version}</version>
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
@@ -52,7 +77,7 @@
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<version>2.3.30</version>
+			<version>${freemarker.version}</version>
 			<scope>compile</scope>
 			<optional>true</optional>
 		</dependency>
