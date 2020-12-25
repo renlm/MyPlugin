@@ -42,9 +42,9 @@
 			<title>创建时间</title>
 		</column>
 	</sheet>
-	<sheet name="2016年财政教育经费投入情况调查表" freezes="1">
-		<column field="schoolName" width256="24">
-			<title>学校名称</title>
+	<sheet name="2018年财政教育经费投入情况调查表" freezes="1">
+		<column field="province">
+			<title>省|直辖市</title>
 		</column>
 		<column field="schoolType">
 			<title>学校类别</title>
