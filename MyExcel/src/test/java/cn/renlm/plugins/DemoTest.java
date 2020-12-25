@@ -49,15 +49,7 @@ public class DemoTest {
 					// 读取数据并写入导出表格
 					InputStream in = FileUtil.getInputStream("测试数据.xls");
 					MyExcelUtil.readBySax("Demo.xml", in, sheetName, (data, checkResult) -> {
-						if (checkResult.isError()) { // 出错了
-							if (checkResult.isProcess()) { // 表头已处理完，进入行数据读取流程中
-								Console.log(checkResult);
-							} else { // 模板表头校验失败
-								Console.error(checkResult);
-							}
-						} else {
-							sh1.write(CollUtil.newArrayList(data));
-						}
+						sh1.write(CollUtil.newArrayList(data));
 					});
 				},
 				// Demo.xml中第二个Sheet
