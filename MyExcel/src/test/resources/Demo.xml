@@ -65,8 +65,7 @@
 				<item value="大学" key="4"></item>
 			</dict>
 		</column>
-		<column field="eduFinanceTotalAmount" suffix="万元"
-			number-format=",###.##">
+		<column field="eduFinanceTotalAmount" number-format=",###.##">
 			<title split="-">财政教育经费投入（万元）-总计</title>
 		</column>
 		<column field="eduFinanceJysyfTotalAmount"
