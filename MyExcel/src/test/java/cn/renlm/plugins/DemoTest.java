@@ -47,7 +47,7 @@ public class DemoTest {
 				sh1 -> {
 					String sheetName = sh1.getSheetName();
 					// 读取数据并写入导出表格
-					InputStream in = FileUtil.getInputStream("测试数据.xlsx");
+					InputStream in = FileUtil.getInputStream("测试数据.xls");
 					MyExcelUtil.readBySax("Demo.xml", in, sheetName, (data, checkResult) -> {
 						if (checkResult.isError()) { // 出错了
 							if (checkResult.isProcess()) { // 表头已处理完，进入行数据读取流程中
