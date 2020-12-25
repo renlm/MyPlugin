@@ -18,15 +18,32 @@ import lombok.SneakyThrows;
 public class DemoTest {
 
 	/**
-	 * 生成模板
+	 * 模板
 	 */
 	@Test
 	@SneakyThrows
-	public void createTemplate() {
+	public void template() {
 		String path = FileUtil.getUserHomePath() + "/Desktop/Demo.xlsx";
 		FileUtil.del(path);
 		OutputStream stream = new FileOutputStream(path);
 		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", true);
+		workbook.write(stream);
+	}
+
+	/**
+	 * 导出
+	 */
+	@Test
+	@SneakyThrows
+	public void export() {
+		String path = FileUtil.getUserHomePath() + "/Desktop/Demo.xlsx";
+		FileUtil.del(path);
+		OutputStream stream = new FileOutputStream(path);
+		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", false, sh1 -> {
+
+		}, sh2 -> {
+
+		});
 		workbook.write(stream);
 	}
 }

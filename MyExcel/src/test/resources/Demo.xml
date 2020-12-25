@@ -15,7 +15,7 @@
 			<alias>身份证</alias>
 			<annotation>请在身份证号码前添加前缀#</annotation>
 		</column>
-		<column field="sex">
+		<column field="sex" align="center">
 			<title>性别</title>
 			<dict type="value">
 				<item value="男" key="M"></item>
@@ -28,6 +28,18 @@
 		<column field="annualIncome" prefix="￥" suffix="元"
 			number-format=",###.##">
 			<title>年收入</title>
+		</column>
+		<column field="annualIncomeType" optional="true">
+			<title>收入级别</title>
+			<dict type="key">
+				<item value="低收入" key="1"></item>
+				<item value="中等收入" key="2"></item>
+				<item value="高收入" key="3"></item>
+				<item value="富豪" key="4"></item>
+			</dict>
+		</column>
+		<column field="createdTime" ignore="true">
+			<title>创建时间</title>
 		</column>
 	</sheet>
 	<sheet name="2016年财政教育经费投入情况调查表" freezes="1">
