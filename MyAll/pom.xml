@@ -20,7 +20,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.renlm.plugins</groupId>
-			<artifactId>MyCom</artifactId>
+			<artifactId>MyCodeGenerator</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>

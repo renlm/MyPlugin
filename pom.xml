@@ -15,7 +15,7 @@
 
 	<modules>
 		<module>MyAll</module>
-		<module>MyCom</module>
+		<module>MyCodeGenerator</module>
 		<module>MyExcel</module>
 	</modules>
 
