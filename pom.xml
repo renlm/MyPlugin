@@ -16,7 +16,6 @@
 	<modules>
 		<module>MyAll</module>
 		<module>MyExcel</module>
-		<module>MyPlus</module>
 	</modules>
 
 	<properties>

@@ -14,15 +14,10 @@
 
 	<artifactId>MyBotPls</artifactId>
 	<name>${project.artifactId}</name>
-	<description>Java简化开发套路集，适合新项目使用</description>
+	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
 
 	<dependencies>
-		<dependency>
-			<groupId>cn.renlm</groupId>
-			<artifactId>MyPlus</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>cn.renlm</groupId>
 			<artifactId>MyExcel</artifactId>
