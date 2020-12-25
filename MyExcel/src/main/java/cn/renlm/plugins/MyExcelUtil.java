@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.thoughtworks.xstream.XStream;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -34,7 +35,6 @@ import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 import cn.renlm.plugins.MyExcel.handler.DataWriterHandler;
 import cn.renlm.plugins.MyExcel.util.MergeUtil;
 import cn.renlm.plugins.MyExcel.util.StyleUtil;
-import cn.renlm.plugins.MyExcel.util.XmlUtil;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -199,6 +199,42 @@ public class MyExcelUtil {
 				CheckResult checkResult = sheet.readConvert(rowIndex, data);
 				dataReadHandler.handle(data, checkResult);
 			}
+		}
+	}
+
+	/**
+	 * Xml配置转换
+	 */
+	private static final class XmlUtil {
+
+		/**
+		 * 读取
+		 * 
+		 * @param type
+		 * @param resource
+		 * @return
+		 */
+		@SuppressWarnings("unchecked")
+		public static final <C> C read(final Class<C> type, String resource) {
+			InputStream in = XmlUtil.class.getClassLoader().getResourceAsStream(resource);
+			XStream xstream = create(type, in);
+			return (C) xstream.fromXML(in);
+		}
+
+		/**
+		 * 新建
+		 * 
+		 * @param type
+		 * @param in
+		 * @return
+		 */
+		private static final XStream create(final Class<?> type, InputStream in) {
+			XStream xstream = new XStream();
+			XStream.setupDefaultSecurity(xstream);
+			xstream.processAnnotations(type);
+			xstream.allowTypeHierarchy(type);
+			xstream.ignoreUnknownElements();
+			return xstream;
 		}
 	}
 }
