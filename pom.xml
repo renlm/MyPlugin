@@ -43,6 +43,20 @@
 		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+			<id>hwmaven</id>
+			<url>https://mirrors.huaweicloud.com/repository/maven</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>hwmaven</id>
+			<url>https://mirrors.huaweicloud.com/repository/maven</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<issueManagement>
 		<system>Github Issue</system>
 		<url>https://github.com/renlm/MyPlugin/issues</url>
