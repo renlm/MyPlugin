@@ -20,11 +20,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.renlm</groupId>
-			<artifactId>MyAll</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>cn.renlm</groupId>
 			<artifactId>MyDb</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
