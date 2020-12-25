@@ -44,7 +44,7 @@ import lombok.Data;
  * @author 任黎明
  *
  */
-public class MyCodeGenUtil {
+public class MyCodeGeneratorUtil {
 	static final String projectPath 			= System.getProperty("user.dir");
 	static final String javaOutputDir 			= projectPath + "/src/main/java";
 	static final String mapperSuffix 			= "Mapper";
