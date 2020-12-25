@@ -44,7 +44,7 @@
 			number-format=",###.##">
 			<title>年收入</title>
 		</column>
-		<column field="recordDate">
+		<column field="recordDate" optional="true">
 			<title>记录日期</title>
 		</column>
 		<column field="isDeleted" ignore="true">
