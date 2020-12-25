@@ -45,6 +45,7 @@
 	<sheet name="2016年财政教育经费投入情况调查表" freezes="1">
 		<column field="schoolType">
 			<title>学校类别</title>
+			<annotation>如果下拉选中类别补全，请自行填写对应的学校类别</annotation>
 			<dict type="value">
 				<item value="小学" key="1"></item>
 				<item value="初中" key="2"></item>
