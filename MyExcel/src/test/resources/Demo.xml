@@ -31,7 +31,7 @@
 		</column>
 		<column field="isDangerousHouseholds">
 			<title>是否危房户</title>
-			<dict type="value">
+			<dict type="value" force-check="true">
 				<item value="是" key="true"></item>
 				<item value="否" key="false"></item>
 			</dict>
