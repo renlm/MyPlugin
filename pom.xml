@@ -6,7 +6,7 @@
 
 	<packaging>pom</packaging>
 
-	<groupId>cn.renlm</groupId>
+	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
 	<version>1.0.0</version>
 	<name>MyPlugin</name>
