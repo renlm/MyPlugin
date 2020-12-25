@@ -12,7 +12,7 @@
 		<version>1.0.0</version>
 	</parent>
 
-	<artifactId>MyBotPls</artifactId>
+	<artifactId>MyAll</artifactId>
 	<name>${project.artifactId}</name>
 	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
