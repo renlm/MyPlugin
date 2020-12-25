@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>MyAll</module>
+		<module>MyCom</module>
 		<module>MyExcel</module>
 	</modules>
 
