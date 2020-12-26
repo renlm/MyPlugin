@@ -68,6 +68,18 @@
             </releases>
         </pluginRepository>
     </pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://114.67.87.80:8181/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 	<issueManagement>
 		<system>Github Issue</system>
