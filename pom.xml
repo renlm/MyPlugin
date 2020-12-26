@@ -94,7 +94,7 @@
 		</plugins>
 	</build>
 
-	<!-- 正式部署，mvn clean deploy -Dmaven.test.skip=true -P release -Darguments="gpg.passphrase=密码" -->
+	<!-- 正式部署，mvn clean deploy -Dmaven.test.skip=true -P release -->
 	<profiles>
 		<profile>
 			<id>release</id>
