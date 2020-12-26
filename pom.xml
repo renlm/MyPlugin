@@ -20,10 +20,9 @@
 	</modules>
 
 	<properties>
+		<compile.version>8</compile.version>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-
-		<compile.version>8</compile.version>
 	</properties>
 
 	<dependencies>
