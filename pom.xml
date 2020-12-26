@@ -94,18 +94,18 @@
 		</plugins>
 	</build>
 
-	<!-- deploy -P release -->
+	<!-- 正式部署 -->
 	<profiles>
 		<profile>
 			<id>release</id>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>oss</id>
-					<url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
 					<id>oss</id>
-					<url>http://114.67.87.80:8181/repository/maven-releases/</url>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 			</distributionManagement>
 			<build>
@@ -160,7 +160,7 @@
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>oss</serverId>
-							<nexusUrl>http://114.67.87.80:8181/</nexusUrl>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
