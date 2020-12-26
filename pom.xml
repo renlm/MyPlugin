@@ -94,17 +94,19 @@
 		</plugins>
 	</build>
 
-	<!-- 正式部署 -->
+	<!-- 正式部署，mvn clean deploy -Dmaven.test.skip=true -P release -Darguments="gpg.passphrase=密码" -->
 	<profiles>
 		<profile>
 			<id>release</id>
 			<distributionManagement>
 				<snapshotRepository>
-					<id>oss</id>
+                    <!-- 注意和server对应的id一致 -->
+					<id>sonatype</id>
 					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
-					<id>oss</id>
+                    <!-- 注意和server对应的id一致 -->
+					<id>sonatype</id>
 					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 			</distributionManagement>
@@ -117,7 +119,8 @@
 						<version>3.2.1</version>
 						<executions>
 							<execution>
-								<id>oss</id>
+                                <!-- 注意和server对应的id一致 -->
+								<id>sonatype</id>
 								<phase>package</phase>
 								<goals>
 									<goal>jar-no-fork</goal>
@@ -145,7 +148,8 @@
 						<version>1.6</version>
 						<executions>
 							<execution>
-								<id>oss</id>
+                                <!-- 注意和server对应的id一致 -->
+								<id>sonatype</id>
 								<phase>verify</phase>
 								<goals>
 									<goal>sign</goal>
@@ -159,7 +163,8 @@
 						<version>1.6.8</version>
 						<extensions>true</extensions>
 						<configuration>
-							<serverId>oss</serverId>
+                            <!-- 注意和server对应的id一致 -->
+							<serverId>sonatype</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
