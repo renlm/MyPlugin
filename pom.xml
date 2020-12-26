@@ -99,15 +99,15 @@
 		<profile>
 			<id>release</id>
 			<distributionManagement>
-		    	<repository>
-		            <id>oss</id>
-		            <url>http://114.67.87.80:8181/repository/maven-releases/</url>
-		        </repository>
-		        <snapshotRepository>
-		            <id>oss</id>
-		            <url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
-		        </snapshotRepository>
-		    </distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>http://192.168.1.207:8181/repository/maven-releases/</url>
+				</repository>
+			</distributionManagement>
 			<build>
 				<plugins>
 					<!-- Source -->
