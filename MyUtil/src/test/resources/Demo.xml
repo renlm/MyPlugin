@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<excel name="Demo" csv-charset="GBK" ref="备注.xlsx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation=".MyExcel.xsd">
+	<sheet name="农村家庭情况调查表">
+		<column field="year">
+			<title>年度</title>
+		</column>
+		<column field="county">
+			<title>县（区）</title>
+		</column>
+		<column field="town">
+			<title>镇（乡）</title>
+		</column>
+		<column field="village">
+			<title>行政村</title>
+		</column>
+		<column field="name">
+			<title>户主姓名</title>
+		</column>
+		<column field="idCard" prefix="#">
+			<title>户主身份证号码</title>
+			<alias>身份证号码</alias>
+			<annotation>添加前缀#，避免数字转化错误。</annotation>
+		</column>
+		<column field="familySize">
+			<title>家庭人口数</title>
+		</column>
+		<column field="tuopinProperty">
+			<title>脱贫属性</title>
+		</column>
+		<column field="isDangerousHouseholds">
+			<title>是否危房户</title>
+			<dict type="value" force-check="true">
+				<item value="是" key="true"></item>
+				<item value="否" key="false"></item>
+			</dict>
+		</column>
+		<column field="perNetIncome" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title>人均纯收入</title>
+		</column>
+		<column field="annualIncome" prefix="￥" suffix="元"
+			number-format=",###.##">
+			<title>年收入</title>
+		</column>
+		<column field="recordDate" optional="true">
+			<title>记录日期</title>
+		</column>
+		<column field="isDeleted" ignore="true">
+			<title>删除标记</title>
+		</column>
+	</sheet>
+	<sheet name="2018年财政教育经费投入情况调查表" freezes="2">
+		<column field="province">
+			<title>省（直辖市）</title>
+		</column>
+		<column field="schoolType">
+			<title>学校类别</title>
+			<annotation>如果下拉选中类别补全，请自行填写对应的学校类别</annotation>
+			<dict type="value">
+				<item value="小学" key="1"></item>
+				<item value="初中" key="2"></item>
+				<item value="高中" key="3"></item>
+				<item value="大学" key="4"></item>
+			</dict>
+		</column>
+		<column field="eduFinanceTotalAmount" number-format=",###.##">
+			<title split="-">财政教育经费投入（万元）-总计</title>
+		</column>
+		<column field="eduFinanceJysyfTotalAmount"
+			number-format=",###.##">
+			<title split="-">财政教育经费投入（万元）-教育事业费-合计-金额</title>
+		</column>
+		<column field="eduFinanceJysyfTotalIncrease" suffix="%"
+			number-format="#.##">
+			<title split="-">财政教育经费投入（万元）-教育事业费-合计-比上年增长（%）</title>
+		</column>
+		<column field="eduFinanceJysyfRyjf">
+			<title split="-">财政教育经费投入（万元）-教育事业费-人员经费</title>
+		</column>
+		<column field="eduFinanceJysyfRcgyjf">
+			<title split="-">财政教育经费投入（万元）-教育事业费-日常公用经费</title>
+		</column>
+		<column field="eduFinanceJysyfXmjfTotal">
+			<title split="-">财政教育经费投入（万元）-教育事业费-项目经费-合计</title>
+		</column>
+		<column field="eduFinanceJysyfXmjfOtherBzhjs">
+			<title split="-">财政教育经费投入（万元）-教育事业费-项目经费-其中-标准化建设</title>
+		</column>
+		<column field="eduFinanceJysyfXmjfOtherXxhjs">
+			<title split="-">财政教育经费投入（万元）-教育事业费-项目经费-其中-信息化建设</title>
+		</column>
+		<column field="eduFinanceJjbk">
+			<title split="-">财政教育经费投入（万元）-基建拨款</title>
+		</column>
+		<column field="eduFinanceVillageTrHj">
+			<title split="-">其他投入-村投入-合计</title>
+		</column>
+		<column field="otherVillageTrRyjf">
+			<title split="-">其他投入-村投入-其中-人员经费</title>
+		</column>
+		<column field="otherVillageTrRcgyjf">
+			<title split="-">其他投入-村投入-其中-日常公用经费</title>
+		</column>
+		<column field="otherVillageTrXmjf">
+			<title split="-">其他投入-村投入-其中-项目经费</title>
+		</column>
+		<column field="otherVillageTrJjtr">
+			<title split="-">其他投入-村投入-其中-基建投入</title>
+		</column>
+		<column field="otherShjkTotal">
+			<title split="-">其他投入-社会捐款-合计</title>
+		</column>
+		<column field="otherShjkXmjf">
+			<title split="-">其他投入-社会捐款-其中-项目经费</title>
+		</column>
+		<column field="otherShjkJjtr">
+			<title split="-">其他投入-社会捐款-其中-基建投入</title>
+		</column>
+		<column field="zlbcXxhjsBntrAmount">
+			<title split="-">补充资料-信息化建设-本年投入金额（万元）</title>
+		</column>
+		<column field="zlbcXxhjsComputerTotalNum">
+			<title split="-">补充资料-信息化建设-电脑数（台）-合计</title>
+		</column>
+		<column field="zlbcXxhjsComputerBngzs">
+			<title split="-">补充资料-信息化建设-电脑数（台）-本年购置数</title>
+		</column>
+		<column field="zlbcXxhjsXywTotalNum">
+			<title split="-">补充资料-信息化建设-校园网数（个）-合计</title>
+		</column>
+		<column field="zlbcXxhjsXywBnjcs">
+			<title split="-">补充资料-信息化建设-校园网数（个）-本年建成数</title>
+		</column>
+		<column field="remark" width256="32">
+			<title>备注</title>
+		</column>
+	</sheet>
+</excel>
