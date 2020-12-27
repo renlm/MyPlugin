@@ -68,6 +68,39 @@
 	</scm>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- License Header -->
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>4.0.rc2</version>
+					<configuration>
+						<licenseSets>
+							<licenseSet>
+								<multi>
+									<header>NOTICE.txt</header>
+								</multi>
+								<excludes>
+									<exclude>src/test/java/**</exclude>
+									<exclude>src/test/resources/**</exclude>
+									<exclude>src/main/resources/**</exclude>
+								</excludes>
+							</licenseSet>
+						</licenseSets>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>check</goal>
+								<goal>remove</goal>
+								<goal>format</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -77,37 +110,6 @@
 					<source>${compile.version}</source>
 					<target>${compile.version}</target>
 				</configuration>
-			</plugin>
-			<!-- License Header -->
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>4.0.rc2</version>
-				<inherited>false</inherited>
-				<configuration>
-					<aggregate> true</aggregate>
-					<licenseSets>
-						<licenseSet>
-							<multi>
-								<header>NOTICE.txt</header>
-							</multi>
-							<excludes>
-								<exclude>src/test/java/**</exclude>
-								<exclude>src/test/resources/**</exclude>
-								<exclude>src/main/resources/**</exclude>
-							</excludes>
-						</licenseSet>
-					</licenseSets>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-							<goal>remove</goal>
-							<goal>format</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- Javadoc -->
 			<plugin>
