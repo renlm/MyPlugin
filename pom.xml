@@ -78,6 +78,35 @@
 					<target>${compile.version}</target>
 				</configuration>
 			</plugin>
+			<!-- License -->
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>4.0.rc2</version>
+				<configuration>
+					<licenseSets>
+						<licenseSet>
+							<multi>
+								<preamble><![CDATA[This product is dual-licensed under both the GPLv2 and Apache 2.0 License.]]></preamble>
+								<separator>======================================================================</separator>
+								<header>MulanPSL2.txt</header>
+							</multi>
+							<excludes>
+								<exclude>**/README</exclude>
+								<exclude>src/test/resources/**</exclude>
+								<exclude>src/main/resources/**</exclude>
+							</excludes>
+						</licenseSet>
+					</licenseSets>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- Javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
