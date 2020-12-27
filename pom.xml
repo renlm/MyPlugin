@@ -17,6 +17,7 @@
 		<module>MyAll</module>
 		<module>MyExcel</module>
 		<module>MyGenerator</module>
+		<module>MyUtil</module>
 	</modules>
 
 	<properties>
