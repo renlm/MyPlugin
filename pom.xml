@@ -170,7 +170,7 @@
 		</plugins>
 	</build>
 
-	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
+	<!-- mvn clean license:format deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
 			<id>dev</id>
