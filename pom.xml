@@ -9,12 +9,12 @@
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
 	<version>${project.version}</version>
-	<name>MyPlugin</name>
+	<name>${project.artifactId}</name>
 	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
 
 	<modules>
-		<module>MyAll</module>
+		<module>MyPlugin</module>
 		<module>MyExcel</module>
 		<module>MyGenerator</module>
 	</modules>
