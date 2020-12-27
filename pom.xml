@@ -78,7 +78,7 @@
 					<target>${compile.version}</target>
 				</configuration>
 			</plugin>
-			<!-- License header -->
+			<!-- License Header -->
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
