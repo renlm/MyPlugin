@@ -87,10 +87,10 @@
 					<licenseSets>
 						<licenseSet>
 							<multi>
-								<header>MulanPSL2.txt</header>
+								<header>NOTICE.txt</header>
 							</multi>
 							<excludes>
-								<exclude>**/README</exclude>
+								<exclude>src/test/java/**</exclude>
 								<exclude>src/test/resources/**</exclude>
 								<exclude>src/main/resources/**</exclude>
 							</excludes>
