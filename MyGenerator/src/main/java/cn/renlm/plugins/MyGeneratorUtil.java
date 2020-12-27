@@ -4,7 +4,6 @@ import static com.baomidou.mybatisplus.core.toolkit.StringPool.DOT_XML;
 import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +31,11 @@ import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.Data;
 
 /**
@@ -59,7 +58,7 @@ public class MyGeneratorUtil {
 	 * @param xml
 	 */
 	public static final void run(String xml) {
-		GeneratorConfig conf = XmlUtil.read(GeneratorConfig.class, xml);
+		GeneratorConfig conf = MyXStreamUtil.read(GeneratorConfig.class, xml);
 		DataSourceConfig dsc = new DataSourceConfig()
 				.setUrl(conf.url)
 				.setUsername(conf.username)
@@ -222,41 +221,5 @@ public class MyGeneratorUtil {
 		@XStreamAsAttribute
 		private String idType;
 
-	}
-	
-	/**
-	 * Xml配置转换
-	 */
-	private static final class XmlUtil {
-
-		/**
-		 * 读取
-		 * 
-		 * @param type
-		 * @param resource
-		 * @return
-		 */
-		@SuppressWarnings("unchecked")
-		public static final <C> C read(final Class<C> type, String resource) {
-			InputStream in = XmlUtil.class.getClassLoader().getResourceAsStream(resource);
-			XStream xstream = create(type, in);
-			return (C) xstream.fromXML(in);
-		}
-
-		/**
-		 * 新建
-		 * 
-		 * @param type
-		 * @param in
-		 * @return
-		 */
-		private static final XStream create(final Class<?> type, InputStream in) {
-			XStream xstream = new XStream();
-			XStream.setupDefaultSecurity(xstream);
-			xstream.processAnnotations(type);
-			xstream.allowTypeHierarchy(type);
-			xstream.ignoreUnknownElements();
-			return xstream;
-		}
 	}
 }
