@@ -8,7 +8,7 @@
 
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
-	<version>${project.version}</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
@@ -23,7 +23,6 @@
 		<compile.version>8</compile.version>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-		<project.version>1.0.1-SNAPSHOT</project.version>
 	</properties>
 
 	<dependencies>
@@ -130,9 +129,6 @@
 	<profiles>
 		<profile>
 			<id>dev</id>
-			<properties>
-				<project.version>1.0.1-SNAPSHOT</project.version>
-			</properties>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>maven-public</id>
@@ -161,9 +157,6 @@
 		</profile>
 		<profile>
 			<id>release</id>
-			<properties>
-				<project.version>1.0.1-SNAPSHOT</project.version>
-			</properties>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>sonatype</id>
