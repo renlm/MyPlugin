@@ -90,7 +90,9 @@
 								<header>NOTICE.txt</header>
 							</multi>
 							<excludes>
-								<exclude>*.txt</exclude>
+								<exclude>LICENSE.txt</exclude>
+								<exclude>NOTICE.txt</exclude>
+								<exclude>README.md</exclude>
 								<exclude>src/test/java/**</exclude>
 								<exclude>src/test/resources/**</exclude>
 								<exclude>src/main/resources/**</exclude>
