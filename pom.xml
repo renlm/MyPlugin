@@ -122,6 +122,11 @@
 					<target>${compile.version}</target>
 				</configuration>
 			</plugin>
+			<!-- License Header -->
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
 			<!-- Javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -170,7 +175,7 @@
 		</plugins>
 	</build>
 
-	<!-- mvn clean license:format deploy -Dmaven.test.skip=true -P profileId -->
+	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
 			<id>dev</id>
