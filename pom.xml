@@ -112,6 +112,8 @@ See the Mulan PSL v2 for more details.
 				</configuration>
 				<executions>
 					<execution>
+						<id>attach-license-header</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>format</goal>
 						</goals>
