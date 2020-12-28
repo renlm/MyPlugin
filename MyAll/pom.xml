@@ -44,6 +44,8 @@
 						</goals>
 						<configuration>
 							<createSourcesJar>true</createSourcesJar>
+							<keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
+							<promoteTransitiveDependencies>true</promoteTransitiveDependencies>
 							<artifactSet>
 								<includes>
 									<include>${project.groupId}:*:*</include>
