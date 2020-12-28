@@ -113,7 +113,7 @@ See the Mulan PSL v2 for more details.
 				<executions>
 					<execution>
 						<goals>
-							<goal>check</goal>
+							<goal>format</goal>
 						</goals>
 					</execution>
 				</executions>
