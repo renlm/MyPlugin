@@ -78,6 +78,36 @@
 					<target>${compile.version}</target>
 				</configuration>
 			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- License Header -->
 			<plugin>
 				<groupId>com.mycila</groupId>
@@ -112,40 +142,17 @@ See the Mulan PSL v2 for more details.
 				</configuration>
 				<executions>
 					<execution>
-						<id>attach-license-header</id>
+						<id>license-format</id>
 						<phase>prepare-package</phase>
 						<goals>
 							<goal>format</goal>
 						</goals>
 					</execution>
-				</executions>
-			</plugin>
-			<!-- Javadoc -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
 					<execution>
-						<id>attach-javadocs</id>
+						<id>license-remove</id>
 						<phase>package</phase>
 						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Source -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
+							<goal>remove</goal>
 						</goals>
 					</execution>
 				</executions>
