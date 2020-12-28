@@ -87,12 +87,12 @@
 					<licenseSets>
 						<licenseSet>
 							<multi>
-								<header>NOTICE.txt</header>
+								<header>LICENSE-header.txt</header>
 							</multi>
 							<excludes>
-								<exclude>LICENSE.txt</exclude>
-								<exclude>NOTICE.txt</exclude>
-								<exclude>README.md</exclude>
+								<exclude>**/LICENSE.txt</exclude>
+								<exclude>**/NOTICE.txt</exclude>
+								<exclude>**/README.md</exclude>
 								<exclude>src/test/java/**</exclude>
 								<exclude>src/test/resources/**</exclude>
 								<exclude>src/main/resources/**</exclude>
@@ -104,8 +104,6 @@
 					<execution>
 						<goals>
 							<goal>check</goal>
-							<goal>remove</goal>
-							<goal>format</goal>
 						</goals>
 					</execution>
 				</executions>
