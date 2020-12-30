@@ -9,7 +9,7 @@
 	<driverName>com.mysql.cj.jdbc.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table author="任黎明" name="sys_user" />
+		<table author="任黎明" name="sys_user" ignore="true" />
 		<table author="任黎明" name="sys_user_role" />
 		<table author="任黎明" name="sys_role" />
 		<table author="任黎明" name="sys_role_resource" />
