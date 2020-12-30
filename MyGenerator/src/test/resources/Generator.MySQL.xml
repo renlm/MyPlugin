@@ -18,7 +18,7 @@
 
 	<module name="log" package="cn.renlm.crawler">
 		<table ignore="true" author="任黎明" name="log_quartz" />
-		<table author="任黎明" name="log_oshi" />
+		<table ignore="true" author="任黎明" name="log_oshi" />
 		<table author="任黎明" name="log_login" />
 	</module>
 </generator>
