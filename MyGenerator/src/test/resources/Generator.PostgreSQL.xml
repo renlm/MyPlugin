@@ -9,7 +9,7 @@
 	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table schema="public" author="任黎明" name="sys_const" />
+		<table ignore="true" schema="public" author="任黎明" name="sys_const" />
 		<table schema="public" author="任黎明" name="sys_dict" />
 		<table schema="public" author="任黎明" name="sys_tree" />
 		<table schema="public" author="任黎明" name="sys_file" idType="ASSIGN_ID" />
