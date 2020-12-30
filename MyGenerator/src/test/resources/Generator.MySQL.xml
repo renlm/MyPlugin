@@ -10,7 +10,7 @@
 
 	<module name="sys" package="cn.renlm.crawler">
 		<table author="任黎明" name="sys_user" ignore="true" />
-		<table author="任黎明" name="sys_user_role" />
+		<table author="任黎明" name="sys_user_role" ignore="true" />
 		<table author="任黎明" name="sys_role" />
 		<table author="任黎明" name="sys_role_resource" />
 		<table author="任黎明" name="sys_resource" />
