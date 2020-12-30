@@ -168,58 +168,126 @@ public class MyGeneratorUtil {
 		mpg.execute();
 	}
 
+	/**
+	 * 代码生成配置
+	 */
 	@Data
 	@XStreamAlias("generator")
 	public static final class GeneratorConfig implements Serializable {
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * 数据源-名称（多数据源时使用）
+		 */
 		@XStreamAsAttribute
 		private String dsName;
 
+		/**
+		 * 数据源-数据库地址
+		 */
 		private String url;
 
+		/**
+		 * 数据源-用户名
+		 */
 		private String username;
 
+		/**
+		 * 数据源-密码
+		 */
 		private String password;
 
+		/**
+		 * 数据源-驱动
+		 */
 		private String driverName;
 
+		/**
+		 * 模块集
+		 */
 		@XStreamImplicit(itemFieldName = "module")
 		private List<GeneratorModule> modules;
 
 	}
 
+	/**
+	 * 模块
+	 */
 	@Data
 	public static final class GeneratorModule implements Serializable {
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * 模块名
+		 */
 		@XStreamAsAttribute
 		private String name;
 
+		/**
+		 * 包路径
+		 */
 		@XStreamAsAttribute
 		@XStreamAlias("package")
 		private String pkg;
 
+		/**
+		 * 数据库表集
+		 */
 		@XStreamImplicit(itemFieldName = "table")
 		private List<GeneratorTable> tables;
 
 	}
 
+	/**
+	 * 数据库表
+	 */
 	@Data
 	public static final class GeneratorTable implements Serializable {
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * 表归属
+		 */
 		@XStreamAsAttribute
 		private String schema;
 
+		/**
+		 * 创建人
+		 */
 		@XStreamAsAttribute
 		private String author;
 
+		/**
+		 * 表名
+		 */
 		@XStreamAsAttribute
 		private String name;
 
+		/**
+		 * 主键类型
+		 */
 		@XStreamAsAttribute
 		private String idType;
+
+		/**
+		 * 是否覆盖已存在的实体类（默认否）
+		 */
+		@XStreamAlias("cover-entity")
+		@XStreamAsAttribute
+		private boolean coverEntity;
+
+		/**
+		 * 是否生成Excel表格配置（默认否）
+		 */
+		@XStreamAlias("config-excel")
+		@XStreamAsAttribute
+		private boolean configExcel;
+
+		/**
+		 * 是否忽略表（默认否）
+		 */
+		@XStreamAsAttribute
+		private boolean ignore;
 
 	}
 }
