@@ -12,6 +12,6 @@
 		<table ignore="true" schema="public" author="任黎明" name="sys_const" />
 		<table ignore="true" schema="public" author="任黎明" name="sys_dict" />
 		<table ignore="true" schema="public" author="任黎明" name="sys_tree" />
-		<table schema="public" author="任黎明" name="sys_file" idType="ASSIGN_ID" />
+		<table ignore="true" schema="public" author="任黎明" name="sys_file" idType="ASSIGN_ID" />
 	</module>
 </generator>
