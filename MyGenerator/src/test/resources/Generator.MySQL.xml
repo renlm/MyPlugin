@@ -13,7 +13,7 @@
 		<table author="任黎明" name="sys_user_role" ignore="true" />
 		<table author="任黎明" name="sys_role" ignore="true" />
 		<table author="任黎明" name="sys_role_resource" ignore="true" />
-		<table author="任黎明" name="sys_resource" />
+		<table author="任黎明" name="sys_resource" ignore="true" />
 	</module>
 
 	<module name="log" package="cn.renlm.crawler">
