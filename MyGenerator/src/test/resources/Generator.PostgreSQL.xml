@@ -2,7 +2,9 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/MyGenerator.xsd">
-	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
+	<url>
+		jdbc:postgresql://114.67.87.80:5432/crawler
+	</url>
 	<username>crawler</username>
 	<password>crawler@(ddf_^)</password>
 	<driverName>org.postgresql.Driver</driverName>
