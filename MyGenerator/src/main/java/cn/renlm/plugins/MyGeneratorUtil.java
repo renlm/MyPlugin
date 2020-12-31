@@ -41,7 +41,7 @@ import lombok.Data;
 /**
  * 代码生成封装类
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 public class MyGeneratorUtil {
