@@ -40,6 +40,13 @@ import lombok.Data;
 
 /**
  * 代码生成封装类
+ * 	spring-boot
+ * 		2.3.0.RELEASE
+ * 	mybatis-plus-boot-starter
+ * 	mybatis-plus-generator
+ * 		3.3.2
+ *  dynamic-datasource-spring-boot-starter
+ *  	3.2.1
  * 
  * @author Renlm
  *
