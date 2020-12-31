@@ -151,7 +151,7 @@ public class MyGeneratorUtil {
 			@Override
 			public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
 				this.checkDir(filePath);
-				return fileType == FileType.ENTITY || !new File(filePath).exists();
+				return (fileType == FileType.ENTITY && table.coverEntity) || !new File(filePath).exists();
 			}
 
 			@Override
