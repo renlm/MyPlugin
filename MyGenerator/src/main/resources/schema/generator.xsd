@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	elementFormDefault="qualified" attributeFormDefault="qualified">
+<xsd:schema xmlns="http://www.renlm.cn/schema/generator"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.renlm.cn/schema/generator"
+	elementFormDefault="qualified"
+	attributeFormDefault="qualified">
 	<!-- 根节点定义 -->
 	<xsd:element name="generator" type="Generator">
 		<!-- 分模块按包路径+模块名为唯一约束 -->
