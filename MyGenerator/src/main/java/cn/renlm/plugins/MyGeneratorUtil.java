@@ -47,6 +47,8 @@ import lombok.Data;
  * 		3.3.2
  *  dynamic-datasource-spring-boot-starter
  *  	3.2.1
+ *  freemarker
+ *  	2.3.30
  * 
  * @author Renlm
  *
