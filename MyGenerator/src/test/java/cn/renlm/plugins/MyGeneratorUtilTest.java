@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * 代码生成
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 public class MyGeneratorUtilTest {
