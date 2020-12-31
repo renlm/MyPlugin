@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <excel name="Demo" csv-charset="GBK" ref="备注.xlsx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation=".MyExcel.xsd">
+	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/MyExcel.xsd">
 	<sheet name="农村家庭情况调查表">
 		<column field="year">
 			<title>年度</title>
