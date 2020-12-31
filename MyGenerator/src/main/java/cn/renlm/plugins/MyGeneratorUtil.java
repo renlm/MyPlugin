@@ -291,12 +291,5 @@ public class MyGeneratorUtil {
 		@XStreamAsAttribute
 		private boolean coverEntity;
 
-		/**
-		 * 是否生成Excel表格配置（默认否）
-		 */
-		@XStreamAlias("config-excel")
-		@XStreamAsAttribute
-		private boolean configExcel;
-
 	}
 }
