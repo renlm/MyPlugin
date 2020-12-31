@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * 插件打印
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 public class MyPluginTest {
