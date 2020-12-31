@@ -60,6 +60,7 @@ public class MyGeneratorUtil {
 	static final String mapperOutputDir 		= projectPath + "/src/main/resources/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
 	static final String serviceImplTemplatePath	= "ServiceImpl.java";
+	static final String excelXmlTemplatePath	= "Excel.xml.ftl";
 	static final String dSClassName 			= "com.baomidou.dynamic.datasource.annotation.DS";
 
 	/**
