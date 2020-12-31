@@ -90,9 +90,7 @@ public class MyGeneratorUtil {
 		}
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
-				if(!table.ignore) {
-					create(conf, dsc, module.pkg, module.name, table);
-				}
+				create(conf, dsc, module.pkg, module.name, table);
 			});
 		});
 	}
@@ -299,12 +297,6 @@ public class MyGeneratorUtil {
 		@XStreamAlias("config-excel")
 		@XStreamAsAttribute
 		private boolean configExcel;
-
-		/**
-		 * 是否忽略表（默认否）
-		 */
-		@XStreamAsAttribute
-		private boolean ignore;
 
 	}
 }

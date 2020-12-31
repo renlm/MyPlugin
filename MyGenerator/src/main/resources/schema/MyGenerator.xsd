@@ -63,9 +63,6 @@
 					<!-- 是否生成Excel表格配置（默认否） -->
 					<xsd:attribute name="config-excel" type="xsd:boolean"
 						use="optional" default="false" />
-					<!-- 是否忽略表（默认否） -->
-					<xsd:attribute name="ignore" type="xsd:boolean"
-						use="optional" default="false" />
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:choice>
