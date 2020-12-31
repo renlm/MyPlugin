@@ -14,7 +14,7 @@
 	<url>https://github.com/renlm/MyPlugin</url>
 
 	<modules>
-		<module>MyAll</module>
+		<module>My-Plugin</module>
 		<module>MyExcel</module>
 		<module>MyGenerator</module>
 		<module>MyUtil</module>
