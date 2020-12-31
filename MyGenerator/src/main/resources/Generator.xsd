@@ -55,9 +55,6 @@
 							</xsd:restriction>
 						</xsd:simpleType>
 					</xsd:attribute>
-					<!-- 是否覆盖已存在的实体类（默认否） -->
-					<xsd:attribute name="cover-entity" type="xsd:boolean"
-						use="optional" default="false" />
 					<!-- 是否生成Excel表格配置（默认否） -->
 					<xsd:attribute name="config-excel" type="xsd:boolean"
 						use="optional" default="false" />
