@@ -125,10 +125,11 @@ public class MyGeneratorUtil {
 			public void initMap() {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("dsName", conf.dsName);
-				Class<?> dsClass = ClassUtil.loadClass(dSClassName);
-				if(dsClass != null) {
+				Class<?> dsClass = null;
+				try {
+					dsClass = ClassUtil.loadClass(dSClassName);
 					map.put("nameOfDS", dsClass.getName());
-				}
+				} catch(Exception e) {}
 				this.setMap(map);
 			}
 		};
