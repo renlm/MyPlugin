@@ -287,6 +287,13 @@ public class MyGeneratorUtil {
 		private String idType;
 
 		/**
+		 * 是否覆盖已存在的实体类（默认否）
+		 */
+		@XStreamAlias("cover-entity")
+		@XStreamAsAttribute
+		private boolean coverEntity;
+
+		/**
 		 * 是否生成Excel表格配置（默认否）
 		 */
 		@XStreamAlias("config-excel")
