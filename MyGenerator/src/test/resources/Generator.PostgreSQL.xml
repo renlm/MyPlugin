@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/generator/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="http://114.67.87.80/MyGenerator.xsd">
 
 	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
 	<username>crawler</username>
