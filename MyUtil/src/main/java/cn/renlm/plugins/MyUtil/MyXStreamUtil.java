@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Xml配置读取工具
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 @UtilityClass
