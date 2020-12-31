@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -35,6 +34,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import cn.hutool.core.util.ClassUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.Data;
 
@@ -51,6 +51,7 @@ public class MyGeneratorUtil {
 	static final String mapperOutputDir 		= projectPath + "/src/main/resources/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
 	static final String serviceImplTemplatePath	= "ServiceImpl.java";
+	static final String dSClassName 			= "com.baomidou.dynamic.datasource.annotation.DS";
 
 	/**
 	 * 读取配置并运行
@@ -79,7 +80,9 @@ public class MyGeneratorUtil {
 		}
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
-				create(conf, dsc, module.pkg, module.name, table);
+				if(!table.ignore) {
+					create(conf, dsc, module.pkg, module.name, table);
+				}
 			});
 		});
 	}
@@ -113,7 +116,10 @@ public class MyGeneratorUtil {
 			public void initMap() {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("dsName", conf.dsName);
-				map.put("nameOfDS", DS.class.getName());
+				Class<?> dsClass = ClassUtil.loadClass(dSClassName);
+				if(dsClass != null) {
+					map.put("nameOfDS", dsClass.getName());
+				}
 				this.setMap(map);
 			}
 		};
