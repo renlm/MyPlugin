@@ -10,16 +10,16 @@
 	<driverName>com.mysql.cj.jdbc.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table author="Renlm" name="sys_user" ignore="true" />
-		<table author="任黎明" name="sys_user_role" ignore="true" />
-		<table author="任黎明" name="sys_role" ignore="true" />
-		<table author="任黎明" name="sys_role_resource" ignore="true" />
-		<table author="任黎明" name="sys_resource" ignore="true" />
+		<table author="Renlm" name="sys_user" />
+		<table author="任黎明" name="sys_user_role" />
+		<table author="任黎明" name="sys_role" />
+		<table author="任黎明" name="sys_role_resource" />
+		<table author="任黎明" name="sys_resource" />
 	</module>
 
 	<module name="log" package="cn.renlm.crawler">
-		<table ignore="true" author="任黎明" name="log_quartz" />
-		<table ignore="true" author="任黎明" name="log_oshi" />
-		<table ignore="false" author="任黎明" name="log_login" />
+		<table author="任黎明" name="log_quartz" />
+		<table author="任黎明" name="log_oshi" />
+		<table author="任黎明" name="log_login" />
 	</module>
 </generator>

@@ -2,16 +2,18 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://114.67.87.80/MyGenerator.xsd">
-
-	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
+	<url>
+		jdbc:postgresql://114.67.87.80:5432/crawler
+	</url>
 	<username>crawler</username>
 	<password>crawler@(ddf_^)</password>
 	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table ignore="true" schema="public" author="任黎明" name="sys_const" />
-		<table ignore="true" schema="public" author="任黎明" name="sys_dict" />
-		<table ignore="true" schema="public" author="任黎明" name="sys_tree" />
-		<table ignore="true" schema="public" author="任黎明" name="sys_file" idType="ASSIGN_ID" />
+		<table schema="public" author="任黎明" name="sys_const" />
+		<table schema="public" author="任黎明" name="sys_dict" />
+		<table schema="public" author="任黎明" name="sys_tree" />
+		<table schema="public" author="任黎明" name="sys_file"
+			idType="ASSIGN_ID" />
 	</module>
 </generator>
