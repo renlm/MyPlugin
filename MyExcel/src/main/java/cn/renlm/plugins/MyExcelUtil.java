@@ -164,7 +164,7 @@ public class MyExcelUtil {
 			} else { // 数据行，取出映射数据
 				Map<String, Object> data = CollUtil.zip(keys, rowList);
 				data.remove(StrUtil.EMPTY);
-				CheckResult checkResult = sheet.readConvert(rowIndex, data);
+				CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
 				dataReadHandler.handle(data, checkResult);
 			}
 		}

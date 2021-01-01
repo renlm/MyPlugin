@@ -49,6 +49,12 @@ public class DataWriterHandler {
 		return this.createSheet.getSheetName();
 	}
 
+	/**
+	 * 数据写入
+	 * 
+	 * @param <T>
+	 * @param datas
+	 */
 	public <T> void write(List<T> datas) {
 		Map<String, CellUnit> fields = CollUtil.getFirst(fieldTitles);
 		for (T it : datas) {
