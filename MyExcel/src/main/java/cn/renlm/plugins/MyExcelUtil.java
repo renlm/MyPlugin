@@ -100,19 +100,6 @@ public class MyExcelUtil {
 	 * 
 	 * @param config
 	 * @param in
-	 * @param sheetNo
-	 * @param dataReadHandler
-	 */
-	public static final void readBySax(String config, InputStream in, Integer sheetNo,
-			DataReadHandler dataReadHandler) {
-		readBySax(config, in, sheetNo, null, dataReadHandler);
-	}
-
-	/**
-	 * 读取（兼容xls、xlsx、csv）
-	 * 
-	 * @param config
-	 * @param in
 	 * @param sheetName
 	 * @param dataReadHandler
 	 */
@@ -126,14 +113,15 @@ public class MyExcelUtil {
 	 * 
 	 * @param config
 	 * @param in
-	 * @param sheetNo
-	 * @param sheetName
+	 * @param fileSheetNo
+	 * @param configSheetName
 	 * @param dataReadHandler
 	 */
-	private static final void readBySax(String config, InputStream in, Integer sheetNo, String sheetName,
+	public static final void readBySax(String config, InputStream in, Integer fileSheetNo, String configSheetName,
 			DataReadHandler dataReadHandler) {
 		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
-		final MySheet sheet = myExcel.getSheetByName(sheetName);
+		final MySheet sheet = fileSheetNo == null ? myExcel.getSheetByName(configSheetName)
+				: CollUtil.get(myExcel.getSheets(), fileSheetNo);
 
 		final List<List<String>> titles = new ArrayList<>();
 		final List<String> keys = new ArrayList<>();
@@ -156,10 +144,10 @@ public class MyExcelUtil {
 
 				}
 			});
-			if (StrUtil.isNotBlank(sheetName)) {
-				builder.sheet(sheetName).headRowNumber(0).doRead();
+			if (fileSheetNo == null) {
+				builder.sheet(configSheetName).headRowNumber(0).doRead();
 			} else {
-				builder.sheet(sheetNo).headRowNumber(0).doRead();
+				builder.sheet(fileSheetNo).headRowNumber(0).doRead();
 			}
 		}
 		// Csv
