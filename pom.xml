@@ -8,7 +8,7 @@
 
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路集</description>
 	<url>https://github.com/renlm/MyPlugin</url>
@@ -175,6 +175,17 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<generateReleasePoms>false</generateReleasePoms>
+					<arguments>-DskipTests</arguments>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
