@@ -2,7 +2,6 @@
 自定义工具集。
 
 ## 安装
-
 ### Maven
 在项目的pom.xml的dependencies中加入以下内容：
 

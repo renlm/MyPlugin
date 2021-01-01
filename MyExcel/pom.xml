@@ -14,7 +14,7 @@
 
 	<artifactId>MyExcel</artifactId>
 	<name>${project.artifactId}</name>
-	<description>Excel、Csv表格读取与生成</description>
+	<description>Excel、Csv表格读取，Xlsx表格导出</description>
 
 	<dependencies>
 		<dependency>
