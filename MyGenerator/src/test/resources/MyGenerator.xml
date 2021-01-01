@@ -2,9 +2,7 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/MyGenerator.xsd">
-	<url>
-		jdbc:mysql://114.67.87.80:3308/crawler?serverTimezone=Asia/Shanghai
-	</url>
+	<url>jdbc:mysql://114.67.87.80:3308/crawler?serverTimezone=Asia/Shanghai</url>
 	<username>crawler</username>
 	<password>crawler@(ddf_^)</password>
 	<driverName>com.mysql.cj.jdbc.Driver</driverName>

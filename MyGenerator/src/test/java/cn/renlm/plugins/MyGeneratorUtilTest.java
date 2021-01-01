@@ -12,7 +12,6 @@ public class MyGeneratorUtilTest {
 
 	@Test
 	public void run() {
-		MyGeneratorUtil.run("Generator.MySQL.xml");
-		MyGeneratorUtil.run("Generator.PostgreSQL.xml");
+		MyGeneratorUtil.run("MyGenerator.xml");
 	}
 }
