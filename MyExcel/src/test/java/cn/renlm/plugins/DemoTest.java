@@ -42,37 +42,41 @@ public class DemoTest {
 		String path = FileUtil.getUserHomePath() + "/Desktop/Export.xlsx";
 		FileUtil.del(path);
 		OutputStream stream = new FileOutputStream(path);
-		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", false, sh1 -> {
-			String sheetName = "农村家庭情况调查表";
+		Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", false,
+				// Demo.xml中第一个Sheet
+				sh1 -> {
+					String sheetName = sh1.getSheetName();
 
-			// 读取Csv格式数据，忽略模板和数据验证，写入导出表格
-			InputStream inCsv = FileUtil.getInputStream("测试数据.csv");
-			MyExcelUtil.readBySax("Demo.xml", inCsv, sheetName, (data, checkResult) -> {
-				sh1.write(CollUtil.newArrayList(data));
-			});
+					// 读取Csv格式数据，忽略模板和数据验证，写入导出表格
+					InputStream inCsv = FileUtil.getInputStream("测试数据.csv");
+					MyExcelUtil.readBySax("Demo.xml", inCsv, sheetName, (data, checkResult) -> {
+						sh1.write(CollUtil.newArrayList(data));
+					});
 
-			// 读取03格式数据（指定文件中的第一个Sheet），忽略模板和数据验证，写入导出表格
-			InputStream inXls = FileUtil.getInputStream("测试数据.xls");
-			MyExcelUtil.readBySax("Demo.xml", inXls, 0, sheetName, (data, checkResult) -> {
-				sh1.write(CollUtil.newArrayList(data));
-			});
-		}, sh2 -> {
-			String sheetName = "2018年财政教育经费投入情况调查表";
+					// 读取03格式数据（指定文件中的第一个Sheet），忽略模板和数据验证，写入导出表格
+					InputStream inXls = FileUtil.getInputStream("测试数据.xls");
+					MyExcelUtil.readBySax("Demo.xml", inXls, 0, sheetName, (data, checkResult) -> {
+						sh1.write(CollUtil.newArrayList(data));
+					});
+				},
+				// Demo.xml中第二个Sheet
+				sh2 -> {
+					String sheetName = sh2.getSheetName();
 
-			// 读取07格式数据，判断模板和数据验证，写入导出表格
-			InputStream inXlsx = FileUtil.getInputStream("测试数据.xlsx");
-			MyExcelUtil.readBySax("Demo.xml", inXlsx, sheetName, (data, checkResult) -> {
-				if (checkResult.isError()) { // 出错了
-					if (checkResult.isProcess()) { // 表头已处理完，进入行数据读取流程中
-						Console.log(checkResult);
-					} else { // 模板表头校验失败
-						Console.error(checkResult);
-					}
-				} else {
-					sh2.write(CollUtil.newArrayList(data));
-				}
-			});
-		});
+					// 读取07格式数据，判断模板和数据验证，写入导出表格
+					InputStream inXlsx = FileUtil.getInputStream("测试数据.xlsx");
+					MyExcelUtil.readBySax("Demo.xml", inXlsx, sheetName, (data, checkResult) -> {
+						if (checkResult.isError()) { // 出错了
+							if (checkResult.isProcess()) { // 表头已处理完，进入行数据读取流程中
+								Console.log(checkResult);
+							} else { // 模板表头校验失败
+								Console.error(checkResult);
+							}
+						} else {
+							sh2.write(CollUtil.newArrayList(data));
+						}
+					});
+				});
 		workbook.write(stream);
 	}
 }
