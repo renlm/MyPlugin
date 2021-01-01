@@ -16,7 +16,7 @@ Excel、Csv表格读取，Xlsx表格导出。
 ## 使用
 ### 配置Xml
 可读取Xls、Xlsx、Csv三种表格，导出表格为Xlsx，支持大数据量表格读取导出且不会造成内存溢出，支持多级表头，别名配置，格式化读取与导出，多sheet页及标注与下拉选生成等。<br/>
-详细规则可查看MyExcel.xsd，引入约束后可自动提示，简单易用，对代码无侵入。
+详细规则可查看<a href="http://114.67.87.80/schema/MyExcel.xsd" target="_blank">MyExcel.xsd</a>，引入约束后可自动提示，简单易用，对代码无侵入。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
