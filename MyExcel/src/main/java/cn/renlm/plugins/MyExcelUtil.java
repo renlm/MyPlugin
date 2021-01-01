@@ -2,13 +2,10 @@ package cn.renlm.plugins;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -79,7 +76,8 @@ public class MyExcelUtil {
 			SXSSFSheet createSheet = workbook.createSheet(mySheet.getName());
 			workbook.setSheetOrder(mySheet.getName(), i);
 			List<Map<String, CellUnit>> fieldTitles = mySheet.fieldTitles(workbook, isTemplate);
-			Map<String, List<Integer[]>> rowColMap = writeSheetTitle(mySheet.getStart(), createSheet, fieldTitles);
+			Map<String, List<Integer[]>> rowColMap = mySheet.writeSheetTitle(mySheet.getStart(), createSheet,
+					fieldTitles);
 			MergeUtil.mergeComplexTitle(createSheet,
 					MergeUtil.findCellRangeAddress(mySheet.getStart(), level, rowColMap));
 			createSheet.createFreezePane(mySheet.getFreezes(), mySheet.getStart() + level);
@@ -94,36 +92,6 @@ public class MyExcelUtil {
 		workbook.setActiveSheet(0);
 		workbook.setSelectedTab(0);
 		return workbook;
-	}
-
-	/**
-	 * 填充页签表头并返回行列坐标集
-	 * 
-	 * @param start
-	 * @param sh
-	 * @param fieldTitles
-	 * @return
-	 */
-	private static final Map<String, List<Integer[]>> writeSheetTitle(final int start, SXSSFSheet sh,
-			List<Map<String, CellUnit>> fieldTitles) {
-		int currentRowIndex = start;
-		Map<String, List<Integer[]>> rowColMap = new LinkedHashMap<>();
-		for (Map<String, CellUnit> data : fieldTitles) {
-			int currentColIndex = 0;
-			// 新建行
-			Row row = sh.createRow(currentRowIndex++);
-			for (Map.Entry<String, CellUnit> entry : data.entrySet()) {
-				// 新建列
-				Cell cell = row.createCell(currentColIndex++);
-				// 设置单元格值与样式
-				cell.setCellValue(entry.getValue().getText());
-				cell.setCellStyle(entry.getValue().getCellStyle());
-				// 行列坐标映射
-				MergeUtil.pushTitleRowColMap(rowColMap, entry.getValue().getText(),
-						new Integer[] { row.getRowNum(), cell.getColumnIndex() });
-			}
-		}
-		return rowColMap;
 	}
 
 	/**

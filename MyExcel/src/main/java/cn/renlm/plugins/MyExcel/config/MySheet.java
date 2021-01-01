@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -29,6 +32,7 @@ import cn.renlm.plugins.MyExcel.entity.CellUnit;
 import cn.renlm.plugins.MyExcel.entity.CheckResult;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 import cn.renlm.plugins.MyExcel.util.ConstVal;
+import cn.renlm.plugins.MyExcel.util.MergeUtil;
 import cn.renlm.plugins.MyExcel.util.StyleUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -309,6 +313,36 @@ public class MySheet implements Serializable {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * 填充页签表头并返回行列坐标集
+	 * 
+	 * @param start
+	 * @param sh
+	 * @param fieldTitles
+	 * @return
+	 */
+	public Map<String, List<Integer[]>> writeSheetTitle(final int start, SXSSFSheet sh,
+			List<Map<String, CellUnit>> fieldTitles) {
+		int currentRowIndex = start;
+		Map<String, List<Integer[]>> rowColMap = new LinkedHashMap<>();
+		for (Map<String, CellUnit> data : fieldTitles) {
+			int currentColIndex = 0;
+			// 新建行
+			Row row = sh.createRow(currentRowIndex++);
+			for (Map.Entry<String, CellUnit> entry : data.entrySet()) {
+				// 新建列
+				Cell cell = row.createCell(currentColIndex++);
+				// 设置单元格值与样式
+				cell.setCellValue(entry.getValue().getText());
+				cell.setCellStyle(entry.getValue().getCellStyle());
+				// 行列坐标映射
+				MergeUtil.pushTitleRowColMap(rowColMap, entry.getValue().getText(),
+						new Integer[] { row.getRowNum(), cell.getColumnIndex() });
+			}
+		}
+		return rowColMap;
 	}
 
 	/**
