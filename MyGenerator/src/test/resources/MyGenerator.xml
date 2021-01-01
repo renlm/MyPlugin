@@ -12,6 +12,7 @@
 		<table schema="public" author="Renlm" name="sys_const" />
 		<table schema="public" author="Renlm" name="sys_dict" />
 		<table schema="public" author="Renlm" name="sys_tree" />
-		<table schema="public" author="Renlm" name="sys_file" cover-entity="true" idType="ASSIGN_ID" />
+		<table schema="public" author="Renlm" name="sys_file"
+			cover-entity="true" idType="ASSIGN_ID" />
 	</module>
 </generator>
