@@ -164,11 +164,15 @@ Excel、Csv表格读取，Xlsx表格导出。
 ### 生成模板
 
 ```
+@Test
+@SneakyThrows
+public void template() {
 	String path = FileUtil.getUserHomePath() + "/Desktop/Template.xlsx";
 	FileUtil.del(path);
 	OutputStream stream = new FileOutputStream(path);
 	Workbook workbook = MyExcelUtil.createWorkbook("Demo.xml", true);
 	workbook.write(stream);
+}
 ```
 
 ### 综合案例，读取并导出
@@ -193,7 +197,7 @@ public void export() {
 
 				// 读取03格式数据，忽略模板和数据验证，写入导出表格
 				InputStream inXls = FileUtil.getInputStream("测试数据.xls");
-				MyExcelUtil.readBySax("Demo.xml", inXls, sheetName, (data, checkResult) -> {
+				MyExcelUtil.readBySax("Demo.xml", inXls, 0, sheetName, (data, checkResult) -> {
 					sh1.write(CollUtil.newArrayList(data));
 				});
 			},
