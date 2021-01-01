@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.read.builder.ExcelReaderBuilder;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -99,10 +100,37 @@ public class MyExcelUtil {
 	 * 
 	 * @param config
 	 * @param in
+	 * @param sheetNo
+	 * @param dataReadHandler
+	 */
+	public static final void readBySax(String config, InputStream in, Integer sheetNo,
+			DataReadHandler dataReadHandler) {
+		readBySax(config, in, sheetNo, null, dataReadHandler);
+	}
+
+	/**
+	 * 读取（兼容xls、xlsx、csv）
+	 * 
+	 * @param config
+	 * @param in
 	 * @param sheetName
 	 * @param dataReadHandler
 	 */
 	public static final void readBySax(String config, InputStream in, String sheetName,
+			DataReadHandler dataReadHandler) {
+		readBySax(config, in, null, sheetName, dataReadHandler);
+	}
+
+	/**
+	 * 读取（兼容xls、xlsx、csv）
+	 * 
+	 * @param config
+	 * @param in
+	 * @param sheetNo
+	 * @param sheetName
+	 * @param dataReadHandler
+	 */
+	private static final void readBySax(String config, InputStream in, Integer sheetNo, String sheetName,
 			DataReadHandler dataReadHandler) {
 		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		final MySheet sheet = myExcel.getSheetByName(sheetName);
@@ -112,7 +140,7 @@ public class MyExcelUtil {
 
 		// Excel
 		if (ExcelFileUtil.isXls(in) || ExcelFileUtil.isXlsx(in)) {
-			EasyExcel.read(in, new AnalysisEventListener<Map<Integer, Object>>() {
+			ExcelReaderBuilder builder = EasyExcel.read(in, new AnalysisEventListener<Map<Integer, Object>>() {
 				@Override
 				public void invoke(Map<Integer, Object> data, AnalysisContext context) {
 					int rowIndex = context.readRowHolder().getRowIndex();
@@ -127,7 +155,12 @@ public class MyExcelUtil {
 				public void doAfterAllAnalysed(AnalysisContext context) {
 
 				}
-			}).sheet(sheetName).headRowNumber(0).doRead();
+			});
+			if (StrUtil.isNotBlank(sheetName)) {
+				builder.sheet(sheetName).headRowNumber(0).doRead();
+			} else {
+				builder.sheet(sheetNo).headRowNumber(0).doRead();
+			}
 		}
 		// Csv
 		else {
