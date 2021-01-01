@@ -192,13 +192,13 @@ public void export() {
 				// 读取Csv格式数据，忽略模板和数据验证，写入导出表格
 				InputStream inCsv = FileUtil.getInputStream("测试数据.csv");
 				MyExcelUtil.readBySax("Demo.xml", inCsv, sheetName, (data, checkResult) -> {
-					sh1.write(CollUtil.newArrayList(data));
+					sh1.write(data);
 				});
 
 				// 读取03格式数据（指定文件中的第一个Sheet），忽略模板和数据验证，写入导出表格
 				InputStream inXls = FileUtil.getInputStream("测试数据.xls");
 				MyExcelUtil.readBySax("Demo.xml", inXls, 0, sheetName, (data, checkResult) -> {
-					sh1.write(CollUtil.newArrayList(data));
+					sh1.write(data);
 				});
 			},
 			// Demo.xml中第二个Sheet
@@ -215,7 +215,7 @@ public void export() {
 							Console.error(checkResult);
 						}
 					} else {
-						sh2.write(CollUtil.newArrayList(data));
+						sh2.write(data);
 					}
 				});
 			});
