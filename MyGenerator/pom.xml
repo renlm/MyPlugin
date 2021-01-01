@@ -14,7 +14,7 @@
 
 	<artifactId>MyGenerator</artifactId>
 	<name>${project.artifactId}</name>
-	<description>MyBatis-Plus代码生成</description>
+	<description>针对SpringBoot、Mybatis-Plus及多数据源的一套代码生成</description>
 
 	<dependencies>
 		<dependency>

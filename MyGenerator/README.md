@@ -1,5 +1,5 @@
 ## 简介
-代码生成封装类
+针对SpringBoot、Mybatis-Plus及多数据源的一套代码生成
 ```
 	spring-boot
 	mybatis-plus-boot-starter
@@ -22,8 +22,7 @@
 
 ## 使用
 ### 配置Xml
-针对SpringBoot、Mybatis-Plus及多数据源的一套代码生成。<br/>
-详细规则可查看[MyGenerator.xsd](http://www.renlm.cn/schema/MyGenerator.xsd)，引入约束后可自动提示，简单易用，对代码无侵入。
+详细规则可查看[MyGenerator.xsd](http://www.renlm.cn/schema/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
