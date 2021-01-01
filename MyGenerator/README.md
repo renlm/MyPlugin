@@ -29,9 +29,8 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://www.renlm.cn/schema/MyGenerator.xsd">
-	<url>
-		jdbc:mysql://renlm.cn:3306/testdb?serverTimezone=Asia/Shanghai
-	</url>
+	
+	<url>jdbc:mysql://renlm.cn:3306/testdb</url>
 	<username>username</username>
 	<password>password</password>
 	<driverName>com.mysql.cj.jdbc.Driver</driverName>
