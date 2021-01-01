@@ -210,21 +210,6 @@
 					<url>http://114.67.87.80:8181/repository/maven-releases/</url>
 				</repository>
 			</distributionManagement>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.8</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>maven-public</serverId>
-							<nexusUrl>http://114.67.87.80:8181/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
 		</profile>
 		<profile>
 			<id>release</id>
