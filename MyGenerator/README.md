@@ -1,10 +1,12 @@
 ## 简介
 代码生成封装类
+```
 	spring-boot
 	mybatis-plus-boot-starter
 	mybatis-plus-generator
 	dynamic-datasource-spring-boot-starter
 	freemarker
+```
 
 ## 安装
 ### Maven
@@ -48,8 +50,8 @@
 ### 案例
 
 ```
-	@Test
-	public void run() {
-		MyGeneratorUtil.run("Generator.MySQL.xml");
-	}
+@Test
+public void run() {
+	MyGeneratorUtil.run("Generator.MySQL.xml");
+}
 ```
