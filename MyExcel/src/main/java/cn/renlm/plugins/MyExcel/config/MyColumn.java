@@ -25,7 +25,7 @@ import lombok.Data;
 /**
  * 列配置
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 @Data

@@ -24,7 +24,7 @@ import cn.renlm.plugins.MyExcel.util.StyleUtil;
 /**
  * 数据写入处理
  * 
- * @author renlm-a
+ * @author Renlm
  *
  */
 public class DataWriterHandler {

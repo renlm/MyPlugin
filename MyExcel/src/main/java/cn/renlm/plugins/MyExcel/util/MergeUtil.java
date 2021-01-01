@@ -18,7 +18,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 合并工具
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 @UtilityClass

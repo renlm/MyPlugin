@@ -5,7 +5,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 常量值
  * 
- * @author renlm
+ * @author Renlm
  *
  */
 @UtilityClass
