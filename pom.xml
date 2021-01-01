@@ -187,6 +187,7 @@
 		</plugins>
 	</build>
 
+	<!-- mvn versions:set -DnewVersion= -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
