@@ -2,22 +2,16 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/MyGenerator.xsd">
-	<url>jdbc:mysql://114.67.87.80:3308/crawler?serverTimezone=Asia/Shanghai</url>
+
+	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
 	<username>crawler</username>
 	<password>crawler@(ddf_^)</password>
-	<driverName>com.mysql.cj.jdbc.Driver</driverName>
+	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table author="Renlm" name="sys_user" cover-entity="true"/>
-		<table author="Renlm" name="sys_user_role"/>
-		<table author="Renlm" name="sys_role"/>
-		<table author="Renlm" name="sys_role_resource"/>
-		<table author="Renlm" name="sys_resource"/>
-	</module>
-
-	<module name="log" package="cn.renlm.crawler">
-		<table author="Renlm" name="log_quartz"/>
-		<table author="Renlm" name="log_oshi"/>
-		<table author="Renlm" name="log_login"/>
+		<table schema="public" author="Renlm" name="sys_const" />
+		<table schema="public" author="Renlm" name="sys_dict" />
+		<table schema="public" author="Renlm" name="sys_tree" />
+		<table schema="public" author="Renlm" name="sys_file" cover-entity="true" idType="ASSIGN_ID" />
 	</module>
 </generator>

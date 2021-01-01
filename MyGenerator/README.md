@@ -29,17 +29,17 @@
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="http://www.renlm.cn/schema/MyGenerator.xsd">
-	<url>jdbc:mysql://renlm.cn:3306/testdb</url>
-	<username>username</username>
-	<password>password</password>
-	<driverName>com.mysql.cj.jdbc.Driver</driverName>
 
-	<module name="sys" package="cn.renlm">
-		<table author="Renlm" name="sys_user" cover-entity="true"/>
-	</module>
+	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
+	<username>crawler</username>
+	<password>crawler@(ddf_^)</password>
+	<driverName>org.postgresql.Driver</driverName>
 
-	<module name="log" package="cn.renlm">
-		<table author="Renlm" name="log_oshi" />
+	<module name="sys" package="cn.renlm.crawler">
+		<table schema="public" author="Renlm" name="sys_const" />
+		<table schema="public" author="Renlm" name="sys_dict" />
+		<table schema="public" author="Renlm" name="sys_tree" />
+		<table schema="public" author="Renlm" name="sys_file" cover-entity="true" idType="ASSIGN_ID" />
 	</module>
 </generator>
 ```
