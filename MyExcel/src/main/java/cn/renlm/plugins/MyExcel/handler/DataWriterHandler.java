@@ -54,8 +54,7 @@ public class DataWriterHandler {
 	/**
 	 * 数据写入
 	 * 
-	 * @param <T>
-	 * @param datas
+	 * @param object
 	 */
 	public void write(Object object) {
 		List<Object> datas = new ArrayList<>();
