@@ -120,8 +120,7 @@ public class MyExcelUtil {
 	public static final void readBySax(String config, InputStream in, Integer fileSheetNo, String configSheetName,
 			DataReadHandler dataReadHandler) {
 		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
-		final MySheet sheet = fileSheetNo == null ? myExcel.getSheetByName(configSheetName)
-				: CollUtil.get(myExcel.getSheets(), fileSheetNo);
+		final MySheet sheet = myExcel.getSheetByName(configSheetName);
 
 		final List<List<String>> titles = new ArrayList<>();
 		final List<String> keys = new ArrayList<>();
