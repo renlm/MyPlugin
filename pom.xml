@@ -206,7 +206,7 @@
 					<url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
 				</snapshotRepository>
 				<repository>
-					<id>sonatype</id>
+					<id>maven-public</id>
 					<url>http://114.67.87.80:8181/repository/maven-releases/</url>
 				</repository>
 			</distributionManagement>
