@@ -1,5 +1,6 @@
 package cn.renlm.plugins.MyExcel.handler;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -55,9 +57,22 @@ public class DataWriterHandler {
 	 * @param <T>
 	 * @param datas
 	 */
-	public <T> void write(List<T> datas) {
+	public void write(Object object) {
+		List<Object> datas = new ArrayList<>();
 		Map<String, CellUnit> fields = CollUtil.getFirst(fieldTitles);
-		for (T it : datas) {
+
+		// 区分是否批量写入数据
+		Class<?> clazz = object.getClass();
+		if (clazz.isArray()) {
+			CollUtil.addAll(datas, (Object[]) object);
+		} else if (ClassUtil.isAssignable(Iterable.class, clazz)) {
+			CollUtil.addAll(datas, (Iterable<?>) object);
+		} else {
+			datas.add(object);
+		}
+
+		// 逐行写入
+		for (Object it : datas) {
 			Map<String, Object> data = BeanUtil.beanToMap(it);
 			int colNum = 0;
 			int rowNum = createSheet.getLastRowNum() + 1;
