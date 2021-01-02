@@ -68,7 +68,7 @@ public class CrawlerRequester extends OkHttpRequester {
 				.header("Cache-Control", "no-cache")
 				.header("Connection", "keep-alive")
 				.header("Pragma", "no-cache")
-				.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36")
+				.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
 				;
 		
 		if(StrUtil.isNotBlank(Accept)) 					builder.header("Accept", Accept);
