@@ -20,12 +20,25 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.renlm.plugins</groupId>
+			<artifactId>MyCrawler</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.renlm.plugins</groupId>
 			<artifactId>MyGenerator</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>cn.renlm.plugins</groupId>
 			<artifactId>MyExcel</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.renlm.plugins</groupId>
+			<artifactId>MyUtil</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
