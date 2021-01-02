@@ -17,13 +17,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MyCrawlerUtil {
 
-	private static final int threads = 2;
+	private static final int threads = 5;
 
-	private static final int topN = 100;
+	private static final int topN = Integer.MAX_VALUE;
 
-	private static final int maxExecuteCount = 10;
+	private static final int maxExecuteCount = 3;
 
-	private static final int executeInterval = 3000;
+	private static final int executeInterval = 1500;
 
 	/**
 	 * 默认配置
