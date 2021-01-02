@@ -66,7 +66,6 @@ public class CrawlerRequester extends OkHttpRequester {
 		log.debug("爬虫请求：" + crawlDatum.url());
 		Request.Builder builder = super.createRequestBuilder(crawlDatum)
 				.header("Cache-Control", "no-cache")
-				.header("Connection", "keep-alive")
 				.header("Pragma", "no-cache")
 				.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36")
 				;
