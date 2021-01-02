@@ -37,7 +37,7 @@ public class MyCrawlerUtil {
 		BreadthCrawler breadthCrawler = new BreadthCrawler(crawlPath, autoParse) {
 			@Override
 			public void visit(Page page, CrawlDatums next) {
-				this.getVisitor().visit(page, next);
+				this.visitor.visit(page, next);
 			}
 		};
 
