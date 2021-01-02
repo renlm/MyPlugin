@@ -18,7 +18,7 @@ import okhttp3.RequestBody;
 /**
  * 爬虫请求信息
  * 
- * @author 任黎明
+ * @author Renlm
  *
  */
 @Data

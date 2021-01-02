@@ -14,7 +14,7 @@
 
 	<artifactId>MyCrawler</artifactId>
 	<name>${project.artifactId}</name>
-	<description>简易爬虫封装</description>
+	<description>WebCollector爬虫封装</description>
 
 	<dependencies>
 		<dependency>
