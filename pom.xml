@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>My-Plugin</module>
+		<module>MyCrawler</module>
 		<module>MyExcel</module>
 		<module>MyGenerator</module>
 		<module>MyUtil</module>
