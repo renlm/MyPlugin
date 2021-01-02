@@ -22,16 +22,18 @@ public class MyCrawlerTest {
 	@SneakyThrows
 	public void test() {
 		CrawlerRequester requester = new CrawlerRequester();
-		MyCrawlerUtil.createDefault("crawlerQidian", true, crawler -> {
+		MyCrawlerUtil.createDefault("crawl", true, crawler -> {
 			crawler.addSeed("https://www.qidian.com");
 			crawler.addRegex("https://book.qidian.com/info/.*");
 			crawler.setRequester(requester);
 			crawler.setVisitor(new Visitor() {
 				@Override
 				public void visit(Page page, CrawlDatums next) {
-					log.info(page.url());
+					if (page.matchUrl("https://book.qidian.com/info/.*")) {
+						log.info(page.url());
+					}
 				}
 			});
-		}).start(6);
+		}).start(4);
 	}
 }
