@@ -1,4 +1,4 @@
-package cn.renlm.plugins.common;
+package cn.renlm.plugins.Common;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
