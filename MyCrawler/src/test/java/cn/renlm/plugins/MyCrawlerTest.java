@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class CrawlerTest {
+public class MyCrawlerTest {
 
 	@Test
 	@SneakyThrows

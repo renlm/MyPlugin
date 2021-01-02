@@ -17,7 +17,7 @@ import lombok.SneakyThrows;
  * @author Renlm
  *
  */
-public class DemoTest {
+public class MyExcelTest {
 
 	/**
 	 * 模板
