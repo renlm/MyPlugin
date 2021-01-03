@@ -54,12 +54,14 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
 			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
+			<version>3.4.0</version>
 			<optional>true</optional>
 			<exclusions>
 				<exclusion>
@@ -69,20 +71,4 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.2.3</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.seleniumhq.selenium</groupId>
-				<artifactId>selenium-java</artifactId>
-				<version>3.4.0</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>
