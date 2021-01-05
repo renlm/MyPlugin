@@ -123,11 +123,11 @@ public class MyGeneratorUtil {
 			@Override
 			public void initMap() {
 				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("dsName", conf.dsName);
 				Class<?> dsClass = null;
 				try {
 					dsClass = ClassUtil.loadClass(dSClassName);
 					map.put("nameOfDS", dsClass.getName());
+					map.put("dsName", conf.dsName);
 				} catch(Exception e) {}
 				this.setMap(map);
 			}
