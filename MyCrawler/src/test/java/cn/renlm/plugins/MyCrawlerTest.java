@@ -1,12 +1,16 @@
 package cn.renlm.plugins;
 
+import java.io.Serializable;
+
 import org.junit.Test;
 
 import cn.edu.hfut.dmic.webcollector.fetcher.Visitor;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.renlm.plugins.MyCrawler.CrawlerRequester;
+import lombok.Data;
 import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,5 +39,38 @@ public class MyCrawlerTest {
 				}
 			});
 		}).start(4);
+	}
+
+	@Data
+	@Accessors(chain = true)
+	public class Book implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * 书名
+		 */
+		private String name;
+
+		/**
+		 * 作者
+		 */
+		private String author;
+
+		/**
+		 * 封面
+		 */
+		private String coverPhoto;
+
+		/**
+		 * 字数（万字）
+		 */
+		private Integer wordNumber;
+
+		/**
+		 * 简介
+		 */
+		private String briefIntroduction;
+
 	}
 }
