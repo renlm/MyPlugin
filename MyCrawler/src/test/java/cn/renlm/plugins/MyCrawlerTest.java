@@ -65,8 +65,8 @@ public class MyCrawlerTest {
 						String ttf = ReUtil.getGroup0(REGEX_TTF, wordNumberEl.select("style").html());
 						CmapLookup cmap = FontDecryption.getUnicodeCmapLookupFromTTF(ttf);
 						String glyphCodes = HtmlUtil.unescape(wordNumberEl.select("span").html());
-						String wordNumberUnit = el.select("div.book-info>p>cite").first().text();
 						Double wordNumber = Double.valueOf(FontDecryption.fetchFromGlyphCode(GMAP, cmap, glyphCodes));
+						String wordNumberUnit = el.select("div.book-info>p>cite").first().text();
 						// 封装结果
 						Book book = new Book().setCover(cover).setName(name).setAuthor(author).setIntro(intro)
 								.setWordNumber(wordNumber).setWordNumberUnit(wordNumberUnit).setUrl(page.url());
