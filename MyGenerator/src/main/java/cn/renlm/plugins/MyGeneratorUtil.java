@@ -287,8 +287,8 @@ public class MyGeneratorUtil {
 		/**
 		 * 是否覆盖已存在的实体类（默认否）
 		 */
-		@XStreamAlias("cover-entity")
 		@XStreamAsAttribute
+		@XStreamAlias("cover-entity")
 		private boolean coverEntity;
 
 	}
