@@ -1,31 +1,21 @@
 package cn.renlm.plugins;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicReference;
-
 import org.apache.fontbox.ttf.CmapLookup;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.jsoup.nodes.Element;
 import org.junit.Test;
 
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.lang.Console;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.json.JSONUtil;
 import cn.renlm.plugins.MyCrawler.CrawlerRequester;
 import cn.renlm.plugins.MyCrawler.FontDecryption;
-import cn.renlm.plugins.MyExcel.handler.DataWriterHandler;
-import lombok.Data;
 import lombok.SneakyThrows;
-import lombok.experimental.Accessors;
 
 /**
  * 爬虫测试
@@ -42,11 +32,6 @@ public class MyCrawlerTest {
 	@Test
 	@SneakyThrows
 	public void test() {
-		// 生成导出表格模板
-		final AtomicReference<DataWriterHandler> sheet = new AtomicReference<DataWriterHandler>();
-		final Workbook workbook = MyExcelUtil.createWorkbook("Book.xml", false, sh -> {
-			sheet.set(sh);
-		});
 		// 启动爬虫
 		CrawlerRequester requester = new CrawlerRequester();
 		MyCrawlerUtil.defaultBreadthCrawler(new BreadthCrawler("crawl", true) {
@@ -74,25 +59,8 @@ public class MyCrawlerTest {
 					String glyphCodes = HtmlUtil.unescape(wordNumberEl.select("span").html());
 					Double wordNumber = Double.valueOf(FontDecryption.fetchFromGlyphCode(GMAP, cmap, glyphCodes));
 					String wordNumberUnit = el.select("div.book-info>p>cite").first().text();
-					// 封装结果
-					Book book = new Book().setCover(cover).setName(name).setAuthor(author).setIntro(intro)
-							.setWordNumber(wordNumber).setWordNumberUnit(wordNumberUnit).setUrl(page.url());
-					// 写入表格
-					sheet.get().write(book);
-				}
-			}
-
-			@Override
-			public void afterStop() {
-				super.afterStop();
-				// 导出结果
-				String path = FileUtil.getUserHomePath() + "/Desktop/起点小说网.xlsx";
-				FileUtil.del(path);
-				try (OutputStream stream = new FileOutputStream(path)) {
-					workbook.write(stream);
-				} catch (Exception e) {
-					e.printStackTrace();
-					IoUtil.close(workbook);
+					// 打印结果
+					Console.log(cover, name, author, intro, wordNumber + wordNumberUnit);
 				}
 			}
 		}, crawler -> {
@@ -101,48 +69,5 @@ public class MyCrawlerTest {
 			crawler.addRegex("https://book.qidian.com/info/.*");
 			crawler.setRequester(requester);
 		}).start(2);
-	}
-
-	@Data
-	@Accessors(chain = true)
-	public class Book implements Serializable {
-
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 封面链接
-		 */
-		private String cover;
-
-		/**
-		 * 书名
-		 */
-		private String name;
-
-		/**
-		 * 作者
-		 */
-		private String author;
-
-		/**
-		 * 字数
-		 */
-		private Double wordNumber;
-
-		/**
-		 * 字数单位
-		 */
-		private String wordNumberUnit;
-
-		/**
-		 * 简介
-		 */
-		private String intro;
-
-		/**
-		 * 访问链接
-		 */
-		private String url;
-
 	}
 }
