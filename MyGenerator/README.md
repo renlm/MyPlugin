@@ -22,13 +22,13 @@
 
 ## 使用
 ### 配置Xml
-详细规则可查看[MyGenerator.xsd](http://www.renlm.cn/schema/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
+详细规则可查看[MyGenerator.xsd](https://www.renlm.cn/schema/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://www.renlm.cn/schema/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schema/MyGenerator.xsd">
 
 	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
 	<username>crawler</username>

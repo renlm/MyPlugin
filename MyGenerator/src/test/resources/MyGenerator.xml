@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://114.67.87.80/schema/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schema/MyGenerator.xsd">
 
-	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
-	<username>crawler</username>
-	<password>crawler@(ddf_^)</password>
+	<url>jdbc:postgresql://postgresql.renlm.cn/testdb</url>
+	<username>testdb</username>
+	<password>testdb@(ddf_^)</password>
 	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
