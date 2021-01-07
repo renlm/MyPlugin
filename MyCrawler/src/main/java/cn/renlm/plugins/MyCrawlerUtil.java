@@ -3,8 +3,6 @@ package cn.renlm.plugins;
 import java.util.function.Consumer;
 
 import cn.edu.hfut.dmic.webcollector.crawler.Crawler;
-import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
-import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
 import lombok.experimental.UtilityClass;
 
@@ -28,19 +26,11 @@ public class MyCrawlerUtil {
 	/**
 	 * 默认配置
 	 * 
-	 * @param crawlPath
-	 * @param autoParse
+	 * @param breadthCrawler
 	 * @param crawler
 	 * @return
 	 */
-	public Crawler createDefault(String crawlPath, boolean autoParse, Consumer<BreadthCrawler> crawler) {
-		BreadthCrawler breadthCrawler = new BreadthCrawler(crawlPath, autoParse) {
-			@Override
-			public void visit(Page page, CrawlDatums next) {
-				this.visitor.visit(page, next);
-			}
-		};
-
+	public Crawler defaultBreadthCrawler(BreadthCrawler breadthCrawler, Consumer<BreadthCrawler> crawler) {
 		breadthCrawler.setThreads(threads);
 		breadthCrawler.getConf().setTopN(topN);
 		breadthCrawler.getConf().setMaxExecuteCount(maxExecuteCount);
