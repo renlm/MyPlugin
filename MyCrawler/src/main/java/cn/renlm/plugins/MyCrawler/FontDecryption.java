@@ -23,6 +23,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class FontDecryption {
 
+	public static final String REGEX = "&#(\\d{6});";
+
 	/**
 	 * 获取字典
 	 * 
@@ -46,7 +48,7 @@ public class FontDecryption {
 	 */
 	public static final String fetchFromGlyphCode(Dict gmap, CmapLookup cmap, String glyphCodes) {
 		StringBuffer buff = new StringBuffer();
-		List<String> codes = ReUtil.findAll("&#(\\d{6});", glyphCodes, 1);
+		List<String> codes = ReUtil.findAll(REGEX, glyphCodes, 1);
 		for (String code : codes) {
 			int glyphId = cmap.getGlyphId(Integer.valueOf(code));
 			buff.append(gmap.get(String.valueOf(glyphId)));
