@@ -100,7 +100,7 @@ public class MyCrawlerTest {
 			crawler.addSeed("https://www.qidian.com");
 			crawler.addRegex("https://book.qidian.com/info/.*");
 			crawler.setRequester(requester);
-		}).start(4);
+		}).start(2);
 	}
 
 	@Data

@@ -21,7 +21,7 @@ public class MyCrawlerUtil {
 
 	private static final int maxExecuteCount = 3;
 
-	private static final int executeInterval = 1500;
+	private static final int executeInterval = 1000;
 
 	/**
 	 * 默认配置
