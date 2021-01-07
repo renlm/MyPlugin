@@ -70,7 +70,7 @@ public class MyCrawlerTest {
 						// 封装结果
 						Book book = new Book().setCover(cover).setName(name).setAuthor(author).setIntro(intro)
 								.setWordNumber(wordNumber).setWordNumberUnit(wordNumberUnit).setUrl(page.url());
-						// 导出结果
+						// 打印结果
 						Console.log(book);
 					}
 				}
