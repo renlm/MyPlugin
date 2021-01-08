@@ -197,6 +197,7 @@
 	</build>
 
 	<!-- mvn versions:set -DnewVersion=1.0.1.RELEASE -->
+	<!-- mvn versions:set -DnewVersion=1.0.1-SNAPSHOT -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
