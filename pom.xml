@@ -204,11 +204,11 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>maven-public</id>
-					<url>http://114.67.87.80:8181/repository/maven-snapshots/</url>
+					<url>http://nexus.renlm.cn/repository/maven-snapshots/</url>
 				</snapshotRepository>
 				<repository>
 					<id>maven-public</id>
-					<url>http://114.67.87.80:8181/repository/maven-releases/</url>
+					<url>http://nexus.renlm.cn/repository/maven-releases/</url>
 				</repository>
 			</distributionManagement>
 		</profile>
