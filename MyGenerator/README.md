@@ -30,17 +30,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schema/MyGenerator.xsd">
 
-	<url>jdbc:postgresql://114.67.87.80:5432/crawler</url>
-	<username>crawler</username>
-	<password>crawler@(ddf_^)</password>
+	<url>jdbc:postgresql://renlm.cn:5432/test</url>
+	<username>test</username>
+	<password>test@(^_^Yhm88df)</password>
 	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
 		<table schema="public" author="Renlm" name="sys_const" />
-		<table schema="public" author="Renlm" name="sys_dict" />
-		<table schema="public" author="Renlm" name="sys_tree" />
-		<table schema="public" author="Renlm" name="sys_file"
-			cover-entity="true" idType="ASSIGN_ID" />
+		<table schema="public" author="Renlm" name="sys_file" cover-entity="true" idType="ASSIGN_ID" />
 	</module>
 </generator>
 ```
