@@ -205,11 +205,11 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>maven-public</id>
-					<url>http://nexus.renlm.cn/repository/maven-snapshots/</url>
+					<url>http://nexus.renlm.cn/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
 					<id>maven-public</id>
-					<url>http://nexus.renlm.cn/repository/maven-releases/</url>
+					<url>http://nexus.renlm.cn/content/repositories/releases/</url>
 				</repository>
 			</distributionManagement>
 		</profile>
