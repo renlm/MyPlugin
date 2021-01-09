@@ -26,12 +26,6 @@
 
 		<dependency>
 			<groupId>cn.renlm.plugins</groupId>
-			<artifactId>MyCrawler</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>cn.renlm.plugins</groupId>
 			<artifactId>MyExcel</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
