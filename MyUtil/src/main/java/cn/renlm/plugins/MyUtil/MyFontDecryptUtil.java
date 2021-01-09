@@ -57,6 +57,7 @@ public class MyFontDecryptUtil {
 	 */
 	@SneakyThrows
 	public static final CmapLookup getUnicodeCmapLookupFromTTF(InputStream in) {
+		@Cleanup
 		TrueTypeFont font = new TTFParser().parse(in);
 		return font.getUnicodeCmapLookup();
 	}
