@@ -30,9 +30,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schema/MyGenerator.xsd">
 
-	<url>jdbc:postgresql://renlm.cn:5432/test</url>
-	<username>test</username>
-	<password>test@(^_^Yhm88df)</password>
+	<url>jdbc:postgresql://localhost:5432/db</url>
+	<username>username</username>
+	<password>password</password>
 	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
