@@ -25,7 +25,8 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MyCrawlerUtil.createSpider(Site.me(), page -> {
+		Site site = Site.me().setSleepTime(500);
+		MyCrawlerUtil.createSpider(site, page -> {
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.REGEX, matcher -> {
 				return HtmlUtil.escape(matcher.group());
@@ -54,6 +55,6 @@ public class MyCrawlerTest {
 				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(gmap, cmap, wordNumber));
 				Console.log(resultItems);
 			}
-		}).run("https://book.qidian.com");
+		}).run(5, "https://book.qidian.com");
 	}
 }

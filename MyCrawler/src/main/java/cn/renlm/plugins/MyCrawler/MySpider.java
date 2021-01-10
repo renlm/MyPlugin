@@ -15,13 +15,11 @@ public class MySpider extends Spider {
 		super(pageProcessor);
 	}
 
-	public void run(String... urls) {
-		this.addUrl(urls);
-		super.run();
+	public void run(int threadNum, String... urls) {
+		this.thread(threadNum).addUrl(urls).run();
 	}
 
-	public void runAsync(String... urls) {
-		this.addUrl(urls);
-		super.runAsync();
+	public void runAsync(int threadNum, String... urls) {
+		this.thread(threadNum).addUrl(urls).runAsync();
 	}
 }
