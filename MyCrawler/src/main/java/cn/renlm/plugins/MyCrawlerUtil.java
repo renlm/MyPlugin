@@ -4,19 +4,19 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.nosql.redis.RedisDS;
 import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
+import cn.renlm.plugins.MyCrawler.MyRedisScheduler;
 import cn.renlm.plugins.MyCrawler.MyRedisSetting;
 import cn.renlm.plugins.MyCrawler.MySpider;
+import cn.renlm.redis.clients.jedis.JedisPool;
+import cn.renlm.redis.clients.jedis.JedisPoolConfig;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.RedisScheduler;
 import us.codecraft.webmagic.scheduler.Scheduler;
 
 /**
@@ -102,7 +102,7 @@ public class MyCrawlerUtil {
 					setting.getClientName(group), false);
 			pool.getResource().connect();
 			log.info("Redis加载成功 [ {} ]", setting.getDatabase(group));
-			return new RedisScheduler(pool);
+			return new MyRedisScheduler(pool);
 		} catch (Exception e) {
 			log.error("Redis加载失败[ config/redis.setting ]", e);
 		}
