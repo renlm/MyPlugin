@@ -1,14 +1,14 @@
 package cn.renlm.plugins;
 
-import java.util.function.Consumer;
-
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.db.nosql.redis.RedisDS;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.Scheduler;
+import us.codecraft.webmagic.scheduler.RedisScheduler;
 
 /**
  * 爬虫工具
@@ -23,31 +23,30 @@ public class MyCrawlerUtil {
 	 * 爬虫实例
 	 * 
 	 * @param pageProcessor
-	 * @param scheduler
 	 * @param pipeline
 	 * @param thread
 	 * @param urls
 	 * @return
 	 */
-	public static final Spider createSpider(PageProcessor pageProcessor, Scheduler scheduler, Pipeline pipeline,
-			int thread, String... urls) {
-		return Spider.create(pageProcessor).addUrl(urls).thread(thread).setScheduler(scheduler).addPipeline(pipeline);
+	public static final Spider createSpider(PageProcessor pageProcessor, Pipeline pipeline, int thread,
+			String... urls) {
+		RedisScheduler scheduler = createRedisScheduler();
+		return Spider.create(pageProcessor)
+				.addUrl(urls)
+				.thread(thread)
+				.setUUID(IdUtil.objectId())
+				.setScheduler(scheduler)
+				.addPipeline(pipeline);
 	}
 
 	/**
-	 * 缓存连接池
+	 * 集成Redis
 	 * 
-	 * @param host
-	 * @param port
-	 * @param password
-	 * @param timeout
-	 * @param config
 	 * @return
 	 */
-	public static final JedisPool createJedisPool(String host, int port, String password, int timeout,
-			Consumer<JedisPoolConfig> config) {
-		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-		config.accept(jedisPoolConfig);
-		return new JedisPool(jedisPoolConfig, host, port, timeout, password);
+	private static final RedisScheduler createRedisScheduler() {
+		RedisDS redisDS = RedisDS.create();
+		JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
+		return new RedisScheduler(pool);
 	}
 }

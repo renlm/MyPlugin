@@ -2,8 +2,11 @@ package cn.renlm.plugins;
 
 import org.junit.Test;
 
-import cn.hutool.db.nosql.redis.RedisDS;
-import redis.clients.jedis.Jedis;
+import cn.hutool.core.lang.Console;
+import us.codecraft.webmagic.ResultItems;
+import us.codecraft.webmagic.Task;
+import us.codecraft.webmagic.pipeline.Pipeline;
+import us.codecraft.webmagic.processor.example.GithubRepoPageProcessor;
 
 /**
  * 爬虫
@@ -15,9 +18,11 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		Jedis jedis = RedisDS.create().getJedis();
-		Long i = jedis.hset("jedis", "test", "false");
-		System.out.println(i);
-		System.out.println(jedis.hget("jedis", "test"));
+		MyCrawlerUtil.createSpider(new GithubRepoPageProcessor(), new Pipeline() {
+			@Override
+			public void process(ResultItems resultItems, Task task) {
+				Console.log(resultItems);
+			}
+		}, 5, "https://github.com/code4craft").run();
 	}
 }
