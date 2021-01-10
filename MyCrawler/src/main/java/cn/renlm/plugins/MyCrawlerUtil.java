@@ -15,6 +15,7 @@ import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.scheduler.RedisScheduler;
+import us.codecraft.webmagic.scheduler.Scheduler;
 
 /**
  * 爬虫工具
@@ -36,11 +37,7 @@ public class MyCrawlerUtil {
 	 */
 	public static final MySpider createSpider(Site site, MyPageProcessor pageProcessor, MyPipeline pipeline) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		try {
-			mySpider.setScheduler(createRedisScheduler(null));
-		} catch (Exception e) {
-			log.error("Redis加载失败 [ config/redis.setting ]", e);
-		}
+		mySpider.setScheduler(createRedisScheduler(null, mySpider.getScheduler()));
 		mySpider.addPipeline(createPipeline(pipeline));
 		return mySpider;
 	}
@@ -57,11 +54,7 @@ public class MyCrawlerUtil {
 	public static final MySpider createSpider(String redisGroup, Site site, MyPageProcessor pageProcessor,
 			MyPipeline pipeline) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		try {
-			mySpider.setScheduler(createRedisScheduler(redisGroup));
-		} catch (Exception e) {
-			log.error("Redis加载失败 [ config/redis.setting ]", e);
-		}
+		mySpider.setScheduler(createRedisScheduler(redisGroup, mySpider.getScheduler()));
 		mySpider.addPipeline(createPipeline(pipeline));
 		return mySpider;
 	}
@@ -91,12 +84,18 @@ public class MyCrawlerUtil {
 	 * 分布式链接去重
 	 * 
 	 * @param group
+	 * @param defaultScheduler
 	 * @return
 	 */
-	private static final RedisScheduler createRedisScheduler(String group) {
-		RedisDS redisDS = RedisDS.create(group);
-		JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
-		return new RedisScheduler(pool);
+	private static final Scheduler createRedisScheduler(String group, Scheduler defaultScheduler) {
+		try (RedisDS redisDS = RedisDS.create(group)) {
+			JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
+			log.info("Redis加载成功 [ {} ]", redisDS.getJedis().getDB());
+			return new RedisScheduler(pool);
+		} catch (Exception e) {
+			log.error("Redis加载失败 [ config/redis.setting ]", e);
+		}
+		return defaultScheduler;
 	}
 
 	/**
