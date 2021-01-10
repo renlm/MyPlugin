@@ -1,13 +1,15 @@
 package cn.renlm.plugins;
 
-import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.nosql.redis.RedisDS;
 import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
+import cn.renlm.plugins.MyCrawler.MyRedisSetting;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
@@ -89,9 +91,17 @@ public class MyCrawlerUtil {
 	 */
 	private static final Scheduler createRedisScheduler(String group, Scheduler defaultScheduler) {
 		try {
-			RedisDS redisDS = RedisDS.create(group);
-			JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
-			log.info("Redis加载成功 [ {} ]", redisDS.getJedis().getDB());
+			final MyRedisSetting setting = new MyRedisSetting(RedisDS.REDIS_CONFIG_PATH, true);
+			final JedisPoolConfig config = new JedisPoolConfig();
+			setting.toBean(config);
+			if (StrUtil.isNotBlank(group)) {
+				setting.toBean(group, config);
+			}
+			JedisPool pool = new JedisPool(config, setting.getHost(group), setting.getPort(group),
+					setting.getTimeout(group), setting.getPassword(group), setting.getDatabase(group),
+					setting.getClientName(group), false);
+			pool.getResource().connect();
+			log.info("Redis加载成功 [ {} ]", setting.getDatabase(group));
 			return new RedisScheduler(pool);
 		} catch (Exception e) {
 			log.error("Redis加载失败[ config/redis.setting ]", e);
