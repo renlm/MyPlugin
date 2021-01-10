@@ -30,7 +30,7 @@ public class MyCrawlerTest {
 	public void run() {
 		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), page -> {
 			// 避免加密字体转义
-			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.REGEX, matcher -> {
+			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());
 			}));
 
