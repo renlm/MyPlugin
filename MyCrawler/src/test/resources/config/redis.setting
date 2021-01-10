@@ -1,0 +1,29 @@
+host = renlm.cn
+port = 6379
+password = Rscl@GR12K7^_^02Kcs^_^Yhm88df170l@G
+database = 0
+timeout = 2000
+
+# 最大空闲连接数
+maxIdle = 100
+
+# 最小空闲连接数
+minIdle = 100
+
+# 连接池的最大数据库连接数
+maxTotal = 300
+
+# 连接超时时是否阻塞，false时报异常,true阻塞直到超时, 默认true
+blockWhenExhausted = true
+
+# 最大建立连接等待时间
+maxWaitMillis = 1000
+
+# 返回连接时，检测连接是否成功
+testOnBorrow = true
+
+# 定时对线程池中空闲的链接进行validateObject校验
+testWhileIdle = true
+
+# 在进行returnObject对返回的connection进行validateObject校验
+testOnReturn = true
