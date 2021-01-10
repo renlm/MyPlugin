@@ -92,10 +92,10 @@ public class MyCrawlerUtil {
 			RedisDS redisDS = RedisDS.create(group);
 			JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
 			redisDS.getJedis().connect();
-			log.info("Redis加载成功.");
+			log.info("Redis加载成功");
 			return new RedisScheduler(pool);
 		} catch (Exception e) {
-			log.error("Redis加载失败 [ config/redis.setting ]", e);
+			log.error("Redis加载失败[ config/redis.setting ]", e);
 		}
 		return defaultScheduler;
 	}
