@@ -14,7 +14,7 @@
 
 	<artifactId>MyCrawler</artifactId>
 	<name>${project.artifactId}</name>
-	<description>WebMagic爬虫封装</description>
+	<description>爬虫工具封装</description>
 
 	<dependencies>
 		<dependency>
