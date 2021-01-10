@@ -6,6 +6,7 @@ import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
@@ -21,6 +22,7 @@ import us.codecraft.webmagic.scheduler.RedisScheduler;
  * @author Renlm
  *
  */
+@Slf4j
 @UtilityClass
 public class MyCrawlerUtil {
 
@@ -34,7 +36,11 @@ public class MyCrawlerUtil {
 	 */
 	public static final MySpider createSpider(Site site, MyPageProcessor pageProcessor, MyPipeline pipeline) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		mySpider.setScheduler(createRedisScheduler());
+		try {
+			mySpider.setScheduler(createRedisScheduler());
+		} catch (Exception e) {
+			log.error("Redis加载失败，config/redis.setting", e);
+		}
 		mySpider.addPipeline(createPipeline(pipeline));
 		return mySpider;
 	}
