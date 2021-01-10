@@ -26,9 +26,11 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MyFontDecryptUtil {
 
-	public static final String REGEX = "(&#(\\d{6});)";
+	public static final String Regex = "(&#(\\d{6});)";
 
-	private static final Dict gmap = JSONUtil.toBean(ResourceUtil.readUtf8Str("Glyph.map.json"), Dict.class);
+	public static final String GlyphPath = "config/Glyph.map.json";
+
+	private static final Dict Gmap = JSONUtil.toBean(ResourceUtil.readUtf8Str(GlyphPath), Dict.class);
 
 	/**
 	 * 获取字典
@@ -75,10 +77,10 @@ public class MyFontDecryptUtil {
 	 */
 	public static final String fetchFromGlyphs(CmapLookup cmap, String glyphs) {
 		StringBuffer buff = new StringBuffer();
-		List<String> codes = ReUtil.findAll(REGEX, glyphs, 2);
+		List<String> codes = ReUtil.findAll(Regex, glyphs, 2);
 		for (String code : codes) {
 			int glyphId = cmap.getGlyphId(Integer.valueOf(code));
-			buff.append(gmap.get(String.valueOf(glyphId)));
+			buff.append(Gmap.get(String.valueOf(glyphId)));
 		}
 		return buff.toString();
 	}
@@ -93,7 +95,7 @@ public class MyFontDecryptUtil {
 	 */
 	public static final String fetchFromGlyphs(Dict gmap, CmapLookup cmap, String glyphs) {
 		StringBuffer buff = new StringBuffer();
-		List<String> codes = ReUtil.findAll(REGEX, glyphs, 2);
+		List<String> codes = ReUtil.findAll(Regex, glyphs, 2);
 		for (String code : codes) {
 			int glyphId = cmap.getGlyphId(Integer.valueOf(code));
 			buff.append(gmap.get(String.valueOf(glyphId)));
