@@ -37,7 +37,28 @@ public class MyCrawlerUtil {
 	public static final MySpider createSpider(Site site, MyPageProcessor pageProcessor, MyPipeline pipeline) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		try {
-			mySpider.setScheduler(createRedisScheduler());
+			mySpider.setScheduler(createRedisScheduler(null));
+		} catch (Exception e) {
+			log.error("Redis加载失败 [ config/redis.setting ]", e);
+		}
+		mySpider.addPipeline(createPipeline(pipeline));
+		return mySpider;
+	}
+
+	/**
+	 * 爬虫实例
+	 * 
+	 * @param redisGroup
+	 * @param site
+	 * @param pageProcessor
+	 * @param pipeline
+	 * @return
+	 */
+	public static final MySpider createSpider(String redisGroup, Site site, MyPageProcessor pageProcessor,
+			MyPipeline pipeline) {
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
+		try {
+			mySpider.setScheduler(createRedisScheduler(redisGroup));
 		} catch (Exception e) {
 			log.error("Redis加载失败 [ config/redis.setting ]", e);
 		}
@@ -69,10 +90,11 @@ public class MyCrawlerUtil {
 	/**
 	 * 链接去重
 	 * 
+	 * @param group
 	 * @return
 	 */
-	private static final RedisScheduler createRedisScheduler() {
-		RedisDS redisDS = RedisDS.create();
+	private static final RedisScheduler createRedisScheduler(String group) {
+		RedisDS redisDS = RedisDS.create(group);
 		JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
 		return new RedisScheduler(pool);
 	}

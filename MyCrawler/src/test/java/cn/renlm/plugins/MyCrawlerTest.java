@@ -15,7 +15,7 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.selector.Html;
 
 /**
- * 爬虫（默认使用 [ config/redis.setting ] 配置链接去重）
+ * 爬虫（默认使用 [ config/redis.setting ] 配置分布式链接去重）
  * 
  * @author Renlm
  *
