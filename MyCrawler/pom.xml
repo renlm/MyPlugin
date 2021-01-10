@@ -12,9 +12,9 @@
 		<version>1.0.2.RELEASE</version>
 	</parent>
 
-	<artifactId>MyGenerator</artifactId>
+	<artifactId>MyCrawler</artifactId>
 	<name>${project.artifactId}</name>
-	<description>针对SpringBoot、Mybatis-Plus及多数据源的一套代码生成</description>
+	<description>WebMagic爬虫封装</description>
 
 	<dependencies>
 		<dependency>
@@ -24,45 +24,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>3.3.2</version>
-			<optional>true</optional>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-core</artifactId>
+			<version>0.7.4</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>mybatis-plus-generator</artifactId>
-			<version>3.3.2</version>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>com.baomidou</groupId>
-			<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-			<version>3.2.1</version>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.20</version>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.12</version>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.30</version>
-			<optional>true</optional>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-extension</artifactId>
+			<version>0.7.4</version>
 		</dependency>
 	</dependencies>
 </project>
