@@ -3,12 +3,9 @@ package cn.renlm.plugins;
 import org.apache.fontbox.ttf.CmapLookup;
 import org.junit.Test;
 
-import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
-import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
-import cn.hutool.json.JSONUtil;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
 import us.codecraft.webmagic.Site;
@@ -53,11 +50,9 @@ public class MyCrawlerTest {
 		}, (resultItems, task) -> {
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
-				String fonturl = resultItems.get("fonturl");
 				String wordNumber = resultItems.get("wordNumber");
-				Dict gmap = JSONUtil.toBean(ResourceUtil.readUtf8Str("config/glyph.map"), Dict.class);
-				CmapLookup cmap = MyFontDecryptUtil.getUnicodeCmapLookupFromTTF(fonturl);
-				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(gmap, cmap, wordNumber));
+				CmapLookup cmap = MyFontDecryptUtil.getUnicodeCmapLookupFromTTF((String) resultItems.get("fonturl"));
+				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
 				Console.log(resultItems);
 			}
 		});

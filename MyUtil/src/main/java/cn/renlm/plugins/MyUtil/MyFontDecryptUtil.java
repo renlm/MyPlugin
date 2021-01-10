@@ -8,9 +8,11 @@ import org.apache.fontbox.ttf.CmapLookup;
 import org.apache.fontbox.ttf.TTFParser;
 import org.apache.fontbox.ttf.TrueTypeFont;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -25,6 +27,8 @@ import lombok.experimental.UtilityClass;
 public class MyFontDecryptUtil {
 
 	public static final String REGEX = "(&#(\\d{6});)";
+
+	private static final Dict gmap = JSONUtil.toBean(ResourceUtil.readUtf8Str("Glyph.map.json"), Dict.class);
 
 	/**
 	 * 获取字典
@@ -63,7 +67,24 @@ public class MyFontDecryptUtil {
 	}
 
 	/**
-	 * 字体解密
+	 * 字体解密（默认，未打乱编码映射）
+	 * 
+	 * @param cmap
+	 * @param glyphs
+	 * @return
+	 */
+	public static final String fetchFromGlyphs(CmapLookup cmap, String glyphs) {
+		StringBuffer buff = new StringBuffer();
+		List<String> codes = ReUtil.findAll(REGEX, glyphs, 2);
+		for (String code : codes) {
+			int glyphId = cmap.getGlyphId(Integer.valueOf(code));
+			buff.append(gmap.get(String.valueOf(glyphId)));
+		}
+		return buff.toString();
+	}
+
+	/**
+	 * 字体解密（默认，自定义编码映射）
 	 * 
 	 * @param gmap   编号字符映射
 	 * @param cmap   编码字典

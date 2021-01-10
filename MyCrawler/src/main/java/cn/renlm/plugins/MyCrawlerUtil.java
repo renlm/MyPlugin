@@ -88,7 +88,7 @@ public class MyCrawlerUtil {
 	}
 
 	/**
-	 * 链接去重
+	 * 分布式链接去重
 	 * 
 	 * @param group
 	 * @return

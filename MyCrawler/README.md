@@ -55,11 +55,9 @@ public class MyCrawlerTest {
 		}, (resultItems, task) -> {
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
-				String fonturl = resultItems.get("fonturl");
 				String wordNumber = resultItems.get("wordNumber");
-				Dict gmap = JSONUtil.toBean(ResourceUtil.readUtf8Str("config/glyph.map"), Dict.class);
-				CmapLookup cmap = MyFontDecryptUtil.getUnicodeCmapLookupFromTTF(fonturl);
-				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(gmap, cmap, wordNumber));
+				CmapLookup cmap = MyFontDecryptUtil.getUnicodeCmapLookupFromTTF((String) resultItems.get("fonturl"));
+				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
 				Console.log(resultItems);
 			}
 		});
