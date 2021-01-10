@@ -88,7 +88,8 @@ public class MyCrawlerUtil {
 	 * @return
 	 */
 	private static final Scheduler createRedisScheduler(String group, Scheduler defaultScheduler) {
-		try (RedisDS redisDS = RedisDS.create(group)) {
+		try {
+			RedisDS redisDS = RedisDS.create(group);
 			JedisPool pool = (JedisPool) ReflectUtil.getFieldValue(redisDS, "pool");
 			log.info("Redis加载成功 [ {} ]", redisDS.getJedis().getDB());
 			return new RedisScheduler(pool);
