@@ -24,7 +24,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MyFontDecryptUtil {
 
-	public static final String REGEX = "&#(\\d{6});";
+	public static final String REGEX = "(&#(\\d{6});)";
 
 	/**
 	 * 获取字典
@@ -65,14 +65,14 @@ public class MyFontDecryptUtil {
 	/**
 	 * 字体解密
 	 * 
-	 * @param gmap       编号字符映射
-	 * @param cmap       编码字典
-	 * @param glyphCodes 加密字符串
+	 * @param gmap   编号字符映射
+	 * @param cmap   编码字典
+	 * @param glyphs 加密字符串
 	 * @return
 	 */
-	public static final String fetchFromGlyphCode(Dict gmap, CmapLookup cmap, String glyphCodes) {
+	public static final String fetchFromGlyphs(Dict gmap, CmapLookup cmap, String glyphs) {
 		StringBuffer buff = new StringBuffer();
-		List<String> codes = ReUtil.findAll(REGEX, glyphCodes, 1);
+		List<String> codes = ReUtil.findAll(REGEX, glyphs, 2);
 		for (String code : codes) {
 			int glyphId = cmap.getGlyphId(Integer.valueOf(code));
 			buff.append(gmap.get(String.valueOf(glyphId)));
