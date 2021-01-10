@@ -39,7 +39,7 @@ public class MyCrawlerUtil {
 		try {
 			mySpider.setScheduler(createRedisScheduler());
 		} catch (Exception e) {
-			log.error("Redis加载失败，config/redis.setting", e);
+			log.error("Redis加载失败 [ config/redis.setting ]", e);
 		}
 		mySpider.addPipeline(createPipeline(pipeline));
 		return mySpider;
