@@ -9,6 +9,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.json.JSONUtil;
+import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.selector.Html;
@@ -25,16 +26,19 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		Site site = Site.me().setSleepTime(500);
-		MyCrawlerUtil.createSpider(site, page -> {
+		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), page -> {
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.REGEX, matcher -> {
 				return HtmlUtil.escape(matcher.group());
 			}));
+
+			// 发现详情页链接，添加到下层任务
 			String url = page.getUrl().get();
 			Html html = page.getHtml();
 			String regex = "(https://book.qidian.com/info/\\d+)";
 			page.addTargetRequests(html.links().regex(regex).all());
+
+			// 书籍详情页，抓取字段
 			if (ReUtil.isMatch(regex, url)) {
 				page.putField("cover", html.xpath("//div[@class='book-img']/a/img/@src").get());
 				page.putField("name", html.xpath("//div[@class='book-info']/h1/em/text()").get());
@@ -47,6 +51,7 @@ public class MyCrawlerTest {
 				page.setSkip(true);
 			}
 		}, (resultItems, task) -> {
+			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String fonturl = resultItems.get("fonturl");
 				String wordNumber = resultItems.get("wordNumber");
@@ -55,6 +60,7 @@ public class MyCrawlerTest {
 				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(gmap, cmap, wordNumber));
 				Console.log(resultItems);
 			}
-		}).run(5, "https://book.qidian.com");
+		});
+		spider.run(2, "https://book.qidian.com");
 	}
 }
