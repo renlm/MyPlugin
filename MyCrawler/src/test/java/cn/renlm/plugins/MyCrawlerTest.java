@@ -14,10 +14,10 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MyCrawlerUtil.createSpider(1, Site.me(), page -> {
+		MyCrawlerUtil.createSpider(Site.me(), page -> {
 
 		}, (resultItems, task) -> {
 
-		}, "https://www.qidian.com").run();
+		}).run("");
 	}
 }

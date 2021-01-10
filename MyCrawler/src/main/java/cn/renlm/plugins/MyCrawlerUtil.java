@@ -4,12 +4,12 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.db.nosql.redis.RedisDS;
 import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
+import cn.renlm.plugins.MyCrawler.MySpider;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -27,19 +27,16 @@ public class MyCrawlerUtil {
 	/**
 	 * 爬虫实例
 	 * 
-	 * @param thread
 	 * @param site
 	 * @param pageProcessor
 	 * @param pipeline
-	 * @param urls
 	 * @return
 	 */
-	public static final Spider createSpider(int thread, Site site, MyPageProcessor pageProcessor, MyPipeline pipeline,
-			String... urls) {
-		RedisScheduler scheduler = createRedisScheduler();
-		PageProcessor pp = createPageProcessor(site, pageProcessor);
-		Pipeline pl = createPipeline(pipeline);
-		return Spider.create(pp).addUrl(urls).thread(thread).setScheduler(scheduler).addPipeline(pl);
+	public static final MySpider createSpider(Site site, MyPageProcessor pageProcessor, MyPipeline pipeline) {
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
+		mySpider.setScheduler(createRedisScheduler());
+		mySpider.addPipeline(createPipeline(pipeline));
+		return mySpider;
 	}
 
 	/**
