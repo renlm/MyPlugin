@@ -4,9 +4,10 @@
 ## 包含组件
 | module             |    introduce
 | -------------------|----------------------------------------------------------------------------------
+| MyCrawler          |     WebMagic爬虫封装
 | MyExcel            |     使用xml完全配置化Excel、Csv表格的模板生成，数据读取，数据导出
 | MyGenerator        |     MyBatis-Plus代码生成
-| MyUtil             |     常用工具
+| MyUtil             |     工具集
 
 可以根据需求对每个模块单独引入，也可以通过引入`My-Plugin`方式引入所有模块。
 
