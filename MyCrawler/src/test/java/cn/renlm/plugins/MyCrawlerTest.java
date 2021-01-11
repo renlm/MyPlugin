@@ -56,6 +56,7 @@ public class MyCrawlerTest {
 				Console.log(resultItems);
 			}
 		});
-		spider.run(2, "https://book.qidian.com");
+		spider.addUrl("https://book.qidian.com");
+		spider.run(2);
 	}
 }
