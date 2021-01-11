@@ -14,7 +14,7 @@
 
 	<artifactId>MyUtil</artifactId>
 	<name>${project.artifactId}</name>
-	<description>自定义工具集</description>
+	<description>工具集</description>
 
 	<dependencies>
 		<dependency>

@@ -10,7 +10,7 @@
 	<artifactId>MyPlugin-parent</artifactId>
 	<version>1.0.3.RELEASE</version>
 	<name>MyPlugin</name>
-	<description>Java简化开发套路集</description>
+	<description>Java简化开发套路</description>
 	<url>https://github.com/renlm/MyPlugin</url>
 
 	<modules>
