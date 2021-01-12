@@ -8,10 +8,11 @@ import us.codecraft.webmagic.Task;
  * 
  * @author Renlm
  *
+ * @param <T>
  */
 @FunctionalInterface
-public interface MyPipeline {
+public interface MyPipeline<T> {
 
-	public void process(ResultItems resultItems, Task task);
+	public void process(T extra, ResultItems resultItems, Task task);
 
 }

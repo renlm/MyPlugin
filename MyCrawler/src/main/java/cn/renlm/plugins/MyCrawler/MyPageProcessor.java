@@ -5,12 +5,13 @@ import us.codecraft.webmagic.Page;
 /**
  * 页面处理
  * 
- * @author Renlm
+ * @author renlm-a
  *
+ * @param <T>
  */
 @FunctionalInterface
-public interface MyPageProcessor {
+public interface MyPageProcessor<T> {
 
-	public void process(Page page);
+	public void process(T extra, Page page);
 
 }
