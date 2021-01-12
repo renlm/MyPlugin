@@ -69,6 +69,7 @@ public class MyCrawlerUtil {
 	 */
 	private static final <T> PageProcessor createPageProcessor(Site site, T extra, MyPageProcessor<T> pageProcessor) {
 		return new PageProcessor() {
+
 			@Override
 			public void process(Page page) {
 				pageProcessor.process(extra, page);
@@ -91,6 +92,7 @@ public class MyCrawlerUtil {
 	 */
 	private static final <T> Pipeline createPipeline(T extra, MyPipeline<T> pipeline) {
 		return new Pipeline() {
+
 			@Override
 			public void process(ResultItems resultItems, Task task) {
 				pipeline.process(extra, resultItems, task);
