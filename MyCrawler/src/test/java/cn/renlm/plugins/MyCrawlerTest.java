@@ -23,7 +23,7 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(MySite.me(null).setSleepTime(500), (extra, page) -> {
+		MySpider spider = MyCrawlerUtil.createSpider(MySite.me().setSleepTime(500), (extra, page) -> {
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());
