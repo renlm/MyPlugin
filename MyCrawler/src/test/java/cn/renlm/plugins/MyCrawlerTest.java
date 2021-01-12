@@ -1,17 +1,14 @@
 package cn.renlm.plugins;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.fontbox.ttf.CmapLookup;
 import org.junit.Test;
 
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
+import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
-import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.selector.Html;
 
 /**
@@ -26,9 +23,7 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("spiderId", 1);
-		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), map, (extra, page) -> {
+		MySpider spider = MyCrawlerUtil.createSpider(MySite.me(null).setSleepTime(500), (extra, page) -> {
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());

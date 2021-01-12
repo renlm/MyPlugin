@@ -2,6 +2,7 @@ package cn.renlm.plugins;
 
 import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
+import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
@@ -27,15 +28,14 @@ public class MyCrawlerUtil {
 	 * 
 	 * @param <T>
 	 * @param site
-	 * @param extra
 	 * @param pageProcessor
 	 * @param pipeline
 	 * @return
 	 */
-	public static final <T> MySpider createSpider(Site site, T extra, MyPageProcessor<T> pageProcessor,
+	public static final <T> MySpider createSpider(MySite<T> site, MyPageProcessor<T> pageProcessor,
 			MyPipeline<T> pipeline) {
-		MySpider mySpider = new MySpider(createPageProcessor(site, extra, pageProcessor));
-		mySpider.addPipeline(createPipeline(extra, pipeline));
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
+		mySpider.addPipeline(createPipeline(site, pipeline));
 		return mySpider;
 	}
 
@@ -45,16 +45,15 @@ public class MyCrawlerUtil {
 	 * @param <T>
 	 * @param pool
 	 * @param site
-	 * @param extra
 	 * @param pageProcessor
 	 * @param pipeline
 	 * @return
 	 */
-	public static final <T> MySpider createSpider(JedisPool pool, Site site, T extra, MyPageProcessor<T> pageProcessor,
+	public static final <T> MySpider createSpider(JedisPool pool, MySite<T> site, MyPageProcessor<T> pageProcessor,
 			MyPipeline<T> pipeline) {
-		MySpider mySpider = new MySpider(createPageProcessor(site, extra, pageProcessor));
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(new RedisScheduler(pool));
-		mySpider.addPipeline(createPipeline(extra, pipeline));
+		mySpider.addPipeline(createPipeline(site, pipeline));
 		return mySpider;
 	}
 
@@ -63,16 +62,15 @@ public class MyCrawlerUtil {
 	 * 
 	 * @param <T>
 	 * @param site
-	 * @param extra
 	 * @param pageProcessor
 	 * @return
 	 */
-	private static final <T> PageProcessor createPageProcessor(Site site, T extra, MyPageProcessor<T> pageProcessor) {
+	private static final <T> PageProcessor createPageProcessor(MySite<T> site, MyPageProcessor<T> pageProcessor) {
 		return new PageProcessor() {
 
 			@Override
 			public void process(Page page) {
-				pageProcessor.process(extra, page);
+				pageProcessor.process(site.getExtra(), page);
 			}
 
 			@Override
@@ -86,16 +84,16 @@ public class MyCrawlerUtil {
 	 * 结果处理器
 	 * 
 	 * @param <T>
-	 * @param extra
+	 * @param site
 	 * @param pipeline
 	 * @return
 	 */
-	private static final <T> Pipeline createPipeline(T extra, MyPipeline<T> pipeline) {
+	private static final <T> Pipeline createPipeline(MySite<T> site, MyPipeline<T> pipeline) {
 		return new Pipeline() {
 
 			@Override
 			public void process(ResultItems resultItems, Task task) {
-				pipeline.process(extra, resultItems, task);
+				pipeline.process(site.getExtra(), resultItems, task);
 			}
 		};
 	}

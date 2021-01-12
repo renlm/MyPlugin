@@ -12,6 +12,6 @@ import us.codecraft.webmagic.Page;
 @FunctionalInterface
 public interface MyPageProcessor<T> {
 
-	public void process(T extra, Page page);
+	public void process(final T extra, final Page page);
 
 }

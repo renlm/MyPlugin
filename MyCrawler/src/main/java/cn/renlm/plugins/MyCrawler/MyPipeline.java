@@ -13,6 +13,6 @@ import us.codecraft.webmagic.Task;
 @FunctionalInterface
 public interface MyPipeline<T> {
 
-	public void process(T extra, ResultItems resultItems, Task task);
+	public void process(final T extra, final ResultItems resultItems, final Task task);
 
 }
