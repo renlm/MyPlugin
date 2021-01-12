@@ -29,13 +29,16 @@ public class MyCrawlerUtil {
 	 * @param <T>
 	 * @param site
 	 * @param pageProcessor
-	 * @param pipeline
+	 * @param pipelines
 	 * @return
 	 */
+	@SafeVarargs
 	public static final <T> MySpider createSpider(MySite<T> site, MyPageProcessor<T> pageProcessor,
-			MyPipeline<T> pipeline) {
+			MyPipeline<T>... pipelines) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		mySpider.addPipeline(createPipeline(site, pipeline));
+		for (MyPipeline<T> pipeline : pipelines) {
+			mySpider.addPipeline(createPipeline(site, pipeline));
+		}
 		return mySpider;
 	}
 
@@ -46,14 +49,17 @@ public class MyCrawlerUtil {
 	 * @param pool
 	 * @param site
 	 * @param pageProcessor
-	 * @param pipeline
+	 * @param pipelines
 	 * @return
 	 */
+	@SafeVarargs
 	public static final <T> MySpider createSpider(JedisPool pool, MySite<T> site, MyPageProcessor<T> pageProcessor,
-			MyPipeline<T> pipeline) {
+			MyPipeline<T>... pipelines) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(new RedisScheduler(pool));
-		mySpider.addPipeline(createPipeline(site, pipeline));
+		for (MyPipeline<T> pipeline : pipelines) {
+			mySpider.addPipeline(createPipeline(site, pipeline));
+		}
 		return mySpider;
 	}
 
