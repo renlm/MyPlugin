@@ -57,6 +57,6 @@ public class MyCrawlerTest {
 			}
 		});
 		spider.addUrl("https://book.qidian.com");
-		spider.run(2);
+		spider.run();
 	}
 }
