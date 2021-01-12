@@ -32,71 +32,85 @@ public class MySite<T> extends Site {
 
 	@Override
 	public MySite<T> addCookie(String name, String value) {
-		return this.addCookie(name, value);
+		super.addCookie(name, value);
+		return this;
 	}
 
 	@Override
 	public MySite<T> addCookie(String domain, String name, String value) {
-		return this.addCookie(domain, name, value);
+		super.addCookie(domain, name, value);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setUserAgent(String userAgent) {
-		return this.setUserAgent(userAgent);
+		super.setUserAgent(userAgent);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setDomain(String domain) {
-		return this.setDomain(domain);
+		super.setDomain(domain);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setCharset(String charset) {
-		return this.setCharset(charset);
+		super.setCharset(charset);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setTimeOut(int timeOut) {
-		return this.setTimeOut(timeOut);
+		super.setTimeOut(timeOut);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setAcceptStatCode(Set<Integer> acceptStatCode) {
-		return this.setAcceptStatCode(acceptStatCode);
+		super.setAcceptStatCode(acceptStatCode);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setSleepTime(int sleepTime) {
-		return this.setSleepTime(sleepTime);
+		super.setSleepTime(sleepTime);
+		return this;
 	}
 
 	@Override
 	public MySite<T> addHeader(String key, String value) {
-		return this.addHeader(key, value);
+		super.addHeader(key, value);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setRetryTimes(int retryTimes) {
-		return this.setRetryTimes(retryTimes);
+		super.setRetryTimes(retryTimes);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setCycleRetryTimes(int cycleRetryTimes) {
-		return this.setCycleRetryTimes(cycleRetryTimes);
+		super.setCycleRetryTimes(cycleRetryTimes);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setRetrySleepTime(int retrySleepTime) {
-		return this.setRetrySleepTime(retrySleepTime);
+		super.setRetrySleepTime(retrySleepTime);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setUseGzip(boolean useGzip) {
-		return this.setUseGzip(useGzip);
+		super.setUseGzip(useGzip);
+		return this;
 	}
 
 	@Override
 	public MySite<T> setDisableCookieManagement(boolean disableCookieManagement) {
-		return this.setDisableCookieManagement(disableCookieManagement);
+		super.setDisableCookieManagement(disableCookieManagement);
+		return this;
 	}
 }
