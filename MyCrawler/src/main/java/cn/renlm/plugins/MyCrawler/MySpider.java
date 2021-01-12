@@ -3,9 +3,12 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
+import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
+import us.codecraft.webmagic.Task;
+import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
@@ -26,26 +29,43 @@ public class MySpider extends Spider {
 	}
 
 	/**
+	 * 下载完成回调
+	 * 
+	 * @param page
+	 */
+	public void onDownloaded(Consumer<Page> page) {
+		this.downloader = new HttpClientDownloader() {
+
+			@Override
+			public Page download(Request request, Task task) {
+				Page pager = super.download(request, task);
+				page.accept(pager);
+				return pager;
+			}
+		};
+	}
+
+	/**
 	 * 成功回调
 	 * 
 	 * @param req
 	 */
-	public void onSuccess(Consumer<Request> req) {
-		SpiderListener listener = new SpiderListener() {
-			@Override
-			public void onSuccess(Request request) {
-				req.accept(request);
-			}
-
-			@Override
-			public void onError(Request request) {
-
-			}
-		};
+	public void onSuccess(Consumer<Request> request) {
 		if (CollUtil.isEmpty(this.getSpiderListeners())) {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
-		this.getSpiderListeners().add(listener);
+		this.getSpiderListeners().add(new SpiderListener() {
+
+			@Override
+			public void onSuccess(Request req) {
+				request.accept(req);
+			}
+
+			@Override
+			public void onError(Request req) {
+
+			}
+		});
 	}
 
 	/**
@@ -53,21 +73,21 @@ public class MySpider extends Spider {
 	 * 
 	 * @param req
 	 */
-	public void onError(Consumer<Request> req) {
-		SpiderListener listener = new SpiderListener() {
-			@Override
-			public void onSuccess(Request request) {
-
-			}
-
-			@Override
-			public void onError(Request request) {
-				req.accept(request);
-			}
-		};
+	public void onError(Consumer<Request> request) {
 		if (CollUtil.isEmpty(this.getSpiderListeners())) {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
-		this.getSpiderListeners().add(listener);
+		this.getSpiderListeners().add(new SpiderListener() {
+
+			@Override
+			public void onSuccess(Request req) {
+
+			}
+
+			@Override
+			public void onError(Request req) {
+				request.accept(req);
+			}
+		});
 	}
 }
