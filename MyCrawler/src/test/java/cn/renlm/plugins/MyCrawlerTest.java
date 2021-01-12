@@ -1,5 +1,8 @@
 package cn.renlm.plugins;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.fontbox.ttf.CmapLookup;
 import org.junit.Test;
 
@@ -23,7 +26,9 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), page -> {
+		Map<String, Object> map = new HashMap<>();
+		map.put("spiderId", 1);
+		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), map, (extra, page) -> {
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());
@@ -47,7 +52,7 @@ public class MyCrawlerTest {
 			} else {
 				page.setSkip(true);
 			}
-		}, (resultItems, task) -> {
+		}, (extra, resultItems, task) -> {
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String wordNumber = resultItems.get("wordNumber");
