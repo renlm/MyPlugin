@@ -32,8 +32,9 @@ public class MySpider extends Spider {
 	 * 下载完成回调
 	 * 
 	 * @param page
+	 * @return
 	 */
-	public void onDownloaded(Consumer<Page> page) {
+	public MySpider onDownloaded(Consumer<Page> page) {
 		this.downloader = new HttpClientDownloader() {
 
 			@Override
@@ -43,14 +44,16 @@ public class MySpider extends Spider {
 				return pager;
 			}
 		};
+		return this;
 	}
 
 	/**
 	 * 成功回调
 	 * 
-	 * @param req
+	 * @param request
+	 * @return
 	 */
-	public void onSuccess(Consumer<Request> request) {
+	public MySpider onSuccess(Consumer<Request> request) {
 		if (CollUtil.isEmpty(this.getSpiderListeners())) {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
@@ -66,14 +69,16 @@ public class MySpider extends Spider {
 
 			}
 		});
+		return this;
 	}
 
 	/**
 	 * 失败回调
 	 * 
-	 * @param req
+	 * @param request
+	 * @return
 	 */
-	public void onError(Consumer<Request> request) {
+	public MySpider onError(Consumer<Request> request) {
 		if (CollUtil.isEmpty(this.getSpiderListeners())) {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
@@ -89,5 +94,6 @@ public class MySpider extends Spider {
 				request.accept(req);
 			}
 		});
+		return this;
 	}
 }

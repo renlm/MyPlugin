@@ -55,6 +55,8 @@ public class MyCrawlerTest {
 				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
 				Console.log(resultItems);
 			}
+		}).onDownloaded(page -> {
+			Console.log(page.getStatusCode());
 		});
 		spider.addUrl("https://book.qidian.com");
 		spider.run();
