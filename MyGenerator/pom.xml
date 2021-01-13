@@ -26,7 +26,6 @@
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<optional>true</optional>
 		</dependency>
 
 		<dependency>
