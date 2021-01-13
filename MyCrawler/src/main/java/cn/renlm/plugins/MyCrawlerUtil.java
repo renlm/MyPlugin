@@ -4,6 +4,8 @@ import cn.renlm.plugins.MyCrawler.MyPageProcessor;
 import cn.renlm.plugins.MyCrawler.MyPipeline;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
+import cn.renlm.plugins.MyCrawler.process.MyProcessPage;
+import cn.renlm.plugins.MyCrawler.process.MyProcessPipe;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
@@ -73,10 +75,10 @@ public class MyCrawlerUtil {
 	 */
 	private static final <T> PageProcessor createPageProcessor(MySite<T> site, MyPageProcessor<T> pageProcessor) {
 		return new PageProcessor() {
-
 			@Override
 			public void process(Page page) {
-				pageProcessor.process(site.getExtra(), page);
+				MyProcessPage<T> myPage = new MyProcessPage<T>(site, page);
+				pageProcessor.process(myPage);
 			}
 
 			@Override
@@ -96,10 +98,10 @@ public class MyCrawlerUtil {
 	 */
 	private static final <T> Pipeline createPipeline(MySite<T> site, MyPipeline<T> pipeline) {
 		return new Pipeline() {
-
 			@Override
 			public void process(ResultItems resultItems, Task task) {
-				pipeline.process(site.getExtra(), resultItems, task);
+				MyProcessPipe<T> myData = new MyProcessPipe<T>(task.getUUID(), site, resultItems);
+				pipeline.process(myData);
 			}
 		};
 	}

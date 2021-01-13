@@ -1,7 +1,6 @@
 package cn.renlm.plugins.MyCrawler;
 
-import us.codecraft.webmagic.ResultItems;
-import us.codecraft.webmagic.Task;
+import cn.renlm.plugins.MyCrawler.process.MyProcessPipe;
 
 /**
  * 结果处理
@@ -13,6 +12,6 @@ import us.codecraft.webmagic.Task;
 @FunctionalInterface
 public interface MyPipeline<T> {
 
-	public void process(final T extra, final ResultItems resultItems, final Task task);
+	public void process(final MyProcessPipe<T> myData);
 
 }

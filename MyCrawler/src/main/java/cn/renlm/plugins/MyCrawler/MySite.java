@@ -20,6 +20,9 @@ import us.codecraft.webmagic.Site;
 @EqualsAndHashCode(callSuper = true)
 public class MySite<T> extends Site {
 
+	/**
+	 * 扩展全局参数
+	 */
 	private T extra;
 
 	public static final MySite<String> me() {

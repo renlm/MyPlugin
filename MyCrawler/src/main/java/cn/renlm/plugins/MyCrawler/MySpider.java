@@ -36,7 +36,6 @@ public class MySpider extends Spider {
 	 */
 	public MySpider onDownloaded(Consumer<Page> page) {
 		this.downloader = new HttpClientDownloader() {
-
 			@Override
 			public Page download(Request request, Task task) {
 				Page pager = super.download(request, task);
@@ -58,7 +57,6 @@ public class MySpider extends Spider {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
 		this.getSpiderListeners().add(new SpiderListener() {
-
 			@Override
 			public void onSuccess(Request req) {
 				request.accept(req);
@@ -83,7 +81,6 @@ public class MySpider extends Spider {
 			this.setSpiderListeners(CollUtil.newArrayList());
 		}
 		this.getSpiderListeners().add(new SpiderListener() {
-
 			@Override
 			public void onSuccess(Request req) {
 

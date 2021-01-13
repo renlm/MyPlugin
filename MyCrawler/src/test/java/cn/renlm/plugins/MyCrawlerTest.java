@@ -9,6 +9,8 @@ import cn.hutool.http.HtmlUtil;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
+import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.selector.Html;
 
 /**
@@ -23,7 +25,8 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(MySite.me().setSleepTime(500), (extra, page) -> {
+		MySpider spider = MyCrawlerUtil.createSpider(MySite.me().setSleepTime(500), myPage -> {
+			Page page = myPage.page();
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());
@@ -47,7 +50,8 @@ public class MyCrawlerTest {
 			} else {
 				page.setSkip(true);
 			}
-		}, (extra, resultItems, task) -> {
+		}, data -> {
+			ResultItems resultItems = data.resultItems();
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String wordNumber = resultItems.get("wordNumber");
