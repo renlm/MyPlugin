@@ -56,12 +56,12 @@ public class MySite<T> extends Site {
 	 * 
 	 * @param <T>
 	 * @param extra
-	 * @param copyBean
+	 * @param properties
 	 * @return
 	 */
-	public static final <T> MySite<T> me(T extra, Object copyBean) {
+	public static final <T> MySite<T> me(T extra, Object properties) {
 		MySite<T> mySite = me(extra);
-		BeanUtil.copyProperties(copyBean, mySite, extraKey);
+		BeanUtil.copyProperties(properties, mySite, extraKey);
 		return mySite;
 	}
 
