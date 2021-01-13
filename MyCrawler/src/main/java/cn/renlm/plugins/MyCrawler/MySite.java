@@ -2,6 +2,7 @@ package cn.renlm.plugins.MyCrawler;
 
 import java.util.Set;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,12 +22,17 @@ import us.codecraft.webmagic.Site;
 public class MySite<T> extends Site {
 
 	/**
-	 * 扩展全局参数
+	 * 扩展参数属性名
+	 */
+	public static final String extraKey = "extra";
+
+	/**
+	 * 扩展参数
 	 */
 	private T extra;
 
 	/**
-	 * 构造（扩展全局参数为自生成ObjectId）
+	 * 构造（默认）
 	 * 
 	 * @return
 	 */
@@ -35,12 +41,28 @@ public class MySite<T> extends Site {
 	}
 
 	/**
-	 * 构造（带自定义扩展全局参数）
+	 * 构造（自定义）
 	 * 
+	 * @param <T>
+	 * @param extra
 	 * @return
 	 */
 	public static final <T> MySite<T> me(T extra) {
 		return new MySite<T>().setExtra(extra);
+	}
+
+	/**
+	 * 构造（自定义）
+	 * 
+	 * @param <T>
+	 * @param extra
+	 * @param copyBean
+	 * @return
+	 */
+	public static final <T> MySite<T> me(T extra, Object copyBean) {
+		MySite<T> mySite = me(extra);
+		BeanUtil.copyProperties(copyBean, mySite, extraKey);
+		return mySite;
 	}
 
 	/**
