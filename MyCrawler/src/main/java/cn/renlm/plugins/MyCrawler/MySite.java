@@ -37,32 +37,29 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	public static final MySite<String> me() {
-		return me(IdUtil.objectId());
+		return extra(IdUtil.objectId());
 	}
 
 	/**
-	 * 构造（自定义）
+	 * 构造（扩展参数）
 	 * 
 	 * @param <T>
 	 * @param extra
 	 * @return
 	 */
-	public static final <T> MySite<T> me(T extra) {
+	public static final <T> MySite<T> extra(T extra) {
 		return new MySite<T>().setExtra(extra);
 	}
 
 	/**
-	 * 构造（自定义）
+	 * 填充属性
 	 * 
-	 * @param <T>
-	 * @param extra
 	 * @param properties
 	 * @return
 	 */
-	public static final <T> MySite<T> me(T extra, Object properties) {
-		MySite<T> mySite = me(extra);
-		BeanUtil.copyProperties(properties, mySite, extraKey);
-		return mySite;
+	public MySite<T> properties(Object properties) {
+		BeanUtil.copyProperties(properties, this, extraKey);
+		return this;
 	}
 
 	/**
