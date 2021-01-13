@@ -28,7 +28,7 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(MySite.me().setSleepTime(500), myPage -> {
+		MySpider spider = MyCrawlerUtil.createSpider(MySite.me(), myPage -> {
 			Page page = myPage.page();
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
@@ -53,8 +53,8 @@ public class MyCrawlerTest {
 			} else {
 				page.setSkip(true);
 			}
-		}, data -> {
-			ResultItems resultItems = data.resultItems();
+		}, myData -> {
+			ResultItems resultItems = myData.resultItems();
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String wordNumber = resultItems.get("wordNumber");
