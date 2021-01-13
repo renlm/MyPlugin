@@ -9,11 +9,10 @@ import lombok.experimental.Accessors;
 import us.codecraft.webmagic.Site;
 
 /**
- * 配置
+ * 站点配置
  * 
  * @author Renlm
  *
- * @param
  */
 @Data
 @Accessors(chain = true)
@@ -48,8 +47,6 @@ public class MySite extends Site {
 
 	/**
 	 * 添加默认Cookie
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite addCookie(String name, String value) {
@@ -59,8 +56,6 @@ public class MySite extends Site {
 
 	/**
 	 * 添加指定域Cookie（生效需设置域名）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite addCookie(String domain, String name, String value) {
@@ -70,8 +65,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置UserAgent
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setUserAgent(String userAgent) {
@@ -81,8 +74,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置域名
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setDomain(String domain) {
@@ -92,8 +83,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置编码
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setCharset(String charset) {
@@ -103,8 +92,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置超时时间（毫秒，默认5000）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setTimeOut(int timeOut) {
@@ -114,8 +101,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置接受请求响应码
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setAcceptStatCode(Set<Integer> acceptStatCode) {
@@ -125,8 +110,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置休眠时间（毫秒，默认5000）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setSleepTime(int sleepTime) {
@@ -136,8 +119,6 @@ public class MySite extends Site {
 
 	/**
 	 * 添加Header
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite addHeader(String key, String value) {
@@ -147,8 +128,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置重试次数（默认0）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setRetryTimes(int retryTimes) {
@@ -158,8 +137,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置循环重试次数（默认0）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setCycleRetryTimes(int cycleRetryTimes) {
@@ -169,8 +146,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置重试休眠时间（毫秒，默认1000）
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setRetrySleepTime(int retrySleepTime) {
@@ -180,8 +155,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置是否启用Gzip
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setUseGzip(boolean useGzip) {
@@ -191,8 +164,6 @@ public class MySite extends Site {
 
 	/**
 	 * 设置是否禁用Cookie
-	 * 
-	 * @return
 	 */
 	@Override
 	public MySite setDisableCookieManagement(boolean disableCookieManagement) {
