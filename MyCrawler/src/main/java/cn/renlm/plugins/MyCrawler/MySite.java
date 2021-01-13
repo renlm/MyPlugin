@@ -24,7 +24,7 @@ public class MySite<T> extends Site {
 	/**
 	 * 扩展参数属性名
 	 */
-	public static final String extraKey = "extra";
+	private static final String extraKey = "extra";
 
 	/**
 	 * 扩展参数
