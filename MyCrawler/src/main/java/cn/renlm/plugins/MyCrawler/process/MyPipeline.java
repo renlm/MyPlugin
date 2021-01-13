@@ -1,6 +1,6 @@
-package cn.renlm.plugins.MyCrawler;
+package cn.renlm.plugins.MyCrawler.process;
 
-import cn.renlm.plugins.MyCrawler.process.MyProcessPipe;
+import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
 
 /**
  * 结果处理

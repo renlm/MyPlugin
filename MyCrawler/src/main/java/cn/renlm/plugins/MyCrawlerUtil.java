@@ -1,11 +1,11 @@
 package cn.renlm.plugins;
 
-import cn.renlm.plugins.MyCrawler.MyPageProcessor;
-import cn.renlm.plugins.MyCrawler.MyPipeline;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
-import cn.renlm.plugins.MyCrawler.process.MyProcessPage;
-import cn.renlm.plugins.MyCrawler.process.MyProcessPipe;
+import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
+import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
+import cn.renlm.plugins.MyCrawler.process.MyPageProcessor;
+import cn.renlm.plugins.MyCrawler.process.MyPipeline;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;

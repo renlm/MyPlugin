@@ -1,13 +1,13 @@
-package cn.renlm.plugins.MyCrawler.process;
+package cn.renlm.plugins.MyCrawler.data;
 
 import cn.renlm.plugins.MyCrawler.MySite;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.ResultItems;
 
 /**
- * PageProcessor
+ * Pipeline Data
  * 
  * @author Renlm
  *
@@ -16,10 +16,12 @@ import us.codecraft.webmagic.Page;
 @Getter
 @AllArgsConstructor
 @Accessors(chain = true, fluent = true)
-public class MyProcessPage<T> {
+public class MyProcessPipe<T> {
+
+	private String uuid;
 
 	private MySite<T> site;
 
-	private Page page;
+	private ResultItems resultItems;
 
 }
