@@ -8,7 +8,7 @@
 
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
-	<version>1.0.7.RELEASE</version>
+	<version>1.0.8.RELEASE</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路</description>
 	<url>https://github.com/renlm/MyPlugin</url>
@@ -243,8 +243,8 @@
 		</plugins>
 	</build>
 
-	<!-- mvn versions:set -DnewVersion=1.0.7.RELEASE -->
-	<!-- mvn versions:set -DnewVersion=1.0.7-SNAPSHOT -->
+	<!-- mvn versions:set -DnewVersion=1.0.8.RELEASE -->
+	<!-- mvn versions:set -DnewVersion=1.0.8-SNAPSHOT -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>

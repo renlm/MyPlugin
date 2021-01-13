@@ -18,7 +18,7 @@ public class MyPlugin {
 
 	public static final String AUTHOR = "Renlm";
 
-	public static final String VERSION = "1.0.7.RELEASE";
+	public static final String VERSION = "1.0.8.RELEASE";
 
 	public static void main(String[] args) {
 		printAllUtils();
