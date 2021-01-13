@@ -11,16 +11,15 @@ import us.codecraft.webmagic.ResultItems;
  * 
  * @author Renlm
  *
- * @param <T>
  */
 @Getter
 @AllArgsConstructor
 @Accessors(chain = true, fluent = true)
-public class MyProcessPipe<T> {
+public class MyProcessPipe {
 
 	private String uuid;
 
-	private MySite<T> site;
+	private MySite site;
 
 	private ResultItems resultItems;
 

@@ -7,18 +7,17 @@ import lombok.experimental.Accessors;
 import us.codecraft.webmagic.Page;
 
 /**
- * PageProcessor
+ * Processor Page
  * 
  * @author Renlm
  *
- * @param <T>
  */
 @Getter
 @AllArgsConstructor
 @Accessors(chain = true, fluent = true)
-public class MyProcessPage<T> {
+public class MyProcessPage {
 
-	private MySite<T> site;
+	private MySite site;
 
 	private Page page;
 

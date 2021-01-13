@@ -7,11 +7,10 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
  * 
  * @author Renlm
  *
- * @param <T>
  */
 @FunctionalInterface
-public interface MyPipeline<T> {
+public interface MyPipeline {
 
-	public void process(final MyProcessPipe<T> myData);
+	public void process(final MyProcessPipe myData);
 
 }

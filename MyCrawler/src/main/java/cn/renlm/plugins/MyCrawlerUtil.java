@@ -28,17 +28,14 @@ public class MyCrawlerUtil {
 	/**
 	 * 爬虫实例
 	 * 
-	 * @param <T>
 	 * @param site
 	 * @param pageProcessor
 	 * @param pipelines
 	 * @return
 	 */
-	@SafeVarargs
-	public static final <T> MySpider createSpider(MySite<T> site, MyPageProcessor<T> pageProcessor,
-			MyPipeline<T>... pipelines) {
+	public static final MySpider createSpider(MySite site, MyPageProcessor pageProcessor, MyPipeline... pipelines) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		for (MyPipeline<T> pipeline : pipelines) {
+		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline));
 		}
 		return mySpider;
@@ -47,19 +44,17 @@ public class MyCrawlerUtil {
 	/**
 	 * 爬虫实例
 	 * 
-	 * @param <T>
 	 * @param pool
 	 * @param site
 	 * @param pageProcessor
 	 * @param pipelines
 	 * @return
 	 */
-	@SafeVarargs
-	public static final <T> MySpider createSpider(JedisPool pool, MySite<T> site, MyPageProcessor<T> pageProcessor,
-			MyPipeline<T>... pipelines) {
+	public static final MySpider createSpider(JedisPool pool, MySite site, MyPageProcessor pageProcessor,
+			MyPipeline... pipelines) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(new RedisScheduler(pool));
-		for (MyPipeline<T> pipeline : pipelines) {
+		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline));
 		}
 		return mySpider;
@@ -68,16 +63,15 @@ public class MyCrawlerUtil {
 	/**
 	 * 页面处理器
 	 * 
-	 * @param <T>
 	 * @param site
 	 * @param pageProcessor
 	 * @return
 	 */
-	private static final <T> PageProcessor createPageProcessor(MySite<T> site, MyPageProcessor<T> pageProcessor) {
+	private static final PageProcessor createPageProcessor(MySite site, MyPageProcessor pageProcessor) {
 		return new PageProcessor() {
 			@Override
 			public void process(Page page) {
-				MyProcessPage<T> myPage = new MyProcessPage<T>(site, page);
+				MyProcessPage myPage = new MyProcessPage(site, page);
 				pageProcessor.process(myPage);
 			}
 
@@ -91,16 +85,15 @@ public class MyCrawlerUtil {
 	/**
 	 * 结果处理器
 	 * 
-	 * @param <T>
 	 * @param site
 	 * @param pipeline
 	 * @return
 	 */
-	private static final <T> Pipeline createPipeline(MySite<T> site, MyPipeline<T> pipeline) {
+	private static final Pipeline createPipeline(MySite site, MyPipeline pipeline) {
 		return new Pipeline() {
 			@Override
 			public void process(ResultItems resultItems, Task task) {
-				MyProcessPipe<T> myData = new MyProcessPipe<T>(task.getUUID(), site, resultItems);
+				MyProcessPipe myData = new MyProcessPipe(task.getUUID(), site, resultItems);
 				pipeline.process(myData);
 			}
 		};

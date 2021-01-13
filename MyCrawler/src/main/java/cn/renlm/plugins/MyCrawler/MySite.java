@@ -3,7 +3,6 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.Set;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.IdUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -14,41 +13,20 @@ import us.codecraft.webmagic.Site;
  * 
  * @author Renlm
  *
- * @param <T>
+ * @param
  */
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
-public class MySite<T> extends Site {
+public class MySite extends Site {
 
 	/**
-	 * 扩展参数属性名
-	 */
-	private static final String extraKey = "extra";
-
-	/**
-	 * 扩展参数
-	 */
-	private T extra;
-
-	/**
-	 * 构造（默认）
+	 * 默认
 	 * 
 	 * @return
 	 */
-	public static final MySite<String> me() {
-		return extra(IdUtil.objectId());
-	}
-
-	/**
-	 * 构造（扩展参数）
-	 * 
-	 * @param <T>
-	 * @param extra
-	 * @return
-	 */
-	public static final <T> MySite<T> extra(T extra) {
-		return new MySite<T>().setExtra(extra);
+	public static final MySite me() {
+		return new MySite();
 	}
 
 	/**
@@ -57,9 +35,10 @@ public class MySite<T> extends Site {
 	 * @param properties
 	 * @return
 	 */
-	public MySite<T> properties(Object properties) {
-		BeanUtil.copyProperties(properties, this, extraKey);
-		return this;
+	public static final MySite me(Object properties) {
+		MySite site = me();
+		BeanUtil.copyProperties(properties, site);
+		return site;
 	}
 
 	/**
@@ -68,7 +47,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> addCookie(String name, String value) {
+	public MySite addCookie(String name, String value) {
 		super.addCookie(name, value);
 		return this;
 	}
@@ -79,7 +58,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> addCookie(String domain, String name, String value) {
+	public MySite addCookie(String domain, String name, String value) {
 		super.addCookie(domain, name, value);
 		return this;
 	}
@@ -90,7 +69,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setUserAgent(String userAgent) {
+	public MySite setUserAgent(String userAgent) {
 		super.setUserAgent(userAgent);
 		return this;
 	}
@@ -101,7 +80,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setDomain(String domain) {
+	public MySite setDomain(String domain) {
 		super.setDomain(domain);
 		return this;
 	}
@@ -112,7 +91,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setCharset(String charset) {
+	public MySite setCharset(String charset) {
 		super.setCharset(charset);
 		return this;
 	}
@@ -123,7 +102,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setTimeOut(int timeOut) {
+	public MySite setTimeOut(int timeOut) {
 		super.setTimeOut(timeOut);
 		return this;
 	}
@@ -134,7 +113,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setAcceptStatCode(Set<Integer> acceptStatCode) {
+	public MySite setAcceptStatCode(Set<Integer> acceptStatCode) {
 		super.setAcceptStatCode(acceptStatCode);
 		return this;
 	}
@@ -145,7 +124,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setSleepTime(int sleepTime) {
+	public MySite setSleepTime(int sleepTime) {
 		super.setSleepTime(sleepTime);
 		return this;
 	}
@@ -156,7 +135,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> addHeader(String key, String value) {
+	public MySite addHeader(String key, String value) {
 		super.addHeader(key, value);
 		return this;
 	}
@@ -167,7 +146,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setRetryTimes(int retryTimes) {
+	public MySite setRetryTimes(int retryTimes) {
 		super.setRetryTimes(retryTimes);
 		return this;
 	}
@@ -178,7 +157,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setCycleRetryTimes(int cycleRetryTimes) {
+	public MySite setCycleRetryTimes(int cycleRetryTimes) {
 		super.setCycleRetryTimes(cycleRetryTimes);
 		return this;
 	}
@@ -189,7 +168,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setRetrySleepTime(int retrySleepTime) {
+	public MySite setRetrySleepTime(int retrySleepTime) {
 		super.setRetrySleepTime(retrySleepTime);
 		return this;
 	}
@@ -200,7 +179,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setUseGzip(boolean useGzip) {
+	public MySite setUseGzip(boolean useGzip) {
 		super.setUseGzip(useGzip);
 		return this;
 	}
@@ -211,7 +190,7 @@ public class MySite<T> extends Site {
 	 * @return
 	 */
 	@Override
-	public MySite<T> setDisableCookieManagement(boolean disableCookieManagement) {
+	public MySite setDisableCookieManagement(boolean disableCookieManagement) {
 		super.setDisableCookieManagement(disableCookieManagement);
 		return this;
 	}

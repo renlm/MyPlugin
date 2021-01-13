@@ -5,13 +5,12 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 /**
  * 页面处理
  * 
- * @author renlm-a
+ * @author Renlm
  *
- * @param <T>
  */
 @FunctionalInterface
-public interface MyPageProcessor<T> {
+public interface MyPageProcessor {
 
-	public void process(final MyProcessPage<T> myPage);
+	public void process(final MyProcessPage myPage);
 
 }
