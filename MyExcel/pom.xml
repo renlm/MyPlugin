@@ -22,11 +22,15 @@
 			<artifactId>MyUtil</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
-			<version>2.2.7</version>
 		</dependency>
 	</dependencies>
 </project>
