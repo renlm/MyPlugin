@@ -17,7 +17,7 @@
 
 ```
 /**
- * 爬虫（默认使用 [ config/redis.setting ] 配置分布式链接去重）
+ * 爬虫（可配置Redis进行分布式链接去重）
  * 
  * @author Renlm
  *
@@ -28,7 +28,8 @@ public class MyCrawlerTest {
 
 	@Test
 	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(Site.me().setSleepTime(500), page -> {
+		MySpider spider = MyCrawlerUtil.createSpider(MySite.me().setSleepTime(500), myPage -> {
+			Page page = myPage.page();
 			// 避免加密字体转义
 			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
 				return HtmlUtil.escape(matcher.group());
@@ -52,7 +53,8 @@ public class MyCrawlerTest {
 			} else {
 				page.setSkip(true);
 			}
-		}, (resultItems, task) -> {
+		}, data -> {
+			ResultItems resultItems = data.resultItems();
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String wordNumber = resultItems.get("wordNumber");
@@ -60,9 +62,11 @@ public class MyCrawlerTest {
 				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
 				Console.log(resultItems);
 			}
+		}).onDownloaded(page -> {
+			Console.log(page.getStatusCode());
 		});
 		spider.addUrl("https://book.qidian.com");
-		spider.run(2);
+		spider.run();
 	}
 }
 ```

@@ -14,7 +14,7 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.selector.Html;
 
 /**
- * 爬虫（默认使用 [ config/redis.setting ] 配置分布式链接去重）
+ * 爬虫（可配置Redis进行分布式链接去重）
  * 
  * @author Renlm
  *
@@ -50,8 +50,8 @@ public class MyCrawlerTest {
 			} else {
 				page.setSkip(true);
 			}
-		}, data -> {
-			ResultItems resultItems = data.resultItems();
+		}, myData -> {
+			ResultItems resultItems = myData.resultItems();
 			// 获取书籍详情，解密字数
 			if (!resultItems.isSkip()) {
 				String wordNumber = resultItems.get("wordNumber");
