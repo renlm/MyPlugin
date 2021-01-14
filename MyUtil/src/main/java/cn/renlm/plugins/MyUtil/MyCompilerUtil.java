@@ -5,15 +5,13 @@ import java.util.regex.Pattern;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CachedCompiler;
-import net.openhft.compiler.CompilerUtils;
 
 /**
- * 代码编译（代码请手动格式化）
+ * 代码编译
  * 
  * @author Renlm
  *
@@ -42,52 +40,58 @@ public class MyCompilerUtil {
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
-	 * 实例对象
+	 * 编译代码
 	 * 
-	 * @param <T>
 	 * @param className
 	 * @param javaCode
-	 * @param compiler
-	 * @param params
 	 * @return
 	 */
-	@SneakyThrows
-	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromJava(String className, String javaCode, CachedCompiler compiler,
-			Object... params) {
-		Class<?> clazz = compiler.loadFromJava(className, javaCode);
-		return (T) ReflectUtil.newInstance(clazz, params);
-	}
-
-	/**
-	 * 实例对象
-	 * 
-	 * @param <T>
-	 * @param javaCode
-	 * @param params
-	 * @return
-	 */
-	public static final <T> T loadCacheFromJava(String javaCode, Object... params) {
+	public static final Class<?> loadFromJava(String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return loadFromJava(className, javaCode, CompilerUtils.CACHED_COMPILER, params);
+		return loadFromJava(className, javaCode);
 	}
 
 	/**
-	 * 实例对象
+	 * 编译代码
 	 * 
-	 * @param <T>
+	 * @param className
 	 * @param javaCode
-	 * @param params
 	 * @return
 	 */
-	public static final <T> T loadCacheFromJavaByHash(String javaCode, Object... params) {
+	public static final Class<?> loadFromJavaByHash(String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return loadFromJava(className, hashJavaCode, CompilerUtils.CACHED_COMPILER, params);
+		return loadFromJava(className, hashJavaCode);
+	}
+
+	/**
+	 * 编译代码
+	 * 
+	 * @param className
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadFromJava(String className, String javaCode) {
+		try (CachedCompiler compiler = new CachedCompiler(null, null)) {
+			return loadFromJava(compiler, className, javaCode);
+		}
+	}
+
+	/**
+	 * 编译代码
+	 * 
+	 * @param compiler
+	 * @param className
+	 * @param javaCode
+	 * @return
+	 */
+	@SneakyThrows
+	public static final Class<?> loadFromJava(CachedCompiler compiler, String className, String javaCode) {
+		return compiler.loadFromJava(className, javaCode);
 	}
 
 	/**
