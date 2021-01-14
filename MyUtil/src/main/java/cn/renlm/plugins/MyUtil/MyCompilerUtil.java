@@ -1,9 +1,12 @@
 package cn.renlm.plugins.MyUtil;
 
+import java.util.regex.Pattern;
+
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CompilerUtils;
@@ -25,16 +28,16 @@ public class MyCompilerUtil {
 	 * 从代码中实例对象
 	 * 
 	 * @param <T>
-	 * @param className
 	 * @param javaCode
 	 * @return
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
 	public static final <T> T loadFromJava(String javaCode) {
-		String packages = hashPackage(javaCode);
+		String cleanCode = cleanNotes(javaCode);
+		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
-		String hashJavaCode = hashJavaCode(javaCode);
+		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
 		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, hashJavaCode);
 		return (T) ReflectUtil.newInstance(clazz);
 	}
@@ -42,41 +45,46 @@ public class MyCompilerUtil {
 	/**
 	 * 获取代码包路径
 	 * 
+	 * @param cleanCode
 	 * @param javaCode
 	 * @return
 	 */
-	private static final String hashPackage(String javaCode) {
-		return fetchPackage(javaCode) + HashUtil.fnvHash(javaCode);
-	}
-
-	/**
-	 * 获取代码包路径
-	 * 
-	 * @param javaCode
-	 * @return
-	 */
-	private static final String fetchPackage(String javaCode) {
-		return ReUtil.get(PackageRegex, javaCode, 1);
+	private static final String hashPackage(String cleanCode, String javaCode) {
+		return ReUtil.get(PackageRegex, cleanCode, 1) + HashUtil.fnvHash(javaCode);
 	}
 
 	/**
 	 * 获取代码类名
 	 * 
-	 * @param javaCode
+	 * @param cleanCode
 	 * @return
 	 */
-	private static final String fetchClassName(String javaCode) {
-		return ReUtil.get(ClassNameRegex, javaCode, 1);
+	private static final String fetchClassName(String cleanCode) {
+		return ReUtil.get(ClassNameRegex, cleanCode, 1);
 	}
 
 	/**
 	 * 代码Hash
 	 * 
+	 * @param cleanCode
 	 * @param javaCode
 	 * @return
 	 */
-	private static final String hashJavaCode(String javaCode) {
-		String newPkg = hashPackage(javaCode);
+	private static final String hashJavaCode(String cleanCode, String javaCode) {
+		String newPkg = hashPackage(cleanCode, javaCode);
 		return ReUtil.replaceAll(javaCode, PackageRegex, "package " + newPkg + ";");
+	}
+
+	/**
+	 * 清除代码注释
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	private static final String cleanNotes(String javaCode) {
+		javaCode.replaceAll("//.+\\r\\n", StrUtil.EMPTY);
+		Pattern pattern = Pattern.compile("/\\*.+?\\*/", Pattern.DOTALL);
+		return pattern.matcher(javaCode).replaceAll(StrUtil.EMPTY);
+
 	}
 }
