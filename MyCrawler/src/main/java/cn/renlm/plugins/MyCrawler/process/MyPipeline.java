@@ -11,6 +11,6 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
 @FunctionalInterface
 public interface MyPipeline {
 
-	public void process(final MyProcessPipe myData);
+	void process(final MyProcessPipe myData);
 
 }

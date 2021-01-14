@@ -3,14 +3,13 @@ package cn.renlm.plugins.MyCrawler.process;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 
 /**
- * 页面处理
+ * 数据抓取
  * 
  * @author Renlm
  *
  */
-@FunctionalInterface
-public interface MyPageProcessor {
+public interface CrawlProcessor<T> {
 
-	void process(final MyProcessPage myPage);
+	void process(final T extra, final MyProcessPage myPage);
 
 }
