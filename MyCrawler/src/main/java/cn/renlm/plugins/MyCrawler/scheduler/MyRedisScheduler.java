@@ -7,7 +7,6 @@ import com.alibaba.fastjson.JSON;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.scheduler.DuplicateRemovedScheduler;
@@ -29,10 +28,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	private static final String SET_PREFIX = "set_";
 
 	private static final String ITEM_PREFIX = "item_";
-
-	public MyRedisScheduler(String host) {
-		this(new JedisPool(new JedisPoolConfig(), host));
-	}
 
 	public MyRedisScheduler(JedisPool pool) {
 		this.pool = pool;
@@ -57,7 +52,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 		} finally {
 			jedis.close();
 		}
-
 	}
 
 	@Override
