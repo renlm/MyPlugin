@@ -10,6 +10,17 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
  */
 public interface CrawlProcessor<T> {
 
+	/**
+	 * 标记
+	 */
+	public static final String flagKey = "flag";
+
+	/**
+	 * 过程
+	 * 
+	 * @param extra
+	 * @param myPage
+	 */
 	void process(final T extra, final MyProcessPage myPage);
 
 }

@@ -20,11 +20,6 @@ import us.codecraft.webmagic.Site;
 public class MySite extends Site {
 
 	/**
-	 * 标记
-	 */
-	public static final String flagKey = "flag";
-
-	/**
 	 * 默认
 	 * 
 	 * @return
