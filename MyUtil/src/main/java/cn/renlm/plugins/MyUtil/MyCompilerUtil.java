@@ -46,52 +46,28 @@ public class MyCompilerUtil {
 	 * @param javaCode
 	 * @return
 	 */
-	public static final Class<?> loadFromJava(String javaCode) {
+	@SneakyThrows
+	public static final Class<?> loadFromJava(CachedCompiler compiler, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return loadFromJava(className, javaCode);
+		return compiler.loadFromJava(className, javaCode);
 	}
 
 	/**
 	 * 编译代码
 	 * 
-	 * @param className
-	 * @param javaCode
-	 * @return
-	 */
-	public static final Class<?> loadFromJavaByHash(String javaCode) {
-		String cleanCode = cleanNotes(javaCode);
-		String packages = hashPackage(cleanCode, javaCode);
-		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return loadFromJava(className, hashJavaCode);
-	}
-
-	/**
-	 * 编译代码
-	 * 
-	 * @param className
-	 * @param javaCode
-	 * @return
-	 */
-	public static final Class<?> loadFromJava(String className, String javaCode) {
-		try (CachedCompiler compiler = new CachedCompiler(null, null)) {
-			return loadFromJava(compiler, className, javaCode);
-		}
-	}
-
-	/**
-	 * 编译代码
-	 * 
-	 * @param compiler
 	 * @param className
 	 * @param javaCode
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadFromJava(CachedCompiler compiler, String className, String javaCode) {
-		return compiler.loadFromJava(className, javaCode);
+	public static final Class<?> loadFromJavaByHash(CachedCompiler compiler, String javaCode) {
+		String cleanCode = cleanNotes(javaCode);
+		String packages = hashPackage(cleanCode, javaCode);
+		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
+		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
+		return compiler.loadFromJava(className, hashJavaCode);
 	}
 
 	/**
