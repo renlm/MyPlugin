@@ -49,7 +49,7 @@ public class MyCompilerUtil {
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromJava(String javaCode) {
+	public static final <T> T loadFromCache(String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
@@ -66,7 +66,7 @@ public class MyCompilerUtil {
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromJavaByHash(String javaCode) {
+	public static final <T> T loadFromCacheByHash(String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
@@ -90,7 +90,6 @@ public class MyCompilerUtil {
 	 * 获取代码包路径
 	 * 
 	 * @param cleanCode
-	 * @param javaCode
 	 * @return
 	 */
 	private static final String fetchPackage(String cleanCode) {
