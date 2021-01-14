@@ -9,6 +9,7 @@ import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CachedCompiler;
+import net.openhft.compiler.CompilerUtils;
 
 /**
  * 代码编译
@@ -38,6 +39,26 @@ public class MyCompilerUtil {
 	 * 多行注释-正则
 	 */
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
+
+	/**
+	 * 编译代码
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadFromJava(String javaCode) {
+		return loadFromJava(CompilerUtils.CACHED_COMPILER, javaCode);
+	}
+
+	/**
+	 * 编译代码
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadFromJavaByHash(String javaCode) {
+		return loadFromJavaByHash(CompilerUtils.CACHED_COMPILER, javaCode);
+	}
 
 	/**
 	 * 编译代码
