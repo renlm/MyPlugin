@@ -41,7 +41,7 @@ public class MyCompilerUtil {
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
-	 * 编译代码（缓存）
+	 * 编译代码（缓存优先）
 	 * 
 	 * @param javaCode
 	 * @return
@@ -51,7 +51,18 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 编译代码（缓存）
+	 * 编译代码（每次重新编译）
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> flushFromJava(String javaCode) {
+		CachedCompiler compiler = new CachedCompiler(null, null);
+		return loadFromJava(compiler, javaCode);
+	}
+
+	/**
+	 * 编译代码（缓存优先）
 	 * 
 	 * @param javaCode
 	 * @return
@@ -68,7 +79,7 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadFromJava(CachedCompiler compiler, String javaCode) {
+	private static final Class<?> loadFromJava(CachedCompiler compiler, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
@@ -83,7 +94,7 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadFromJavaByHash(CachedCompiler compiler, String javaCode) {
+	private static final Class<?> loadFromJavaByHash(CachedCompiler compiler, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
