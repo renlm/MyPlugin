@@ -1,4 +1,4 @@
-package cn.renlm.plugins.MyCrawler.process;
+package cn.renlm.plugins.MyCrawler.processor;
 
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 

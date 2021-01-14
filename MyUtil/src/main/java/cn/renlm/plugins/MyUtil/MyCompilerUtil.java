@@ -51,7 +51,7 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 编译代码（每次重新编译）
+	 * 编译代码（重新编译）
 	 * 
 	 * @param javaCode
 	 * @return

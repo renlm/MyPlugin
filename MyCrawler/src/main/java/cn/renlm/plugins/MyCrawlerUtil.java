@@ -4,8 +4,9 @@ import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
-import cn.renlm.plugins.MyCrawler.process.MyPageProcessor;
-import cn.renlm.plugins.MyCrawler.process.MyPipeline;
+import cn.renlm.plugins.MyCrawler.pipeline.MyPipeline;
+import cn.renlm.plugins.MyCrawler.processor.MyPageProcessor;
+import cn.renlm.plugins.MyCrawler.scheduler.MyRedisScheduler;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
@@ -14,7 +15,6 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.RedisScheduler;
 
 /**
  * 爬虫工具
@@ -53,7 +53,7 @@ public class MyCrawlerUtil {
 	public static final MySpider createSpider(JedisPool pool, MySite site, MyPageProcessor pageProcessor,
 			MyPipeline... pipelines) {
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		mySpider.setScheduler(new RedisScheduler(pool));
+		mySpider.setScheduler(new MyRedisScheduler(pool));
 		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline));
 		}

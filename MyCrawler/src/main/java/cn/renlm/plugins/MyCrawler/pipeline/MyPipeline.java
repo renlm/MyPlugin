@@ -1,4 +1,4 @@
-package cn.renlm.plugins.MyCrawler.process;
+package cn.renlm.plugins.MyCrawler.pipeline;
 
 import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
 
