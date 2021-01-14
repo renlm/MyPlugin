@@ -3,8 +3,8 @@ package cn.renlm.plugins;
 import org.junit.Test;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.renlm.plugins.MyUtil.MyCompilerUtil;
 import lombok.SneakyThrows;
-import net.openhft.compiler.CompilerUtils;
 
 /**
  * 动态编译
@@ -14,15 +14,11 @@ import net.openhft.compiler.CompilerUtils;
  */
 public class DynamicCompilerTest {
 
-	String className = "crawl.script.CompilerCode";
-
-	String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
-
 	@Test
 	@SneakyThrows
 	public void test() {
-		Class<?> aClass = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
-		Runnable runner = (Runnable) aClass.newInstance();
-		runner.run();
+		String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
+		Runnable runnable = MyCompilerUtil.loadFromJava(javaCode);
+		runnable.run();
 	}
 }
