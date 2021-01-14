@@ -26,7 +26,7 @@ public class MyCompilerUtil {
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public <T> T loadFromJava(String javaCode) {
+	public static final <T> T loadFromJava(String javaCode) {
 		String packages = fetchPackage(javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		String hashJavaCode = addHashToPackage(javaCode);
@@ -40,7 +40,7 @@ public class MyCompilerUtil {
 	 * @param javaCode
 	 * @return
 	 */
-	public static String fetchPackage(String javaCode) {
+	private static final String fetchPackage(String javaCode) {
 		return ReUtil.get("(?im)^\\s*package\\s+([^;]+);", javaCode, 1);
 	}
 
@@ -50,7 +50,7 @@ public class MyCompilerUtil {
 	 * @param javaCode
 	 * @return
 	 */
-	public static String fetchClassName(String javaCode) {
+	private static final String fetchClassName(String javaCode) {
 		return ReUtil.get("(?m)^\\s*public\\s+class\\s+(\\w+)\\b", javaCode, 1);
 	}
 
@@ -60,7 +60,7 @@ public class MyCompilerUtil {
 	 * @param javaCode
 	 * @return
 	 */
-	public String addHashToPackage(String javaCode) {
+	private static final String addHashToPackage(String javaCode) {
 		return javaCode;
 	}
 }
