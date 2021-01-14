@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CompilerUtils;
 
 /**
- * 代码编译
+ * 代码编译（代码请手动格式化）
  * 
  * @author Renlm
  *
@@ -51,6 +51,23 @@ public class MyCompilerUtil {
 	@SuppressWarnings("unchecked")
 	public static final <T> T loadFromJava(String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
+		String packages = fetchPackage(cleanCode);
+		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
+		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
+		return (T) ReflectUtil.newInstance(clazz);
+	}
+
+	/**
+	 * 从代码中实例对象
+	 * 
+	 * @param <T>
+	 * @param javaCode
+	 * @return
+	 */
+	@SneakyThrows
+	@SuppressWarnings("unchecked")
+	public static final <T> T loadFromJavaByHash(String javaCode) {
+		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
@@ -66,7 +83,18 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	private static final String hashPackage(String cleanCode, String javaCode) {
-		return ReUtil.get(PackageRegex, cleanCode, 1) + HashUtil.fnvHash(javaCode);
+		return fetchPackage(cleanCode) + HashUtil.fnvHash(javaCode);
+	}
+
+	/**
+	 * 获取代码包路径
+	 * 
+	 * @param cleanCode
+	 * @param javaCode
+	 * @return
+	 */
+	private static final String fetchPackage(String cleanCode) {
+		return ReUtil.get(PackageRegex, cleanCode, 1);
 	}
 
 	/**
