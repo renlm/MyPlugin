@@ -3,7 +3,7 @@ package cn.renlm.plugins.MyCrawler.process;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 
 /**
- * 数据抓取
+ * 数据抓取器
  * 
  * @author Renlm
  *
@@ -16,7 +16,7 @@ public interface CrawlProcessor<T> {
 	public static final String flagKey = "flag";
 
 	/**
-	 * 过程
+	 * 处理过程
 	 * 
 	 * @param extra
 	 * @param myPage
