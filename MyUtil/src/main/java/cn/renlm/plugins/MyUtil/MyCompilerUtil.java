@@ -1,5 +1,6 @@
 package cn.renlm.plugins.MyUtil;
 
+import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
 import lombok.SneakyThrows;
@@ -26,10 +27,21 @@ public class MyCompilerUtil {
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
 	public <T> T loadFromJava(String javaCode) {
-		String className = fetchClassName(javaCode);
+		String packages = fetchPackage(javaCode);
+		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		String hashJavaCode = addHashToPackage(javaCode);
 		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, hashJavaCode);
 		return (T) ReflectUtil.newInstance(clazz);
+	}
+
+	/**
+	 * 从代码中提取包路径
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static String fetchPackage(String javaCode) {
+		return ReUtil.get("(?im)^\\s*package\\s+([^;]+);", javaCode, 1);
 	}
 
 	/**
@@ -43,12 +55,12 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 追加Hash路径
+	 * 追加Hash包路径
 	 * 
 	 * @param javaCode
 	 * @return
 	 */
 	public String addHashToPackage(String javaCode) {
-		return ReUtil.get("(?im)^\\s*package\\s+([^;]+);", javaCode, 1);
+		return javaCode;
 	}
 }
