@@ -44,16 +44,14 @@ public class MyCompilerUtil {
 	 * 实例对象
 	 * 
 	 * @param <T>
+	 * @param className
 	 * @param javaCode
 	 * @param params
 	 * @return
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromCache(String javaCode, Object... params) {
-		String cleanCode = cleanNotes(javaCode);
-		String packages = fetchPackage(cleanCode);
-		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
+	public static final <T> T classCachedJava(String className, String javaCode, Object... params) {
 		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
 		return (T) ReflectUtil.newInstance(clazz, params);
 	}
@@ -67,14 +65,28 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	@SneakyThrows
-	@SuppressWarnings("unchecked")
+	public static final <T> T loadFromCache(String javaCode, Object... params) {
+		String cleanCode = cleanNotes(javaCode);
+		String packages = fetchPackage(cleanCode);
+		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
+		return classCachedJava(className, javaCode, params);
+	}
+
+	/**
+	 * 实例对象
+	 * 
+	 * @param <T>
+	 * @param javaCode
+	 * @param params
+	 * @return
+	 */
+	@SneakyThrows
 	public static final <T> T loadFromCacheByHash(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, hashJavaCode);
-		return (T) ReflectUtil.newInstance(clazz, params);
+		return classCachedJava(className, hashJavaCode, params);
 	}
 
 	/**
@@ -130,6 +142,5 @@ public class MyCompilerUtil {
 		javaCode.replaceAll(NoteSingleLineRegex, StrUtil.EMPTY);
 		Pattern pattern = Pattern.compile(NoteMultiLineRegex, Pattern.DOTALL);
 		return pattern.matcher(javaCode).replaceAll(StrUtil.EMPTY);
-
 	}
 }
