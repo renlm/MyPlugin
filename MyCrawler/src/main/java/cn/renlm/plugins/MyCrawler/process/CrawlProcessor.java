@@ -3,7 +3,7 @@ package cn.renlm.plugins.MyCrawler.process;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 
 /**
- * 数据抓取器
+ * 抓取器
  * 
  * @author Renlm
  *
