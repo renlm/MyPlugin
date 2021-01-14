@@ -18,7 +18,7 @@ public class DynamicCompilerTest {
 	@SneakyThrows
 	public void test1() {
 		String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
-		Runnable runnable = MyCompilerUtil.loadFromCache(javaCode);
+		Runnable runnable = MyCompilerUtil.loadCacheFromJava(javaCode);
 		runnable.run();
 	}
 
@@ -26,7 +26,7 @@ public class DynamicCompilerTest {
 	@SneakyThrows
 	public void test2() {
 		String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
-		Runnable runnable = MyCompilerUtil.loadFromCacheByHash(javaCode);
+		Runnable runnable = MyCompilerUtil.loadCacheFromJavaByHash(javaCode);
 		runnable.run();
 	}
 }

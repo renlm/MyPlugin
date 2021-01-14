@@ -9,6 +9,7 @@ import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
+import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
 
 /**
@@ -46,13 +47,15 @@ public class MyCompilerUtil {
 	 * @param <T>
 	 * @param className
 	 * @param javaCode
+	 * @param compiler
 	 * @param params
 	 * @return
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T classCachedJava(String className, String javaCode, Object... params) {
-		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
+	public static final <T> T loadFromJava(String className, String javaCode, CachedCompiler compiler,
+			Object... params) {
+		Class<?> clazz = compiler.loadFromJava(className, javaCode);
 		return (T) ReflectUtil.newInstance(clazz, params);
 	}
 
@@ -64,12 +67,11 @@ public class MyCompilerUtil {
 	 * @param params
 	 * @return
 	 */
-	@SneakyThrows
-	public static final <T> T loadFromCache(String javaCode, Object... params) {
+	public static final <T> T loadCacheFromJava(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return classCachedJava(className, javaCode, params);
+		return loadFromJava(className, javaCode, CompilerUtils.CACHED_COMPILER, params);
 	}
 
 	/**
@@ -80,13 +82,12 @@ public class MyCompilerUtil {
 	 * @param params
 	 * @return
 	 */
-	@SneakyThrows
-	public static final <T> T loadFromCacheByHash(String javaCode, Object... params) {
+	public static final <T> T loadCacheFromJavaByHash(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return classCachedJava(className, hashJavaCode, params);
+		return loadFromJava(className, hashJavaCode, CompilerUtils.CACHED_COMPILER, params);
 	}
 
 	/**
