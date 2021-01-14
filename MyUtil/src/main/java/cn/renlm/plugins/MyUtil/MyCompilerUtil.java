@@ -20,9 +20,25 @@ import net.openhft.compiler.CompilerUtils;
 @UtilityClass
 public class MyCompilerUtil {
 
+	/**
+	 * 包路径-正则
+	 */
 	static final String PackageRegex = "(?im)^\\s*package\\s+([^;]+);";
 
+	/**
+	 * 类名-正则
+	 */
 	static final String ClassNameRegex = "(?m)^\\s*public\\s+class\\s+(\\w+)\\b";
+
+	/**
+	 * 单行注释-正则
+	 */
+	static final String NoteSingleLineRegex = "//.+\\r\\n";
+
+	/**
+	 * 多行注释-正则
+	 */
+	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
 	 * 从代码中实例对象
@@ -82,8 +98,8 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	private static final String cleanNotes(String javaCode) {
-		javaCode.replaceAll("//.+\\r\\n", StrUtil.EMPTY);
-		Pattern pattern = Pattern.compile("/\\*.+?\\*/", Pattern.DOTALL);
+		javaCode.replaceAll(NoteSingleLineRegex, StrUtil.EMPTY);
+		Pattern pattern = Pattern.compile(NoteMultiLineRegex, Pattern.DOTALL);
 		return pattern.matcher(javaCode).replaceAll(StrUtil.EMPTY);
 
 	}
