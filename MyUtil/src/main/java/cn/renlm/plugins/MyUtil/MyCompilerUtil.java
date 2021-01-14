@@ -12,7 +12,7 @@ import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
 
 /**
- * 代码编译
+ * 代码编译（自动识别）
  * 
  * @author Renlm
  *
@@ -41,7 +41,7 @@ public class MyCompilerUtil {
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
-	 * 编译代码
+	 * 编译代码（缓存）
 	 * 
 	 * @param javaCode
 	 * @return
@@ -51,7 +51,7 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 编译代码
+	 * 编译代码（缓存）
 	 * 
 	 * @param javaCode
 	 * @return
