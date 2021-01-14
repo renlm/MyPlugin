@@ -62,7 +62,7 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 编译代码（缓存优先）
+	 * 编译代码（Hash路径，缓存优先）
 	 * 
 	 * @param javaCode
 	 * @return
@@ -87,7 +87,7 @@ public class MyCompilerUtil {
 	}
 
 	/**
-	 * 编译代码
+	 * 编译代码（Hash路径）
 	 * 
 	 * @param className
 	 * @param javaCode
