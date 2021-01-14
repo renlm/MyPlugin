@@ -68,7 +68,7 @@ public class MyCompilerUtil {
 	public static final <T> T loadFromCache(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
-		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
+		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		return classCachedJava(className, javaCode, params);
 	}
 
@@ -84,7 +84,7 @@ public class MyCompilerUtil {
 	public static final <T> T loadFromCacheByHash(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
-		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
+		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
 		return classCachedJava(className, hashJavaCode, params);
 	}
