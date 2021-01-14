@@ -41,38 +41,40 @@ public class MyCompilerUtil {
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
-	 * 从代码中实例对象
+	 * 实例对象
 	 * 
 	 * @param <T>
 	 * @param javaCode
+	 * @param params
 	 * @return
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromCache(String javaCode) {
+	public static final <T> T loadFromCache(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, javaCode);
-		return (T) ReflectUtil.newInstance(clazz);
+		return (T) ReflectUtil.newInstance(clazz, params);
 	}
 
 	/**
-	 * 从代码中实例对象
+	 * 实例对象
 	 * 
 	 * @param <T>
 	 * @param javaCode
+	 * @param params
 	 * @return
 	 */
 	@SneakyThrows
 	@SuppressWarnings("unchecked")
-	public static final <T> T loadFromCacheByHash(String javaCode) {
+	public static final <T> T loadFromCacheByHash(String javaCode, Object... params) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(javaCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
 		Class<?> clazz = CompilerUtils.CACHED_COMPILER.loadFromJava(className, hashJavaCode);
-		return (T) ReflectUtil.newInstance(clazz);
+		return (T) ReflectUtil.newInstance(clazz, params);
 	}
 
 	/**
