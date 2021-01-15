@@ -56,7 +56,7 @@ public class MyCompilerUtil {
 	 * @param javaCode
 	 * @return
 	 */
-	public static final Class<?> flushFromJava(String javaCode) {
+	public static final Class<?> reloadFromJava(String javaCode) {
 		CachedCompiler compiler = new CachedCompiler(null, null);
 		return loadFromJava(compiler, javaCode);
 	}
