@@ -7,6 +7,7 @@ import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.renlm.plugins.MyUtil.MyCompilerUtil;
 import lombok.SneakyThrows;
+import net.openhft.compiler.CachedCompiler;
 import net.openhft.compiler.CompilerUtils;
 
 /**
@@ -21,8 +22,9 @@ public class DynamicCompilerTest {
 	@SneakyThrows
 	public void test() {
 		String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
-		Class<?> clazz = MyCompilerUtil.loadClass(ClassLoaderUtil.getClassLoader(), CompilerUtils.CACHED_COMPILER,
-				javaCode);
+		ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
+		CachedCompiler compiler = CompilerUtils.CACHED_COMPILER;
+		Class<?> clazz = MyCompilerUtil.loadClass(classLoader, compiler, javaCode);
 		Runnable runnable = (Runnable) ReflectUtil.newInstance(clazz);
 		runnable.run();
 	}
