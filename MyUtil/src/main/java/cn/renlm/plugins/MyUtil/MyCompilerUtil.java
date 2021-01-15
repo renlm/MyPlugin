@@ -48,7 +48,7 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadFromJava(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
+	public static final Class<?> loadClass(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
@@ -64,7 +64,7 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadFromJavaByHash(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
+	public static final Class<?> loadClassByHash(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);

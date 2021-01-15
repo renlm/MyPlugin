@@ -21,7 +21,7 @@ public class DynamicCompilerTest {
 	@SneakyThrows
 	public void test() {
 		String javaCode = ResourceUtil.readUtf8Str("CompilerCode.java");
-		Class<?> clazz = MyCompilerUtil.loadFromJava(ClassLoaderUtil.getClassLoader(), CompilerUtils.CACHED_COMPILER,
+		Class<?> clazz = MyCompilerUtil.loadClass(ClassLoaderUtil.getClassLoader(), CompilerUtils.CACHED_COMPILER,
 				javaCode);
 		Runnable runnable = (Runnable) ReflectUtil.newInstance(clazz);
 		runnable.run();
