@@ -84,7 +84,8 @@ public class MyCompilerUtil {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return compiler.loadFromJava(ClassLoaderUtil.getClassLoader(), className, javaCode);
+		ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
+		return compiler.loadFromJava(classLoader, className, javaCode);
 	}
 
 	/**
@@ -100,7 +101,8 @@ public class MyCompilerUtil {
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return compiler.loadFromJava(ClassLoaderUtil.getClassLoader(), className, hashJavaCode);
+		ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
+		return compiler.loadFromJava(classLoader, className, hashJavaCode);
 	}
 
 	/**
