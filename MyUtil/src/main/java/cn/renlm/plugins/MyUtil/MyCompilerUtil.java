@@ -3,6 +3,7 @@ package cn.renlm.plugins.MyUtil;
 import java.util.regex.Pattern;
 
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
@@ -83,7 +84,7 @@ public class MyCompilerUtil {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return compiler.loadFromJava(className, javaCode);
+		return compiler.loadFromJava(ClassLoaderUtil.getClassLoader(), className, javaCode);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class MyCompilerUtil {
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return compiler.loadFromJava(className, hashJavaCode);
+		return compiler.loadFromJava(ClassLoaderUtil.getClassLoader(), className, hashJavaCode);
 	}
 
 	/**
