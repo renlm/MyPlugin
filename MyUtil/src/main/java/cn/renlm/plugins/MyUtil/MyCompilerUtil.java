@@ -8,7 +8,7 @@ import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
-import net.openhft.compiler.CachedCompiler;
+import net.openhft.compiler.CompilerUtils;
 
 /**
  * 代码编译（自动识别）
@@ -43,33 +43,31 @@ public class MyCompilerUtil {
 	 * 编译代码
 	 * 
 	 * @param classLoader
-	 * @param compiler
 	 * @param javaCode
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadClass(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
+	public static final Class<?> loadClass(ClassLoader classLoader, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
-		return compiler.loadFromJava(classLoader, className, javaCode);
+		return CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, javaCode);
 	}
 
 	/**
 	 * 编译代码（Hash路径）
 	 * 
 	 * @param classLoader
-	 * @param compiler
 	 * @param javaCode
 	 * @return
 	 */
 	@SneakyThrows
-	public static final Class<?> loadClassByHash(ClassLoader classLoader, CachedCompiler compiler, String javaCode) {
+	public static final Class<?> loadClassByHash(ClassLoader classLoader, String javaCode) {
 		String cleanCode = cleanNotes(javaCode);
 		String packages = hashPackage(cleanCode, javaCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
-		return compiler.loadFromJava(classLoader, className, hashJavaCode);
+		return CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, hashJavaCode);
 	}
 
 	/**
