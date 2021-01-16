@@ -1,8 +1,13 @@
 package cn.renlm.plugins.MyUtil;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.io.ValidateObjectInputStream;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
@@ -10,6 +15,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CompilerUtils;
@@ -132,10 +138,19 @@ public class MyCompilerUtil {
 	 * 
 	 * @param <T>
 	 * @param bytes
+	 * @param clazz
+	 * @param acceptClasses
 	 * @return
 	 */
-	public static final <T extends Serializable> T deserialize(byte[] bytes) {
-		return ObjectUtil.deserialize(bytes);
+	@SneakyThrows
+	public static final <T extends Serializable> T deserialize(byte[] bytes, Class<T> clazz,
+			Class<?>... acceptClasses) {
+		@Cleanup
+		InputStream is = new ByteArrayInputStream(bytes);
+		Class<?>[] classes = ArrayUtil.addAll(acceptClasses, new Class<?>[] { clazz });
+		@Cleanup
+		ValidateObjectInputStream vis = new ValidateObjectInputStream(is, classes);
+		return IoUtil.readObj(vis, clazz);
 	}
 
 	/**
