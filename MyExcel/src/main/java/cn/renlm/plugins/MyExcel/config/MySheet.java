@@ -21,12 +21,12 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.renlm.plugins.ConstVal;
 import cn.renlm.plugins.MyExcel.config.column.Alias;
 import cn.renlm.plugins.MyExcel.config.column.Title;
 import cn.renlm.plugins.MyExcel.entity.CellUnit;
 import cn.renlm.plugins.MyExcel.entity.CheckResult;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
-import cn.renlm.plugins.MyExcel.util.ConstVal;
 import cn.renlm.plugins.MyExcel.util.MergeUtil;
 import cn.renlm.plugins.MyExcel.util.StyleUtil;
 import lombok.Data;
@@ -94,7 +94,7 @@ public class MySheet implements Serializable {
 			Title title = col.getTitle();
 			map.put(title.getText(), col.getField());
 			if (StrUtil.isNotBlank(title.getSplit())) {
-				map.put(title.getText().replace(title.getSplit(), ConstVal.LEVEL_TITLE_SPLIT), col.getField());
+				map.put(title.getText().replace(title.getSplit(), ConstVal.NAME), col.getField());
 			}
 			if (CollUtil.isEmpty(col.getAliasList())) {
 				continue;
@@ -105,7 +105,7 @@ public class MySheet implements Serializable {
 				}
 				map.put(alias.getText(), col.getField());
 				if (StrUtil.isNotBlank(title.getSplit())) {
-					map.put(alias.getText().replace(title.getSplit(), ConstVal.LEVEL_TITLE_SPLIT), col.getField());
+					map.put(alias.getText().replace(title.getSplit(), ConstVal.NAME), col.getField());
 				}
 			}
 		}
@@ -134,7 +134,7 @@ public class MySheet implements Serializable {
 					}
 				}
 			}
-			String key = CollUtil.join(appends, ConstVal.LEVEL_TITLE_SPLIT);
+			String key = CollUtil.join(appends, ConstVal.NAME);
 			if (keyFields.containsKey(key)) {
 				keys.add(keyFields.get(key));
 			} else {

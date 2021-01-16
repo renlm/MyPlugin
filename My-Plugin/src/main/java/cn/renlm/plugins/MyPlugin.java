@@ -16,10 +16,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MyPlugin {
 
-	public static final String AUTHOR = "Renlm";
-
-	public static final String VERSION = "1.5.2";
-
 	public static void main(String[] args) {
 		printAllUtils();
 	}
@@ -41,7 +37,7 @@ public class MyPlugin {
 		final Set<Class<?>> allUtils = getAllUtils();
 		final ConsoleTable consoleTable = ConsoleTable.create().addHeader("版本", "工具类名", "所在包");
 		for (Class<?> clazz : allUtils) {
-			consoleTable.addBody(VERSION, clazz.getSimpleName(), clazz.getPackage().getName());
+			consoleTable.addBody(ConstVal.VERSION, clazz.getSimpleName(), clazz.getPackage().getName());
 		}
 		consoleTable.print();
 	}

@@ -14,11 +14,11 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.converters.SingleValueConverter;
 
 import cn.hutool.core.util.StrUtil;
+import cn.renlm.plugins.ConstVal;
 import cn.renlm.plugins.MyExcel.config.column.Alias;
 import cn.renlm.plugins.MyExcel.config.column.Annotation;
 import cn.renlm.plugins.MyExcel.config.column.Dict;
 import cn.renlm.plugins.MyExcel.config.column.Title;
-import cn.renlm.plugins.MyExcel.util.ConstVal;
 import cn.renlm.plugins.MyExcel.util.StyleUtil;
 import lombok.Data;
 
