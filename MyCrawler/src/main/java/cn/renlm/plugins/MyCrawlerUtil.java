@@ -15,6 +15,8 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.scheduler.QueueScheduler;
+import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
 
 /**
  * 爬虫工具
@@ -34,9 +36,11 @@ public class MyCrawlerUtil {
 	 * @return
 	 */
 	public static final MySpider createSpider(MySite site, MyPageProcessor pageProcessor, MyPipeline... pipelines) {
+		QueueScheduler scheduler = new QueueScheduler();
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
+		mySpider.setScheduler(scheduler);
 		for (MyPipeline pipeline : pipelines) {
-			mySpider.addPipeline(createPipeline(site, pipeline));
+			mySpider.addPipeline(createPipeline(site, pipeline, scheduler.getDuplicateRemover()));
 		}
 		return mySpider;
 	}
@@ -52,10 +56,11 @@ public class MyCrawlerUtil {
 	 */
 	public static final MySpider createSpider(JedisPool pool, MySite site, MyPageProcessor pageProcessor,
 			MyPipeline... pipelines) {
+		MyRedisScheduler scheduler = new MyRedisScheduler(pool);
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
-		mySpider.setScheduler(new MyRedisScheduler(pool));
+		mySpider.setScheduler(scheduler);
 		for (MyPipeline pipeline : pipelines) {
-			mySpider.addPipeline(createPipeline(site, pipeline));
+			mySpider.addPipeline(createPipeline(site, pipeline, scheduler));
 		}
 		return mySpider;
 	}
@@ -67,7 +72,7 @@ public class MyCrawlerUtil {
 	 * @param pageProcessor
 	 * @return
 	 */
-	private static final PageProcessor createPageProcessor(MySite site, MyPageProcessor pageProcessor) {
+	private static final PageProcessor createPageProcessor(final MySite site, final MyPageProcessor pageProcessor) {
 		return new PageProcessor() {
 			@Override
 			public void process(Page page) {
@@ -87,13 +92,15 @@ public class MyCrawlerUtil {
 	 * 
 	 * @param site
 	 * @param pipeline
+	 * @param duplicatedRemover
 	 * @return
 	 */
-	private static final Pipeline createPipeline(MySite site, MyPipeline pipeline) {
+	private static final Pipeline createPipeline(final MySite site, final MyPipeline pipeline,
+			final DuplicateRemover duplicatedRemover) {
 		return new Pipeline() {
 			@Override
 			public void process(ResultItems resultItems, Task task) {
-				MyProcessPipe myData = new MyProcessPipe(task.getUUID(), site, resultItems);
+				MyProcessPipe myData = new MyProcessPipe(task, resultItems, duplicatedRemover);
 				pipeline.process(myData);
 			}
 		};

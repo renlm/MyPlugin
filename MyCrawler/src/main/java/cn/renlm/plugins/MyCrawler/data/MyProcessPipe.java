@@ -1,10 +1,12 @@
 package cn.renlm.plugins.MyCrawler.data;
 
-import cn.renlm.plugins.MyCrawler.MySite;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.ResultItems;
+import us.codecraft.webmagic.Task;
+import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
 
 /**
  * Pipeline Data
@@ -12,15 +14,26 @@ import us.codecraft.webmagic.ResultItems;
  * @author Renlm
  *
  */
-@Getter
 @AllArgsConstructor
 @Accessors(chain = true, fluent = true)
 public class MyProcessPipe {
 
-	private String uuid;
+	@Getter
+	private final Task task;
 
-	private MySite site;
+	@Getter
+	private final ResultItems resultItems;
 
-	private ResultItems resultItems;
+	private final DuplicateRemover duplicatedRemover;
 
+	/**
+	 * 请求是否重复
+	 * 
+	 * @param request
+	 * @param task
+	 * @return
+	 */
+	public final boolean isDuplicate(Request request, Task task) {
+		return this.duplicatedRemover.isDuplicate(request, task);
+	}
 }
