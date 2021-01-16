@@ -40,16 +40,6 @@ public class MyCompilerUtil {
 	static final String NoteMultiLineRegex = "/\\*.+?\\*/";
 
 	/**
-	 * 添加ClassPath
-	 * 
-	 * @param dir
-	 * @return
-	 */
-	public static final boolean addClassPath(String dir) {
-		return CompilerUtils.addClassPath(dir);
-	}
-
-	/**
 	 * 编译代码
 	 * 
 	 * @param classLoader
