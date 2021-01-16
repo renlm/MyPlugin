@@ -1,11 +1,14 @@
 package cn.renlm.plugins.MyUtil;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
@@ -89,6 +92,40 @@ public class MyCompilerUtil {
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
 		return CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, hashJavaCode);
+	}
+
+	/**
+	 * 实例化对象
+	 * 
+	 * @param <T>
+	 * @param clazz
+	 * @param params
+	 * @return
+	 */
+	public static final <T> T newInstance(Class<T> clazz, Object... params) {
+		return ReflectUtil.newInstance(clazz, params);
+	}
+
+	/**
+	 * 序列化
+	 * 
+	 * @param <T>
+	 * @param obj
+	 * @return
+	 */
+	public static final <T extends Serializable> byte[] serialize(T obj) {
+		return ObjectUtil.serialize(obj);
+	}
+
+	/**
+	 * 反序列化
+	 * 
+	 * @param <T>
+	 * @param bytes
+	 * @return
+	 */
+	public static final <T extends Serializable> T deserialize(byte[] bytes) {
+		return ObjectUtil.deserialize(bytes);
 	}
 
 	/**
