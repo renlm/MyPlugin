@@ -54,8 +54,9 @@ import lombok.Data;
  *
  */
 public class MyGeneratorUtil {
-	static final String projectPath 			= System.getProperty("user.dir");
-	static final String javaOutputDir 			= projectPath + "/src/main/java";
+	public static final String projectPath 		= System.getProperty("user.dir");
+	public static final String javaDir 			= projectPath + "/src/main/java";
+	public static final String resourcesDir		= projectPath + "/src/main/resources";
 	static final String mapperSuffix 			= "Mapper";
 	static final String mapperOutputDir 		= projectPath + "/src/main/resources/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
@@ -101,7 +102,7 @@ public class MyGeneratorUtil {
 
 		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
-		gc.setOutputDir(javaOutputDir);
+		gc.setOutputDir(javaDir);
 		gc.setAuthor(table.author);
 		gc.setOpen(false);
 		gc.setIdType(table.idType == null ? IdType.AUTO : IdType.valueOf(table.idType));
