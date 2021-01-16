@@ -54,11 +54,8 @@ import lombok.Data;
  *
  */
 public class MyGeneratorUtil {
-	public static final String projectPath 		= System.getProperty("user.dir");
-	public static final String javaDir 			= projectPath + "/src/main/java";
-	public static final String resourcesDir		= projectPath + "/src/main/resources";
 	static final String mapperSuffix 			= "Mapper";
-	static final String mapperOutputDir 		= projectPath + "/src/main/resources/mapper";
+	static final String mapperOutputDir 		= ConstVal.resourcesOutDir + "/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
 	static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
 	static final String dSClassName 			= "com.baomidou.dynamic.datasource.annotation.DS";
@@ -102,7 +99,7 @@ public class MyGeneratorUtil {
 
 		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
-		gc.setOutputDir(javaDir);
+		gc.setOutputDir(ConstVal.javaOutDir);
 		gc.setAuthor(table.author);
 		gc.setOpen(false);
 		gc.setIdType(table.idType == null ? IdType.AUTO : IdType.valueOf(table.idType));
