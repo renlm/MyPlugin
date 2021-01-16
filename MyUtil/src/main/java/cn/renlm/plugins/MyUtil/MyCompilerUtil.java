@@ -3,6 +3,7 @@ package cn.renlm.plugins.MyUtil;
 import java.util.regex.Pattern;
 
 import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
@@ -42,6 +43,16 @@ public class MyCompilerUtil {
 	/**
 	 * 编译代码
 	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadClass(String javaCode) {
+		return loadClass(ClassLoaderUtil.getClassLoader(), javaCode);
+	}
+
+	/**
+	 * 编译代码
+	 * 
 	 * @param classLoader
 	 * @param javaCode
 	 * @return
@@ -52,6 +63,16 @@ public class MyCompilerUtil {
 		String packages = fetchPackage(cleanCode);
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		return CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, javaCode);
+	}
+
+	/**
+	 * 编译代码（Hash路径）
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadClassByHash(String javaCode) {
+		return loadClassByHash(ClassLoaderUtil.getClassLoader(), javaCode);
 	}
 
 	/**
