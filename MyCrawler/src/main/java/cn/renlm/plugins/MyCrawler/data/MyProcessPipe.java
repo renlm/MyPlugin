@@ -1,11 +1,11 @@
 package cn.renlm.plugins.MyCrawler.data;
 
+import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
-import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
 
 /**
  * Pipeline Data
@@ -22,6 +22,6 @@ public class MyProcessPipe {
 
 	private final ResultItems resultItems;
 
-	private final DuplicateRemover duplicatedRemover;
+	private final MyDuplicateVerify duplicateVerify;
 
 }

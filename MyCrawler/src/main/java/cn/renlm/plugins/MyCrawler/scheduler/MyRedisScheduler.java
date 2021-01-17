@@ -19,7 +19,7 @@ import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
  * @author Renlm
  *
  */
-public class MyRedisScheduler extends DuplicateRemovedScheduler implements MonitorableScheduler, DuplicateRemover {
+public class MyRedisScheduler extends DuplicateRemovedScheduler implements MonitorableScheduler, DuplicateRemover, MyDuplicateVerify {
 
 	protected JedisPool pool;
 
@@ -29,9 +29,21 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	private static final String ITEM_PREFIX = "item_";
 
+	private static final String EXIST_PREFIX = "exist_";
+
 	public MyRedisScheduler(JedisPool pool) {
 		this.pool = pool;
 		setDuplicateRemover(this);
+	}
+
+	@Override
+	public boolean exist(Request request, Task task) {
+		Jedis jedis = pool.getResource();
+		try {
+			return jedis.sadd(getExistKey(task), request.getUrl()) == 0;
+		} finally {
+			jedis.close();
+		}
 	}
 
 	@Override
@@ -128,6 +140,10 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	protected String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
+	}
+
+	protected String getExistKey(Task task) {
+		return EXIST_PREFIX + task.getUUID();
 	}
 
 	@Override

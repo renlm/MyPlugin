@@ -6,6 +6,8 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
 import cn.renlm.plugins.MyCrawler.pipeline.MyPipeline;
 import cn.renlm.plugins.MyCrawler.processor.MyPageProcessor;
+import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
+import cn.renlm.plugins.MyCrawler.scheduler.MyQueueScheduler;
 import cn.renlm.plugins.MyCrawler.scheduler.MyRedisScheduler;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
@@ -15,8 +17,6 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.QueueScheduler;
-import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
 
 /**
  * 爬虫工具
@@ -36,11 +36,11 @@ public class MyCrawlerUtil {
 	 * @return
 	 */
 	public static final MySpider createSpider(MySite site, MyPageProcessor pageProcessor, MyPipeline... pipelines) {
-		QueueScheduler scheduler = new QueueScheduler();
+		MyQueueScheduler scheduler = new MyQueueScheduler();
 		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(scheduler);
 		for (MyPipeline pipeline : pipelines) {
-			mySpider.addPipeline(createPipeline(site, pipeline, scheduler.getDuplicateRemover()));
+			mySpider.addPipeline(createPipeline(site, pipeline, scheduler));
 		}
 		return mySpider;
 	}
@@ -92,15 +92,15 @@ public class MyCrawlerUtil {
 	 * 
 	 * @param site
 	 * @param pipeline
-	 * @param duplicatedRemover
+	 * @param duplicateVerify
 	 * @return
 	 */
 	private static final Pipeline createPipeline(final MySite site, final MyPipeline pipeline,
-			final DuplicateRemover duplicatedRemover) {
+			final MyDuplicateVerify duplicateVerify) {
 		return new Pipeline() {
 			@Override
 			public void process(ResultItems resultItems, Task task) {
-				MyProcessPipe myData = new MyProcessPipe(task, resultItems, duplicatedRemover);
+				MyProcessPipe myData = new MyProcessPipe(task, resultItems, duplicateVerify);
 				pipeline.process(myData);
 			}
 		};
