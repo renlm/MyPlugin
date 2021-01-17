@@ -1,21 +1,12 @@
 package cn.renlm.plugins.MyUtil;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.Serializable;
 import java.util.regex.Pattern;
 
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.io.ValidateObjectInputStream;
-import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
-import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.openhft.compiler.CompilerUtils;
@@ -55,7 +46,7 @@ public class MyCompilerUtil {
 	 * @param dir
 	 * @return
 	 */
-	public static boolean addClassPath(String dir) {
+	public static final boolean addClassPath(String dir) {
 		return StrUtil.isBlank(dir) ? false : CompilerUtils.addClassPath(dir);
 	}
 
@@ -67,6 +58,16 @@ public class MyCompilerUtil {
 	 */
 	public static final Class<?> loadClass(String javaCode) {
 		return loadClass(ClassLoaderUtil.getClassLoader(), javaCode);
+	}
+
+	/**
+	 * 编译代码（Hash路径）
+	 * 
+	 * @param javaCode
+	 * @return
+	 */
+	public static final Class<?> loadClassByHash(String javaCode) {
+		return loadClassByHash(ClassLoaderUtil.getClassLoader(), javaCode);
 	}
 
 	/**
@@ -87,16 +88,6 @@ public class MyCompilerUtil {
 	/**
 	 * 编译代码（Hash路径）
 	 * 
-	 * @param javaCode
-	 * @return
-	 */
-	public static final Class<?> loadClassByHash(String javaCode) {
-		return loadClassByHash(ClassLoaderUtil.getClassLoader(), javaCode);
-	}
-
-	/**
-	 * 编译代码（Hash路径）
-	 * 
 	 * @param classLoader
 	 * @param javaCode
 	 * @return
@@ -108,49 +99,6 @@ public class MyCompilerUtil {
 		String className = packages + CharUtil.DOT + fetchClassName(cleanCode);
 		String hashJavaCode = hashJavaCode(cleanCode, javaCode);
 		return CompilerUtils.CACHED_COMPILER.loadFromJava(classLoader, className, hashJavaCode);
-	}
-
-	/**
-	 * 实例化对象
-	 * 
-	 * @param <T>
-	 * @param clazz
-	 * @param params
-	 * @return
-	 */
-	public static final <T> T newInstance(Class<T> clazz, Object... params) {
-		return ReflectUtil.newInstance(clazz, params);
-	}
-
-	/**
-	 * 序列化
-	 * 
-	 * @param <T>
-	 * @param obj
-	 * @return
-	 */
-	public static final <T extends Serializable> byte[] serialize(T obj) {
-		return ObjectUtil.serialize(obj);
-	}
-
-	/**
-	 * 反序列化
-	 * 
-	 * @param <T>
-	 * @param bytes
-	 * @param clazz
-	 * @param acceptClasses
-	 * @return
-	 */
-	@SneakyThrows
-	public static final <T extends Serializable> T deserialize(byte[] bytes, Class<T> clazz,
-			Class<?>... acceptClasses) {
-		@Cleanup
-		InputStream is = new ByteArrayInputStream(bytes);
-		Class<?>[] classes = ArrayUtil.addAll(acceptClasses, new Class<?>[] { clazz });
-		@Cleanup
-		ValidateObjectInputStream vis = new ValidateObjectInputStream(is, classes);
-		return IoUtil.readObj(vis, clazz);
 	}
 
 	/**
