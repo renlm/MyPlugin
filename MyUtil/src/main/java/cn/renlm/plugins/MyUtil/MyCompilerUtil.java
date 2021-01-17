@@ -1,7 +1,12 @@
 package cn.renlm.plugins.MyUtil;
 
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.ClassLoaderUtil;
 import cn.hutool.core.util.HashUtil;
@@ -48,6 +53,35 @@ public class MyCompilerUtil {
 	 */
 	public static final boolean addClassPath(String dir) {
 		return StrUtil.isBlank(dir) ? false : CompilerUtils.addClassPath(dir);
+	}
+
+	/**
+	 * 添加Library
+	 * 
+	 * @param dirOrJar
+	 * @return
+	 */
+	public static final boolean addLibrary(String dirOrJar) {
+		if (StrUtil.isBlank(dirOrJar) || !FileUtil.exist(dirOrJar) || !"jar".equals(FileUtil.getSuffix(dirOrJar))) {
+			return false;
+		}
+		if (FileUtil.isFile(dirOrJar)) {
+			CompilerUtils.addClassPath(dirOrJar);
+		}
+		AtomicInteger cnt = new AtomicInteger();
+		FileUtil.loopFiles(Paths.get(dirOrJar), 1, file -> {
+			return "jar".equals(FileNameUtil.getSuffix(file));
+		}).forEach(file -> {
+			String path;
+			try {
+				path = file.getCanonicalPath();
+			} catch (IOException ignored) {
+				path = file.getAbsolutePath();
+			}
+			cnt.incrementAndGet();
+			CompilerUtils.addClassPath(path);
+		});
+		return cnt.get() > 0;
 	}
 
 	/**
