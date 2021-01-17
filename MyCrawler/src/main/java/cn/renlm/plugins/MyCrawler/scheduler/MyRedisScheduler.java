@@ -29,8 +29,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	private static final String ITEM_PREFIX = "item_";
 
-	private static final String EXIST_PREFIX = "exist_";
-
 	public MyRedisScheduler(JedisPool pool) {
 		this.pool = pool;
 		setDuplicateRemover(this);
@@ -40,7 +38,7 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	public boolean exist(Request request, Task task) {
 		Jedis jedis = pool.getResource();
 		try {
-			return jedis.sadd(getExistKey(task), request.getUrl()) == 0;
+			return jedis.sismember(getSetKey(task), request.getUrl());
 		} finally {
 			jedis.close();
 		}
@@ -50,7 +48,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	public void resetDuplicateCheck(Task task) {
 		Jedis jedis = pool.getResource();
 		try {
-			jedis.del(getExistKey(task));
 			jedis.del(getSetKey(task));
 		} finally {
 			jedis.close();
@@ -61,7 +58,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	public boolean isDuplicate(Request request, Task task) {
 		Jedis jedis = pool.getResource();
 		try {
-			this.exist(request, task);
 			return jedis.sadd(getSetKey(task), request.getUrl()) == 0;
 		} finally {
 			jedis.close();
@@ -142,10 +138,6 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	protected String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
-	}
-
-	protected String getExistKey(Task task) {
-		return EXIST_PREFIX + task.getUUID();
 	}
 
 	@Override
