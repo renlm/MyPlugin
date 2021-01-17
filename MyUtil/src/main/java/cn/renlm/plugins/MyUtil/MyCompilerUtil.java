@@ -62,11 +62,11 @@ public class MyCompilerUtil {
 	 * @return
 	 */
 	public static final boolean addLibrary(String dirOrJar) {
-		if (StrUtil.isBlank(dirOrJar) || !FileUtil.exist(dirOrJar) || !"jar".equals(FileUtil.getSuffix(dirOrJar))) {
+		if (StrUtil.isBlank(dirOrJar) || !FileUtil.exist(dirOrJar)) {
 			return false;
 		}
 		if (FileUtil.isFile(dirOrJar)) {
-			CompilerUtils.addClassPath(dirOrJar);
+			return "jar".equals(FileUtil.getSuffix(dirOrJar)) ? CompilerUtils.addClassPath(dirOrJar) : false;
 		}
 		AtomicInteger cnt = new AtomicInteger();
 		FileUtil.loopFiles(Paths.get(dirOrJar), 1, file -> {
