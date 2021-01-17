@@ -14,7 +14,7 @@ import us.codecraft.webmagic.scheduler.MonitorableScheduler;
 import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
 
 /**
- * Redis分布式Url调度程序
+ * 分布式Url调度
  * 
  * @author Renlm
  *
@@ -50,6 +50,7 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	public void resetDuplicateCheck(Task task) {
 		Jedis jedis = pool.getResource();
 		try {
+			jedis.del(getExistKey(task));
 			jedis.del(getSetKey(task));
 		} finally {
 			jedis.close();
@@ -60,6 +61,7 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 	public boolean isDuplicate(Request request, Task task) {
 		Jedis jedis = pool.getResource();
 		try {
+			this.exist(request, task);
 			return jedis.sadd(getSetKey(task), request.getUrl()) == 0;
 		} finally {
 			jedis.close();
