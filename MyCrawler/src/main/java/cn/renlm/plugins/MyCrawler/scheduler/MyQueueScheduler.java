@@ -18,7 +18,7 @@ public class MyQueueScheduler extends QueueScheduler implements MyDuplicateVerif
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean exist(Request request, Task task) {
+	public boolean verifyDuplicate(Request request, Task task) {
 		HashSetDuplicateRemover duplicatedRemover = (HashSetDuplicateRemover) getDuplicateRemover();
 		Set<String> urls = (Set<String>) ReflectUtil.getFieldValue(duplicatedRemover, "urls");
 		return urls.contains(request.getUrl());

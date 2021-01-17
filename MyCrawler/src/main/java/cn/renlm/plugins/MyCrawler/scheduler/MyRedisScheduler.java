@@ -29,16 +29,18 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	private static final String ITEM_PREFIX = "item_";
 
+	private static final String VERIFY_PREFIX = "verify_";
+
 	public MyRedisScheduler(JedisPool pool) {
 		this.pool = pool;
 		setDuplicateRemover(this);
 	}
 
 	@Override
-	public boolean exist(Request request, Task task) {
+	public boolean verifyDuplicate(Request request, Task task) {
 		Jedis jedis = pool.getResource();
 		try {
-			return jedis.sismember(getSetKey(task), request.getUrl());
+			return jedis.sadd(getVerifyKey(task), request.getUrl()) == 0;
 		} finally {
 			jedis.close();
 		}
@@ -138,6 +140,10 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	protected String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
+	}
+
+	protected String getVerifyKey(Task task) {
+		return VERIFY_PREFIX + task.getUUID();
 	}
 
 	@Override

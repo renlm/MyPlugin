@@ -11,6 +11,13 @@ import us.codecraft.webmagic.Task;
  */
 public interface MyDuplicateVerify {
 
-	boolean exist(Request request, Task task);
+	/**
+	 * 预确认是否重复
+	 * 
+	 * @param request
+	 * @param task
+	 * @return
+	 */
+	boolean verifyDuplicate(Request request, Task task);
 
 }
