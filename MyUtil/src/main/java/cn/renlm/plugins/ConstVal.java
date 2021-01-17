@@ -17,8 +17,8 @@ public class ConstVal {
 	public static final String NAME 			= ConstVal.class.getName();
 	
 	public static final String userDir 			= System.getProperty("user.dir");
-	public static final String javaOutDir 		= userDir + "/src/main/java";
-	public static final String resourcesOutDir	= userDir + "/src/main/resources";
+	public static final String javaDir 			= userDir + "/src/main/java";
+	public static final String resourcesDir		= userDir + "/src/main/resources";
 
 	/**
 	 * 默认字体，宋体
