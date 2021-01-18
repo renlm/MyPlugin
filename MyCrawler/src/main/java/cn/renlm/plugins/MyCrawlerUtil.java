@@ -1,5 +1,9 @@
 package cn.renlm.plugins;
 
+import java.util.List;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
@@ -12,6 +16,7 @@ import cn.renlm.plugins.MyCrawler.scheduler.MyRedisScheduler;
 import lombok.experimental.UtilityClass;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
@@ -26,6 +31,8 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 @UtilityClass
 public class MyCrawlerUtil {
+
+	private static final String depthExtraKey = "_MyCrawlerDepthExtra_";
 
 	/**
 	 * 爬虫实例
@@ -76,8 +83,19 @@ public class MyCrawlerUtil {
 		return new PageProcessor() {
 			@Override
 			public void process(Page page) {
-				MyProcessPage myPage = new MyProcessPage(site, page);
+				int depth = ObjectUtil.defaultIfNull(page.getRequest().getExtra(depthExtraKey), 1);
+				MyProcessPage myPage = new MyProcessPage(depth, site, page);
 				pageProcessor.process(myPage);
+				List<Request> targetRequests = page.getTargetRequests();
+				// 爬取深度控制
+				if (CollUtil.isNotEmpty(targetRequests)) {
+					page.getTargetRequests().forEach(it -> {
+						it.putExtra(depthExtraKey, depth + 1);
+					});
+					if (site.getMaxDepth() > 0 && depth >= site.getMaxDepth()) {
+						page.getTargetRequests().clear();
+					}
+				}
 			}
 
 			@Override

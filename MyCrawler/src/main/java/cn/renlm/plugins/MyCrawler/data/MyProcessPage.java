@@ -17,6 +17,8 @@ import us.codecraft.webmagic.Page;
 @Accessors(chain = true, fluent = true)
 public class MyProcessPage {
 
+	private int depth;
+
 	private MySite site;
 
 	private Page page;
