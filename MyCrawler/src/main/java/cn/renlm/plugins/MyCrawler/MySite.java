@@ -20,6 +20,11 @@ import us.codecraft.webmagic.Site;
 public class MySite extends Site {
 
 	/**
+	 * 最大深度（默认0，无限制）
+	 */
+	private int maxDepth;
+
+	/**
 	 * 默认
 	 * 
 	 * @return
