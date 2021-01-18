@@ -1,12 +1,12 @@
 package cn.renlm.plugins.MyCrawler.scheduler;
 
+import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-import cn.hutool.core.util.ReflectUtil;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.scheduler.QueueScheduler;
-import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
 
 /**
  * 默认Url调度
@@ -16,11 +16,10 @@ import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
  */
 public class MyQueueScheduler extends QueueScheduler implements MyDuplicateVerify {
 
+	private Set<String> urls = Collections.newSetFromMap(new ConcurrentHashMap<String, Boolean>());
+
 	@Override
-	@SuppressWarnings("unchecked")
 	public boolean verifyDuplicate(Request request, Task task) {
-		HashSetDuplicateRemover duplicatedRemover = (HashSetDuplicateRemover) getDuplicateRemover();
-		Set<String> urls = (Set<String>) ReflectUtil.getFieldValue(duplicatedRemover, "urls");
-		return urls.contains(request.getUrl());
+		return !urls.add(request.getUrl());
 	}
 }
