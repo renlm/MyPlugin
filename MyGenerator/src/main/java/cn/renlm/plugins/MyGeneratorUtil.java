@@ -156,9 +156,15 @@ public class MyGeneratorUtil {
 		cfg.setFileCreate(new IFileCreate() {
 			@Override
 			public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
+				if(fileType == FileType.OTHER) {
+					if(table.configExcel) {
+						this.checkDir(filePath);
+						return true;
+					}
+					return false;
+				}
 				this.checkDir(filePath);
 				return (fileType == FileType.ENTITY && table.coverEntity) 
-						|| (fileType == FileType.OTHER && table.configExcel)
 						|| !new File(filePath).exists();
 			}
 
