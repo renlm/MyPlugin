@@ -55,8 +55,10 @@ import lombok.Data;
  */
 public class MyGeneratorUtil {
 	static final String mapperSuffix 			= "Mapper";
+	static final String excelXmlSuffix 			= ".Excel.xml";
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
+	static final String excelXmlTemplatePath	= "config/Excel.xml.ftl";
 	static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
 	static final String dSClassName 			= "com.baomidou.dynamic.datasource.annotation.DS";
 
@@ -142,11 +144,21 @@ public class MyGeneratorUtil {
 						+ tableInfo.getEntityName() + mapperSuffix + DOT_XML;
 			}
 		});
+		focList.add(new FileOutConfig(excelXmlTemplatePath) {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				return mapperOutputDir + SLASH 
+						+ pc.getModuleName() + SLASH 
+						+ tableInfo.getEntityName() + excelXmlSuffix;
+			}
+		});
 		cfg.setFileCreate(new IFileCreate() {
 			@Override
 			public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
 				this.checkDir(filePath);
-				return (fileType == FileType.ENTITY && table.coverEntity) || !new File(filePath).exists();
+				return (fileType == FileType.ENTITY && table.coverEntity) 
+						|| (fileType == FileType.OTHER && table.configExcel)
+						|| !new File(filePath).exists();
 			}
 
 			@Override
@@ -293,7 +305,7 @@ public class MyGeneratorUtil {
 		 */
 		@XStreamAsAttribute
 		@XStreamAlias("config-excel")
-		private boolean coverExcel;
+		private boolean configExcel;
 
 	}
 }
