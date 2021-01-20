@@ -57,6 +57,7 @@ public class MyGeneratorUtil {
 	static final String mapperSuffix 			= "Mapper";
 	static final String excelXmlSuffix 			= ".excel.xml";
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
+	static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
 	static final String mapperTemplatePath		= "/templates/mapper.xml.ftl";
 	static final String excelXmlTemplatePath	= "config/Excel.xml.ftl";
 	static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
@@ -147,7 +148,7 @@ public class MyGeneratorUtil {
 		focList.add(new FileOutConfig(excelXmlTemplatePath) {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
-				return mapperOutputDir + SLASH 
+				return excelXmlOutputDir + SLASH 
 						+ pc.getModuleName() + SLASH 
 						+ tableInfo.getEntityName() + excelXmlSuffix;
 			}
