@@ -2,7 +2,7 @@ package cn.renlm.plugins.MyExcel.config;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -55,7 +55,7 @@ public class MyWorkbook implements Serializable {
 	 * @return
 	 */
 	public MySheet getSheetByName(String sheetName) {
-		return CollUtil
-				.getFirst(sheets.stream().filter(it -> it.getName().equals(sheetName)).collect(Collectors.toList()));
+		Optional<MySheet> filter = sheets.stream().filter(it -> it.getName().equals(sheetName)).findFirst();
+		return filter.isPresent() ? filter.get() : CollUtil.getFirst(sheets);
 	}
 }
