@@ -130,11 +130,7 @@ public class MyExcelUtil {
 
 				}
 			});
-			if (sheetNo == null) {
-				builder.sheet(sheetName).headRowNumber(0).doRead();
-			} else {
-				builder.sheet(sheetNo).headRowNumber(0).doRead();
-			}
+			builder.sheet(sheetNo, sheetName).headRowNumber(0).doRead();
 		}
 		// Csv
 		else {
