@@ -41,12 +41,12 @@ import lombok.Data;
 /**
  * 代码生成封装类
  * 	spring-boot
- * 		2.3.0.RELEASE
+ * 		2.3.2.RELEASE
  * 	mybatis-plus-boot-starter
  * 	mybatis-plus-generator
- * 		3.3.2
+ * 		3.4.1
  *  dynamic-datasource-spring-boot-starter
- *  	3.2.1
+ *  	3.3.1
  *  freemarker
  *  	2.3.30
  * 
