@@ -59,7 +59,7 @@
                     <xsd:attribute name="number-format" type="xsd:string" use="optional" default="#"/>
                     <!-- 日期格式（可选，默认yyyy/MM/dd） -->
                     <xsd:attribute name="date-format" type="xsd:string" use="optional" default="yyyy/MM/dd"/>
-                    <!-- 不允许为空（可选，默认false，为true时导入导出均不做任何处理） -->
+                    <!-- 不允许为空（可选，默认false） -->
                     <xsd:attribute name="not-null" type="xsd:boolean" use="optional" default="false"/>
                     <!-- 是否忽略（可选，默认false，忽略时导入导出均不处理） -->
                     <xsd:attribute name="ignore" type="xsd:boolean" use="optional" default="false"/>
