@@ -100,6 +100,19 @@ public class MyExcelUtil {
 	 * 
 	 * @param config
 	 * @param in
+	 * @param sheetName
+	 * @param dataReadHandler
+	 */
+	public static final void readBySax(String config, InputStream in, String sheetName,
+			DataReadHandler dataReadHandler) {
+		readBySax(config, in, null, sheetName, dataReadHandler);
+	}
+
+	/**
+	 * 读取（兼容xls、xlsx、csv）
+	 * 
+	 * @param config
+	 * @param in
 	 * @param sheetNo
 	 * @param sheetName
 	 * @param dataReadHandler
