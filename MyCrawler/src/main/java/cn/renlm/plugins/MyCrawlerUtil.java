@@ -14,6 +14,7 @@ import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
 import cn.renlm.plugins.MyCrawler.scheduler.MyQueueScheduler;
 import cn.renlm.plugins.MyCrawler.scheduler.MyRedisScheduler;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -29,6 +30,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * @author Renlm
  *
  */
+@Slf4j
 @UtilityClass
 public class MyCrawlerUtil {
 
@@ -49,7 +51,13 @@ public class MyCrawlerUtil {
 		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline, scheduler));
 		}
-		return mySpider;
+		return mySpider.onDownloaded(page -> {
+			if (page.isDownloadSuccess()) {
+				log.debug("{} download success.", page.getUrl());
+			} else {
+				log.error("{} download fail.", page.getUrl());
+			}
+		});
 	}
 
 	/**
