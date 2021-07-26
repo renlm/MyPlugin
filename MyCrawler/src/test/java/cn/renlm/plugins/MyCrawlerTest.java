@@ -10,6 +10,7 @@ import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
+import lombok.extern.slf4j.Slf4j;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.selector.Html;
@@ -20,6 +21,7 @@ import us.codecraft.webmagic.selector.Html;
  * @author Renlm
  *
  */
+@Slf4j
 public class MyCrawlerTest {
 
 	private static final String ttf = "(https://((?!(https://))[\\s\\S])*\\.ttf)";
@@ -80,6 +82,12 @@ public class MyCrawlerTest {
 		site.getSelenuimSetting().put("sleepTime", "5000");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			System.out.println(myPage.page().getHtml());
+		}).onDownloaded(page -> {
+			if (page.isDownloadSuccess()) {
+				log.debug("{} download success.", page.getUrl());
+			} else {
+				log.error("{} download fail.", page.getUrl());
+			}
 		});
 		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html?i=1&v=1627317850851");
 		spider.run();

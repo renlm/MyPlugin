@@ -46,6 +46,9 @@ public class MySpider extends Spider {
 	 * @return
 	 */
 	public MySpider onDownloaded(Consumer<Page> page) {
+		if (ObjectUtil.isNotEmpty(this.downloader)) {
+			return this;
+		}
 		if (ObjectUtil.isNotEmpty(this.site) && this.site.isEnableSelenuim()
 				&& ObjectUtil.isNotEmpty(this.site.getSelenuimSetting())
 				&& StrUtil.isNotBlank(this.site.getSelenuimSetting().getStr("chromeDriverPath"))
