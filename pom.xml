@@ -50,7 +50,7 @@
 			<dependency>
 				<groupId>us.codecraft</groupId>
 				<artifactId>webmagic-core</artifactId>
-				<version>0.7.4</version>
+				<version>0.7.5</version>
 			</dependency>
 
 			<dependency>
