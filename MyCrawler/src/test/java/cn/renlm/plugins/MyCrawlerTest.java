@@ -6,6 +6,7 @@ import org.junit.Test;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
+import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
@@ -24,7 +25,7 @@ public class MyCrawlerTest {
 	private static final String ttf = "(https://((?!(https://))[\\s\\S])*\\.ttf)";
 
 	@Test
-	public void run() {
+	public void httpClient() {
 		MySpider spider = MyCrawlerUtil.createSpider(MySite.me(), myPage -> {
 			Page page = myPage.page();
 			// 避免加密字体转义
@@ -63,6 +64,24 @@ public class MyCrawlerTest {
 			Console.log(page.getStatusCode());
 		});
 		spider.addUrl("https://book.qidian.com");
+		spider.run();
+	}
+
+	@Test
+	public void selenuim() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setSelenuimSetting(new Setting());
+		site.getSelenuimSetting().put("selenuimConfig",
+				ConstVal.userDir + "/src/test/resources/chrome/selenuimConfig.ini");
+		site.getSelenuimSetting().put("chromeDriverPath",
+				ConstVal.userDir + "/src/test/resources/chrome/chromedriver.exe");
+		site.getSelenuimSetting().put("thread", "1");
+		site.getSelenuimSetting().put("sleepTime", "5000");
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			System.out.println(myPage.page().getHtml());
+		});
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html?i=1&v=1627317850851");
 		spider.run();
 	}
 }
