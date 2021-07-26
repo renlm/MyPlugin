@@ -3,6 +3,7 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -46,7 +47,7 @@ public class MySpider extends Spider {
 	public MySpider onDownloaded(Consumer<Page> page) {
 		if (StrUtil.isNotBlank(this.site.getSelenuimConfig())) {
 			System.setProperty("selenuim_config", this.site.getSelenuimConfig());
-			this.downloader = new SeleniumDownloader() {
+			SeleniumDownloader downloader = new SeleniumDownloader() {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
@@ -54,6 +55,15 @@ public class MySpider extends Spider {
 					return pager;
 				}
 			};
+			String thread = System.getProperty("selenium.downloader.thread");
+			if (StrUtil.isNotBlank(thread)) {
+				downloader.setThread(NumberUtil.parseInt(thread));
+			}
+			String sleepTime = System.getProperty("selenium.downloader.sleepTime");
+			if (StrUtil.isNotBlank(sleepTime)) {
+				downloader.setSleepTime(NumberUtil.parseInt(sleepTime));
+			}
+			this.downloader = downloader;
 		} else {
 			this.downloader = new HttpClientDownloader() {
 				@Override
