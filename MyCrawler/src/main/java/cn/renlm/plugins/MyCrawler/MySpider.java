@@ -3,12 +3,14 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
+import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
@@ -20,12 +22,19 @@ import us.codecraft.webmagic.processor.PageProcessor;
 public class MySpider extends Spider {
 
 	/**
+	 * 站点配置
+	 */
+	MySite site;
+
+	/**
 	 * 构造函数
 	 * 
+	 * @param site
 	 * @param pageProcessor
 	 */
-	public MySpider(PageProcessor pageProcessor) {
+	public MySpider(MySite site, PageProcessor pageProcessor) {
 		super(pageProcessor);
+		this.site = site;
 	}
 
 	/**
@@ -35,14 +44,26 @@ public class MySpider extends Spider {
 	 * @return
 	 */
 	public MySpider onDownloaded(Consumer<Page> page) {
-		this.downloader = new HttpClientDownloader() {
-			@Override
-			public Page download(Request request, Task task) {
-				Page pager = super.download(request, task);
-				page.accept(pager);
-				return pager;
-			}
-		};
+		if (StrUtil.isNotBlank(this.site.getSelenuimConfig())) {
+			System.setProperty("selenuim_config", this.site.getSelenuimConfig());
+			this.downloader = new SeleniumDownloader() {
+				@Override
+				public Page download(Request request, Task task) {
+					Page pager = super.download(request, task);
+					page.accept(pager);
+					return pager;
+				}
+			};
+		} else {
+			this.downloader = new HttpClientDownloader() {
+				@Override
+				public Page download(Request request, Task task) {
+					Page pager = super.download(request, task);
+					page.accept(pager);
+					return pager;
+				}
+			};
+		}
 		return this;
 	}
 

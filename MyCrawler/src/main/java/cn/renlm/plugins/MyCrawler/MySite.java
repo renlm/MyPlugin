@@ -25,6 +25,11 @@ public class MySite extends Site {
 	private int maxDepth;
 
 	/**
+	 * 浏览器模式配置
+	 */
+	private String selenuimConfig;
+
+	/**
 	 * 默认
 	 * 
 	 * @return
