@@ -3,6 +3,7 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.Set;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.setting.Setting;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,9 +26,19 @@ public class MySite extends Site {
 	private int maxDepth;
 
 	/**
-	 * 浏览器模式配置
+	 * 是否启用浏览器模式
 	 */
-	private String selenuimConfig;
+	private boolean enableSelenuim;
+
+	/**
+	 * 浏览器模式配置
+	 * 
+	 * @param selenuimConfig
+	 * @param chromeDriverPath
+	 * @param thread
+	 * @param sleepTime
+	 */
+	private Setting selenuimSetting;
 
 	/**
 	 * 默认

@@ -3,8 +3,9 @@ package cn.renlm.plugins.MyCrawler;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -45,9 +46,19 @@ public class MySpider extends Spider {
 	 * @return
 	 */
 	public MySpider onDownloaded(Consumer<Page> page) {
-		if (StrUtil.isNotBlank(this.site.getSelenuimConfig())) {
-			System.setProperty("selenuim_config", this.site.getSelenuimConfig());
-			SeleniumDownloader downloader = new SeleniumDownloader() {
+		if (ObjectUtil.isNotEmpty(this.downloader)) {
+			return this;
+		}
+		if (ObjectUtil.isNotEmpty(this.site) && this.site.isEnableSelenuim()
+				&& ObjectUtil.isNotEmpty(this.site.getSelenuimSetting())
+				&& StrUtil.isNotBlank(this.site.getSelenuimSetting().getStr("chromeDriverPath"))
+				&& StrUtil.isNotBlank(this.site.getSelenuimSetting().getStr("selenuimConfig"))) {
+			Setting selenuim = this.site.getSelenuimSetting();
+			String chromeDriverPath = selenuim.getStr("chromeDriverPath");
+			System.setProperty("selenuim_config", selenuim.getStr("selenuimConfig"));
+			int thread = ObjectUtil.defaultIfNull(selenuim.getInt("thread"), 1);
+			int sleepTime = ObjectUtil.defaultIfNull(selenuim.getInt("sleepTime"), 1000);
+			SeleniumDownloader downloader = new SeleniumDownloader(chromeDriverPath) {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
@@ -55,14 +66,8 @@ public class MySpider extends Spider {
 					return pager;
 				}
 			};
-			String thread = System.getProperty("selenium.downloader.thread");
-			if (StrUtil.isNotBlank(thread)) {
-				downloader.setThread(NumberUtil.parseInt(thread));
-			}
-			String sleepTime = System.getProperty("selenium.downloader.sleepTime");
-			if (StrUtil.isNotBlank(sleepTime)) {
-				downloader.setSleepTime(NumberUtil.parseInt(sleepTime));
-			}
+			downloader.setThread(thread);
+			downloader.setSleepTime(sleepTime);
 			this.downloader = downloader;
 		} else {
 			this.downloader = new HttpClientDownloader() {
