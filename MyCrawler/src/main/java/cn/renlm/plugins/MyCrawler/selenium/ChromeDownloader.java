@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -34,8 +36,11 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	private int poolSize = 1;
 
-	public ChromeDownloader(int sleepTime) {
-		this.sleepTime = sleepTime;
+	private Setting chromeSetting;
+
+	public ChromeDownloader(Setting chromeSetting) {
+		this.chromeSetting = chromeSetting;
+		this.sleepTime = ObjectUtil.defaultIfNull(chromeSetting.getInt("sleepTime"), 1000);
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 		if (webDriverPool == null) {
 			synchronized (this) {
 				if (webDriverPool == null) {
-					webDriverPool = new ChromeDriverPool(poolSize);
+					webDriverPool = new ChromeDriverPool(chromeSetting, poolSize);
 				}
 			}
 		}

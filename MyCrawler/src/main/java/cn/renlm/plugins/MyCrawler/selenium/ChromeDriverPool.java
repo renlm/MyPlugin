@@ -31,14 +31,15 @@ class ChromeDriverPool {
 	protected static DesiredCapabilities sCaps;
 
 	private AtomicInteger stat = new AtomicInteger(STAT_RUNNING);
-	protected static Setting chromeSetting = new Setting("config/chrome.setting");
 	private List<WebDriver> webDriverList = Collections.synchronizedList(new ArrayList<WebDriver>());
 	private BlockingDeque<WebDriver> innerQueue = new LinkedBlockingDeque<WebDriver>();
 
+	private final Setting chromeSetting;
 	private final int capacity;
 	private WebDriver mDriver = null;
 
-	public ChromeDriverPool(int capacity) {
+	public ChromeDriverPool(Setting chromeSetting, int capacity) {
+		this.chromeSetting = chromeSetting;
 		this.capacity = capacity;
 	}
 

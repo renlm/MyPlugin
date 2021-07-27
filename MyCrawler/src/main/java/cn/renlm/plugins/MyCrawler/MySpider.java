@@ -4,8 +4,6 @@ import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.selenium.ChromeDownloader;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -40,12 +38,8 @@ public class MySpider extends Spider {
 	 * @return
 	 */
 	public MySpider onDownloaded(MySite site, Consumer<Page> page) {
-		if (ObjectUtil.isNotEmpty(site) && site.isEnableSelenuim() && ObjectUtil.isNotEmpty(site.getSelenuimSetting())
-				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("config"))) {
-			Setting selenuim = site.getSelenuimSetting();
-			System.setProperty("selenuim_config", selenuim.getStr("config"));
-			int sleepTime = ObjectUtil.defaultIfNull(selenuim.getInt("sleepTime"), 1000);
-			ChromeDownloader downloader = new ChromeDownloader(sleepTime) {
+		if (ObjectUtil.isNotEmpty(site) && site.isEnableSelenuim()) {
+			ChromeDownloader downloader = new ChromeDownloader(site.getChromeSetting()) {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);

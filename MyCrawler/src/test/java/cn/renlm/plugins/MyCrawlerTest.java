@@ -69,7 +69,7 @@ public class MyCrawlerTest {
 	public void selenuimByRedis() {
 		MySite site = MySite.me();
 		site.setEnableSelenuim(true);
-		site.setSelenuimSetting(new Setting("config/selenuim.setting"));
+		site.setChromeSetting(new Setting("config/chrome.setting"));
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			System.out.println(myPage.page().getHtml());
 		});

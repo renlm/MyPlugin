@@ -1,2 +1,2 @@
-config = G:/Work-MyPlugin/MyPlugin/MyCrawler/src/test/resources/phantomjs/config.ini
+config = D:/chrome/chromedriver.exe
 sleepTime = 2500

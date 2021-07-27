@@ -32,13 +32,8 @@ public class MySite extends Site {
 
 	/**
 	 * 浏览器模式配置
-	 * 
-	 * @param selenuimConfig
-	 * @param chromeDriverPath
-	 * @param thread
-	 * @param sleepTime
 	 */
-	private Setting selenuimSetting;
+	private Setting chromeSetting;
 
 	/**
 	 * 默认
