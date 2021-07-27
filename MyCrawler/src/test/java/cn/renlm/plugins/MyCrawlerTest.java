@@ -5,12 +5,15 @@ import org.junit.Test;
 
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.db.nosql.redis.RedisDS;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
 import lombok.extern.slf4j.Slf4j;
+import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.selector.Html;
@@ -79,6 +82,25 @@ public class MyCrawlerTest {
 		site.getSelenuimSetting().put("thread", "1");
 		site.getSelenuimSetting().put("sleepTime", "5000");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			System.out.println(myPage.page().getHtml());
+		}).onDownloaded(site, page -> {
+			if (page.isDownloadSuccess()) {
+				log.debug("{} download success.", page.getUrl());
+			} else {
+				log.error("{} download fail.", page.getUrl());
+			}
+		});
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html?i=1&v=1627317850851");
+		spider.run();
+	}
+
+	@Test
+	public void selenuimByRedis() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setSelenuimSetting(new Setting("config/selenuim.setting"));
+		JedisPool jedisPool = (JedisPool) ReflectUtil.getFieldValue(RedisDS.create(), "pool");
+		MySpider spider = MyCrawlerUtil.createSpider(jedisPool, site, myPage -> {
 			System.out.println(myPage.page().getHtml());
 		}).onDownloaded(site, page -> {
 			if (page.isDownloadSuccess()) {

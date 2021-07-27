@@ -1,0 +1,4 @@
+selenuimConfig = D:/chrome/selenuimConfig.ini
+chromeDriverPath = D:/chrome/chromedriver.exe
+thread = 1
+sleepTime = 2000

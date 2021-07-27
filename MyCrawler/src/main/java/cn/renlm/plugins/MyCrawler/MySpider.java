@@ -58,9 +58,9 @@ public class MySpider extends Spider {
 			};
 			downloader.setThread(thread);
 			downloader.setSleepTime(sleepTime);
-			this.downloader = downloader;
+			this.setDownloader(downloader);
 		} else {
-			this.downloader = new HttpClientDownloader() {
+			HttpClientDownloader downloader = new HttpClientDownloader() {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
@@ -68,6 +68,7 @@ public class MySpider extends Spider {
 					return pager;
 				}
 			};
+			this.setDownloader(downloader);
 		}
 		return this;
 	}
