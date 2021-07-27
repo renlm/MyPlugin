@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cn.hutool.setting.Setting;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +27,6 @@ class ChromeDriverPool {
 	private final static int STAT_RUNNING = 1;
 	private final static int STAT_CLODED = 2;
 
-	protected static DesiredCapabilities sCaps;
-
 	private AtomicInteger stat = new AtomicInteger(STAT_RUNNING);
 	private List<WebDriver> webDriverList = Collections.synchronizedList(new ArrayList<WebDriver>());
 	private BlockingDeque<WebDriver> innerQueue = new LinkedBlockingDeque<WebDriver>();
@@ -44,25 +41,21 @@ class ChromeDriverPool {
 	}
 
 	public void configure() throws IOException {
-		String driverPath = chromeSetting.getStr("driverPath"); // 驱动路径
-		String windowSize = chromeSetting.getStr("windowSize", "1415,1000"); // 窗口尺寸
-		Boolean takesScreenshot = chromeSetting.getBool("takesScreenshot", false); // 截屏支持
+		String driverPath = chromeSetting.getStr("driverPath");
+		String windowSize = chromeSetting.getStr("windowSize", "1415,1000");
 
-		ChromeOptions option = new ChromeOptions();
-		option.addArguments("disable-infobars");
-		option.addArguments("--no-sandbox");
-		option.addArguments("--disable-gpu");
-		option.addArguments("--disable-dev-shm-usage");
-		option.addArguments("--headless");
-		option.addArguments("--window-size=" + windowSize);
+		ChromeOptions options = new ChromeOptions();
+		options.setHeadless(true);
+		options.addArguments("disable-infobars");
+		options.addArguments("--no-sandbox");
+		options.addArguments("--disable-gpu");
+		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--window-size=" + windowSize);
 
-		DesiredCapabilities sCaps = new DesiredCapabilities();
-		sCaps.setJavascriptEnabled(true);
-		sCaps.setCapability(ChromeOptions.CAPABILITY, option);
-		sCaps.setCapability("takesScreenshot", takesScreenshot);
 		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
 
-		mDriver = new ChromeDriver(sCaps);
+		options.setHeadless(true);
+		mDriver = new ChromeDriver(options);
 	}
 
 	public WebDriver get() throws InterruptedException {

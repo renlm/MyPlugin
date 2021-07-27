@@ -25,7 +25,6 @@
 		<compile.version>8</compile.version>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-		<webmagic.version>0.7.5</webmagic.version>
 	</properties>
 
 	<dependencyManagement>
@@ -51,33 +50,19 @@
 			<dependency>
 				<groupId>us.codecraft</groupId>
 				<artifactId>webmagic-core</artifactId>
-				<version>${webmagic.version}</version>
+				<version>0.7.5</version>
 			</dependency>
 			<dependency>
 				<groupId>us.codecraft</groupId>
 				<artifactId>webmagic-extension</artifactId>
-				<version>${webmagic.version}</version>
+				<version>0.7.5</version>
 			</dependency>
 			<dependency>
-				<groupId>us.codecraft</groupId>
-				<artifactId>webmagic-selenium</artifactId>
-				<version>${webmagic.version}</version>
+				<groupId>org.seleniumhq.selenium</groupId>
+				<artifactId>selenium-chrome-driver</artifactId>
+				<version>3.141.59</version>
 			</dependency>
-			<dependency>
-				<groupId>us.codecraft</groupId>
-				<artifactId>webmagic-scripts</artifactId>
-				<version>${webmagic.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>us.codecraft</groupId>
-				<artifactId>webmagic-saxon</artifactId>
-				<version>${webmagic.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>us.codecraft</groupId>
-				<artifactId>webmagic-samples</artifactId>
-				<version>${webmagic.version}</version>
-			</dependency>
+
 
 			<dependency>
 				<groupId>redis.clients</groupId>
