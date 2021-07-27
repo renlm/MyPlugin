@@ -41,14 +41,11 @@ public class MySpider extends Spider {
 	 */
 	public MySpider onDownloaded(MySite site, Consumer<Page> page) {
 		if (ObjectUtil.isNotEmpty(site) && site.isEnableSelenuim() && ObjectUtil.isNotEmpty(site.getSelenuimSetting())
-				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("chromeDriverPath"))
-				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("selenuimConfig"))) {
+				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("config"))) {
 			Setting selenuim = site.getSelenuimSetting();
-			String chromeDriverPath = selenuim.getStr("chromeDriverPath");
-			System.setProperty("selenuim_config", selenuim.getStr("selenuimConfig"));
-			int thread = ObjectUtil.defaultIfNull(selenuim.getInt("thread"), 1);
+			System.setProperty("selenuim_config", selenuim.getStr("config"));
 			int sleepTime = ObjectUtil.defaultIfNull(selenuim.getInt("sleepTime"), 1000);
-			SeleniumDownloader downloader = new SeleniumDownloader(chromeDriverPath) {
+			SeleniumDownloader downloader = new SeleniumDownloader() {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
@@ -56,7 +53,6 @@ public class MySpider extends Spider {
 					return pager;
 				}
 			};
-			downloader.setThread(thread);
 			downloader.setSleepTime(sleepTime);
 			this.setDownloader(downloader);
 		} else {

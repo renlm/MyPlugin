@@ -1,2 +1,2 @@
-config=D:/chrome/selenuimConfig.ini
-sleepTime=2000
+config = G:\Work-MyPlugin\MyPlugin\MyCrawler\src\test\resources\phantomjs\config.ini
+sleepTime = 2000
