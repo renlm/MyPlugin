@@ -135,21 +135,29 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler
 		return SET_PREFIX + task.getUUID();
 	}
 
+	/**
+	 * 从已爬取Url列表移除
+	 * 
+	 * @param pool
+	 * @param task
+	 * @param url
+	 * @return
+	 */
+	public static final boolean removeFromSetKey(JedisPool pool, Task task, String url) {
+		Jedis jedis = pool.getResource();
+		try {
+			return jedis.srem(getSetKey(task), url) > 0;
+		} finally {
+			jedis.close();
+		}
+	}
+
 	protected static final String getQueueKey(Task task) {
 		return QUEUE_PREFIX + task.getUUID();
 	}
 
 	protected static final String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
-	}
-
-	public static final boolean removeFromItemKey(JedisPool pool, Task task, String url) {
-		Jedis jedis = pool.getResource();
-		try {
-			return jedis.srem(getItemKey(task), url) > 0;
-		} finally {
-			jedis.close();
-		}
 	}
 
 	protected static final String getVerifyKey(Task task) {
