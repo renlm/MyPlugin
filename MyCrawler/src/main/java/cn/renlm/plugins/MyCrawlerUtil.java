@@ -44,7 +44,7 @@ public class MyCrawlerUtil {
 	 */
 	public static final MySpider createSpider(MySite site, MyPageProcessor pageProcessor, MyPipeline... pipelines) {
 		MyQueueScheduler scheduler = new MyQueueScheduler();
-		MySpider mySpider = new MySpider(site, createPageProcessor(site, pageProcessor));
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(scheduler);
 		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline, scheduler));
@@ -64,7 +64,7 @@ public class MyCrawlerUtil {
 	public static final MySpider createSpider(JedisPool pool, MySite site, MyPageProcessor pageProcessor,
 			MyPipeline... pipelines) {
 		MyRedisScheduler scheduler = new MyRedisScheduler(pool);
-		MySpider mySpider = new MySpider(site, createPageProcessor(site, pageProcessor));
+		MySpider mySpider = new MySpider(createPageProcessor(site, pageProcessor));
 		mySpider.setScheduler(scheduler);
 		for (MyPipeline pipeline : pipelines) {
 			mySpider.addPipeline(createPipeline(site, pipeline, scheduler));

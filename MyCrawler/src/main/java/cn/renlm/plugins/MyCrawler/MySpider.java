@@ -24,36 +24,26 @@ import us.codecraft.webmagic.processor.PageProcessor;
 public class MySpider extends Spider {
 
 	/**
-	 * 站点配置
-	 */
-	MySite site;
-
-	/**
 	 * 构造函数
 	 * 
-	 * @param site
 	 * @param pageProcessor
 	 */
-	public MySpider(MySite site, PageProcessor pageProcessor) {
+	public MySpider(PageProcessor pageProcessor) {
 		super(pageProcessor);
-		this.site = site;
 	}
 
 	/**
 	 * 下载完成回调
 	 * 
+	 * @param site
 	 * @param page
 	 * @return
 	 */
-	public MySpider onDownloaded(Consumer<Page> page) {
-		if (ObjectUtil.isNotEmpty(this.downloader)) {
-			return this;
-		}
-		if (ObjectUtil.isNotEmpty(this.site) && this.site.isEnableSelenuim()
-				&& ObjectUtil.isNotEmpty(this.site.getSelenuimSetting())
-				&& StrUtil.isNotBlank(this.site.getSelenuimSetting().getStr("chromeDriverPath"))
-				&& StrUtil.isNotBlank(this.site.getSelenuimSetting().getStr("selenuimConfig"))) {
-			Setting selenuim = this.site.getSelenuimSetting();
+	public MySpider onDownloaded(MySite site, Consumer<Page> page) {
+		if (ObjectUtil.isNotEmpty(site) && site.isEnableSelenuim() && ObjectUtil.isNotEmpty(site.getSelenuimSetting())
+				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("chromeDriverPath"))
+				&& StrUtil.isNotBlank(site.getSelenuimSetting().getStr("selenuimConfig"))) {
+			Setting selenuim = site.getSelenuimSetting();
 			String chromeDriverPath = selenuim.getStr("chromeDriverPath");
 			System.setProperty("selenuim_config", selenuim.getStr("selenuimConfig"));
 			int thread = ObjectUtil.defaultIfNull(selenuim.getInt("thread"), 1);

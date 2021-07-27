@@ -62,8 +62,6 @@ public class MyCrawlerTest {
 				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
 				Console.log(resultItems);
 			}
-		}).onDownloaded(page -> {
-			Console.log(page.getStatusCode());
 		});
 		spider.addUrl("https://book.qidian.com");
 		spider.run();
@@ -82,7 +80,7 @@ public class MyCrawlerTest {
 		site.getSelenuimSetting().put("sleepTime", "5000");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			System.out.println(myPage.page().getHtml());
-		}).onDownloaded(page -> {
+		}).onDownloaded(site, page -> {
 			if (page.isDownloadSuccess()) {
 				log.debug("{} download success.", page.getUrl());
 			} else {
