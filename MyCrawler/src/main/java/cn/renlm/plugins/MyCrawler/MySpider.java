@@ -1,5 +1,6 @@
 package cn.renlm.plugins.MyCrawler;
 
+import java.io.IOException;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
@@ -45,6 +46,14 @@ public class MySpider extends Spider {
 					Page pager = super.download(request, task);
 					page.accept(pager);
 					return pager;
+				}
+
+				@Override
+				public void close() {
+					try {
+						super.close();
+					} catch (IOException e) {
+					}
 				}
 			};
 			this.setDownloader(downloader);
