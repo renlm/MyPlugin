@@ -130,19 +130,19 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 		}
 	}
 
-	protected String getSetKey(Task task) {
+	protected static final String getSetKey(Task task) {
 		return SET_PREFIX + task.getUUID();
 	}
 
-	protected String getQueueKey(Task task) {
+	protected static final String getQueueKey(Task task) {
 		return QUEUE_PREFIX + task.getUUID();
 	}
 
-	protected String getItemKey(Task task) {
+	protected static final String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
 	}
 
-	protected String getVerifyKey(Task task) {
+	protected static final String getVerifyKey(Task task) {
 		return VERIFY_PREFIX + task.getUUID();
 	}
 
