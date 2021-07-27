@@ -14,13 +14,10 @@ import us.codecraft.webmagic.scheduler.RedisPriorityScheduler;
  */
 public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplicateVerify {
 
-	JedisPool pool;
-
 	private static final String VERIFY_PREFIX = "verify_";
 
-	public MyRedisScheduler(JedisPool pool) {
-		super(pool);
-		this.pool = pool;
+	public MyRedisScheduler(JedisPool jedisPool) {
+		super(jedisPool);
 	}
 
 	private String getVerifyKey(Task task) {
