@@ -60,7 +60,7 @@ class ChromeDriverPool {
 		sCaps.setJavascriptEnabled(true);
 		sCaps.setCapability(ChromeOptions.CAPABILITY, option);
 		sCaps.setCapability("takesScreenshot", takesScreenshot);
-		sCaps.setCapability(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
+		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
 
 		mDriver = new ChromeDriver(sCaps);
 	}

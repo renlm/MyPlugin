@@ -1,2 +1,2 @@
-config = D:/chrome/chromedriver.exe
+driverPath = D:/chrome/chromedriver.exe
 sleepTime = 2500
