@@ -1,11 +1,9 @@
 package cn.renlm.plugins.MyCrawler;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
@@ -56,13 +54,6 @@ public class MySpider extends Spider {
 					Page pager = super.download(request, task);
 					page.accept(pager);
 					return pager;
-				}
-
-				@Override
-				public void close() throws IOException {
-					if (ObjectUtil.isNotEmpty(ReflectUtil.getFieldValue(this, "webDriverPool"))) {
-						super.close();
-					}
 				}
 			};
 			downloader.setThread(thread);
