@@ -1,5 +1,15 @@
 package us.codecraft.webmagic.downloader.selenium;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -12,24 +22,10 @@ import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
-
 /**
- * 浏览器驱动池
- * 
- * @author Renlm
- *
+ * @author code4crafter@gmail.com <br>
+ *         Date: 13-7-26 <br>
+ *         Time: 下午1:41 <br>
  */
 class MyWebDriverPool {
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -48,7 +44,7 @@ class MyWebDriverPool {
 	 * new fields for configuring phantomJS
 	 */
 	private WebDriver mDriver = null;
-	boolean mAutoQuitDriver = true;
+	// private boolean mAutoQuitDriver = true;
 
 	private static final String DEFAULT_CONFIG_FILE = "/data/webmagic/webmagic-selenium/config.ini";
 	private static final String DRIVER_FIREFOX = "firefox";
@@ -104,11 +100,6 @@ class MyWebDriverPool {
 			} else {
 				System.out
 						.println("Test will use PhantomJS internal GhostDriver");
-			}
-			if (StrUtil.isNotBlank(sConfig.getProperty("localToRemoteUrlAccessEnabled"))) {
-				sCaps.setCapability(
-						PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX + "localToRemoteUrlAccessEnabled",
-						Convert.toBool(sConfig.getProperty("localToRemoteUrlAccessEnabled")));
 			}
 		}
 
