@@ -19,7 +19,8 @@ import us.codecraft.webmagic.scheduler.component.DuplicateRemover;
  * @author Renlm
  *
  */
-public class MyRedisScheduler extends DuplicateRemovedScheduler implements MonitorableScheduler, DuplicateRemover, MyDuplicateVerify {
+public class MyRedisScheduler extends DuplicateRemovedScheduler
+		implements MonitorableScheduler, DuplicateRemover, MyDuplicateVerify {
 
 	protected JedisPool pool;
 
@@ -74,7 +75,7 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 			if (checkForAdditionalInfo(request)) {
 				String field = DigestUtils.sha1Hex(request.getUrl());
 				String value = JSON.toJSONString(request);
-				jedis.hset((ITEM_PREFIX + task.getUUID()), field, value);
+				jedis.hset(getItemKey(task), field, value);
 			}
 		} finally {
 			jedis.close();
@@ -116,7 +117,7 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 			if (url == null) {
 				return null;
 			}
-			String key = ITEM_PREFIX + task.getUUID();
+			String key = getItemKey(task);
 			String field = DigestUtils.sha1Hex(url);
 			byte[] bytes = jedis.hget(key.getBytes(), field.getBytes());
 			if (bytes != null) {
@@ -140,6 +141,15 @@ public class MyRedisScheduler extends DuplicateRemovedScheduler implements Monit
 
 	protected static final String getItemKey(Task task) {
 		return ITEM_PREFIX + task.getUUID();
+	}
+
+	public static final boolean removeFromItemKey(JedisPool pool, Task task, String url) {
+		Jedis jedis = pool.getResource();
+		try {
+			return jedis.srem(getItemKey(task), url) > 0;
+		} finally {
+			jedis.close();
+		}
 	}
 
 	protected static final String getVerifyKey(Task task) {
