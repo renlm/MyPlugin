@@ -1,11 +1,21 @@
 package us.codecraft.webmagic.downloader.selenium;
 
+import java.io.IOException;
+
 /**
  * 浏览器驱动池
  * 
  * @author Renlm
  *
  */
-public class MyWebDriverPool extends WebDriverPool {
+class MyWebDriverPool extends WebDriverPool {
 
+	public MyWebDriverPool(int capacity) {
+		super(capacity);
+	}
+
+	@Override
+	public void configure() throws IOException {
+		super.configure();
+	}
 }
