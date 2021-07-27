@@ -45,7 +45,7 @@ class MyWebDriverPool extends WebDriverPool {
 	 * new fields for configuring phantomJS
 	 */
 	private WebDriver mDriver = null;
-	private boolean mAutoQuitDriver = true;
+	boolean mAutoQuitDriver = true;
 
 	private static final String DEFAULT_CONFIG_FILE = "/data/webmagic/webmagic-selenium/config.ini";
 	private static final String DRIVER_FIREFOX = "firefox";
