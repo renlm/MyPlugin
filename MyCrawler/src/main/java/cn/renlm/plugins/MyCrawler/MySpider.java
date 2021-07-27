@@ -12,7 +12,7 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
-import us.codecraft.webmagic.downloader.selenium.SeleniumDownloader;
+import us.codecraft.webmagic.downloader.selenium.MySeleniumDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
@@ -45,7 +45,7 @@ public class MySpider extends Spider {
 			Setting selenuim = site.getSelenuimSetting();
 			System.setProperty("selenuim_config", selenuim.getStr("config"));
 			int sleepTime = ObjectUtil.defaultIfNull(selenuim.getInt("sleepTime"), 1000);
-			SeleniumDownloader downloader = new SeleniumDownloader() {
+			MySeleniumDownloader downloader = new MySeleniumDownloader(sleepTime) {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
@@ -53,7 +53,6 @@ public class MySpider extends Spider {
 					return pager;
 				}
 			};
-			downloader.setSleepTime(sleepTime);
 			this.setDownloader(downloader);
 		} else {
 			HttpClientDownloader downloader = new HttpClientDownloader() {
