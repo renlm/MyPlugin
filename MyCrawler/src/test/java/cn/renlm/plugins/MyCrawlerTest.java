@@ -11,6 +11,7 @@ import cn.hutool.http.HtmlUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
+import cn.renlm.plugins.MyCrawler.scheduler.MyRedisScheduler;
 import cn.renlm.plugins.MyUtil.MyFontDecryptUtil;
 import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.JedisPool;
@@ -102,6 +103,8 @@ public class MyCrawlerTest {
 		JedisPool jedisPool = (JedisPool) ReflectUtil.getFieldValue(RedisDS.create(), "pool");
 		MySpider spider = MyCrawlerUtil.createSpider(jedisPool, site, myPage -> {
 			System.out.println(myPage.page().getHtml());
+		}, myData -> {
+			MyRedisScheduler.removeFromSetKey(jedisPool, myData.task(), myData.resultItems().getRequest().getUrl());
 		}).onDownloaded(site, page -> {
 			if (page.isDownloadSuccess()) {
 				log.debug("{} download success.", page.getUrl());
