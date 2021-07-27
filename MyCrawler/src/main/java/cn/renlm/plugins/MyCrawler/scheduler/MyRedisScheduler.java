@@ -24,6 +24,15 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 		return VERIFY_PREFIX + task.getUUID();
 	}
 
+	public boolean removeFromSetKey(Request request, Task task) {
+		Jedis jedis = pool.getResource();
+		try {
+			return jedis.srem(getSetKey(task), request.getUrl()) > 0;
+		} finally {
+			jedis.close();
+		}
+	}
+
 	@Override
 	public boolean verifyDuplicate(Request request, Task task) {
 		try (Jedis jedis = pool.getResource()) {
