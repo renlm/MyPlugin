@@ -1,6 +1,6 @@
 package cn.renlm.plugins.MyCrawler.scheduler;
 
-import cn.hutool.core.util.ObjectUtil;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Task;
@@ -16,13 +16,21 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 
 	JedisPool pool;
 
+	private static final String VERIFY_PREFIX = "verify_";
+
 	public MyRedisScheduler(JedisPool pool) {
 		super(pool);
 		this.pool = pool;
 	}
 
+	private String getVerifyKey(Task task) {
+		return VERIFY_PREFIX + task.getUUID();
+	}
+
 	@Override
 	public boolean verifyDuplicate(Request request, Task task) {
-		return ObjectUtil.isNull(this.pool.getResource().zrank(getSetKey(task), request.getUrl()));
+		try (Jedis jedis = pool.getResource()) {
+			return jedis.sadd(getVerifyKey(task), request.getUrl()) == 0;
+		}
 	}
 }
