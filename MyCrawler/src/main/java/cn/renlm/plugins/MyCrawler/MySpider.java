@@ -6,13 +6,13 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
+import cn.renlm.plugins.MyCrawler.selenium.ChromeDownloader;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.SpiderListener;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
-import us.codecraft.webmagic.downloader.selenium.MySeleniumDownloader;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 /**
@@ -45,7 +45,7 @@ public class MySpider extends Spider {
 			Setting selenuim = site.getSelenuimSetting();
 			System.setProperty("selenuim_config", selenuim.getStr("config"));
 			int sleepTime = ObjectUtil.defaultIfNull(selenuim.getInt("sleepTime"), 1000);
-			MySeleniumDownloader downloader = new MySeleniumDownloader(sleepTime) {
+			ChromeDownloader downloader = new ChromeDownloader(sleepTime) {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);

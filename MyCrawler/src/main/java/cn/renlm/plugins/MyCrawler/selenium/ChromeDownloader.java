@@ -1,4 +1,4 @@
-package us.codecraft.webmagic.downloader.selenium;
+package cn.renlm.plugins.MyCrawler.selenium;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -24,9 +24,9 @@ import us.codecraft.webmagic.selector.PlainText;
  * @author Renlm
  *
  */
-public class MySeleniumDownloader implements Downloader, Closeable {
+public class ChromeDownloader implements Downloader, Closeable {
 
-	private volatile MyWebDriverPool webDriverPool;
+	private volatile ChromeDriverPool webDriverPool;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -34,7 +34,7 @@ public class MySeleniumDownloader implements Downloader, Closeable {
 
 	private int poolSize = 1;
 
-	public MySeleniumDownloader(int sleepTime) {
+	public ChromeDownloader(int sleepTime) {
 		this.sleepTime = sleepTime;
 	}
 
@@ -78,7 +78,7 @@ public class MySeleniumDownloader implements Downloader, Closeable {
 		if (webDriverPool == null) {
 			synchronized (this) {
 				if (webDriverPool == null) {
-					webDriverPool = new MyWebDriverPool(poolSize);
+					webDriverPool = new ChromeDriverPool(poolSize);
 				}
 			}
 		}
