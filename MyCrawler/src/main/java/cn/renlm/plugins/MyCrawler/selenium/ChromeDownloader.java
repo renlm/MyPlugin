@@ -41,11 +41,12 @@ public class ChromeDownloader implements Downloader, Closeable {
 	public ChromeDownloader(Setting chromeSetting) {
 		this.chromeSetting = chromeSetting;
 		this.sleepTime = ObjectUtil.defaultIfNull(chromeSetting.getInt("sleepTime"), 1000);
+		this.checkInit();
 	}
 
 	@Override
 	public Page download(Request request, Task task) {
-		checkInit();
+		this.checkInit();
 		WebDriver webDriver;
 		try {
 			webDriver = webDriverPool.get();
@@ -82,9 +83,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 	private void checkInit() {
 		if (webDriverPool == null) {
 			synchronized (this) {
-				if (webDriverPool == null) {
-					webDriverPool = new ChromeDriverPool(chromeSetting, poolSize);
-				}
+				webDriverPool = new ChromeDriverPool(chromeSetting, poolSize);
 			}
 		}
 	}
