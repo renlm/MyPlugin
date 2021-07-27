@@ -71,9 +71,32 @@ public class MyCrawlerTest {
 		site.setEnableSelenuim(true);
 		site.setChromeSetting(new Setting("config/chrome.setting"));
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
-			System.out.println(myPage.page().getHtml());
+			Page page = myPage.page();
+			Html html = page.getHtml();
+			System.out.println("公告名称：" + html.xpath("//div[@class='wzy_title']/text()").get());
+			System.out.println("发布日期：" + html.xpath("//div[@class='time']/[contains(text(),发布日期)]/text()").get());
+			System.out.println("交易中心：" + html.xpath("//div[@class='sourse']/[contains(text(),来源)]/text()").get());
+			System.out.println("交易中心-联 系 人："
+					+ html.xpath("//div[@class='gg']/font/table[2]/tbody/tr[1]/td[2]/div/u/text()").get());
+			System.out.println(
+					"交易中心-电  话：" + html.xpath("//div[@class='gg']/font/table[2]/tbody/tr[2]/td[2]/u/text()").get());
+			System.out.println(
+					"项目概况：" + html.xpath("//div[@class='gg']/font/p[2]/u/[contains(text(),项目地址)]/text()").get());
+			System.out.println("项目名称：" + html.xpath("//div[@class='gg']/font/p[1]/u[1]/text()").get());
+			System.out.println(
+					"招 标 人：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[1]/td[2]/u/text()").get());
+			System.out.println(
+					"招 标 人-联 系 人：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[2]/td[2]/u/text()").get());
+			System.out.println(
+					"招 标 人-电    话：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[3]/td[2]/u/text()").get());
+			System.out.println(
+					"招标代理机构：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[1]/td[5]/u/text()").get());
+			System.out.println(
+					"招标代理机构-联 系 人：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[2]/td[5]/u/text()").get());
+			System.out.println(
+					"招标代理机构-电    话：" + html.xpath("//div[@class='gg']/font/table[1]/tbody/tr[3]/td[5]/u/text()").get());
 		});
-		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html?i=1&v=1627317850851");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/202106/t20210630_68875084.html");
 		spider.run();
 	}
 }
