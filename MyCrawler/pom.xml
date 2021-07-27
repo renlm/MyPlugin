@@ -29,11 +29,26 @@
 		</dependency>
 		<dependency>
 			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-extension</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-selenium</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>us.codecraft</groupId>
-			<artifactId>webmagic-extension</artifactId>
+			<artifactId>webmagic-scripts</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-saxon</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-samples</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
