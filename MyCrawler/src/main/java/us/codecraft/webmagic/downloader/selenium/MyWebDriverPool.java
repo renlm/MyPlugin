@@ -22,13 +22,16 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+
 /**
  * 浏览器驱动池
  * 
  * @author Renlm
  *
  */
-class MyWebDriverPool extends WebDriverPool {
+class MyWebDriverPool {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final static int DEFAULT_CAPACITY = 5;
@@ -101,6 +104,11 @@ class MyWebDriverPool extends WebDriverPool {
 			} else {
 				System.out
 						.println("Test will use PhantomJS internal GhostDriver");
+			}
+			if (StrUtil.isNotBlank(sConfig.getProperty("localToRemoteUrlAccessEnabled"))) {
+				sCaps.setCapability(
+						PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX + "localToRemoteUrlAccessEnabled",
+						Convert.toBool(sConfig.getProperty("localToRemoteUrlAccessEnabled")));
 			}
 		}
 
