@@ -1,8 +1,12 @@
 package cn.renlm.plugins;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.fontbox.ttf.CmapLookup;
 import org.junit.Test;
 
+import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.http.HtmlUtil;
@@ -72,10 +76,34 @@ public class MyCrawlerTest {
 		site.setChromeSetting(new Setting("config/chrome.setting"));
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
+			String regex1 = ResourceUtil.readUtf8Str("regex1.txt");
+			List<String> urls = page.getHtml().links().all();
+			List<String> urls2 = page.getHtml().links().regex(regex1, 0).all().stream().distinct()
+					.collect(Collectors.toList());
+			urls.forEach(url -> {
+				System.err.println(url);
+			});
+			urls2.forEach(url -> {
+				System.out.println(url);
+			});
+			System.out.println(page.getHtml());
+		});
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html");
+		spider.run();
+	}
+
+	@Test
+	public void selenuimByRedis2() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setChromeSetting(new Setting("config/chrome.setting"));
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
 			Html html = page.getHtml();
 			System.out.println("公告名称：" + html.xpath("//div[@class='wzy_title']/text()").get());
 			System.out.println("发布日期：" + html.xpath("//div[@class='time']/[contains(text(),发布日期)]/text()").get());
-			System.out.println("交易中心：" + html.xpath("//div[@class='sourse']/[contains(text(),来源)]/text()").get().substring(4));
+			System.out.println(
+					"交易中心：" + html.xpath("//div[@class='sourse']/[contains(text(),来源)]/text()").get().substring(4));
 			System.out.println("交易中心-联 系 人："
 					+ html.xpath("//div[@class='gg']/font/table[2]/tbody/tr[1]/td[2]/div/u/text()").get());
 			System.out.println(
