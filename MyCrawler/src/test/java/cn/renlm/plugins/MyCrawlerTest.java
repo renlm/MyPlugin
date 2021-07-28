@@ -75,7 +75,7 @@ public class MyCrawlerTest {
 			Html html = page.getHtml();
 			System.out.println("公告名称：" + html.xpath("//div[@class='wzy_title']/text()").get());
 			System.out.println("发布日期：" + html.xpath("//div[@class='time']/[contains(text(),发布日期)]/text()").get());
-			System.out.println("交易中心：" + html.xpath("//div[@class='sourse']/[contains(text(),来源)]/text()").get());
+			System.out.println("交易中心：" + html.xpath("//div[@class='sourse']/[contains(text(),来源)]/text()").get().substring(4));
 			System.out.println("交易中心-联 系 人："
 					+ html.xpath("//div[@class='gg']/font/table[2]/tbody/tr[1]/td[2]/div/u/text()").get());
 			System.out.println(
