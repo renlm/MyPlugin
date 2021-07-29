@@ -28,7 +28,7 @@ public class MySite extends Site {
 	/**
 	 * 无效参数名（多个逗号分隔，去除无效参数，减少重复请求）
 	 */
-	private int invalidParamNames;
+	private String invalidParamNames;
 
 	/**
 	 * 是否启用浏览器模式
