@@ -2,6 +2,7 @@ package cn.renlm.plugins.MyCrawler.scheduler;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.renlm.plugins.MyCrawler.PageUrlType;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -30,7 +31,8 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 	@Override
 	public boolean verifyDuplicate(Request request, Task task) {
 		String url = request.getUrl();
-		Integer pageUrlType = request.getExtra(PageUrlType.extraKey);
+		Integer pageUrlType = ObjectUtil.defaultIfNull(request.getExtra(PageUrlType.extraKey),
+				PageUrlType.unknown.value());
 		try (Jedis jedis = pool.getResource()) {
 			String cacheKey = Base64.encode(url);
 			if (NumberUtil.equals(pageUrlType, PageUrlType.seed.value())) {
