@@ -22,7 +22,7 @@ public enum PageUrlType implements IntToEnum.IntValue {
 
 	seed(0, "种子"), data(1, "数据"), unknown(-1, "未知");
 
-	public static final String extraKey = "PageUrlTypeExtra";
+	public static final String extraKey = "_PageUrlTypeExtra_";
 
 	private final int type;
 
