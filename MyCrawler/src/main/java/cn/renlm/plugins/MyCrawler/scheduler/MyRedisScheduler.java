@@ -25,13 +25,6 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 	}
 
 	@Override
-	public boolean isDuplicate(Request request, Task task) {
-		try (Jedis jedis = pool.getResource()) {
-			return super.isDuplicate(request, task);
-		}
-	}
-
-	@Override
 	public boolean verifyDuplicate(Request request, Task task) {
 		try (Jedis jedis = pool.getResource()) {
 			return jedis.sadd(getVerifyKey(task), request.getUrl()) == 0;
