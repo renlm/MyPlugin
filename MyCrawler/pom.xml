@@ -32,6 +32,10 @@
 			<artifactId>webmagic-extension</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>us.codecraft</groupId>
+			<artifactId>webmagic-saxon</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
 		</dependency>
