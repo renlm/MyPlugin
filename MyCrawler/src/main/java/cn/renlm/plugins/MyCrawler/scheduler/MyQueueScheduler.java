@@ -17,7 +17,7 @@ public class MyQueueScheduler extends QueueScheduler implements MyDuplicateVerif
 	private DuplicateRemover verifyDuplicate = new HashSetDuplicateRemover();
 
 	@Override
-	public boolean verifyDuplicate(Request request, Task task) {
+	public boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task) {
 		return verifyDuplicate.isDuplicate(request, task);
 	}
 }

@@ -29,7 +29,7 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 	}
 
 	@Override
-	public boolean verifyDuplicate(Request request, Task task) {
+	public boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task) {
 		String url = request.getUrl();
 		Integer pageUrlType = ObjectUtil.defaultIfNull(request.getExtra(PageUrlType.extraKey),
 				PageUrlType.unknown.value());
