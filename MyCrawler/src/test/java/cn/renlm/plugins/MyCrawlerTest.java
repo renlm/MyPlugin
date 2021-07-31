@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.http.HtmlUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
@@ -59,13 +60,43 @@ public class MyCrawlerTest {
 	}
 
 	@Test
-	public void fetchField() {
+	public void fetchPrice() {
 		MySite site = MySite.me();
+		site.setSleepTime(0);
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
+			String field = html.xpath(
+					"//font[@id='Zoom']/p//regex('<font[^>]*?>[^>]*?([\\u4e00-\\u9fa5]*投资：(\\w|[\\u4e00-\\u9fa5])+元)[^<]*?</font>',1)")
+					.get();
+			String field1 = html.xpath(
+					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?投标价[^<]*?)</font></span><b[^>]*?><span[^>]*?>(<font[^>]*?>(.*?)</font>)+</span></b></p>',1)")
+					.get();
+			String field2 = html.xpath(
+					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?投标价[^<]*?)</font></span><b[^>]*?><span[^>]*?>((<font[^>]*?>(.*?)</font>)+)</span></b></p>',2)")
+					.get();
+			System.out.println("====== " + field);
+			System.out.println("====== " + field1);
+			System.out.println("====== " + HtmlUtil.unwrapHtmlTag(field2, "font"));
+		});
+		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
+		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
+		spider.run();
+	}
+
+	@Test
+	public void fetchDuration() {
+		MySite site = MySite.me();
+		site.setSleepTime(0);
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
+			Html html = page.getHtml();
+			String field = html.xpath(
+					"//font[@id='Zoom']/p//regex('<font[^>]*?>[^>]*?([\\u4e00-\\u9fa5]*工期：\\d+日历天)[^<]*?</font>',1)")
+					.get();
 			String field1 = html.xpath("//font[@id='Zoom']/p//regex('<font[^>]*?>([^>]*?工期[^<]*?)</font>',1)").get();
 			String field2 = html.xpath("//font[@id='Zoom']/p//regex('<font[^>]*?>([^>]*?日历天[^<]*?)</font>',1)").get();
+			System.out.println("====== " + field);
 			System.out.println("====== " + field1);
 			System.out.println("====== " + field2);
 		});
