@@ -18,7 +18,8 @@ import us.codecraft.webmagic.Page;
  *
  */
 public class MyCrawlerTest {
-	String regex = ResourceUtil.readUtf8Str("regex.txt");
+	String seedUrlRegex = ResourceUtil.readUtf8Str("seedUrl.regex");
+	String dataUrlRegex = ResourceUtil.readUtf8Str("dataUrl.regex");
 	Setting chromeSetting = new Setting("config/chrome.setting");
 
 	@Test
@@ -29,17 +30,20 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			List<String> urls = page.getHtml().links().all();
-			List<String> urls2 = page.getHtml().links().regex(regex, 0).all().stream().distinct()
+			List<String> urls2 = page.getHtml().links().regex(seedUrlRegex, 0).all().stream().distinct()
 					.collect(Collectors.toList());
-			System.out.println("===========================");
+			System.out.println();
+			System.out.println();
 			urls.forEach(url -> {
-				System.out.println("AllUrl: " + url);
+				System.out.println("++++++ " + url);
 			});
-			System.out.println("===========================");
+			System.out.println();
+			System.out.println();
 			urls2.forEach(url -> {
-				System.out.println("RegexUrl: " + url);
+				System.out.println("====== " + url);
 			});
-			System.out.println("===========================");
+			System.out.println();
+			System.out.println();
 		});
 		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html?i=9");
 		spider.run();
