@@ -69,6 +69,7 @@ public class MyCrawlerTest {
 			System.out.println("====== " + field1);
 			System.out.println("====== " + field2);
 		});
+		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
 		spider.run();
 	}
