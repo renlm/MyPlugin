@@ -1,2 +1,2 @@
-driverPath = D:/chrome/chromedriver.exe
+driverPath = G:/Work-MyPlugin/MyPlugin/MyCrawler/src/test/resources/config/chromedriver.exe
 sleepTime = 2500
