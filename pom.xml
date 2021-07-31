@@ -58,11 +58,6 @@
 				<version>0.7.5</version>
 			</dependency>
 			<dependency>
-				<groupId>us.codecraft</groupId>
-				<artifactId>webmagic-saxon</artifactId>
-				<version>0.7.5</version>
-			</dependency>
-			<dependency>
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-chrome-driver</artifactId>
 				<version>3.141.59</version>
