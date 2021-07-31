@@ -76,8 +76,7 @@ public class MyCrawlerTest {
 					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?投标价[^<]*?)</font></span><b[^>]*?><span[^>]*?>((<font[^>]*?>(.*?)</font>)+)</span></b></p>',2)")
 					.get();
 			System.out.println("====== " + field);
-			System.out.println("====== " + field1);
-			System.out.println("====== " + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			System.out.println("====== " + field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
 		});
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
@@ -94,11 +93,14 @@ public class MyCrawlerTest {
 			String field = html.xpath(
 					"//font[@id='Zoom']/p//regex('<font[^>]*?>[^>]*?([\\u4e00-\\u9fa5]*工期：\\d+日历天)[^<]*?</font>',1)")
 					.get();
-			String field1 = html.xpath("//font[@id='Zoom']/p//regex('<font[^>]*?>([^>]*?工期[^<]*?)</font>',1)").get();
-			String field2 = html.xpath("//font[@id='Zoom']/p//regex('<font[^>]*?>([^>]*?日历天[^<]*?)</font>',1)").get();
+			String field1 = html.xpath(
+					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?工期[^<]*?)</font></span><span[^>]*?><font[^>]*?>.*?</font></span><b[^>]*?><span[^>]*?>(<font[^>]*?>(.*?)</font>)+</span></b></p>',1)")
+					.get();
+			String field2 = html.xpath(
+					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?工期[^<]*?)</font></span><span[^>]*?><font[^>]*?>.*?</font></span><b[^>]*?><span[^>]*?>(<font[^>]*?>(.*?)</font>)+</span></b></p>',2)")
+					.get();
 			System.out.println("====== " + field);
-			System.out.println("====== " + field1);
-			System.out.println("====== " + field2);
+			System.out.println("====== " + field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
 		});
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
