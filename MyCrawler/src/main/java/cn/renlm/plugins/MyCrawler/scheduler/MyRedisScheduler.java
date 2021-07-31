@@ -1,6 +1,7 @@
 package cn.renlm.plugins.MyCrawler.scheduler;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.renlm.plugins.MyCrawler.PageUrlType;
@@ -37,13 +38,21 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 			String cacheKey = Base64.encode(url);
 			if (NumberUtil.equals(pageUrlType, PageUrlType.seed.value())) {
 				boolean duplicate = jedis.exists(cacheKey);
-				if (!duplicate) {
+				if (BooleanUtil.isTrue(forceUpdate) || !duplicate) {
 					jedis.srem(getSetKey(task), url);
 					jedis.setex(cacheKey, 60 * 60 * 21, url);
 				}
+				if (BooleanUtil.isTrue(forceUpdate)) {
+					return false;
+				}
 				return duplicate;
 			} else {
-				return jedis.sadd(getVerifyKey(task), url) == 0;
+				boolean duplicate = jedis.sadd(getVerifyKey(task), url) == 0;
+				if (BooleanUtil.isTrue(forceUpdate)) {
+					jedis.srem(getSetKey(task), url);
+					return false;
+				}
+				return duplicate;
 			}
 		}
 	}
