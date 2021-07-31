@@ -14,10 +14,11 @@ public interface MyDuplicateVerify {
 	/**
 	 * 预确认是否重复
 	 * 
+	 * @param forceUpdate
 	 * @param request
 	 * @param task
 	 * @return
 	 */
-	boolean verifyDuplicate(Request request, Task task);
+	boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task);
 
 }
