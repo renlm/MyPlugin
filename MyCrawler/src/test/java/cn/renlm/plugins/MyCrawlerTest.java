@@ -11,6 +11,7 @@ import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyCrawler.PageUrlType;
 import us.codecraft.webmagic.Page;
+import us.codecraft.webmagic.selector.Html;
 
 /**
  * 爬虫测试
@@ -54,6 +55,19 @@ public class MyCrawlerTest {
 			System.out.println();
 		});
 		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html?i=9");
+		spider.run();
+	}
+
+	@Test
+	public void fetchField() {
+		MySite site = MySite.me();
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
+			Html html = page.getHtml();
+			String field = html.xpath("//div[@class='content']//font//[contains(text(),投标价)]//text()").get();
+			System.out.println("====== " + field);
+		});
+		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356785.html");
 		spider.run();
 	}
 }
