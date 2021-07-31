@@ -9,6 +9,7 @@ import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
+import cn.renlm.plugins.MyCrawler.PageUrlType;
 import us.codecraft.webmagic.Page;
 
 /**
@@ -41,6 +42,7 @@ public class MyCrawlerTest {
 					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(seedUrlRegex, 0).all()));
 			seedUrls.forEach(url -> {
 				System.out.println("====== SeedUrl: " + url);
+				System.out.println("====== SeedStandardUrl: " + PageUrlType.standardUrl(url, "v"));
 			});
 			System.out.println();
 			System.out.println();
@@ -48,6 +50,7 @@ public class MyCrawlerTest {
 					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(dataUrlRegex, 0).all()));
 			dataUrls.forEach(url -> {
 				System.out.println("****** DataUrl: " + url);
+				System.out.println("****** DataStandardUrl: " + PageUrlType.standardUrl(url, "v"));
 			});
 			System.out.println();
 			System.out.println();
