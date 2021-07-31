@@ -49,6 +49,7 @@ public enum PageUrlType implements IntToEnum.IntValue {
 	 */
 	public static final String standardUrl(String url, String invalidParamNames) {
 		String fixedUrl = UrlUtils.fixIllegalCharacterInUrl(url);
+		fixedUrl = fixedUrl.replaceAll("#.*$", StrUtil.EMPTY);
 		if (StrUtil.isBlank(fixedUrl)) {
 			return null;
 		}
