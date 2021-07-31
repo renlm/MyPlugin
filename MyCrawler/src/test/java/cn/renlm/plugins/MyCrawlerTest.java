@@ -1,10 +1,10 @@
 package cn.renlm.plugins;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
@@ -29,23 +29,23 @@ public class MyCrawlerTest {
 		site.setChromeSetting(chromeSetting);
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
-			List<String> urls = page.getHtml().links().all();
-			List<String> seedUrls = page.getHtml().links().regex(seedUrlRegex, 0).all().stream().distinct()
-					.collect(Collectors.toList());
-			List<String> dataUrls = page.getHtml().links().regex(dataUrlRegex, 0).all().stream().distinct()
-					.collect(Collectors.toList());
 			System.out.println();
 			System.out.println();
-			urls.forEach(url -> {
+			List<String> allUrls = CollUtil.removeBlank(CollUtil.distinct(page.getHtml().links().all()));
+			allUrls.forEach(url -> {
 				System.out.println("++++++ AllUrl: " + url);
 			});
 			System.out.println();
 			System.out.println();
+			List<String> seedUrls = CollUtil
+					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(seedUrlRegex, 0).all()));
 			seedUrls.forEach(url -> {
 				System.out.println("====== SeedUrl: " + url);
 			});
 			System.out.println();
 			System.out.println();
+			List<String> dataUrls = CollUtil
+					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(dataUrlRegex, 0).all()));
 			dataUrls.forEach(url -> {
 				System.out.println("****** DataUrl: " + url);
 			});
