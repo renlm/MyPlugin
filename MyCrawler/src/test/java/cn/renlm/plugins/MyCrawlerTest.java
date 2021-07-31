@@ -23,7 +23,7 @@ public class MyCrawlerTest {
 	Setting chromeSetting = new Setting("config/chrome.setting");
 
 	@Test
-	public void seedTest() {
+	public void urlRegex() {
 		MySite site = MySite.me();
 		site.setEnableSelenuim(true);
 		site.setChromeSetting(chromeSetting);
