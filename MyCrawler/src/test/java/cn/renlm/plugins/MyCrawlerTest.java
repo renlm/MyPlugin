@@ -30,17 +30,24 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			List<String> urls = page.getHtml().links().all();
-			List<String> urls2 = page.getHtml().links().regex(seedUrlRegex, 0).all().stream().distinct()
+			List<String> seedUrls = page.getHtml().links().regex(seedUrlRegex, 0).all().stream().distinct()
+					.collect(Collectors.toList());
+			List<String> dataUrls = page.getHtml().links().regex(dataUrlRegex, 0).all().stream().distinct()
 					.collect(Collectors.toList());
 			System.out.println();
 			System.out.println();
 			urls.forEach(url -> {
-				System.out.println("++++++ " + url);
+				System.out.println("++++++ AllUrl: " + url);
 			});
 			System.out.println();
 			System.out.println();
-			urls2.forEach(url -> {
-				System.out.println("====== " + url);
+			seedUrls.forEach(url -> {
+				System.out.println("====== SeedUrl: " + url);
+			});
+			System.out.println();
+			System.out.println();
+			dataUrls.forEach(url -> {
+				System.out.println("****** DataUrl: " + url);
 			});
 			System.out.println();
 			System.out.println();

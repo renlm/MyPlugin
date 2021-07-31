@@ -1,1 +1,1 @@
-(http|https)://ggzy\.guiyang\.gov\.cn/gcjs/zbhxrgs/(jl|kc|sg|sj|sbcg|zcb)_\d+/index\.html(\?\w+=.*(&\w+=.*)*)?
+(http|https)://ggzy\.guiyang\.gov\.cn/gcjs/zbhxrgs/(jl|kc|sg|sj|sbcg|zcb)_\d+/\d+/\w+\.html(\?\w+=.*(&\w+=.*)*)?
