@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HtmlUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
@@ -75,8 +76,8 @@ public class MyCrawlerTest {
 			String field2 = html.xpath(
 					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?投标价[^<]*?)</font></span><b[^>]*?><span[^>]*?>((<font[^>]*?>(.*?)</font>)+)</span></b></p>',2)")
 					.get();
-			System.out.println("====== " + field);
-			System.out.println("====== " + field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			String fieldValue = ObjectUtil.defaultIfBlank(field, field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			System.out.println("====== " + fieldValue);
 		});
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
@@ -99,8 +100,8 @@ public class MyCrawlerTest {
 			String field2 = html.xpath(
 					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?工期[^<]*?)</font></span><span[^>]*?><font[^>]*?>.*?</font></span><b[^>]*?><span[^>]*?>(<font[^>]*?>(.*?)</font>)+</span></b></p>',2)")
 					.get();
-			System.out.println("====== " + field);
-			System.out.println("====== " + field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			String fieldValue = ObjectUtil.defaultIfBlank(field, field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			System.out.println("====== " + fieldValue);
 		});
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbgg/202107/t20210729_69341605.html");
