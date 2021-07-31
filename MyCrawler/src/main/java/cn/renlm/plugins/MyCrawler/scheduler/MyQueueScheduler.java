@@ -1,5 +1,9 @@
 package cn.renlm.plugins.MyCrawler.scheduler;
 
+import java.util.Set;
+
+import cn.hutool.core.util.BooleanUtil;
+import cn.hutool.core.util.ReflectUtil;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.scheduler.QueueScheduler;
@@ -17,7 +21,14 @@ public class MyQueueScheduler extends QueueScheduler implements MyDuplicateVerif
 	private DuplicateRemover verifyDuplicate = new HashSetDuplicateRemover();
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task) {
-		return verifyDuplicate.isDuplicate(request, task);
+		boolean duplicate = verifyDuplicate.isDuplicate(request, task);
+		if (BooleanUtil.isTrue(forceUpdate)) {
+			Set<String> urls = (Set<String>) ReflectUtil.getFieldValue(verifyDuplicate, "urls");
+			urls.remove(request.getUrl());
+			return false;
+		}
+		return duplicate;
 	}
 }
