@@ -76,7 +76,7 @@ public class MyCrawlerTest {
 			String field2 = html.xpath(
 					"//font[@id='Zoom']/p//regex('<p[^>]*?><span[^>]*?><font[^>]*?>([^>]*?投标价[^<]*?)</font></span><b[^>]*?><span[^>]*?>((<font[^>]*?>(.*?)</font>)+)</span></b></p>',2)")
 					.get();
-			String fieldValue = ObjectUtil.defaultIfBlank(field, field1 + "：" + HtmlUtil.unwrapHtmlTag(field2, "font"));
+			String fieldValue = ObjectUtil.defaultIfBlank(field, field1 + HtmlUtil.unwrapHtmlTag(field2, "font"));
 			System.out.println("====== " + fieldValue);
 		});
 		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
