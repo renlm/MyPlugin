@@ -11,6 +11,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.Common.IntToEnum;
 import lombok.Getter;
+import us.codecraft.webmagic.utils.UrlUtils;
 
 /**
  * 页面链接类型
@@ -47,13 +48,14 @@ public enum PageUrlType implements IntToEnum.IntValue {
 	 * @return
 	 */
 	public static final String standardUrl(String url, String invalidParamNames) {
-		if (StrUtil.isBlank(url)) {
+		String fixedUrl = UrlUtils.fixIllegalCharacterInUrl(url);
+		if (StrUtil.isBlank(fixedUrl)) {
 			return null;
 		}
 
-		String noQueryUrl = url.split("\\?")[0];
+		String noQueryUrl = fixedUrl.split("\\?")[0];
 		String[] invalidParamNameArr = StrUtil.splitToArray(invalidParamNames, StrUtil.COMMA);
-		UrlQuery urlQuery = UrlQuery.of(url, CharsetUtil.CHARSET_UTF_8);
+		UrlQuery urlQuery = UrlQuery.of(fixedUrl, CharsetUtil.CHARSET_UTF_8);
 
 		Map<CharSequence, CharSequence> param = new LinkedHashMap<>();
 		BeanUtil.copyProperties(urlQuery.getQueryMap(), param);
