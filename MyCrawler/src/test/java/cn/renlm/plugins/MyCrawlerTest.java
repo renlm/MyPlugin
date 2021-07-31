@@ -64,10 +64,12 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
-			String field = html.xpath("//div[@class='content']//font//[contains(text(),投标价)]//text()").get();
-			System.out.println("====== " + field);
+			String field1 = html.xpath("//font[@id='Zoom']//regex('<font[^>]*?>([^>]*?工期[^<]*?)</font>',1)").get();
+			String field2 = html.xpath("//font[@id='Zoom']//regex('<font[^>]*?>([^>]*?日历天[^<]*?)</font>',1)").get();
+			System.out.println("====== " + field1);
+			System.out.println("====== " + field2);
 		});
-		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356785.html");
+		spider.addUrl("http://ggzyjy.zunyi.gov.cn/jyxx/gcjs/zbhxrgs/202107/t20210730_69356681.html");
 		spider.run();
 	}
 }
