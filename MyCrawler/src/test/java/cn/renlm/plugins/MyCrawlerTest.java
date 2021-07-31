@@ -31,14 +31,17 @@ public class MyCrawlerTest {
 			List<String> urls = page.getHtml().links().all();
 			List<String> urls2 = page.getHtml().links().regex(regex, 0).all().stream().distinct()
 					.collect(Collectors.toList());
+			System.out.println("===========================");
 			urls.forEach(url -> {
-				System.err.println(url);
+				System.out.println("AllUrl: " + url);
 			});
+			System.out.println("===========================");
 			urls2.forEach(url -> {
-				System.out.println(url);
+				System.out.println("RegexUrl: " + url);
 			});
+			System.out.println("===========================");
 		});
-		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbgg_5372453/jl/index.html");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html?i=9");
 		spider.run();
 	}
 }
