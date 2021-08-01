@@ -44,14 +44,14 @@ public class MyCrawlerTest {
 			List<String> seedUrls = CollUtil
 					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(seedUrlRegex, 0).all()));
 			seedUrls.forEach(url -> {
-				System.out.println("====== SeedStandardUrl: " + PageUrlType.standardUrl(url, "v"));
+				System.out.println("====== SeedStandardUrl: " + PageUrlType.standardUrl(url, false, "v"));
 			});
 			System.out.println();
 			System.out.println();
 			List<String> dataUrls = CollUtil
 					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(dataUrlRegex, 0).all()));
 			dataUrls.forEach(url -> {
-				System.out.println("****** DataStandardUrl: " + PageUrlType.standardUrl(url, "v"));
+				System.out.println("****** DataStandardUrl: " + PageUrlType.standardUrl(url, false, "v"));
 			});
 			System.out.println();
 			System.out.println();
