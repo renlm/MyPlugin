@@ -58,10 +58,10 @@
 						</xsd:simpleType>
 					</xsd:attribute>
 					<!-- 是否覆盖已存在的实体类（默认false） -->
-					<xsd:attribute name="cover-entity" type="xsd:boolean"
+					<xsd:attribute name="entity" type="xsd:boolean"
 						use="optional" default="false" />
 					<!-- 是否配置Excel表格（默认false） -->
-					<xsd:attribute name="config-excel" type="xsd:boolean"
+					<xsd:attribute name="excel" type="xsd:boolean"
 						use="optional" default="false" />
 				</xsd:complexType>
 			</xsd:element>

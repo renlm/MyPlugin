@@ -301,14 +301,14 @@ public class MyGeneratorUtil {
 		 * 是否覆盖已存在的实体类（默认否）
 		 */
 		@XStreamAsAttribute
-		@XStreamAlias("cover-entity")
+		@XStreamAlias("entity")
 		private boolean coverEntity;
 
 		/**
 		 * 是否配置Excel表格（默认否）
 		 */
 		@XStreamAsAttribute
-		@XStreamAlias("config-excel")
+		@XStreamAlias("excel")
 		private boolean configExcel;
 
 	}
