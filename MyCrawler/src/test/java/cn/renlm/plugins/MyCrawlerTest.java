@@ -27,6 +27,23 @@ public class MyCrawlerTest {
 	Setting chromeSetting = new Setting("config/chrome.setting");
 
 	@Test
+	public void fetchField() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setChromeSetting(chromeSetting);
+		site.setSleepTime(0);
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
+			Html html = page.getHtml();
+			System.out.println("====== " + html.xpath("//font[@id='Zoom']//tr[10]/td[2]//span[1]/text()").get());
+		});
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69353450.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html");
+		spider.run();
+	}
+
+	@Test
 	public void urlRegex() {
 		MySite site = MySite.me();
 		site.setEnableSelenuim(true);
