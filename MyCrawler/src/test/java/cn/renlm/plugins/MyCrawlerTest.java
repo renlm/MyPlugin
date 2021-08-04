@@ -37,6 +37,7 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			String text = HtmlUtil.cleanHtmlTag(page.getRawText());
+			// 模板1：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html
 			String projectName = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
 					text, 1);
 			String company = null;
@@ -49,6 +50,7 @@ public class MyCrawlerTest {
 			String bid1thPriceValue = ReUtil.get("(投标报价（元）)：([^\\s；]*)", text, 2);
 			String bid1thDurationTitle = ReUtil.get("(工期)：([^\\s；]*)", text, 1);
 			String bid1thDurationValue = ReUtil.get("(工期)：([^\\s；]*)", text, 2);
+			// 模板2：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html
 			if (StrUtil.isBlank(projectName)) {
 				projectName = ReUtil.get(
 						"根据法律、法规、规章和招标文件的规定，(.*?)（招标人名称）的(.*?)（项目名称），\\(入场登记号：(\\w+)\\)已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
@@ -68,6 +70,26 @@ public class MyCrawlerTest {
 				bid1thDurationTitle = ReUtil.get("(工期)：([^\\s；]*)", text, 1);
 				bid1thDurationValue = ReUtil.get("(工期)：([^\\s；]*)", text, 2);
 			}
+			// 模板3：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69353450.html
+			if (StrUtil.isBlank(projectName)) {
+				projectName = ReUtil.get(
+						"根据法律、法规、规章和招标文件的规定, (.*?)（招标人名称）的(.*?)（项目名称）(\\w+) \\(入场登记号：\\)已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
+						text, 1);
+				company = ReUtil.get(
+						"根据法律、法规、规章和招标文件的规定, (.*?)（招标人名称）的(.*?)（项目名称）(\\w+) \\(入场登记号：\\)已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
+						text, 2);
+				registrationNumber = ReUtil.get(
+						"根据法律、法规、规章和招标文件的规定, (.*?)（招标人名称）的(.*?)（项目名称）(\\w+) \\(入场登记号：\\)已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
+						text, 3);
+				openDate = ReUtil.get(
+						"根据法律、法规、规章和招标文件的规定, (.*?)（招标人名称）的(.*?)（项目名称）(\\w+) \\(入场登记号：\\)已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
+						text, 4);
+				bid1th = ReUtil.get("第一中标候选人: ([^\\s]*)", text, 1);
+				bid1thPriceTitle = ReUtil.get("(投标报价)：([^\\s；]*)", text, 1);
+				bid1thPriceValue = ReUtil.get("(投标报价)：([^\\s；]*)", text, 2);
+				bid1thDurationTitle = ReUtil.get("(工期)：([^\\s；]*)", text, 1);
+				bid1thDurationValue = ReUtil.get("(工期)：([^\\s；]*)", text, 2);
+			}
 			System.out.println("====== " + projectName);
 			System.out.println("====== " + company);
 			System.out.println("====== " + registrationNumber);
@@ -80,6 +102,7 @@ public class MyCrawlerTest {
 		});
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69353450.html");
 		spider.run();
 	}
 
