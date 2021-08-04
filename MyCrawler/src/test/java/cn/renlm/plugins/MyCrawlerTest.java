@@ -45,11 +45,11 @@ public class MyCrawlerTest {
 					.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在", text, 2);
 			String openDate = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在", text,
 					3);
-			String bid1th = ReUtil.get("第一中标候选人: ([^\\s；&nbsp;]*)", text, 1);
-			String bid1thPriceTitle = ReUtil.get("((投标价|投标报价)+(（元）)?)(：|:)([^\\s；，]*)", text, 1);
-			String bid1thPriceValue = ReUtil.get("((投标价|投标报价)+(（元）)?)(：|:)([^\\s；，]*)", text, 5);
-			String bid1thDurationTitle = ReUtil.get("(工期)(：|:)([^\\s；]*)", text, 1);
-			String bid1thDurationValue = ReUtil.get("(工期)(：|:)([^\\s；]*)", text, 3);
+			String bid1th = ReUtil.get("第一中标候选人(：|:)[^\\S\\r\\n]*([^\\s；，;,&nbsp;]*)", text, 1);
+			String bid1thPriceTitle = ReUtil.get("((投标价|投标报价)+(（元）)?)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 1);
+			String bid1thPriceValue = ReUtil.get("((投标价|投标报价)+(（元）)?)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 5);
+			String bid1thDurationTitle = ReUtil.get("(工期)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 1);
+			String bid1thDurationValue = ReUtil.get("(工期)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 3);
 			// 模板2：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html
 			if (StrUtil.isBlank(projectName)) {
 				projectName = ReUtil.get(
