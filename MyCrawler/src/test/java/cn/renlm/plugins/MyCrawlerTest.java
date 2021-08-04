@@ -36,8 +36,7 @@ public class MyCrawlerTest {
 		site.setSleepTime(0);
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
-			String[] tags = { "font", "strong", "u", "b", "div", "span" };
-			String text = HtmlUtil.removeHtmlTag(page.getRawText(), false, tags);
+			String text = HtmlUtil.cleanHtmlTag(page.getRawText());
 			text = ReUtil.replaceAll(text, "&nbsp;", StrUtil.EMPTY);
 
 			// 模板1：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html
