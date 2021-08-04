@@ -36,13 +36,18 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			String text = HtmlUtil.cleanHtmlTag(page.getRawText());
-			String projectName = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于\\d{4}年\\d{1,2}月30日在", text, 1);
+			String projectName = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月30日)在", text, 1);
+			String registrationNumber = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月30日)在",
+					text, 2);
+			String openDate = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月30日)在", text, 3);
 			String bid1th = ReUtil.get("第一中标候选人: ([^&nbsp;]*?)&nbsp;", text, 1);
-			String bid1thPriceTitle = ReUtil.get("(投标报价（元）)：(.*)", text, 1);
-			String bid1thPriceValue = ReUtil.get("(投标报价（元）)：(￥.*)", text, 2);
-			String bid1thDurationTitle = ReUtil.get("(工期)：(.*)", text, 1);
-			String bid1thDurationValue = ReUtil.get("(工期)：(.*)", text, 2);
+			String bid1thPriceTitle = ReUtil.get("(投标报价（元）)：([^\\s]*)", text, 1);
+			String bid1thPriceValue = ReUtil.get("(投标报价（元）)：([^\\s]*)", text, 2);
+			String bid1thDurationTitle = ReUtil.get("(工期)：([^\\s]*)", text, 1);
+			String bid1thDurationValue = ReUtil.get("(工期)：([^\\s]*)", text, 2);
 			System.out.println("====== " + projectName);
+			System.out.println("====== " + registrationNumber);
+			System.out.println("====== " + openDate);
 			System.out.println("====== " + bid1th);
 			System.out.println("====== " + bid1thPriceTitle);
 			System.out.println("====== " + bid1thPriceValue);
