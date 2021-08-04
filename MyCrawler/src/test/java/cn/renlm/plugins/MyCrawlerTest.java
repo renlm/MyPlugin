@@ -50,8 +50,10 @@ public class MyCrawlerTest {
 					1);
 			String bid1thPriceValue = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text,
 					4);
-			String bid1thDurationTitle = ReUtil.get("((工期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 1);
-			String bid1thDurationValue = ReUtil.get("((工期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)", text, 4);
+			String bid1thDurationTitle = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)",
+					text, 1);
+			String bid1thDurationValue = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s；，;,]*)",
+					text, 4);
 			// 模板2：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html
 			if (StrUtil.isBlank(projectName)) {
 				projectName = ReUtil.get(
@@ -110,6 +112,7 @@ public class MyCrawlerTest {
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210727_69299539.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210715_69021375.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202108/t20210804_69404776.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210715_69021376.html");
 		spider.run();
 	}
 
