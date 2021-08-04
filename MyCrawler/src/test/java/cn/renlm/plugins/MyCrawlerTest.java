@@ -36,8 +36,10 @@ public class MyCrawlerTest {
 		site.setSleepTime(0);
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
-			String text = HtmlUtil.cleanHtmlTag(page.getRawText());
+			String[] tags = { "font", "strong", "u", "b", "div", "span" };
+			String text = HtmlUtil.removeHtmlTag(page.getRawText(), false, tags);
 			text = ReUtil.replaceAll(text, "&nbsp;", StrUtil.EMPTY);
+
 			// 模板1：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html
 			String projectName = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在",
 					text, 1);
@@ -46,14 +48,14 @@ public class MyCrawlerTest {
 					.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在", text, 2);
 			String openDate = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在", text,
 					3);
-			String bid1th = ReUtil.get("第一中标候选人[^：:]*(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)", text, 2);
-			String bid1thPriceTitle = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)", text,
+			String bid1th = ReUtil.get("第一中标候选人[^：:]*(：|:)[^\\S\\r\\n]*([^\\s\\p{P}<]*)", text, 2);
+			String bid1thPriceTitle = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s<；;，,]*)", text,
 					1);
-			String bid1thPriceValue = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)", text,
+			String bid1thPriceValue = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s<；;，,]*)", text,
 					4);
-			String bid1thDurationTitle = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)",
+			String bid1thDurationTitle = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s<；;，,]*)",
 					text, 1);
-			String bid1thDurationValue = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)",
+			String bid1thDurationValue = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s<；;，,]*)",
 					text, 4);
 			// 模板2：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html
 			if (StrUtil.isBlank(projectName)) {
