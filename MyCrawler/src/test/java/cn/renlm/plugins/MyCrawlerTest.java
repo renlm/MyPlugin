@@ -48,12 +48,14 @@ public class MyCrawlerTest {
 			String openDate = ReUtil.get("根据法律、法规、规章和招标文件的规定,(.*?)（入场登记号：(\\w+)）已于(\\d{4}年\\d{1,2}月\\d{1,2}日)在", text,
 					3);
 			String bid1th = ReUtil.get("第一中标候选人[^：:]*(：|:)[^\\S\\r\\n]*([^\\s\\p{P}]*)", text, 2);
-			String bid1thPriceTitle = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text, 1);
-			String bid1thPriceValue = ReUtil.get("((投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text, 4);
-			String bid1thDurationTitle = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text,
-					1);
-			String bid1thDurationValue = ReUtil.get("((工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text,
-					4);
+			String bid1thPriceTitle = ReUtil.get("(([^\\s]*)(中标价|投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)",
+					text, 1);
+			String bid1thPriceValue = ReUtil.get("(([^\\s]*)(中标价|投标价|投标报价|工程报价|下浮率)+[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)",
+					text, 5);
+			String bid1thDurationTitle = ReUtil
+					.get("(([^\\s]*)(工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text, 1);
+			String bid1thDurationValue = ReUtil
+					.get("(([^\\s]*)(工[^\\S\\r\\n]*期|监理服务期)[^：:]*)(：|:)[^\\S\\r\\n]*([^\\s]*)", text, 5);
 			// 模板2：https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html
 			if (StrUtil.isBlank(projectName)) {
 				projectName = ReUtil.get(
@@ -113,6 +115,7 @@ public class MyCrawlerTest {
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210715_69021375.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202108/t20210804_69404776.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210715_69021376.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202005/t20200513_67402374.html");
 		spider.run();
 	}
 
