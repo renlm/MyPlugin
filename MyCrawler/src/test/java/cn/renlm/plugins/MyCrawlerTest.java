@@ -14,6 +14,7 @@ import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
 import cn.renlm.plugins.MyCrawler.PageUrlType;
+import cn.renlm.plugins.MyUtil.MyStrUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.selector.Html;
 
@@ -104,9 +105,9 @@ public class MyCrawlerTest {
 			System.out.println("====== " + openDate);
 			System.out.println("====== " + bid1th);
 			System.out.println("====== " + bid1thPriceTitle);
-			System.out.println("====== " + ReUtil.get("((?!\\p{P}$).)+", bid1thPriceValue, 0));
+			System.out.println("====== " + MyStrUtil.removeSuffix(bid1thPriceValue, "，", "。", "；"));
 			System.out.println("====== " + bid1thDurationTitle);
-			System.out.println("====== " + ReUtil.get("((?!\\p{P}$).)+", bid1thDurationValue, 0));
+			System.out.println("====== " + MyStrUtil.removeSuffix(bid1thDurationValue, "，", "。", "；"));
 		});
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html");
