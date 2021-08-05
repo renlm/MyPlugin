@@ -119,6 +119,7 @@ public class MyCrawlerTest {
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210714_69010679.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210630_68874323.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210617_68610873.html");
+		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210603_68406344.html");
 		spider.run();
 	}
 
