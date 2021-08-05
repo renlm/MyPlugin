@@ -13,7 +13,7 @@ import lombok.experimental.UtilityClass;
 public class MyStrUtil {
 
 	/**
-	 * 移除后缀
+	 * 批量移除后缀
 	 * 
 	 * @param text
 	 * @param suffix
