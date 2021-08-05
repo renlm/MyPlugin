@@ -104,9 +104,9 @@ public class MyCrawlerTest {
 			System.out.println("====== " + openDate);
 			System.out.println("====== " + bid1th);
 			System.out.println("====== " + bid1thPriceTitle);
-			System.out.println("====== " + bid1thPriceValue);
+			System.out.println("====== " + ReUtil.get("((?!\\p{P}$).)+", bid1thPriceValue, 0));
 			System.out.println("====== " + bid1thDurationTitle);
-			System.out.println("====== " + bid1thDurationValue);
+			System.out.println("====== " + ReUtil.get("((?!\\p{P}$).)+", bid1thDurationValue, 0));
 		});
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69356218.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202107/t20210730_69347845.html");
