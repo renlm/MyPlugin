@@ -1,6 +1,8 @@
 package cn.renlm.plugins;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -121,6 +123,43 @@ public class MyCrawlerTest {
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210630_68874323.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210617_68610873.html");
 		spider.addUrl("https://www.bijie.gov.cn/bm/bjsggzyjyzx/jy/jsgc/zbgs/202106/t20210603_68406344.html");
+		spider.run();
+	}
+
+	@Test
+	public void fetchField2() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setChromeSetting(chromeSetting);
+		site.setSleepTime(0);
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
+			Html html = page.getHtml();
+
+			List<List<String>> rows = new ArrayList<>();
+			html.xpath("//font[@id='Zoom']/div/table/tbody/tr").nodes().forEach(tr -> {
+				List<String> cols = new ArrayList<>();
+				rows.add(cols);
+				tr.xpath("/tr/td").nodes().forEach(td -> {
+					String text = StrUtil.trim(HtmlUtil.cleanHtmlTag(td.get()));
+					cols.add(ReUtil.delAll("\\s", ReUtil.delAll("\\p{Z}", text)));
+				});
+				if (rows.size() == 2) {
+					Map<String, String> data = CollUtil.zip(rows.get(0), cols);
+					data.forEach((k, v) -> {
+						if (StrUtil.containsAny(k, "成交价", "成交总价")) {
+							System.out.println(k + "：" + v);
+						}
+						if (StrUtil.containsAny(k, "受让人名称", "竞得单位名称", "竞得人")) {
+							System.out.println(k + "：" + v);
+						}
+					});
+				}
+			});
+		});
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/xfx_5372564/201302/t20130219_61321885.html");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/nmq_5372559/201304/t20130403_61321892.html");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/nmq_5372559/202009/t20200903_62859936.html");
 		spider.run();
 	}
 
