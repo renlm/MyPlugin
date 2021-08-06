@@ -44,6 +44,17 @@ public enum PageUrlType implements IntToEnum.IntValue {
 	/**
 	 * 标准化处理请求链接（去除无效参数，减少重复请求）
 	 * 
+	 * @param url
+	 * @param cleanParams
+	 * @return
+	 */
+	public static final String standardUrl(String url, Boolean cleanParams) {
+		return standardUrl(url, cleanParams, null);
+	}
+
+	/**
+	 * 标准化处理请求链接（去除无效参数，减少重复请求）
+	 * 
 	 * @param url               请求链接
 	 * @param cleanParams       是否清除Url参数
 	 * @param invalidParamNames 无效参数名（多个逗号分隔）
