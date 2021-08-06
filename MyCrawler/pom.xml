@@ -40,10 +40,5 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>fontbox</artifactId>
-		</dependency>
 	</dependencies>
 </project>

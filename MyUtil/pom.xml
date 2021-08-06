@@ -32,11 +32,5 @@
 			<artifactId>xstream</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>fontbox</artifactId>
-			<optional>true</optional>
-		</dependency>
 	</dependencies>
 </project>
