@@ -17,55 +17,82 @@
 
 ```
 /**
- * 爬虫（可配置Redis进行分布式链接去重）
+ * 爬虫测试
  * 
  * @author Renlm
  *
  */
 public class MyCrawlerTest {
+	String seedUrlRegex = ResourceUtil.readUtf8Str("seedUrl.regex");
+	String dataUrlRegex = ResourceUtil.readUtf8Str("dataUrl.regex");
+	Setting chromeSetting = new Setting("config/chrome.setting");
 
-	private static final String ttf = "(https://((?!(https://))[\\s\\S])*\\.ttf)";
-
+	/**
+	 * 提取字段
+	 */
 	@Test
-	public void run() {
-		MySpider spider = MyCrawlerUtil.createSpider(MySite.me(), myPage -> {
+	public void fetchField() {
+		MySite site = MySite.me();
+		site.setSleepTime(20);
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
-			// 避免加密字体转义
-			page.setRawText(ReUtil.replaceAll(page.getRawText(), MyFontDecryptUtil.Regex, matcher -> {
-				return HtmlUtil.escape(matcher.group());
-			}));
-
-			// 发现详情页链接，添加到下层任务
-			String url = page.getUrl().get();
 			Html html = page.getHtml();
-			String regex = "(https://book.qidian.com/info/\\d+)";
-			page.addTargetRequests(html.links().regex(regex).all());
 
-			// 书籍详情页，抓取字段
-			if (ReUtil.isMatch(regex, url)) {
-				page.putField("cover", html.xpath("//div[@class='book-img']/a/img/@src").get());
-				page.putField("name", html.xpath("//div[@class='book-info']/h1/em/text()").get());
-				page.putField("author", html.xpath("//div[@class='book-info']/h1/span/a/text()").get());
-				page.putField("intro", html.xpath("//div[@class='book-info']/p[@class='intro']/text()").get());
-				page.putField("fonturl", html.xpath("//div[@class='book-info']/p[3]/em/style").regex(ttf).get());
-				page.putField("wordNumber", html.xpath("//div[@class='book-info']/p[3]/em/span/text()").get());
-				page.putField("wordNumberUnit", html.xpath("//div[@class='book-info']/p[3]/cite/text()").get());
-			} else {
-				page.setSkip(true);
-			}
-		}, myData -> {
-			ResultItems resultItems = myData.resultItems();
-			// 获取书籍详情，解密字数
-			if (!resultItems.isSkip()) {
-				String wordNumber = resultItems.get("wordNumber");
-				CmapLookup cmap = MyFontDecryptUtil.getUnicodeCmapLookupFromTTF((String) resultItems.get("fonturl"));
-				resultItems.put("wordNumber", MyFontDecryptUtil.fetchFromGlyphs(cmap, wordNumber));
-				Console.log(resultItems);
-			}
-		}).onDownloaded(page -> {
-			Console.log(page.getStatusCode());
+			List<List<String>> rows = new ArrayList<>();
+			html.xpath("//font[@id='Zoom']/div/table/tbody/tr").nodes().forEach(tr -> {
+				List<String> cols = new ArrayList<>();
+				rows.add(cols);
+				tr.xpath("/tr/td").nodes().forEach(td -> {
+					String text = StrUtil.trim(HtmlUtil.cleanHtmlTag(td.get()));
+					cols.add(ReUtil.delAll("\\s", ReUtil.delAll("\\p{Z}", text)));
+				});
+				if (rows.size() == 2) {
+					Map<String, String> data = CollUtil.zip(rows.get(0), cols);
+					data.forEach((k, v) -> {
+						if (StrUtil.containsAny(k, "成交价", "成交总价")) {
+							System.out.println(k + "：" + v);
+						}
+						if (StrUtil.containsAny(k, "受让人名称", "竞得单位名称", "竞得人")) {
+							System.out.println(k + "：" + v);
+						}
+					});
+				}
+			});
 		});
-		spider.addUrl("https://book.qidian.com");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/xfx_5372564/201302/t20130219_61321885.html");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/nmq_5372559/201304/t20130403_61321892.html");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/tdcr/cjjggs/nmq_5372559/202009/t20200903_62859936.html");
+		spider.run();
+	}
+
+	/**
+	 * 查找链接
+	 */
+	@Test
+	public void findUrls() {
+		MySite site = MySite.me();
+		site.setEnableSelenuim(true);
+		site.setChromeSetting(chromeSetting);
+		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
+			Page page = myPage.page();
+			System.out.println();
+			System.out.println();
+			List<String> seedUrls = CollUtil
+					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(seedUrlRegex, 0).all()));
+			seedUrls.forEach(url -> {
+				System.out.println("=== SEED === " + PageUrlType.standardUrl(url, false, "v"));
+			});
+			System.out.println();
+			System.out.println();
+			List<String> dataUrls = CollUtil
+					.removeBlank(CollUtil.distinct(page.getHtml().links().regex(dataUrlRegex, 0).all()));
+			dataUrls.forEach(url -> {
+				System.out.println("=== DATA === " + PageUrlType.standardUrl(url, false, "v"));
+			});
+			System.out.println();
+			System.out.println();
+		});
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html?i=9");
 		spider.run();
 	}
 }
