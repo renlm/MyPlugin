@@ -26,6 +26,11 @@ public class MySite extends Site {
 	private int maxDepth;
 
 	/**
+	 * 附加设置，是否强制更新数据
+	 */
+	private boolean forceUpdate;
+
+	/**
 	 * 是否启用浏览器模式
 	 */
 	private boolean enableSelenuim;

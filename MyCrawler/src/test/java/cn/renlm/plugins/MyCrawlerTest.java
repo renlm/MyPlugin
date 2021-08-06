@@ -35,7 +35,7 @@ public class MyCrawlerTest {
 	@Test
 	public void fetchField() {
 		MySite site = MySite.me();
-		site.setSleepTime(50);
+		site.setSleepTime(20);
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
