@@ -34,7 +34,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 @UtilityClass
 public class MyCrawlerUtil {
 
-	private static final String depthExtraKey = "_MyCrawlerDepthExtra_";
+	public static final String depthExtraKey = "_MyCrawlerDepthExtra_";
 
 	/**
 	 * 爬虫实例
