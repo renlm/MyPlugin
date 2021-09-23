@@ -9,7 +9,7 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyCrawler</artifactId>
-    <version>1.9.8</version>
+    <version>1.9.9</version>
 </dependency>
 ```
 
