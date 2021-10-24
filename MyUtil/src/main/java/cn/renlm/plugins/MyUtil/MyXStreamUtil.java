@@ -38,7 +38,6 @@ public final class MyXStreamUtil {
 	 */
 	private static final XStream create(final Class<?> type, InputStream in) {
 		XStream xstream = new XStream();
-		XStream.setupDefaultSecurity(xstream);
 		xstream.processAnnotations(type);
 		xstream.allowTypeHierarchy(type);
 		xstream.ignoreUnknownElements();

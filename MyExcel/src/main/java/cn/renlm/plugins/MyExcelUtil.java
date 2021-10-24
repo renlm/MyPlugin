@@ -1,6 +1,7 @@
 package cn.renlm.plugins;
 
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +149,7 @@ public class MyExcelUtil {
 		// Csv
 		else {
 			CsvReader reader = CsvUtil.getReader();
-			reader.read(IoUtil.getReader(in, myExcel.getCsvCharset()), csvRow -> {
+			reader.read(IoUtil.getReader(in, Charset.forName(myExcel.getCsvCharset())), csvRow -> {
 				long rowIndex = csvRow.getOriginalLineNumber() - 1;
 				List<Object> rowList = new ArrayList<>(csvRow.getRawList());
 				processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex, rowList);
