@@ -48,14 +48,30 @@ public class MySpider extends Spider {
 	 * 处理缓存问题
 	 */
 	@Override
-	public Spider addRequest(Request... requests) {
+	public Spider addUrl(String... urls) {
+		if (ObjectUtil.isNotEmpty(this.mySite) && ObjectUtil.isNotEmpty(this.myDuplicateVerify)
+				&& BooleanUtil.isTrue(this.mySite.isForceUpdate())) {
+			for (String url : urls) {
+				this.myDuplicateVerify.cleanCache(new Request(url), this);
+			}
+		}
+		super.addUrl(urls);
+		return this;
+	}
+
+	/**
+	 * 处理缓存问题
+	 */
+	@Override
+	public MySpider addRequest(Request... requests) {
 		if (ObjectUtil.isNotEmpty(this.mySite) && ObjectUtil.isNotEmpty(this.myDuplicateVerify)
 				&& BooleanUtil.isTrue(this.mySite.isForceUpdate())) {
 			for (Request request : requests) {
 				this.myDuplicateVerify.cleanCache(request, this);
 			}
 		}
-		return super.addRequest(requests);
+		super.addRequest(requests);
+		return this;
 	}
 
 	/**
