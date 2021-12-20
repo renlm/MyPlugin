@@ -30,6 +30,17 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 	}
 
 	@Override
+	public void cleanCache(Request request, Task task) {
+		String url = request.getUrl();
+		String cacheKey = Base64.encode(url);
+		try (Jedis jedis = pool.getResource()) {
+			jedis.srem(getSetKey(task), url);
+			jedis.srem(getVerifyKey(task), url);
+			jedis.del(cacheKey);
+		}
+	}
+
+	@Override
 	public boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task) {
 		String url = request.getUrl();
 		Integer pageUrlType = ObjectUtil.defaultIfNull(request.getExtra(PageUrlType.extraKey),
@@ -37,12 +48,9 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 		try (Jedis jedis = pool.getResource()) {
 			String cacheKey = Base64.encode(url);
 			if (NumberUtil.equals(pageUrlType, PageUrlType.enterurl.value())) {
-				jedis.srem(getSetKey(task), url);
-				jedis.srem(getVerifyKey(task), url);
-				jedis.del(cacheKey);
-			}
-			if (NumberUtil.equals(pageUrlType, PageUrlType.seed.value())
-					|| NumberUtil.equals(pageUrlType, PageUrlType.enterurl.value())) {
+				this.cleanCache(request, task);
+				return false;
+			} else if (NumberUtil.equals(pageUrlType, PageUrlType.seed.value())) {
 				boolean duplicate = jedis.exists(cacheKey);
 				if (BooleanUtil.isTrue(forceUpdate) || !duplicate) {
 					jedis.srem(getSetKey(task), url);

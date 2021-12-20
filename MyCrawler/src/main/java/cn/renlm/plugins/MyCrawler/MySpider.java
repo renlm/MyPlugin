@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
 import cn.renlm.plugins.MyCrawler.selenium.ChromeDownloader;
+import lombok.Getter;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -22,13 +25,37 @@ import us.codecraft.webmagic.processor.PageProcessor;
  */
 public class MySpider extends Spider {
 
+	@Getter
+	private final MySite mySite;
+
+	@Getter
+	private final MyDuplicateVerify myDuplicateVerify;
+
 	/**
 	 * 构造函数
 	 * 
 	 * @param pageProcessor
+	 * @param mySite
+	 * @param myDuplicateVerify
 	 */
-	public MySpider(PageProcessor pageProcessor) {
+	public MySpider(PageProcessor pageProcessor, MySite mySite, MyDuplicateVerify myDuplicateVerify) {
 		super(pageProcessor);
+		this.mySite = mySite;
+		this.myDuplicateVerify = myDuplicateVerify;
+	}
+
+	/**
+	 * 处理缓存问题
+	 */
+	@Override
+	public Spider addRequest(Request... requests) {
+		if (ObjectUtil.isNotEmpty(this.mySite) && ObjectUtil.isNotEmpty(this.myDuplicateVerify)
+				&& BooleanUtil.isTrue(this.mySite.isForceUpdate())) {
+			for (Request request : requests) {
+				this.myDuplicateVerify.cleanCache(request, this);
+			}
+		}
+		return super.addRequest(requests);
 	}
 
 	/**

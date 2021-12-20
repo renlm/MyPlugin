@@ -12,6 +12,14 @@ import us.codecraft.webmagic.Task;
 public interface MyDuplicateVerify {
 
 	/**
+	 * 清除缓存
+	 * 
+	 * @param request
+	 * @param task
+	 */
+	void cleanCache(Request request, Task task);
+
+	/**
 	 * 预确认是否重复
 	 * 
 	 * @param forceUpdate
