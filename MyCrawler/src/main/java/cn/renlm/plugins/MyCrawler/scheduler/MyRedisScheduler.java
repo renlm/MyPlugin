@@ -36,6 +36,9 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 				PageUrlType.unknown.value());
 		try (Jedis jedis = pool.getResource()) {
 			String cacheKey = Base64.encode(url);
+			if (NumberUtil.equals(pageUrlType, PageUrlType.enterurl.value())) {
+				jedis.srem(getSetKey(task), url);
+			}
 			if (NumberUtil.equals(pageUrlType, PageUrlType.seed.value())
 					|| NumberUtil.equals(pageUrlType, PageUrlType.enterurl.value())) {
 				boolean duplicate = jedis.exists(cacheKey);
