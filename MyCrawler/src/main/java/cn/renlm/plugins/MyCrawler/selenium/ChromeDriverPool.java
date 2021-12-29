@@ -91,8 +91,7 @@ class ChromeDriverPool {
 		if (!stat.compareAndSet(STAT_RUNNING, STAT_CLODED)) {
 			throw new IllegalStateException("Already closed!");
 		}
-		for (int i = 0; i < webDriverList.size(); i++) {
-			WebDriver webDriver = webDriverList.get(i);
+		for (WebDriver webDriver : webDriverList) {
 			webDriver.quit();
 			log.info("Quit webDriver" + webDriver);
 		}
