@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>cn.renlm.plugins</groupId>
 		<artifactId>MyPlugin-parent</artifactId>
-		<version>1.9.14</version>
+		<version>1.9.15</version>
 	</parent>
 
 	<artifactId>My-Plugin</artifactId>
