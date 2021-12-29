@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.setting.Setting;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +38,7 @@ class ChromeDriverPool {
 
 	public ChromeDriverPool(Setting chromeSetting, int capacity) {
 		this.chromeSetting = chromeSetting;
-		this.capacity = capacity;
+		this.capacity = NumberUtil.max(capacity, 1);
 	}
 
 	public void configure() throws IOException {
