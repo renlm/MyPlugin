@@ -94,7 +94,7 @@ public class MyCrawlerTest {
 			System.out.println();
 			System.out.println();
 		});
-		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html?i=9");
+		spider.addUrl("http://ggzy.guiyang.gov.cn/gcjs/zbhxrgs/jl_5372461/index.html");
 		spider.run();
 	}
 }
