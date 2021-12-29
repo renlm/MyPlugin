@@ -42,7 +42,7 @@ class ChromeDriverPool {
 
 	public void configure() throws IOException {
 		String driverPath = chromeSetting.getStr("driverPath");
-		String windowSize = chromeSetting.getStr("windowSize", "1415,1000");
+		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
 
 		ChromeOptions options = new ChromeOptions();
 		options.setHeadless(true);
@@ -50,11 +50,7 @@ class ChromeDriverPool {
 		options.addArguments("--no-sandbox");
 		options.addArguments("--disable-gpu");
 		options.addArguments("--disable-dev-shm-usage");
-		options.addArguments("--window-size=" + windowSize);
-
-		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
-
-		options.setHeadless(true);
+		options.addArguments("--window-size=" + chromeSetting.getStr("windowSize", "1415,1000"));
 		mDriver = new ChromeDriver(options);
 	}
 
@@ -92,14 +88,13 @@ class ChromeDriverPool {
 	}
 
 	public void closeAll() {
-		boolean b = stat.compareAndSet(STAT_RUNNING, STAT_CLODED);
-		if (!b) {
+		if (!stat.compareAndSet(STAT_RUNNING, STAT_CLODED)) {
 			throw new IllegalStateException("Already closed!");
 		}
-		for (WebDriver webDriver : webDriverList) {
-			log.info("Quit webDriver" + webDriver);
+		for (int i = 0; i < webDriverList.size(); i++) {
+			WebDriver webDriver = webDriverList.get(i);
 			webDriver.quit();
-			webDriver = null;
+			log.info("Quit webDriver" + webDriver);
 		}
 	}
 }
