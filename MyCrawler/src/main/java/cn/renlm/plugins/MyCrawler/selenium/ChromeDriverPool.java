@@ -93,8 +93,8 @@ class ChromeDriverPool {
 			throw new IllegalStateException("Already closed!");
 		}
 		for (WebDriver webDriver : webDriverList) {
-			webDriver.quit();
 			log.info("Quit webDriver" + webDriver);
+			webDriver.quit();
 		}
 	}
 }

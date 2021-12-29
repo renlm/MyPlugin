@@ -58,15 +58,16 @@ public class ChromeDownloader implements Downloader, Closeable {
 		}
 
 		try {
-			WebDriver.Options manage = webDriver.manage();
+			// 设置自定义Cookies
 			Site site = task.getSite();
+			WebDriver.Options manage = webDriver.manage();
 			if (site != null && site.getCookies() != null) {
 				for (Map.Entry<String, String> cookieEntry : site.getCookies().entrySet()) {
 					Cookie cookie = new Cookie(cookieEntry.getKey(), cookieEntry.getValue());
 					manage.addCookie(cookie);
 				}
 			}
-
+			// 请求并获取网页
 			webDriver.get(request.getUrl());
 			ThreadUtil.safeSleep(sleepTime);
 			WebElement webElement = webDriver.findElement(By.xpath("/html"));
