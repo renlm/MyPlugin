@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
@@ -46,38 +47,41 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	@Override
 	public Page download(Request request, Task task) {
+		logger.info("downloading page " + request.getUrl());
 		this.checkInit();
 		WebDriver webDriver;
 		try {
 			webDriver = webDriverPool.get();
 		} catch (InterruptedException e) {
-			logger.warn("interrupted", e);
+			e.printStackTrace();
 			return null;
 		}
-		logger.info("downloading page " + request.getUrl());
-		webDriver.get(request.getUrl());
-		try {
-			Thread.sleep(sleepTime);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		WebDriver.Options manage = webDriver.manage();
-		Site site = task.getSite();
-		if (site.getCookies() != null) {
-			for (Map.Entry<String, String> cookieEntry : site.getCookies().entrySet()) {
-				Cookie cookie = new Cookie(cookieEntry.getKey(), cookieEntry.getValue());
-				manage.addCookie(cookie);
-			}
-		}
 
-		WebElement webElement = webDriver.findElement(By.xpath("/html"));
-		String content = webElement.getAttribute("outerHTML");
-		Page page = new Page();
-		page.setRawText(content);
-		page.setUrl(new PlainText(request.getUrl()));
-		page.setRequest(request);
-		webDriverPool.returnToPool(webDriver);
-		return page;
+		try {
+			WebDriver.Options manage = webDriver.manage();
+			Site site = task.getSite();
+			if (site != null && site.getCookies() != null) {
+				for (Map.Entry<String, String> cookieEntry : site.getCookies().entrySet()) {
+					Cookie cookie = new Cookie(cookieEntry.getKey(), cookieEntry.getValue());
+					manage.addCookie(cookie);
+				}
+			}
+
+			webDriver.get(request.getUrl());
+			ThreadUtil.safeSleep(sleepTime);
+			WebElement webElement = webDriver.findElement(By.xpath("/html"));
+			String content = webElement.getAttribute("outerHTML");
+			Page page = new Page();
+			page.setRawText(content);
+			page.setUrl(new PlainText(request.getUrl()));
+			page.setRequest(request);
+			return page;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			webDriverPool.returnToPool(webDriver);
+		}
 	}
 
 	private void checkInit() {
