@@ -22,6 +22,7 @@
  * @author Renlm
  *
  */
+@Slf4j
 public class MyCrawlerTest {
 	Setting chromeSetting = new Setting("chrome.setting");
 
@@ -30,6 +31,8 @@ public class MyCrawlerTest {
 		MySite site = MySite.me();
 		site.setDomain("crawler.renlm.cn");
 		site.setEnableSelenuim(true);
+		site.setHeadless(false);
+		site.setScreenshot(true);
 		site.setChromeSetting(chromeSetting);
 		site.addCookie(site.getDomain(), "menuClickTime", Convert.toStr(DateUtil.current()));
 		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e5b0c11d-12fe-476b-968f-78b438a6e1f4");
@@ -37,30 +40,10 @@ public class MyCrawlerTest {
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
-			List<List<String>> rows = new ArrayList<>();
-			html.xpath("//div[@class='datagrid-view2']/div/div/table[@class='datagrid-htable']/tbody/tr").nodes()
-					.forEach(tr -> {
-						List<String> cols = new ArrayList<>();
-						rows.add(cols);
-						tr.xpath("/tr/td").nodes().forEach(td -> {
-							String text = td.xpath("/td/div/span/text()").get();
-							cols.add(text);
-						});
-					});
-			html.xpath("//div[@class='datagrid-view2']/div/table[@class='datagrid-btable']/tbody/tr").nodes()
-					.forEach(tr -> {
-						List<String> cols = new ArrayList<>();
-						rows.add(cols);
-						tr.xpath("/tr/td").nodes().forEach(td -> {
-							String text = td.xpath("/td/div/text()").get();
-							cols.add(text);
-						});
-						Map<String, String> data = CollUtil.zip(rows.get(0), cols);
-						Console.log(JSONUtil.toJsonPrettyStr(data));
-					});
+			Console.log(html);
+			log.info(myPage.screenshotBASE64());
 		});
-		spider.addUrl("https://crawler.renlm.cn/sys/const?time=" + DateUtil.current());
-		spider.addUrl("https://crawler.renlm.cn/sys/const?time=" + DateUtil.current());
+		spider.addUrl("https://crawler.renlm.cn/sys/const");
 		spider.run();
 	}
 }
