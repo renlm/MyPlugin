@@ -8,7 +8,6 @@ import org.junit.Test;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
@@ -22,15 +21,10 @@ import us.codecraft.webmagic.selector.Html;
  *
  */
 public class MyCrawlerTest {
-	String seedUrlRegex = ResourceUtil.readUtf8Str("seedUrl.regex");
-	String dataUrlRegex = ResourceUtil.readUtf8Str("dataUrl.regex");
-	Setting chromeSetting = new Setting("config/chrome.setting");
+	Setting chromeSetting = new Setting("chrome.setting");
 
-	/**
-	 * 添加Cookie
-	 */
 	@Test
-	public void addCookie() {
+	public void test() {
 		MySite site = MySite.me();
 		site.setDomain("crawler.renlm.cn");
 		site.setEnableSelenuim(true);
@@ -65,8 +59,8 @@ public class MyCrawlerTest {
 					});
 		});
 		spider.addUrl("https://crawler.renlm.cn/log/login");
-		spider.addUrl("https://crawler.renlm.cn/log/login?pageNum=1");
-		spider.addUrl("https://crawler.renlm.cn/log/login?pageNum=2");
+		spider.addUrl("https://crawler.renlm.cn/log/login?v=1");
+		spider.addUrl("https://crawler.renlm.cn/log/login?v=2");
 		spider.run();
 	}
 }
