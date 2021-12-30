@@ -36,6 +36,16 @@ public class MySite extends Site {
 	private boolean enableSelenuim;
 
 	/**
+	 * 无头模式（浏览器模式下，默认否）
+	 */
+	private Boolean headless;
+
+	/**
+	 * 保存页面截图（浏览器模式下，默认否）
+	 */
+	private Boolean screenshot;
+
+	/**
 	 * 浏览器模式配置
 	 */
 	private Setting chromeSetting;

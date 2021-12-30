@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
 import cn.renlm.plugins.MyCrawler.selenium.ChromeDownloader;
 import lombok.Getter;
@@ -83,7 +84,14 @@ public class MySpider extends Spider {
 	 */
 	public MySpider onDownloaded(MySite site, Consumer<Page> page) {
 		if (ObjectUtil.isNotEmpty(site) && site.isEnableSelenuim()) {
-			ChromeDownloader downloader = new ChromeDownloader(site.getChromeSetting()) {
+			Setting chromeSetting = site.getChromeSetting();
+			if (BooleanUtil.isTrue(site.getHeadless())) {
+				chromeSetting.set("headless", "true");
+			}
+			if (BooleanUtil.isTrue(site.getScreenshot())) {
+				chromeSetting.set("screenshot", "true");
+			}
+			ChromeDownloader downloader = new ChromeDownloader(chromeSetting) {
 				@Override
 				public Page download(Request request, Task task) {
 					Page pager = super.download(request, task);
