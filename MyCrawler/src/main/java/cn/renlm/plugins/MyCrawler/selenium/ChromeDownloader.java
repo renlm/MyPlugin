@@ -56,9 +56,11 @@ public class ChromeDownloader implements Downloader, Closeable {
 		String url = request.getUrl();
 		logger.info("downloading page " + url);
 		this.checkInit();
+		MyChromeDriver myChromeDriver;
 		WebDriver webDriver;
 		try {
-			webDriver = webDriverPool.get();
+			myChromeDriver = webDriverPool.get();
+			webDriver = myChromeDriver.getWebDriver();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 			return null;
@@ -78,7 +80,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 			e.printStackTrace();
 			return null;
 		} finally {
-			webDriverPool.returnToPool(webDriver);
+			webDriverPool.returnToPool(myChromeDriver);
 		}
 	}
 

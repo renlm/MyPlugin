@@ -30,12 +30,12 @@ class ChromeDriverPool {
 	private final static int STAT_CLODED = 2;
 
 	private AtomicInteger stat = new AtomicInteger(STAT_RUNNING);
-	private List<WebDriver> webDriverList = Collections.synchronizedList(new ArrayList<WebDriver>());
-	private BlockingDeque<WebDriver> innerQueue = new LinkedBlockingDeque<WebDriver>();
+	private List<MyChromeDriver> webDriverList = Collections.synchronizedList(new ArrayList<MyChromeDriver>());
+	private BlockingDeque<MyChromeDriver> innerQueue = new LinkedBlockingDeque<MyChromeDriver>();
 
 	private final Setting chromeSetting;
 	private final int capacity;
-	private WebDriver mDriver = null;
+	private MyChromeDriver mDriver = null;
 
 	public ChromeDriverPool(Setting chromeSetting, int capacity) {
 		this.chromeSetting = chromeSetting;
@@ -55,12 +55,14 @@ class ChromeDriverPool {
 		options.addArguments("--disable-dev-shm-usage");
 		options.addArguments("--window-size=" + windowSize);
 		options.setExperimentalOption("excludeSwitches", CollUtil.newArrayList("enable-automation"));
-		mDriver = new ChromeDriver(options);
+		ChromeDriverService service = ChromeDriverService.createServiceWithConfig(options);
+		ChromeDriver chromeDriver = new ChromeDriver(service, options);
+		mDriver = new MyChromeDriver(chromeDriver, service);
 	}
 
-	public WebDriver get() throws InterruptedException {
+	public MyChromeDriver get() throws InterruptedException {
 		checkRunning();
-		WebDriver poll = innerQueue.poll();
+		MyChromeDriver poll = innerQueue.poll();
 		if (poll != null) {
 			return poll;
 		}
@@ -80,7 +82,7 @@ class ChromeDriverPool {
 		return innerQueue.take();
 	}
 
-	public void returnToPool(WebDriver webDriver) {
+	public void returnToPool(MyChromeDriver webDriver) {
 		checkRunning();
 		innerQueue.add(webDriver);
 	}
@@ -95,9 +97,12 @@ class ChromeDriverPool {
 		if (!stat.compareAndSet(STAT_RUNNING, STAT_CLODED)) {
 			throw new IllegalStateException("Already closed!");
 		}
-		for (WebDriver webDriver : webDriverList) {
+		for (MyChromeDriver myChromeDriver : webDriverList) {
+			WebDriver webDriver = myChromeDriver.getWebDriver();
+			ChromeDriverService service = myChromeDriver.getService();
 			log.info("Quit webDriver" + webDriver);
 			webDriver.quit();
+			service.stop();
 		}
 	}
 }
