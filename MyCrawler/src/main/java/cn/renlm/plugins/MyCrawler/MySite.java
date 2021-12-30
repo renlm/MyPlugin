@@ -47,6 +47,8 @@ public class MySite extends Site {
 
 	/**
 	 * 浏览器模式配置
+	 *     [ driverPath=浏览器驱动路径 ] 
+	 *     [ sleepTime=页面渲染等待时间（毫秒） ]
 	 */
 	private Setting chromeSetting;
 
