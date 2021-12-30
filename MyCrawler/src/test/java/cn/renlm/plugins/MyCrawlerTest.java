@@ -60,9 +60,8 @@ public class MyCrawlerTest {
 						Console.log(JSONUtil.toJsonPrettyStr(data));
 					});
 		});
-		spider.addUrl("https://crawler.renlm.cn/log/login");
-		spider.addUrl("https://crawler.renlm.cn/log/login?v=1");
-		spider.addUrl("https://crawler.renlm.cn/log/login?v=2");
+		spider.addUrl("https://crawler.renlm.cn/sys/const?time=" + DateUtil.current());
+		spider.addUrl("https://crawler.renlm.cn/sys/const?time=" + DateUtil.current());
 		spider.run();
 	}
 }
