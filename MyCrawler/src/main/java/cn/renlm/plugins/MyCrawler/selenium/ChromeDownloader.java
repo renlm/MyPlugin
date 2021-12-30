@@ -112,7 +112,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 			cookieMap.forEach((_name, _value) -> {
 				String name = StrUtil.trimToNull(_name);
 				String value = StrUtil.trimToNull(_value);
-				String domain = StrUtil.removePrefix(_domain, StrUtil.DOT);
+				String domain = StrUtil.removePrefix(StrUtil.trimToNull(_domain), StrUtil.DOT);
 				if (StrUtil.isNotBlank(name) && StrUtil.isNotBlank(value)) {
 					Cookie cookie = new Cookie(name, value, domain, null, null);
 					map.put(JSONUtil.toJsonStr(cookie), cookie);
@@ -123,7 +123,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 			for (Cookie item : currentCookies) {
 				String name = StrUtil.trimToNull(item.getName());
 				String value = StrUtil.trimToNull(item.getValue());
-				String domain = StrUtil.removePrefix(item.getDomain(), StrUtil.DOT);
+				String domain = StrUtil.removePrefix(StrUtil.trimToNull(item.getDomain()), StrUtil.DOT);
 				if (StrUtil.isNotBlank(name) && StrUtil.isNotBlank(value)) {
 					Cookie cookie = new Cookie(name, value, domain, null, null);
 					addCookie = !map.containsKey(JSONUtil.toJsonStr(cookie));

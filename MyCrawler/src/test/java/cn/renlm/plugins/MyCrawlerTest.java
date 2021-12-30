@@ -2,12 +2,15 @@ package cn.renlm.plugins;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Console;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
@@ -53,9 +56,8 @@ public class MyCrawlerTest {
 							String text = td.xpath("/td/div/text()").get();
 							cols.add(text);
 						});
-						CollUtil.zip(rows.get(0), cols).forEach((key, value) -> {
-							page.getResultItems().put(key, value);
-						});
+						Map<String, String> data = CollUtil.zip(rows.get(0), cols);
+						Console.log(JSONUtil.toJsonPrettyStr(data));
 					});
 		});
 		spider.addUrl("https://crawler.renlm.cn/log/login");
