@@ -55,7 +55,7 @@ class ChromeDriverPool {
 		options.addArguments("--disable-dev-shm-usage");
 		options.addArguments("--window-size=" + windowSize);
 		options.setExperimentalOption("excludeSwitches", CollUtil.newArrayList("enable-automation"));
-		ChromeDriverService service = ChromeDriverService.createServiceWithConfig(options);
+		ChromeDriverService service = ChromeDriverService.createDefaultService();
 		ChromeDriver chromeDriver = new ChromeDriver(service, options);
 		mDriver = new MyChromeDriver(chromeDriver, service);
 	}

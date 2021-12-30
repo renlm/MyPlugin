@@ -2,8 +2,6 @@ package cn.renlm.plugins;
 
 import org.junit.Test;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Console;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
@@ -30,9 +28,8 @@ public class MyCrawlerTest {
 		site.setHeadless(false);
 		site.setScreenshot(true);
 		site.setChromeSetting(chromeSetting);
-		site.addCookie(site.getDomain(), "menuClickTime", Convert.toStr(DateUtil.current()));
-		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e5b0c11d-12fe-476b-968f-78b438a6e1f4");
-		site.addCookie(site.getDomain(), "SESSION", "Y2ZkYmFjNzktNzQ5ZC00ODcyLWE4MzYtNTU1NWQyMmExNDM4");
+		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e3d80ea9-d47e-4dc9-8b78-9352227a3d9b");
+		site.addCookie(site.getDomain(), "SESSION", "ZDVlNzZiYzAtMmM5NS00MTg1LWI1MTEtNDRkOGZjY2QxNTE5");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
