@@ -2,7 +2,9 @@ package cn.renlm.plugins.MyCrawler.selenium;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -11,7 +13,10 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -46,7 +51,8 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	@Override
 	public Page download(Request request, Task task) {
-		logger.info("downloading page " + request.getUrl());
+		String url = request.getUrl();
+		logger.info("downloading page " + url);
 		this.checkInit();
 		WebDriver webDriver;
 		try {
@@ -55,19 +61,9 @@ public class ChromeDownloader implements Downloader, Closeable {
 			e.printStackTrace();
 			return null;
 		}
-
 		try {
-			// 设置自定义Cookies
-			Site site = task.getSite();
-			WebDriver.Options manage = webDriver.manage();
-			if (site != null && site.getCookies() != null) {
-				for (Map.Entry<String, String> cookieEntry : site.getCookies().entrySet()) {
-					Cookie cookie = new Cookie(cookieEntry.getKey(), cookieEntry.getValue());
-					manage.addCookie(cookie);
-				}
-			}
-			// 请求并获取网页
-			webDriver.get(request.getUrl());
+			webDriver.get(url);
+			this.addCookies(webDriver, url, task.getSite());
 			ThreadUtil.safeSleep(sleepTime);
 			WebElement webElement = webDriver.findElement(By.xpath("/html"));
 			String content = webElement.getAttribute("outerHTML");
@@ -84,11 +80,54 @@ public class ChromeDownloader implements Downloader, Closeable {
 		}
 	}
 
+	/**
+	 * 驱动初始化
+	 */
 	private void checkInit() {
 		if (webDriverPool == null) {
 			synchronized (this) {
 				webDriverPool = new ChromeDriverPool(chromeSetting, poolSize);
 			}
+		}
+	}
+
+	/**
+	 * 访问页面，设置Cookie后重新访问
+	 * 
+	 * @param webDriver
+	 * @param url
+	 * @param site
+	 */
+	private void addCookies(WebDriver webDriver, String url, Site site) {
+		Map<String, Map<String, String>> cookies = site.getAllCookies();
+		if (MapUtil.isEmpty(cookies)) {
+			return;
+		}
+		WebDriver.Options manage = webDriver.manage();
+		Set<Cookie> currentCookies = manage.getCookies();
+		boolean addCookie = CollUtil.isEmpty(currentCookies);
+		Map<String, Cookie> map = new LinkedHashMap<>();
+		cookies.forEach((domain, cookieMap) -> {
+			cookieMap.forEach((name, value) -> {
+				Cookie cookie = new Cookie(name, value, domain, null, null);
+				map.put(JSONUtil.toJsonStr(cookie), cookie);
+			});
+		});
+		if (CollUtil.isNotEmpty(currentCookies)) {
+			for (Cookie cookie : currentCookies) {
+				Cookie ck = new Cookie(cookie.getName(), cookie.getValue(), cookie.getDomain(), null, null);
+				addCookie = !map.containsKey(JSONUtil.toJsonStr(ck));
+				if (addCookie) {
+					break;
+				}
+			}
+		}
+		if (addCookie) {
+			manage.deleteAllCookies();
+			map.forEach((jsonKey, cookie) -> {
+				manage.addCookie(cookie);
+			});
+			webDriver.navigate().to(url);
 		}
 	}
 
