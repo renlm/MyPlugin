@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
@@ -107,22 +108,32 @@ public class ChromeDownloader implements Downloader, Closeable {
 		Set<Cookie> currentCookies = manage.getCookies();
 		boolean addCookie = CollUtil.isEmpty(currentCookies);
 		Map<String, Cookie> map = new LinkedHashMap<>();
-		cookies.forEach((domain, cookieMap) -> {
-			cookieMap.forEach((name, value) -> {
-				Cookie cookie = new Cookie(name, value, domain, null, null);
-				map.put(JSONUtil.toJsonStr(cookie), cookie);
+		cookies.forEach((_domain, cookieMap) -> {
+			cookieMap.forEach((_name, _value) -> {
+				String name = StrUtil.trimToNull(_name);
+				String value = StrUtil.trimToNull(_value);
+				String domain = StrUtil.removePrefix(_domain, StrUtil.DOT);
+				if (StrUtil.isNotBlank(name) && StrUtil.isNotBlank(value)) {
+					Cookie cookie = new Cookie(name, value, domain, null, null);
+					map.put(JSONUtil.toJsonStr(cookie), cookie);
+				}
 			});
 		});
 		if (CollUtil.isNotEmpty(currentCookies)) {
-			for (Cookie cookie : currentCookies) {
-				Cookie ck = new Cookie(cookie.getName(), cookie.getValue(), cookie.getDomain(), null, null);
-				addCookie = !map.containsKey(JSONUtil.toJsonStr(ck));
-				if (addCookie) {
-					break;
+			for (Cookie item : currentCookies) {
+				String name = StrUtil.trimToNull(item.getName());
+				String value = StrUtil.trimToNull(item.getValue());
+				String domain = StrUtil.removePrefix(item.getDomain(), StrUtil.DOT);
+				if (StrUtil.isNotBlank(name) && StrUtil.isNotBlank(value)) {
+					Cookie cookie = new Cookie(name, value, domain, null, null);
+					addCookie = !map.containsKey(JSONUtil.toJsonStr(cookie));
+					if (addCookie) {
+						break;
+					}
 				}
 			}
 		}
-		if (addCookie) {
+		if (addCookie && MapUtil.isNotEmpty(map)) {
 			manage.deleteAllCookies();
 			map.forEach((jsonKey, cookie) -> {
 				manage.addCookie(cookie);
