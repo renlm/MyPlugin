@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.setting.Setting;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -41,7 +40,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	public ChromeDownloader(Setting chromeSetting) {
 		this.chromeSetting = chromeSetting;
-		this.sleepTime = ObjectUtil.defaultIfNull(chromeSetting.getInt("sleepTime"), 0);
+		this.sleepTime = chromeSetting.getInt("sleepTime", 0);
 		this.checkInit();
 	}
 

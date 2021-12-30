@@ -13,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.setting.Setting;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +43,18 @@ class ChromeDriverPool {
 	}
 
 	public void configure() throws IOException {
+		boolean headless = chromeSetting.getBool("headless", false);
+		String windowSize = chromeSetting.getStr("windowSize", "1280,720");
 		String driverPath = chromeSetting.getStr("driverPath");
 		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
 
 		ChromeOptions options = new ChromeOptions();
-		options.setHeadless(true);
-		options.addArguments("disable-infobars");
+		options.setHeadless(headless);
 		options.addArguments("--no-sandbox");
 		options.addArguments("--disable-gpu");
 		options.addArguments("--disable-dev-shm-usage");
-		options.addArguments("--window-size=" + chromeSetting.getStr("windowSize", "1415,1000"));
+		options.addArguments("--window-size=" + windowSize);
+		options.setExperimentalOption("excludeSwitches", CollUtil.newArrayList("enable-automation"));
 		mDriver = new ChromeDriver(options);
 	}
 
