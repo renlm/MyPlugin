@@ -35,6 +35,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 public class MyCrawlerUtil {
 
 	public static final String depthExtraKey = "_MyCrawlerDepthExtra_";
+	public static final String screenshotBASE64ExtraKey = "_MyCrawlerScreenshotBASE64Extra_";
 
 	/**
 	 * 爬虫实例
@@ -100,7 +101,8 @@ public class MyCrawlerUtil {
 			@Override
 			public void process(Page page) {
 				int depth = ObjectUtil.defaultIfNull(page.getRequest().getExtra(depthExtraKey), 1);
-				MyProcessPage myPage = new MyProcessPage(depth, site, page);
+				String screenshotBASE64 = page.getRequest().getExtra(screenshotBASE64ExtraKey);
+				MyProcessPage myPage = new MyProcessPage(depth, site, page, screenshotBASE64);
 				pageProcessor.process(myPage);
 				List<Request> targetRequests = page.getTargetRequests();
 				// 爬取深度控制

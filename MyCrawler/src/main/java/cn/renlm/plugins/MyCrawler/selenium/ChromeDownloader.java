@@ -9,8 +9,12 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +24,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.setting.Setting;
+import cn.renlm.plugins.MyCrawlerUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
@@ -57,7 +62,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 		logger.info("downloading page " + url);
 		this.checkInit();
 		MyChromeDriver myChromeDriver;
-		WebDriver webDriver;
+		ChromeDriver webDriver;
 		try {
 			myChromeDriver = webDriverPool.get();
 			webDriver = myChromeDriver.getWebDriver();
@@ -69,6 +74,17 @@ public class ChromeDownloader implements Downloader, Closeable {
 			webDriver.get(url);
 			this.addCookies(webDriver, url, task.getSite());
 			ThreadUtil.safeSleep(sleepTime);
+			// 截屏
+			if (chromeSetting.getBool("screenshot", false)) {
+				JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+				Long width = (Long) jse.executeScript("return document.documentElement.scrollWidth");
+				Long height = (Long) jse.executeScript("return document.documentElement.scrollHeight");
+				webDriver.manage().window().maximize();
+				webDriver.manage().window().setSize(new Dimension(width.intValue(), height.intValue()));
+				String screenshotBASE64 = webDriver.getScreenshotAs(OutputType.BASE64);
+				request.putExtra(MyCrawlerUtil.screenshotBASE64ExtraKey, screenshotBASE64);
+			}
+			// 页面
 			WebElement webElement = webDriver.findElement(By.xpath("/html"));
 			String content = webElement.getAttribute("outerHTML");
 			Page page = new Page();

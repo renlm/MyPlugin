@@ -23,4 +23,9 @@ public class MyProcessPage {
 
 	private Page page;
 
+	/**
+	 * 截屏图片BASE64
+	 */
+	private String screenshotBASE64;
+
 }
