@@ -2,6 +2,7 @@ package cn.renlm.plugins.MyCrawler.selenium;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -101,6 +102,16 @@ public class ChromeDownloader implements Downloader, Closeable {
 	 */
 	private void addCookies(WebDriver webDriver, String url, Site site) {
 		Map<String, Map<String, String>> cookies = site.getAllCookies();
+		Map<String, String> defaultCookies = site.getCookies();
+		if (MapUtil.isNotEmpty(defaultCookies)) {
+			String domain = StrUtil.blankToDefault(site.getDomain(), StrUtil.EMPTY);
+			defaultCookies.forEach((name, value) -> {
+				if (!cookies.containsKey(domain)) {
+					cookies.put(domain, new HashMap<String, String>());
+				}
+				cookies.get(domain).put(name, value);
+			});
+		}
 		if (MapUtil.isEmpty(cookies)) {
 			return;
 		}
