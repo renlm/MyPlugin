@@ -31,6 +31,8 @@ public class MyCrawlerTest {
 		MySite site = MySite.me();
 		site.setDomain("crawler.renlm.cn");
 		site.setEnableSelenuim(true);
+		site.setHeadless(false);
+		site.setScreenshot(true);
 		site.setChromeSetting(chromeSetting);
 		site.addCookie(site.getDomain(), "menuClickTime", Convert.toStr(DateUtil.current()));
 		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e5b0c11d-12fe-476b-968f-78b438a6e1f4");
@@ -56,8 +58,10 @@ public class MyCrawlerTest {
 							String text = td.xpath("/td/div/text()").get();
 							cols.add(text);
 						});
-						Map<String, String> data = CollUtil.zip(rows.get(0), cols);
-						Console.log(JSONUtil.toJsonPrettyStr(data));
+						if (rows.get(0).size() == cols.size()) {
+							Map<String, String> data = CollUtil.zip(rows.get(0), cols);
+							Console.log(JSONUtil.toJsonPrettyStr(data));
+						}
 					});
 		});
 		spider.addUrl("https://crawler.renlm.cn/sys/const?time=" + DateUtil.current());
