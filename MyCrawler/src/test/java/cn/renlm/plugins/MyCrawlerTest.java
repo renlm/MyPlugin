@@ -30,8 +30,8 @@ public class MyCrawlerTest {
 		site.setEnableSelenuim(true);
 		site.setChromeSetting(chromeSetting);
 		site.addCookie(site.getDomain(), "menuClickTime", Convert.toStr(DateUtil.current()));
-		site.addCookie(site.getDomain(), "XSRF-TOKEN", "37e84571-8298-4afa-a029-13c801ec5567");
-		site.addCookie(site.getDomain(), "SESSION", "YTkwZjYzY2QtZTdmZi00ZjViLWEzM2MtYWUyZjQ1MzFhOWVi");
+		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e5b0c11d-12fe-476b-968f-78b438a6e1f4");
+		site.addCookie(site.getDomain(), "SESSION", "Y2ZkYmFjNzktNzQ5ZC00ODcyLWE4MzYtNTU1NWQyMmExNDM4");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
