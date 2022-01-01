@@ -44,7 +44,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	private int sleepTime = 0;
+	private int sleepTime = 100;
 
 	private int poolSize = 1;
 
@@ -52,7 +52,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 
 	public ChromeDownloader(Setting chromeSetting) {
 		this.chromeSetting = chromeSetting;
-		this.sleepTime = chromeSetting.getInt("sleepTime", 0);
+		this.sleepTime = chromeSetting.getInt("sleepTime", 100);
 		this.checkInit();
 	}
 
