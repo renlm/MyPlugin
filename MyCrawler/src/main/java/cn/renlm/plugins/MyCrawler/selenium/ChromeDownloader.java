@@ -79,7 +79,6 @@ public class ChromeDownloader implements Downloader, Closeable {
 				JavascriptExecutor jse = (JavascriptExecutor) webDriver;
 				Long width = (Long) jse.executeScript("return document.documentElement.scrollWidth");
 				Long height = (Long) jse.executeScript("return document.documentElement.scrollHeight");
-				webDriver.manage().window().maximize();
 				webDriver.manage().window().setSize(new Dimension(width.intValue(), height.intValue()));
 				String screenshotBASE64 = webDriver.getScreenshotAs(OutputType.BASE64);
 				request.putExtra(MyCrawlerUtil.screenshotBASE64ExtraKey, screenshotBASE64);
