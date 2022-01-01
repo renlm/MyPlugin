@@ -1,12 +1,18 @@
 package cn.renlm.plugins;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.OutputStream;
+
 import org.junit.Test;
 
+import cn.hutool.core.img.ImgUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.MySite;
 import cn.renlm.plugins.MyCrawler.MySpider;
-import lombok.extern.slf4j.Slf4j;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.selector.Html;
 
@@ -16,9 +22,15 @@ import us.codecraft.webmagic.selector.Html;
  * @author Renlm
  *
  */
-@Slf4j
 public class MyCrawlerTest {
-	Setting chromeSetting = new Setting("chrome.setting");
+	static final String driverPath = FileUtil.normalize(ConstVal.resourcesTestDir + "/chromedriver.exe");
+	static final String settingPath = FileUtil.normalize(ConstVal.resourcesTestDir + "/chrome.setting");
+	static final Setting chromeSetting = new Setting(settingPath);
+
+	static {
+		chromeSetting.set("driverPath", driverPath);
+		chromeSetting.store(settingPath);
+	}
 
 	@Test
 	public void test() {
@@ -28,13 +40,21 @@ public class MyCrawlerTest {
 		site.setHeadless(false);
 		site.setScreenshot(true);
 		site.setChromeSetting(chromeSetting);
-		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e3d80ea9-d47e-4dc9-8b78-9352227a3d9b");
-		site.addCookie(site.getDomain(), "SESSION", "ZDVlNzZiYzAtMmM5NS00MTg1LWI1MTEtNDRkOGZjY2QxNTE5");
+		site.addCookie(site.getDomain(), "XSRF-TOKEN", "e8e91151-5de6-4244-89fe-a46d0c5996a5");
+		site.addCookie(site.getDomain(), "SESSION", "ODQ5MTRjZGEtNTdjOS00MDJmLWIzNjUtOWU4MjVlZGI3ZGFh");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
 			Console.log(html);
-			log.info(myPage.screenshotBASE64());
+			if (StrUtil.isNotBlank(myPage.screenshotBASE64())) {
+				BufferedImage screenshot = ImgUtil.toImage(myPage.screenshotBASE64());
+				File file = FileUtil.file(FileUtil.getUserHomePath() + "/Desktop/爬虫截屏.png");
+				if (file.exists()) {
+					file.delete();
+				}
+				OutputStream out = FileUtil.getOutputStream(file);
+				ImgUtil.writePng(screenshot, out);
+			}
 		});
 		spider.addUrl("https://crawler.renlm.cn/sys/const");
 		spider.run();
