@@ -55,7 +55,6 @@ public class MyGeneratorUtil {
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
 	static final String otherOutputDir 			= ConstVal.resourcesDir + "/excel";
 	static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
-	static final String entityTemplatePath 		= "config/Entity.java.ftl";
 	static final String serviceImplTemplatePath = "config/ServiceImpl.java";
 
 	/**
@@ -149,7 +148,6 @@ public class MyGeneratorUtil {
 	 */
 	private static final TemplateConfig templateConfig() {
 		return new TemplateConfig.Builder()
-				.entity(entityTemplatePath)
 				.serviceImpl(serviceImplTemplatePath)
 				.disable(TemplateType.CONTROLLER)
 				.build();
