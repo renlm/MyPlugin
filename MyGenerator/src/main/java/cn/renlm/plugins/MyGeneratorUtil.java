@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -76,7 +77,7 @@ public class MyGeneratorUtil {
 		autoGenerator.strategy(strategyConfig(table));
 		autoGenerator.packageInfo(packageConfig(pkg, moduleName));
 		autoGenerator.global(globalConfig(table));
-		autoGenerator.execute();
+		autoGenerator.execute(new FreemarkerTemplateEngine());
 
 	}
 
