@@ -51,11 +51,11 @@ import lombok.Data;
  *
  */
 public class MyGeneratorUtil {
-	static final String excelXmlName 			= "excel.xml";
-	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
-	static final String otherOutputDir 			= ConstVal.resourcesDir + "/excel";
-	static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
-	static final String serviceImplTemplatePath = "config/ServiceImpl.java";
+	private static final String excelXmlName 			= "excel.xml";
+	private static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
+	private static final String otherOutputDir 			= ConstVal.resourcesDir + "/excel";
+	private static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
+	private static final String serviceImplTemplatePath = "config/ServiceImpl.java";
 
 	/**
 	 * 读取配置并运行
