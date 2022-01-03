@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -105,7 +106,7 @@ public class MyGeneratorUtil {
 	private static final TemplateConfig templateConfig() {
 		return new TemplateConfig.Builder()
 				.serviceImpl(serviceImplTemplatePath)
-				.controller(null)
+				.disable(TemplateType.CONTROLLER)
 				.build();
 	}
 
