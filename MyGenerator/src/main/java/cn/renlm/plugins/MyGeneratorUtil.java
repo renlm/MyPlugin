@@ -46,9 +46,9 @@ import lombok.Data;
  *
  */
 public class MyGeneratorUtil {
-	static final String excelXmlSuffix 			= ".excel.xml";
+	static final String excelXmlName 			= "excel.xml";
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
-	static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
+	static final String otherOutputDir 			= ConstVal.resourcesDir + "/other";
 	static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	static final String serviceImplTemplatePath = "config/ServiceImpl.java";
 
@@ -91,7 +91,7 @@ public class MyGeneratorUtil {
 		map.put("dsName", conf.dsName);
 		
 		Map<String, String> customFile = new HashMap<>();
-		customFile.put(excelXmlSuffix, excelXmlTemplatePath);
+		customFile.put(excelXmlName, excelXmlTemplatePath);
 		
 		return new InjectionConfig.Builder()
 				.customMap(map)
@@ -134,6 +134,7 @@ public class MyGeneratorUtil {
 	private static final PackageConfig packageConfig(String pkg, String moduleName) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
 		pathInfo.put(OutputFile.mapperXml, mapperOutputDir + SLASH + moduleName + SLASH);
+		pathInfo.put(OutputFile.other, otherOutputDir + SLASH + moduleName + SLASH);
 		return new PackageConfig.Builder()
 				.parent(pkg)
 				.moduleName(moduleName)
@@ -153,6 +154,7 @@ public class MyGeneratorUtil {
 				.author(table.author)
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE)
+				.fileOverride()
 				.build();
 	}
 
