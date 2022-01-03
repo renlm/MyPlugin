@@ -25,7 +25,6 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.Data;
@@ -52,7 +51,6 @@ public class MyGeneratorUtil {
 	static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
 	static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	static final String serviceImplTemplatePath = "config/ServiceImpl.java";
-	static final String dSClassName 			= DS.class.getName();
 
 	/**
 	 * 读取配置并运行
@@ -89,7 +87,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final InjectionConfig injectionConfig(GeneratorConfig conf) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("nameOfDS", ClassUtil.loadClass(dSClassName).getName());
+		map.put("nameOfDS", DS.class.getName());
 		map.put("dsName", conf.dsName);
 		
 		Map<String, String> customFile = new HashMap<>();
