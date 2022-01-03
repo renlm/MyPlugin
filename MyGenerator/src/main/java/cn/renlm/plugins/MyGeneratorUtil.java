@@ -45,7 +45,6 @@ import lombok.Data;
  *
  */
 public class MyGeneratorUtil {
-	static final String mapperSuffix 			= "Mapper";
 	static final String excelXmlSuffix 			= ".excel.xml";
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
 	static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
