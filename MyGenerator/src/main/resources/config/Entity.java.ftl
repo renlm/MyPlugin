@@ -28,7 +28,7 @@ import lombok.EqualsAndHashCode;
     <#if chainModel>
 @Accessors(chain = true)
     </#if>
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 </#if>
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
