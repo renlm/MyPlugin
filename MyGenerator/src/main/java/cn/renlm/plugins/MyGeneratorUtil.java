@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -18,6 +20,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -25,6 +28,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.Data;
@@ -67,6 +71,15 @@ public class MyGeneratorUtil {
 		});
 	}
 
+	/**
+	 * 生成代码
+	 * 
+	 * @param conf
+	 * @param dsc
+	 * @param pkg
+	 * @param moduleName
+	 * @param table
+	 */
 	private static final void create(GeneratorConfig conf, DataSourceConfig dsc, String pkg, String moduleName,
 			GeneratorTable table) {
 		AutoGenerator autoGenerator = new AutoGenerator(dsc);
@@ -75,8 +88,30 @@ public class MyGeneratorUtil {
 		autoGenerator.strategy(strategyConfig(table));
 		autoGenerator.packageInfo(packageConfig(pkg, moduleName));
 		autoGenerator.global(globalConfig(table));
-		autoGenerator.execute(new FreemarkerTemplateEngine());
-
+		autoGenerator.execute(new FreemarkerTemplateEngine() {
+			/**
+			 * 是否强制覆盖实体类
+			 */
+			@Override
+			protected void outputEntity(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
+				GlobalConfig globalConfig = this.getConfigBuilder().getGlobalConfig();
+				boolean fileOverride = globalConfig.isFileOverride();
+				ReflectUtil.setFieldValue(globalConfig, "fileOverride",
+						table.coverEntity ? table.coverEntity : fileOverride);
+				super.outputEntity(tableInfo, objectMap);
+				ReflectUtil.setFieldValue(globalConfig, "fileOverride", fileOverride);
+			}
+			/**
+			 * 是否生成表格配置
+			 */
+			@Override
+			protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo,
+					@NotNull Map<String, Object> objectMap) {
+				if(table.configExcel) {
+					super.outputCustomFile(customFile, tableInfo, objectMap);
+				}
+			}
+		});
 	}
 
 	/**
@@ -101,6 +136,8 @@ public class MyGeneratorUtil {
 
 	/**
 	 * 模板配置
+	 * 
+	 * @return
 	 */
 	private static final TemplateConfig templateConfig() {
 		return new TemplateConfig.Builder()
@@ -111,6 +148,9 @@ public class MyGeneratorUtil {
 
 	/**
 	 * 策略配置
+	 * 
+	 * @param table
+	 * @return
 	 */
 	private static final StrategyConfig strategyConfig(GeneratorTable table) {
 		return new StrategyConfig.Builder()
