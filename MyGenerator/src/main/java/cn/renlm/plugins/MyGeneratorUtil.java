@@ -154,7 +154,6 @@ public class MyGeneratorUtil {
 				.author(table.author)
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE)
-				.fileOverride()
 				.build();
 	}
 
