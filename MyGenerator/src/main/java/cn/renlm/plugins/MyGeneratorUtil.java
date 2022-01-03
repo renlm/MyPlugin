@@ -235,11 +235,6 @@ public class MyGeneratorUtil {
 		private String password;
 
 		/**
-		 * 数据源-驱动
-		 */
-		private String driverName;
-
-		/**
 		 * 模块集
 		 */
 		@XStreamImplicit(itemFieldName = "module")

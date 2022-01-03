@@ -6,7 +6,6 @@
 	<url>jdbc:postgresql://localhost:5432/db</url>
 	<username>username</username>
 	<password>password</password>
-	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
 		<table schema="public" author="Renlm" name="sys_const" />
