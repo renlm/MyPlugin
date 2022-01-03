@@ -2,6 +2,7 @@ package cn.renlm.plugins;
 
 import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -52,8 +53,9 @@ import lombok.Data;
 public class MyGeneratorUtil {
 	static final String excelXmlName 			= "excel.xml";
 	static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
-	static final String otherOutputDir 			= ConstVal.resourcesDir + "/other";
+	static final String otherOutputDir 			= ConstVal.resourcesDir + "/excel";
 	static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
+	static final String entityTemplatePath 		= "config/Entity.java.ftl";
 	static final String serviceImplTemplatePath = "config/ServiceImpl.java";
 
 	/**
@@ -101,14 +103,20 @@ public class MyGeneratorUtil {
 				super.outputEntity(tableInfo, objectMap);
 				ReflectUtil.setFieldValue(globalConfig, "fileOverride", fileOverride);
 			}
+
 			/**
 			 * 是否生成表格配置
 			 */
 			@Override
 			protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo,
 					@NotNull Map<String, Object> objectMap) {
-				if(table.configExcel) {
-					super.outputCustomFile(customFile, tableInfo, objectMap);
+				if (table.configExcel) {
+					String entityName = tableInfo.getEntityName();
+					String otherPath = getPathInfo(OutputFile.other);
+					customFile.forEach((key, value) -> {
+						String fileName = otherPath + File.separator + entityName + StrUtil.DOT + key;
+						outputFile(new File(fileName), objectMap, value);
+					});
 				}
 			}
 		});
@@ -141,6 +149,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final TemplateConfig templateConfig() {
 		return new TemplateConfig.Builder()
+				.entity(entityTemplatePath)
 				.serviceImpl(serviceImplTemplatePath)
 				.disable(TemplateType.CONTROLLER)
 				.build();
