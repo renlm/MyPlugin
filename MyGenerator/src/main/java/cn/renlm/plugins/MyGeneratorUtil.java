@@ -118,6 +118,7 @@ public class MyGeneratorUtil {
 				.entityBuilder()
 				.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
 				.enableTableFieldAnnotation()
+				.enableLombok()
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel)
