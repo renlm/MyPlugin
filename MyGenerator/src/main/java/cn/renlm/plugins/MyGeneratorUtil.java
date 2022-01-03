@@ -24,7 +24,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import cn.hutool.core.util.ClassUtil;
-import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.Data;
 
@@ -116,7 +116,7 @@ public class MyGeneratorUtil {
 		return new StrategyConfig.Builder()
 				.addInclude(table.name)
 				.entityBuilder()
-				.idType(ObjectUtil.defaultIfNull(IdType.AUTO, IdType.valueOf(table.idType)))
+				.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
 				.enableTableFieldAnnotation()
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
