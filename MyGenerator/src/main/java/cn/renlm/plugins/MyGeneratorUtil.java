@@ -11,6 +11,7 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -22,6 +23,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -65,6 +67,20 @@ public class MyGeneratorUtil {
 	public static final void run(String xml) {
 		GeneratorConfig conf = MyXStreamUtil.read(GeneratorConfig.class, xml);
 		DataSourceConfig dsc = new DataSourceConfig.Builder(conf.url, conf.username, conf.password).build();
+		DbType dbType = dsc.getDbType();
+		if(dbType == DbType.POSTGRE_SQL) {
+			ReflectUtil.setFieldValue(dsc, "dbQuery", new PostgreSqlQuery() {
+				/**
+				 * 修复主键查询BUG
+				 */
+				@Override
+				public String tableFieldsSql() {
+					return "SELECT A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment,\n" +
+				            "(CASE WHEN (SELECT COUNT (*) FROM pg_constraint AS PC WHERE PC.conrelid = C.oid AND A.attnum = PC.conkey[1] AND PC.contype = 'p') > 0 THEN 'PRI' ELSE '' END) AS key \n" +
+				            "FROM pg_class AS C,pg_attribute AS A WHERE A.attrelid='\"%s\"'::regclass AND A.attrelid= C.oid AND A.attnum> 0 AND NOT A.attisdropped ORDER  BY A.attnum";
+				}
+			});
+		}
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
 				create(conf, dsc, module.pkg, module.name, table);
@@ -97,8 +113,7 @@ public class MyGeneratorUtil {
 			protected void outputEntity(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
 				GlobalConfig globalConfig = this.getConfigBuilder().getGlobalConfig();
 				boolean fileOverride = globalConfig.isFileOverride();
-				ReflectUtil.setFieldValue(globalConfig, "fileOverride",
-						table.coverEntity ? table.coverEntity : fileOverride);
+				ReflectUtil.setFieldValue(globalConfig, "fileOverride", table.coverEntity ? table.coverEntity : fileOverride);
 				super.outputEntity(tableInfo, objectMap);
 				ReflectUtil.setFieldValue(globalConfig, "fileOverride", fileOverride);
 			}
