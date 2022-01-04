@@ -28,16 +28,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schema/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://www.renlm.cn/schemas/MyGenerator.xsd">
 
 	<url>jdbc:postgresql://localhost:5432/db</url>
 	<username>username</username>
 	<password>password</password>
-	<driverName>org.postgresql.Driver</driverName>
 
 	<module name="sys" package="cn.renlm.crawler">
-		<table schema="public" author="Renlm" name="sys_const" />
-		<table schema="public" author="Renlm" name="sys_file" cover-entity="true" idType="ASSIGN_ID" />
+		<table schema="public" author="Renlm" name="sys_const" entity="true" excel="true" />
+		<table schema="public" author="Renlm" name="sys_file" idType="ASSIGN_ID" />
 	</module>
 </generator>
 ```
