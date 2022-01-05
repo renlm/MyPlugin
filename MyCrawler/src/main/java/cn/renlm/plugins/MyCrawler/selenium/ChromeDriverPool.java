@@ -48,6 +48,8 @@ class ChromeDriverPool {
 		String driverPath = chromeSetting.getStr("driverPath");
 		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
 
+		// https://sites.google.com/a/chromium.org/chromedriver/capabilities
+		// https://peter.sh/experiments/chromium-command-line-switches
 		ChromeOptions options = new ChromeOptions();
 		options.setHeadless(headless);
 		options.addArguments("--no-sandbox");
