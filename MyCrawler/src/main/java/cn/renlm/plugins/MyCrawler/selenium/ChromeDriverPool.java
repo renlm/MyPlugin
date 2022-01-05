@@ -15,6 +15,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.NumberUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +47,9 @@ class ChromeDriverPool {
 		boolean headless = chromeSetting.getBool("headless", false);
 		String windowSize = chromeSetting.getStr("windowSize", "1280,720");
 		String driverPath = chromeSetting.getStr("driverPath");
-		System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
+		if (!StrUtil.equals(driverPath, System.getProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY))) {
+			System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, driverPath);
+		}
 
 		// https://sites.google.com/a/chromium.org/chromedriver/capabilities
 		// https://peter.sh/experiments/chromium-command-line-switches
