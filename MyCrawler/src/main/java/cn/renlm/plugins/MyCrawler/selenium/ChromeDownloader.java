@@ -31,6 +31,7 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.Downloader;
 import us.codecraft.webmagic.selector.PlainText;
+import us.codecraft.webmagic.utils.HttpConstant;
 
 /**
  * 使用Selenium调用浏览器进行渲染
@@ -90,6 +91,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 			page.setRawText(content);
 			page.setUrl(new PlainText(request.getUrl()));
 			page.setRequest(request);
+			page.setStatusCode(HttpConstant.StatusCode.CODE_200);
 			page.setDownloadSuccess(true);
 			return page;
 		} catch (Exception e) {
