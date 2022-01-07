@@ -45,6 +45,7 @@ class ChromeDriverPool {
 
 	public void configure() throws IOException {
 		boolean headless = chromeSetting.getBool("headless", false);
+		String userAgent = chromeSetting.getStr("userAgent");
 		String windowSize = chromeSetting.getStr("windowSize", "1280,720");
 		String driverPath = chromeSetting.getStr("driverPath");
 		if (!StrUtil.equals(driverPath, System.getProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY))) {
@@ -60,6 +61,9 @@ class ChromeDriverPool {
 		options.addArguments("--disable-dev-shm-usage");
 		options.addArguments("--window-size=" + windowSize);
 		options.setExperimentalOption("excludeSwitches", CollUtil.newArrayList("enable-automation"));
+		if (StrUtil.isNotBlank(userAgent)) {
+			options.addArguments("--user-agent=" + userAgent);
+		}
 		ChromeDriverService service = ChromeDriverService.createDefaultService();
 		ChromeDriver chromeDriver = new ChromeDriver(service, options);
 		mDriver = new MyChromeDriver(chromeDriver, service);

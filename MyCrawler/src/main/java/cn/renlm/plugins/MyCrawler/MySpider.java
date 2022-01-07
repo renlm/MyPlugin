@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.Setting;
 import cn.renlm.plugins.MyCrawler.scheduler.MyDuplicateVerify;
 import cn.renlm.plugins.MyCrawler.selenium.ChromeDownloader;
@@ -87,6 +88,9 @@ public class MySpider extends Spider {
 			Setting chromeSetting = site.getChromeSetting();
 			if (BooleanUtil.isTrue(site.getHeadless())) {
 				chromeSetting.set("headless", "true");
+			}
+			if (StrUtil.isNotBlank(site.getUserAgent())) {
+				chromeSetting.set("userAgent", site.getUserAgent());
 			}
 			if (BooleanUtil.isTrue(site.getScreenshot())) {
 				chromeSetting.set("screenshot", "true");
