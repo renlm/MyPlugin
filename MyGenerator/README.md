@@ -22,7 +22,7 @@
 
 ## 使用
 ### 配置Xml
-详细规则可查看[MyGenerator.xsd](https://www.renlm.cn/schema/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
+详细规则可查看[MyGenerator.xsd](https://www.renlm.cn/schemas/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
