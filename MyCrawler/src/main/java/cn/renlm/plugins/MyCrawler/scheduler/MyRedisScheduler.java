@@ -54,7 +54,7 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 				boolean duplicate = jedis.exists(cacheKey);
 				if (BooleanUtil.isTrue(forceUpdate) || !duplicate) {
 					jedis.srem(getSetKey(task), url);
-					jedis.setex(cacheKey, 60 * 60 * 21, url);
+					jedis.setex(cacheKey, 60 * 60 * 21L, url);
 				}
 				if (BooleanUtil.isTrue(forceUpdate)) {
 					return false;
