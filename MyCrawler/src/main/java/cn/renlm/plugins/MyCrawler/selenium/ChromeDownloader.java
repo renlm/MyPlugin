@@ -61,14 +61,15 @@ public class ChromeDownloader implements Downloader, Closeable {
 		String url = request.getUrl();
 		logger.info("downloading page " + url);
 		this.checkInit();
+		Page page = Page.fail();
 		MyChromeDriver myChromeDriver;
 		ChromeDriver webDriver;
 		try {
 			myChromeDriver = webDriverPool.get();
 			webDriver = myChromeDriver.getWebDriver();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return page;
 		}
 		try {
 			webDriver.get(url);
@@ -86,14 +87,14 @@ public class ChromeDownloader implements Downloader, Closeable {
 			// 页面
 			WebElement webElement = webDriver.findElement(By.xpath("/html"));
 			String content = webElement.getAttribute("outerHTML");
-			Page page = new Page();
 			page.setRawText(content);
 			page.setUrl(new PlainText(request.getUrl()));
 			page.setRequest(request);
+			page.setDownloadSuccess(true);
 			return page;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return page;
 		} finally {
 			webDriverPool.returnToPool(myChromeDriver);
 		}
