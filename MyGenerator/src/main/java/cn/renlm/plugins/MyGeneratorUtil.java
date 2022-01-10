@@ -66,24 +66,14 @@ public class MyGeneratorUtil {
 	 */
 	public static final void run(String xml) {
 		GeneratorConfig conf = MyXStreamUtil.read(GeneratorConfig.class, xml);
-		DataSourceConfig dsc = new DataSourceConfig.Builder(conf.url, conf.username, conf.password).build();
-		DbType dbType = dsc.getDbType();
-		if(dbType == DbType.POSTGRE_SQL) {
-			ReflectUtil.setFieldValue(dsc, "dbQuery", new PostgreSqlQuery() {
-				/**
-				 * 修复主键查询BUG
-				 */
-				@Override
-				public String tableFieldsSql() {
-					return "SELECT A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment,\n" +
-				            "(CASE WHEN (SELECT COUNT (*) FROM pg_constraint AS PC WHERE PC.conrelid = C.oid AND A.attnum = PC.conkey[1] AND PC.contype = 'p') > 0 THEN 'PRI' ELSE '' END) AS key \n" +
-				            "FROM pg_class AS C,pg_attribute AS A WHERE A.attrelid='\"%s\"'::regclass AND A.attrelid= C.oid AND A.attnum> 0 AND NOT A.attisdropped ORDER  BY A.attnum";
-				}
-			});
-		}
+		DataSourceConfig dsc = dataSourceConfig(conf, null);
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
-				create(conf, dsc, module.pkg, module.name, table);
+				if (StrUtil.isNotBlank(table.getSchema())) {
+					create(conf, dataSourceConfig(conf, table.getSchema()), module.pkg, module.name, table);
+				} else {
+					create(conf, dsc, module.pkg, module.name, table);
+				}
 			});
 		});
 	}
@@ -134,6 +124,33 @@ public class MyGeneratorUtil {
 				}
 			}
 		});
+	}
+
+	/**
+	 * 数据源
+	 * 
+	 * @param conf
+	 * @param schema
+	 * @return
+	 */
+	private static final DataSourceConfig dataSourceConfig(GeneratorConfig conf, String schema) {
+		DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(conf.url, conf.username, conf.password)
+				.schema(schema).build();
+		DbType dbType = dataSourceConfig.getDbType();
+		if (dbType == DbType.POSTGRE_SQL) {
+			ReflectUtil.setFieldValue(dataSourceConfig, "dbQuery", new PostgreSqlQuery() {
+				/**
+				 * 修复主键查询BUG
+				 */
+				@Override
+				public String tableFieldsSql() {
+					return "SELECT A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment,\n"
+							+ "(CASE WHEN (SELECT COUNT (*) FROM pg_constraint AS PC WHERE PC.conrelid = C.oid AND A.attnum = PC.conkey[1] AND PC.contype = 'p') > 0 THEN 'PRI' ELSE '' END) AS key \n"
+							+ "FROM pg_class AS C,pg_attribute AS A WHERE A.attrelid='\"%s\"'::regclass AND A.attrelid= C.oid AND A.attnum> 0 AND NOT A.attisdropped ORDER  BY A.attnum";
+				}
+			});
+		}
+		return dataSourceConfig;
 	}
 
 	/**
