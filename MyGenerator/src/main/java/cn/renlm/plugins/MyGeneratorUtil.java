@@ -356,7 +356,7 @@ public class MyGeneratorUtil {
 		 * 是否添加Blob字段转换（默认是）
 		 */
 		@XStreamAsAttribute
-		private Boolean blobTypeHandler = true;
+		private Boolean blobTypeHandler;
 
 	}
 }

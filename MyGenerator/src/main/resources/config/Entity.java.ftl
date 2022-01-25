@@ -77,12 +77,12 @@ public class ${entity} {
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
-    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if field.blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
         <#else>
-    @TableField(fill = FieldFill.${field.fill}<#if field.blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
+    @TableField(fill = FieldFill.${field.fill}<#if blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
         </#if>
     <#elseif field.convert>
-    	<#if field.blobTypeHandler && field.propertyType = "Blob">
+    	<#if blobTypeHandler && field.propertyType = "Blob">
     @TableField(value = "${field.annotationColumnName}", typeHandler = org.apache.ibatis.type.BlobTypeHandler.class)
     	<#else>
     @TableField("${field.annotationColumnName}")
@@ -96,7 +96,7 @@ public class ${entity} {
     <#if field.logicDeleteField>
     @TableLogic
     </#if>
-    private <#if field.blobTypeHandler && field.propertyType = "Blob">byte[]<#else>${field.propertyType}</#if> ${field.propertyName};
+    private <#if blobTypeHandler && field.propertyType = "Blob">byte[]<#else>${field.propertyType}</#if> ${field.propertyName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
 
