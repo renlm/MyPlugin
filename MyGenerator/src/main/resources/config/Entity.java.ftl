@@ -1,8 +1,8 @@
 package ${package.Entity};
 
-<#list table.importPackages as pkg>
+<#list table.importPackages as pkg><#if !blobTypeHandler || (blobTypeHandler && pkg != "java.sql.Blob")>
 import ${pkg};
-</#list>
+</#if></#list>
 <#if swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
