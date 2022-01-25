@@ -31,6 +31,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
@@ -90,7 +91,7 @@ public class MyGeneratorUtil {
 	private static final void create(GeneratorConfig conf, DataSourceConfig dsc, String pkg, String moduleName,
 			GeneratorTable table) {
 		AutoGenerator autoGenerator = new AutoGenerator(dsc);
-		autoGenerator.injection(injectionConfig(conf));
+		autoGenerator.injection(injectionConfig(conf, table));
 		autoGenerator.template(templateConfig());
 		autoGenerator.strategy(strategyConfig(table));
 		autoGenerator.packageInfo(packageConfig(pkg, moduleName));
@@ -157,12 +158,14 @@ public class MyGeneratorUtil {
 	 * 注入配置
 	 * 
 	 * @param conf
+	 * @param table
 	 * @return
 	 */
-	private static final InjectionConfig injectionConfig(GeneratorConfig conf) {
+	private static final InjectionConfig injectionConfig(GeneratorConfig conf, GeneratorTable table) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nameOfDS", DS.class.getName());
 		map.put("dsName", conf.dsName);
+		map.put("blobTypeHandler", !BooleanUtil.isFalse(table.getBlobTypeHandler()));
 		
 		Map<String, String> customFile = new HashMap<>();
 		customFile.put(excelXmlName, excelXmlTemplatePath);
