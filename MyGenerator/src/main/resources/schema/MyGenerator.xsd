@@ -60,6 +60,9 @@
 					<!-- 是否配置Excel表格（默认false） -->
 					<xsd:attribute name="excel" type="xsd:boolean"
 						use="optional" default="false" />
+					<!-- 是否添加Blob字段转换（默认是） -->
+					<xsd:attribute name="blobTypeHandler" type="xsd:boolean"
+						use="optional" default="true" />
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:choice>

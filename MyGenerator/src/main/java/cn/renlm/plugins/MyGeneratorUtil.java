@@ -347,5 +347,11 @@ public class MyGeneratorUtil {
 		@XStreamAlias("excel")
 		private boolean configExcel;
 
+		/**
+		 * 是否添加Blob字段转换（默认是）
+		 */
+		@XStreamAsAttribute
+		private Boolean blobTypeHandler = true;
+
 	}
 }
