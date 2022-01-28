@@ -43,24 +43,25 @@ public interface DataReadHandler {
 		for (Map.Entry<String, MyColumn> entry : fieldColMap.entrySet()) {
 			String field = entry.getKey();
 			MyColumn col = entry.getValue();
-			Object value = data.get(field);
-			// 忽略字段
-			if (col.isIgnore() || StrUtil.isBlankIfStr(value)) {
+			// 空值
+			if (StrUtil.isBlankIfStr(data.get(field))) {
 				data.put(field, null);
 				continue;
 			}
 			// 去除前缀
-			if (StrUtil.isNotBlank(col.getPrefix()) && data.get(field).toString().startsWith(col.getPrefix())) {
+			if (data.get(field) != null && StrUtil.isNotBlank(col.getPrefix())
+					&& data.get(field).toString().startsWith(col.getPrefix())) {
 				String valStr = data.get(field).toString();
 				data.put(field, StrUtil.removePrefix(valStr, col.getPrefix()));
 			}
 			// 去除后缀
-			if (StrUtil.isNotBlank(col.getSuffix()) && data.get(field).toString().endsWith(col.getSuffix())) {
+			if (data.get(field) != null && StrUtil.isNotBlank(col.getSuffix())
+					&& data.get(field).toString().endsWith(col.getSuffix())) {
 				String valStr = data.get(field).toString();
 				data.put(field, StrUtil.removeSuffix(valStr, col.getSuffix()));
 			}
 			// 字典转换
-			if (col.getDict() != null) {
+			if (data.get(field) != null && col.getDict() != null) {
 				String valStr = data.get(field).toString();
 				if (col.getDict().getType() == DictType.key) {
 					DictItem di = col.getDict().getKeyMap().get(valStr);
@@ -76,12 +77,12 @@ public interface DataReadHandler {
 				}
 			}
 			// 数字格式化
-			if (StrUtil.isNotBlank(col.getNumberFormat())) {
+			if (data.get(field) != null && StrUtil.isNotBlank(col.getNumberFormat())) {
 				String valStr = data.get(field).toString();
 				data.put(field, NumberUtil.parseNumber(valStr));
 			}
 			// 日期转换
-			if (StrUtil.isNotBlank(col.getDateFormat())) {
+			if (data.get(field) != null && StrUtil.isNotBlank(col.getDateFormat())) {
 				if (!(data.get(field) instanceof Date)) {
 					try {
 						String valStr = data.get(field).toString();
@@ -96,7 +97,7 @@ public interface DataReadHandler {
 				}
 			}
 			// 非空字段
-			if (col.isNotNull() && StrUtil.isBlankIfStr(data.get(field))) {
+			if (col.isNotNull() && (data.get(field) == null || StrUtil.isBlankIfStr(data.get(field)))) {
 				String message = StrUtil.format("{}，不能为空", col.getTitle().getText());
 				checkResult.getErrors().add(message);
 				System.err.println(message);
