@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -103,10 +104,11 @@ public class MyExcelUtil {
 	 * @param in
 	 * @param sheetName
 	 * @param dataReadHandler
+	 * @return
 	 */
-	public static final void readBySax(String config, InputStream in, String sheetName,
+	public static final int readBySax(String config, InputStream in, String sheetName,
 			DataReadHandler dataReadHandler) {
-		readBySax(config, in, null, sheetName, dataReadHandler);
+		return readBySax(config, in, null, sheetName, dataReadHandler);
 	}
 
 	/**
@@ -117,20 +119,23 @@ public class MyExcelUtil {
 	 * @param sheetNo
 	 * @param sheetName
 	 * @param dataReadHandler
+	 * @return
 	 */
-	public static final void readBySax(String config, InputStream in, Integer sheetNo, String sheetName,
+	public static final int readBySax(String config, InputStream in, Integer sheetNo, String sheetName,
 			DataReadHandler dataReadHandler) {
 		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		final MySheet sheet = myExcel.getSheetByName(sheetName);
 
 		final List<List<String>> titles = new ArrayList<>();
 		final List<String> keys = new ArrayList<>();
+		final AtomicInteger rows = new AtomicInteger(0);
 
 		// Excel
 		if (ExcelFileUtil.isXls(in) || ExcelFileUtil.isXlsx(in)) {
 			ExcelReaderBuilder builder = EasyExcel.read(in, new AnalysisEventListener<Map<Integer, Object>>() {
 				@Override
 				public void invoke(Map<Integer, Object> data, AnalysisContext context) {
+					rows.incrementAndGet();
 					int rowIndex = context.readRowHolder().getRowIndex();
 					data = MapUtil.sort(data, (rowIndex1, rowIndex2) -> {
 						return rowIndex1 - rowIndex2;
@@ -150,11 +155,13 @@ public class MyExcelUtil {
 		else {
 			CsvReader reader = CsvUtil.getReader();
 			reader.read(IoUtil.getReader(in, Charset.forName(myExcel.getCsvCharset())), csvRow -> {
+				rows.incrementAndGet();
 				long rowIndex = csvRow.getOriginalLineNumber() - 1;
 				List<Object> rowList = new ArrayList<>(csvRow.getRawList());
 				processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex, rowList);
 			});
 		}
+		return rows.get();
 	}
 
 	/**
