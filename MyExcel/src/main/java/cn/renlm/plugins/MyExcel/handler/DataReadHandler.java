@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyExcel.config.MyColumn;
@@ -63,11 +64,27 @@ public interface DataReadHandler {
 			if (data.get(field) != null && col.getDict() != null) {
 				String valStr = data.get(field).toString();
 				if (col.getDict().getType() == DictType.key) {
+					if (BooleanUtil.isTrue(col.getDict().isForceCheck())) {
+						if (StrUtil.isNotBlank(valStr) && !col.getDict().getKeyMap().containsKey(valStr)) {
+							String message = StrUtil.format("{}/第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
+									col.getTitle().getText());
+							checkResult.getErrors().add(message);
+							continue;
+						}
+					}
 					DictItem di = col.getDict().getKeyMap().get(valStr);
 					if (di != null && StrUtil.isNotBlank(col.getDict().getConvertToField())) {
 						data.put(col.getDict().getConvertToField(), di.getValue());
 					}
 				} else if (col.getDict().getType() == DictType.value) {
+					if (BooleanUtil.isTrue(col.getDict().isForceCheck())) {
+						if (StrUtil.isNotBlank(valStr) && !col.getDict().getValMap().containsKey(valStr)) {
+							String message = StrUtil.format("{}/第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
+									col.getTitle().getText());
+							checkResult.getErrors().add(message);
+							continue;
+						}
+					}
 					DictItem di = col.getDict().getValMap().get(valStr);
 					if (di != null) {
 						valStr = di.getKey();
