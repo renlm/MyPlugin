@@ -147,7 +147,7 @@ public class MySheet implements Serializable {
 			String field = entry.getKey();
 			MyColumn col = entry.getValue();
 			if (!col.isIgnore() && !col.isOptional() && !keys.contains(field)) {
-				String message = StrUtil.format("{}，模板错误，缺失列", col.getTitle().getText());
+				String message = StrUtil.format("{}/{}，模板错误，缺失列", this.getName(), col.getTitle().getText());
 				checkResult.getErrors().add(message);
 			}
 		}
