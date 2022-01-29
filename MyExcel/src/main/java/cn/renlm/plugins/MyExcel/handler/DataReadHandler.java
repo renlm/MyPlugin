@@ -88,18 +88,16 @@ public interface DataReadHandler {
 						data.put(field, DateUtil.parse(valStr, col.getDateFormat()));
 					} catch (Exception e) {
 						data.put(field, null);
-						String message = StrUtil.format("{}，日期格式错误，限定{}", col.getTitle().getText(),
-								col.getDateFormat());
+						String message = StrUtil.format("{}/第{}行，日期格式错误，限定{}", sheet.getName(), rowIndex,
+								col.getTitle().getText(), col.getDateFormat());
 						checkResult.getErrors().add(message);
-						System.err.println(message);
 					}
 				}
 			}
 			// 非空字段
 			if (col.isNotNull() && (data.get(field) == null || StrUtil.isBlankIfStr(data.get(field)))) {
-				String message = StrUtil.format("{}，不能为空", col.getTitle().getText());
+				String message = StrUtil.format("{}/第{}行，{}，不能为空", sheet.getName(), rowIndex, col.getTitle().getText());
 				checkResult.getErrors().add(message);
-				System.err.println(message);
 			}
 		}
 		return checkResult;
