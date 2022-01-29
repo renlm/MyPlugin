@@ -66,7 +66,7 @@ public interface DataReadHandler {
 				if (col.getDict().getType() == DictType.key) {
 					if (BooleanUtil.isTrue(col.getDict().isForceCheck())) {
 						if (StrUtil.isNotBlank(valStr) && !col.getDict().getKeyMap().containsKey(valStr)) {
-							String message = StrUtil.format("{}/第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
+							String message = StrUtil.format("{} / 第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
 									col.getTitle().getText());
 							checkResult.getErrors().add(message);
 							continue;
@@ -79,7 +79,7 @@ public interface DataReadHandler {
 				} else if (col.getDict().getType() == DictType.value) {
 					if (BooleanUtil.isTrue(col.getDict().isForceCheck())) {
 						if (StrUtil.isNotBlank(valStr) && !col.getDict().getValMap().containsKey(valStr)) {
-							String message = StrUtil.format("{}/第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
+							String message = StrUtil.format("{} / 第{}行，{}，必须为下拉限定值", sheet.getName(), rowIndex,
 									col.getTitle().getText());
 							checkResult.getErrors().add(message);
 							continue;
@@ -105,7 +105,7 @@ public interface DataReadHandler {
 						data.put(field, DateUtil.parse(valStr, col.getDateFormat()));
 					} catch (Exception e) {
 						data.put(field, null);
-						String message = StrUtil.format("{}/第{}行，日期格式错误，限定{}", sheet.getName(), rowIndex,
+						String message = StrUtil.format("{} / 第{}行，日期格式错误，限定{}", sheet.getName(), rowIndex,
 								col.getTitle().getText(), col.getDateFormat());
 						checkResult.getErrors().add(message);
 					}
@@ -113,7 +113,8 @@ public interface DataReadHandler {
 			}
 			// 非空字段
 			if (col.isNotNull() && (data.get(field) == null || StrUtil.isBlankIfStr(data.get(field)))) {
-				String message = StrUtil.format("{}/第{}行，{}，不能为空", sheet.getName(), rowIndex, col.getTitle().getText());
+				String message = StrUtil.format("{} / 第{}行，{}，不能为空", sheet.getName(), rowIndex,
+						col.getTitle().getText());
 				checkResult.getErrors().add(message);
 			}
 		}
