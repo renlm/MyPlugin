@@ -46,7 +46,6 @@ public interface DataReadHandler {
 			// 空值
 			if (StrUtil.isBlankIfStr(data.get(field))) {
 				data.put(field, null);
-				continue;
 			}
 			// 去除前缀
 			if (data.get(field) != null && StrUtil.isNotBlank(col.getPrefix())
