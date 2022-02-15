@@ -95,6 +95,9 @@ public class MySpider extends Spider {
 			if (BooleanUtil.isTrue(site.getScreenshot())) {
 				chromeSetting.set("screenshot", "true");
 			}
+			if (site.getSleepTime() > 0) {
+				chromeSetting.set("sleepTime", String.valueOf(site.getSleepTime()));
+			}
 			ChromeDownloader downloader = new ChromeDownloader(chromeSetting) {
 				@Override
 				public Page download(Request request, Task task) {
