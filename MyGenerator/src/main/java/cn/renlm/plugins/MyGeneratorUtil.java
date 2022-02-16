@@ -36,7 +36,9 @@ import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * 代码生成封装类
@@ -82,22 +84,23 @@ public class MyGeneratorUtil {
 	}
 	
 	/**
-	 * 获取数据库表信息
+	 * 查询数据库信息
 	 * 
-	 * @param schema
+	 * @param schemaName
 	 * @param url
 	 * @param username
 	 * @param password
 	 * @return
 	 */
-	public static final List<TableInfo> getTableInfoList(String schema, String url, String username, String password) {
+	public static final DbInfo queryDbInfo(String schemaName, String url, String username, String password) {
 		GeneratorConfig conf = new GeneratorConfig();
 		conf.setUrl(url);
 		conf.setUsername(username);
 		conf.setPassword(password);
-		DataSourceConfig dsc = dataSourceConfig(conf, schema);
+		DataSourceConfig dsc = dataSourceConfig(conf, schemaName);
 		ConfigBuilder config = new ConfigBuilder(null, dsc, null, null, null, null);
-		return config.getTableInfoList();
+		DbInfo dbInfo = new DbInfo(dsc.getDbType(), schemaName, config.getTableInfoList());
+		return dbInfo;
 	}
 
 	/**
@@ -260,6 +263,22 @@ public class MyGeneratorUtil {
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE)
 				.build();
+	}
+	
+	/**
+	 * 数据库信息
+	 */
+	@Getter
+	@AllArgsConstructor
+	public static final class DbInfo implements Serializable {
+		private static final long serialVersionUID = 1L;
+
+		private final DbType dbType;
+
+		private final String schemaName;
+
+		private final List<TableInfo> tableInfoList;
+
 	}
 
 	/**
