@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -78,6 +79,25 @@ public class MyGeneratorUtil {
 				}
 			});
 		});
+	}
+	
+	/**
+	 * 获取数据表信息
+	 * 
+	 * @param schema
+	 * @param url
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public static final List<TableInfo> getTableInfoList(String schema, String url, String username, String password) {
+		GeneratorConfig conf = new GeneratorConfig();
+		conf.setUrl(url);
+		conf.setUsername(username);
+		conf.setPassword(password);
+		DataSourceConfig dsc = dataSourceConfig(conf, schema);
+		ConfigBuilder config = new ConfigBuilder(null, dsc, null, null, null, null);
+		return config.getTableInfoList();
 	}
 
 	/**
