@@ -82,7 +82,7 @@ public class MyGeneratorUtil {
 	}
 	
 	/**
-	 * 获取数据表信息
+	 * 获取数据库表信息
 	 * 
 	 * @param schema
 	 * @param url
