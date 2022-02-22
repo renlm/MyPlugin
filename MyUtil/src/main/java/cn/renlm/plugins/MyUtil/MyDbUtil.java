@@ -31,7 +31,7 @@ public class MyDbUtil {
 	 * @param types
 	 * @return
 	 */
-	public List<Table> getTableMetas(String schema, String jdbcUrl, String username, String password,
+	public static final List<Table> getTableMetas(String schema, String jdbcUrl, String username, String password,
 			TableType... types) {
 		Setting setting = new Setting();
 		setting.set(DSFactory.KEY_ALIAS_URL[0], jdbcUrl);
