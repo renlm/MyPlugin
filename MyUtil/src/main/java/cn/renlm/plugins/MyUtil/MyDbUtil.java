@@ -24,14 +24,13 @@ public class MyDbUtil {
 	/**
 	 * 获得表的元信息
 	 * 
-	 * @param schema
 	 * @param jdbcUrl
 	 * @param username
 	 * @param password
 	 * @param types
 	 * @return
 	 */
-	public static final List<Table> getTableMetas(String schema, String jdbcUrl, String username, String password,
+	public static final List<Table> getTableMetas(String jdbcUrl, String username, String password,
 			TableType... types) {
 		Setting setting = new Setting();
 		setting.set(DSFactory.KEY_ALIAS_URL[0], jdbcUrl);
@@ -42,7 +41,7 @@ public class MyDbUtil {
 		DSFactory dsf = DSFactory.create(setting);
 		DataSource ds = dsf.getDataSource();
 		List<Table> tables = CollUtil.newArrayList();
-		MetaUtil.getTables(dsf.getDataSource(), schema, types).forEach(tableName -> {
+		MetaUtil.getTables(dsf.getDataSource(), types).forEach(tableName -> {
 			Table table = MetaUtil.getTableMeta(ds, tableName);
 			tables.add(table);
 		});
