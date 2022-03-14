@@ -43,14 +43,14 @@ import lombok.Getter;
 /**
  * 代码生成封装类
  * 	spring-boot
- * 		2.5.3 
- *  mybatis-plus-boot-starter 
+ * 		2.5.3
+ *  mybatis-plus-boot-starter
  *  	3.4.3.4
- *  dynamic-datasource-spring-boot-starter 
- *  	3.5.0 
- *  mybatis-plus-generator 
+ *  dynamic-datasource-spring-boot-starter
  *  	3.5.1
- *  freemarker 
+ *  mybatis-plus-generator
+ *  	3.5.1
+ *  freemarker
  *  	2.3.31
  * 
  * @author Renlm
