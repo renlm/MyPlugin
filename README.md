@@ -1,5 +1,5 @@
 ## 简介
-让代码越写越少，积累工具，起步。
+让代码越写越少。
 
 ## 包含组件
 | module             |    introduce
@@ -19,6 +19,6 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>My-Plugin</artifactId>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
 </dependency>
 ```
