@@ -169,7 +169,7 @@ public class MyExcelUtil {
 			CsvReader reader = CsvUtil.getReader();
 			reader.read(IoUtil.getReader(in, Charset.forName(myExcel.getCsvCharset())), csvRow -> {
 				rows.incrementAndGet();
-				long rowIndex = csvRow.getOriginalLineNumber() - 1;
+				long rowIndex = csvRow.getOriginalLineNumber();
 				List<Object> rowList = new ArrayList<>(csvRow.getRawList());
 				processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex, rowList);
 			});
