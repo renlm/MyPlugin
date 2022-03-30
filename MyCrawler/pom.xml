@@ -30,6 +30,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.4.8</version>
+		</dependency>
+
+		<dependency>
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-core</artifactId>
 		</dependency>
