@@ -72,5 +72,8 @@
 		<!-- 包路径 -->
 		<xsd:attribute name="package" type="xsd:string"
 			use="required" />
+		<!-- 开启 swagger 模式 -->
+		<xsd:attribute name="enableSwagger" type="xsd:boolean"
+			use="optional" default="false" />
 	</xsd:complexType>
 </xsd:schema>

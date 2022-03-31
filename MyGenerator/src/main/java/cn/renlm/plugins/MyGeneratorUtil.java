@@ -75,9 +75,9 @@ public class MyGeneratorUtil {
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
 				if (StrUtil.isNotBlank(table.getSchema())) {
-					create(conf, dataSourceConfig(conf, table.getSchema()), module.pkg, module.name, table);
+					create(conf, dataSourceConfig(conf, table.getSchema()), module, table);
 				} else {
-					create(conf, dsc, module.pkg, module.name, table);
+					create(conf, dsc, module, table);
 				}
 			});
 		});
@@ -108,18 +108,17 @@ public class MyGeneratorUtil {
 	 * 
 	 * @param conf
 	 * @param dsc
-	 * @param pkg
-	 * @param moduleName
+	 * @param module
 	 * @param table
 	 */
-	private static final void create(GeneratorConfig conf, DataSourceConfig dsc, String pkg, String moduleName,
+	private static final void create(GeneratorConfig conf, DataSourceConfig dsc, GeneratorModule module,
 			GeneratorTable table) {
 		AutoGenerator autoGenerator = new AutoGenerator(dsc);
 		autoGenerator.injection(injectionConfig(conf, table));
 		autoGenerator.template(templateConfig());
 		autoGenerator.strategy(strategyConfig(table));
-		autoGenerator.packageInfo(packageConfig(pkg, moduleName));
-		autoGenerator.global(globalConfig(table));
+		autoGenerator.packageInfo(packageConfig(module));
+		autoGenerator.global(globalConfig(module, table));
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
 			/**
 			 * 是否强制覆盖实体类
@@ -235,17 +234,16 @@ public class MyGeneratorUtil {
 	/**
 	 * 包配置
 	 * 
-	 * @param pkg
-	 * @param moduleName
+	 * @param module
 	 * @return
 	 */
-	private static final PackageConfig packageConfig(String pkg, String moduleName) {
+	private static final PackageConfig packageConfig(GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
-		pathInfo.put(OutputFile.mapperXml, mapperOutputDir + SLASH + moduleName + SLASH);
-		pathInfo.put(OutputFile.other, otherOutputDir + SLASH + moduleName + SLASH);
+		pathInfo.put(OutputFile.mapperXml, mapperOutputDir + SLASH + module.name + SLASH);
+		pathInfo.put(OutputFile.other, otherOutputDir + SLASH + module.name + SLASH);
 		return new PackageConfig.Builder()
-				.parent(pkg)
-				.moduleName(moduleName)
+				.parent(module.pkg)
+				.moduleName(module.name)
 				.pathInfo(pathInfo)
 				.build();
 	}
@@ -253,16 +251,20 @@ public class MyGeneratorUtil {
 	/**
 	 * 全局配置
 	 * 
+	 * @param module
 	 * @param table
 	 * @return
 	 */
-	private static final GlobalConfig globalConfig(GeneratorTable table) {
-		return new GlobalConfig.Builder()
+	private static final GlobalConfig globalConfig(GeneratorModule module, GeneratorTable table) {
+		GlobalConfig.Builder globalConfigBuilder = new GlobalConfig.Builder()
 				.outputDir(ConstVal.javaDir)
 				.author(table.author)
 				.disableOpenDir()
-				.dateType(DateType.ONLY_DATE)
-				.build();
+				.dateType(DateType.ONLY_DATE);
+		if(BooleanUtil.isTrue(module.isEnableSwagger())) {
+			globalConfigBuilder.enableSwagger();
+		}
+		return globalConfigBuilder.build();
 	}
 	
 	/**
@@ -337,6 +339,12 @@ public class MyGeneratorUtil {
 		@XStreamAsAttribute
 		@XStreamAlias("package")
 		private String pkg;
+
+		/**
+		 * 开启 swagger 模式
+		 */
+		@XStreamAsAttribute
+		private boolean enableSwagger;
 
 		/**
 		 * 数据库表集
