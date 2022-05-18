@@ -18,14 +18,16 @@ public final class MyXStreamUtil {
 	/**
 	 * 读取
 	 * 
+	 * @param <C>
 	 * @param type
 	 * @param resource
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public static final <C> C read(final Class<C> type, String resource) {
-		InputStream in = MyXStreamUtil.class.getClassLoader().getResourceAsStream(resource);
-		XStream xstream = create(type, in);
+		InputStream in = MyXStreamUtil.class.getClassLoader()
+				.getResourceAsStream(resource);
+		XStream xstream = create(type);
 		return (C) xstream.fromXML(in);
 	}
 
@@ -33,10 +35,9 @@ public final class MyXStreamUtil {
 	 * 新建
 	 * 
 	 * @param type
-	 * @param in
 	 * @return
 	 */
-	private static final XStream create(final Class<?> type, InputStream in) {
+	public static final XStream create(final Class<?> type) {
 		XStream xstream = new XStream();
 		xstream.processAnnotations(type);
 		xstream.allowTypeHierarchy(type);
