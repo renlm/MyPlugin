@@ -48,14 +48,14 @@ public class MyExcelTest {
 
 					// 读取Csv格式数据，忽略模板和数据验证，写入导出表格
 					InputStream inCsv = FileUtil.getInputStream("测试数据.csv");
-					// 备注：sheetName为xml配置中的页面名称，指定使用哪个页签作为读取配置
+					// 备注：sheetName为xml配置中的页签名称，指定使用哪个页签作为读取配置
 					MyExcelUtil.readBySax("Demo.xml", inCsv, sheetName, (data, checkResult) -> {
 						sh1.write(data);
 					});
 
 					// 读取03格式数据（指定文件中的第一个Sheet），忽略模板和数据验证，写入导出表格
 					InputStream inXls = FileUtil.getInputStream("测试数据.xls");
-					// 备注：sheetName为xml配置中的页面名称，指定使用哪个页签作为读取配置
+					// 备注：sheetName为xml配置中的页签名称，指定使用哪个页签作为读取配置
 					MyExcelUtil.readBySax("Demo.xml", inXls, sheetName, (data, checkResult) -> {
 						sh1.write(data);
 					});
@@ -66,7 +66,7 @@ public class MyExcelTest {
 
 					// 读取07格式数据，判断模板和数据验证，写入导出表格
 					InputStream inXlsx = FileUtil.getInputStream("测试数据.xlsx");
-					// 备注：sheetName为xml配置中的页面名称，指定使用哪个页签作为读取配置
+					// 备注：sheetName为xml配置中的页签名称，指定使用哪个页签作为读取配置
 					int rows = MyExcelUtil.readBySax("Demo.xml", inXlsx, 1, sheetName, (data, checkResult) -> {
 						if (checkResult.isError()) { // 出错了
 							if (checkResult.isProcess()) { // 表头已处理完，进入行数据读取流程中
