@@ -53,7 +53,7 @@
 	</sheet>
 	<sheet name="2018年财政教育经费投入情况调查表" freezes="2">
 		<column field="province">
-			<title>省（直辖市）</title>
+			<title>地区</title>
 		</column>
 		<column field="schoolType">
 			<title>学校类别</title>
