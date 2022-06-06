@@ -97,10 +97,6 @@ public class MyMarkdownUtil {
 			if (map.containsKey(fieldName)) {
 				continue;
 			}
-			// Map
-			if (ClassUtil.isAssignable(fieldType, Map.class)) {
-				map.put(fieldName, field);
-			}
 			// 简单值类型
 			else if (ClassUtil.isSimpleValueType(fieldType)) {
 				map.put(fieldName, field);
