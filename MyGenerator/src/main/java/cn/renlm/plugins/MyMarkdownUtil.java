@@ -1,15 +1,24 @@
 package cn.renlm.plugins;
 
+import static cn.hutool.core.text.CharSequenceUtil.EMPTY;
 import static cn.hutool.core.text.StrPool.BRACKET_END;
 import static cn.hutool.core.text.StrPool.BRACKET_START;
+import static cn.hutool.core.text.StrPool.CRLF;
+import static cn.hutool.core.text.StrPool.DASHED;
+import static cn.hutool.core.text.StrPool.DOT;
 
-import java.awt.List;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -24,6 +33,9 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class MyMarkdownUtil {
 
+	private static final String ARR_TAG = BRACKET_START + StrUtil.SPACE
+			+ BRACKET_END;
+
 	/**
 	 * Java类转markdown表格
 	 * 
@@ -35,22 +47,23 @@ public class MyMarkdownUtil {
 		Assert.isFalse(ClassUtil.isSimpleTypeOrArray(clazz),
 				"clazz为简单值类型或简单值类型的数组");
 		StringBuffer sb = new StringBuffer();
+		Set<Class<?>> set = new HashSet<>();
 		Map<String, Field> map = new LinkedHashMap<>();
 
 		// 遍历结构
-		classToTableRecursion(StrUtil.EMPTY, clazz, map);
+		classToTableRecursion(EMPTY, set, clazz, map);
 
 		// 拼装文档
 		sb.append("|字段").append("|类型").append("|注释|");
-		sb.append(StrUtil.CRLF);
+		sb.append(CRLF);
 		sb.append("|:-").append("|:-").append("|:-|");
-		sb.append(StrUtil.CRLF);
+		sb.append(CRLF);
 		map.forEach((name, field) -> {
 			sb.append("|").append(name);
 			sb.append("|").append(field.getType().getSimpleName());
-			sb.append("|").append(StrUtil.DASHED);
+			sb.append("|").append(DASHED);
 			sb.append("|");
-			sb.append(StrUtil.CRLF);
+			sb.append(CRLF);
 		});
 		return sb.toString();
 	}
@@ -59,14 +72,21 @@ public class MyMarkdownUtil {
 	 * Java类转markdown表格（遍历结构）
 	 * 
 	 * @param prefix
+	 * @param set
 	 * @param clazz
 	 * @param map
 	 */
 	private static final void classToTableRecursion(String prefix,
-			Class<?> clazz, Map<String, Field> map) {
+			Set<Class<?>> set, Class<?> clazz, Map<String, Field> map) {
+		if (set.contains(clazz)) {
+			return;
+		}
+		set.add(clazz);
 		Field[] fields = ReflectUtil.getFields(clazz);
 		for (Field field : fields) {
-			String fieldName = field.getName();
+			String fieldName = StrUtil.isNotBlank(prefix)
+					? (prefix + DOT + field.getName())
+					: field.getName();
 			Class<?> fieldType = field.getType();
 			if (Modifier.isStatic(field.getModifiers())) {
 				continue;
@@ -83,25 +103,32 @@ public class MyMarkdownUtil {
 			}
 			// 数组
 			else if (clazz.isArray()) {
-				// 简单值类型或简单值类型的数组
+				map.put(fieldName, field);
 				if (ClassUtil.isSimpleTypeOrArray(clazz.getComponentType())) {
-					map.put(fieldName + BRACKET_START + BRACKET_END, field);
+					continue;
 				}
-				// 类
-				else {
-					classToTableRecursion(
-							fieldName + BRACKET_START + BRACKET_END,
-							fieldType.getComponentType(), map);
-				}
+				classToTableRecursion(fieldName + ARR_TAG, set,
+						fieldType.getComponentType(), map);
 			}
 			// 集合
 			else if (ClassUtil.isAssignable(fieldType, List.class)) {
-				classToTableRecursion(fieldName + BRACKET_START + BRACKET_END,
-						fieldType.getComponentType(), map);
+				map.put(fieldName, field);
+				Type fgt = field.getGenericType();
+				if (fgt == null) {
+					continue;
+				}
+				if (fgt instanceof ParameterizedType) {
+					ParameterizedType pt = (ParameterizedType) fgt;
+					if (ArrayUtil.isEmpty(pt.getActualTypeArguments())) {
+						continue;
+					}
+					Class<?> clz = (Class<?>) pt.getActualTypeArguments()[0];
+					classToTableRecursion(fieldName + ARR_TAG, set, clz, map);
+				}
 			}
 			// 其它
 			else {
-				map.put(fieldName, field);
+				classToTableRecursion(fieldName, set, fieldType, map);
 			}
 		}
 	}
