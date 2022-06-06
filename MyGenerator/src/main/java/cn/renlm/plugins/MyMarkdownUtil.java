@@ -1,6 +1,5 @@
 package cn.renlm.plugins;
 
-import static cn.hutool.core.text.CharSequenceUtil.SPACE;
 import static cn.hutool.core.text.StrPool.BRACKET_END;
 import static cn.hutool.core.text.StrPool.BRACKET_START;
 
@@ -11,6 +10,7 @@ import java.util.Map;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -38,8 +38,8 @@ public class MyMarkdownUtil {
 		// 遍历结构
 		Field[] fields = ReflectUtil.getFields(clazz);
 		for (Field field : fields) {
+			String fieldName = field.getName();
 			Class<?> fieldType = field.getType();
-			String fieldName = fieldType.getName();
 			if (map.containsKey(fieldName)) {
 				continue;
 			}
@@ -55,12 +55,15 @@ public class MyMarkdownUtil {
 
 		// 拼装文档
 		sb.append("|字段").append("|类型").append("|注释|");
+		sb.append(StrUtil.CRLF);
 		sb.append("|:-").append("|:-").append("|:-|");
+		sb.append(StrUtil.CRLF);
 		map.forEach((name, field) -> {
 			sb.append("|").append(name);
-			sb.append("|").append(field.getType());
-			sb.append("|").append(SPACE);
+			sb.append("|").append(field.getType().getSimpleName());
+			sb.append("|").append(StrUtil.DASHED);
 			sb.append("|");
+			sb.append(StrUtil.CRLF);
 		});
 		return sb.toString();
 	}
