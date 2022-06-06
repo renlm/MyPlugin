@@ -11,9 +11,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -97,8 +97,12 @@ public class MyMarkdownUtil {
 			if (map.containsKey(fieldName)) {
 				continue;
 			}
+			// Map
+			if (ClassUtil.isAssignable(fieldType, Map.class)) {
+				map.put(fieldName, field);
+			}
 			// 简单值类型
-			if (ClassUtil.isSimpleValueType(fieldType)) {
+			else if (ClassUtil.isSimpleValueType(fieldType)) {
 				map.put(fieldName, field);
 			}
 			// 数组
@@ -111,7 +115,7 @@ public class MyMarkdownUtil {
 						fieldType.getComponentType(), map);
 			}
 			// 集合
-			else if (ClassUtil.isAssignable(fieldType, List.class)) {
+			else if (ClassUtil.isAssignable(fieldType, Collection.class)) {
 				map.put(fieldName, field);
 				Type fgt = field.getGenericType();
 				if (fgt == null) {
@@ -128,6 +132,7 @@ public class MyMarkdownUtil {
 			}
 			// 其它
 			else {
+				map.put(fieldName, field);
 				classToTableRecursion(fieldName, set, fieldType, map);
 			}
 		}
