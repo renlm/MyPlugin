@@ -38,6 +38,32 @@ public class MyMarkdownUtil {
 		Map<String, Field> map = new LinkedHashMap<>();
 
 		// 遍历结构
+		classToTableRecursion(StrUtil.EMPTY, clazz, map);
+
+		// 拼装文档
+		sb.append("|字段").append("|类型").append("|注释|");
+		sb.append(StrUtil.CRLF);
+		sb.append("|:-").append("|:-").append("|:-|");
+		sb.append(StrUtil.CRLF);
+		map.forEach((name, field) -> {
+			sb.append("|").append(name);
+			sb.append("|").append(field.getType().getSimpleName());
+			sb.append("|").append(StrUtil.DASHED);
+			sb.append("|");
+			sb.append(StrUtil.CRLF);
+		});
+		return sb.toString();
+	}
+
+	/**
+	 * Java类转markdown表格（遍历结构）
+	 * 
+	 * @param prefix
+	 * @param clazz
+	 * @param map
+	 */
+	private static final void classToTableRecursion(String prefix,
+			Class<?> clazz, Map<String, Field> map) {
 		Field[] fields = ReflectUtil.getFields(clazz);
 		for (Field field : fields) {
 			String fieldName = field.getName();
@@ -63,31 +89,20 @@ public class MyMarkdownUtil {
 				}
 				// 类
 				else {
-
+					classToTableRecursion(
+							fieldName + BRACKET_START + BRACKET_END,
+							fieldType.getComponentType(), map);
 				}
 			}
 			// 集合
 			else if (ClassUtil.isAssignable(fieldType, List.class)) {
-
+				classToTableRecursion(fieldName + BRACKET_START + BRACKET_END,
+						fieldType.getComponentType(), map);
 			}
 			// 其它
 			else {
 				map.put(fieldName, field);
 			}
 		}
-
-		// 拼装文档
-		sb.append("|字段").append("|类型").append("|注释|");
-		sb.append(StrUtil.CRLF);
-		sb.append("|:-").append("|:-").append("|:-|");
-		sb.append(StrUtil.CRLF);
-		map.forEach((name, field) -> {
-			sb.append("|").append(name);
-			sb.append("|").append(field.getType().getSimpleName());
-			sb.append("|").append(StrUtil.DASHED);
-			sb.append("|");
-			sb.append(StrUtil.CRLF);
-		});
-		return sb.toString();
 	}
 }
