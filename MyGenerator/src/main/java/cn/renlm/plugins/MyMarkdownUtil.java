@@ -11,9 +11,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -111,7 +111,8 @@ public class MyMarkdownUtil {
 						fieldType.getComponentType(), map);
 			}
 			// 集合
-			else if (ClassUtil.isAssignable(fieldType, Collection.class)) {
+			else if (ClassUtil.isAssignable(fieldType, Set.class)
+					|| ClassUtil.isAssignable(fieldType, List.class)) {
 				map.put(fieldName, field);
 				Type fgt = field.getGenericType();
 				if (fgt == null) {

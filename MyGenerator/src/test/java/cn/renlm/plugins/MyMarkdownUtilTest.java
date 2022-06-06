@@ -2,7 +2,7 @@ package cn.renlm.plugins;
 
 import org.junit.Test;
 
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import cn.renlm.plugins.MyGeneratorUtil.GeneratorConfig;
 
 /**
  * Markdown辅助工具
@@ -14,7 +14,7 @@ public class MyMarkdownUtilTest {
 
 	@Test
 	public void classToTable() {
-		String md = MyMarkdownUtil.classToTable(DataSourceConfig.class);
+		String md = MyMarkdownUtil.classToTable(GeneratorConfig.class);
 		System.out.println(md);
 	}
 }
