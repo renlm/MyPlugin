@@ -3,6 +3,7 @@ package cn.renlm.plugins;
 import static cn.hutool.core.text.StrPool.BRACKET_END;
 import static cn.hutool.core.text.StrPool.BRACKET_START;
 
+import java.awt.List;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
@@ -54,9 +55,24 @@ public class MyMarkdownUtil {
 			if (ClassUtil.isSimpleValueType(fieldType)) {
 				map.put(fieldName, field);
 			}
-			// 简单值类型的数组
-			else if (ClassUtil.isSimpleTypeOrArray(fieldType)) {
-				map.put(fieldName + BRACKET_START + BRACKET_END, field);
+			// 数组
+			else if (clazz.isArray()) {
+				// 简单值类型或简单值类型的数组
+				if (ClassUtil.isSimpleTypeOrArray(clazz.getComponentType())) {
+					map.put(fieldName + BRACKET_START + BRACKET_END, field);
+				}
+				// 类
+				else {
+
+				}
+			}
+			// 集合
+			else if (ClassUtil.isAssignable(fieldType, List.class)) {
+
+			}
+			// 其它
+			else {
+				map.put(fieldName, field);
 			}
 		}
 
