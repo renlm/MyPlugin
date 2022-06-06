@@ -4,6 +4,7 @@ import static cn.hutool.core.text.StrPool.BRACKET_END;
 import static cn.hutool.core.text.StrPool.BRACKET_START;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -40,6 +41,12 @@ public class MyMarkdownUtil {
 		for (Field field : fields) {
 			String fieldName = field.getName();
 			Class<?> fieldType = field.getType();
+			if (Modifier.isStatic(field.getModifiers())) {
+				continue;
+			}
+			if (Modifier.isFinal(field.getModifiers())) {
+				continue;
+			}
 			if (map.containsKey(fieldName)) {
 				continue;
 			}
