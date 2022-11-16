@@ -8,7 +8,7 @@
 
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
-	<version>2.5.2</version>
+	<version>2.5.3</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路</description>
 	<url>https://github.com/renlm/MyPlugin</url>
@@ -38,13 +38,13 @@
 			<dependency>
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
-				<version>5.8.7</version>
+				<version>5.8.9</version>
 			</dependency>
 
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>easyexcel</artifactId>
-				<version>3.1.1</version>
+				<version>3.1.2</version>
 			</dependency>
 
 			<dependency>
@@ -259,8 +259,8 @@
 		</plugins>
 	</build>
 
-	<!-- mvn versions:set -DnewVersion=2.5.2 -->
-	<!-- mvn versions:set -DnewVersion=2.5.2-SNAPSHOT -->
+	<!-- mvn versions:set -DnewVersion=2.5.3 -->
+	<!-- mvn versions:set -DnewVersion=2.5.3-SNAPSHOT -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
@@ -268,11 +268,11 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>maven-public</id>
-					<url>http://nexus.renlm.cn/content/repositories/snapshots/</url>
+					<url>https://nexus.renlm.cn/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
 					<id>maven-public</id>
-					<url>http://nexus.renlm.cn/content/repositories/releases/</url>
+					<url>https://nexus.renlm.cn/content/repositories/releases/</url>
 				</repository>
 			</distributionManagement>
 		</profile>
