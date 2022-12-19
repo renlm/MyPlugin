@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <excel name="${package.Entity}.${entity}"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyExcel.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyExcel.xsd">
 <#if table.comment?default("")?trim?length gt 0>
 	<sheet name="${table.comment}">
 <#else>
