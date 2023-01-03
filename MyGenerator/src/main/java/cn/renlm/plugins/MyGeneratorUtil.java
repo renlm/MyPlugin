@@ -25,7 +25,6 @@ import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -34,7 +33,6 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import cn.hutool.core.util.BooleanUtil;
-import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.AllArgsConstructor;
@@ -149,20 +147,6 @@ public class MyGeneratorUtil {
 	private static final DataSourceConfig dataSourceConfig(GeneratorConfig conf, String schema) {
 		DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(conf.url, conf.username, conf.password)
 				.schema(schema).build();
-		DbType dbType = dataSourceConfig.getDbType();
-		if (dbType == DbType.POSTGRE_SQL) {
-			ReflectUtil.setFieldValue(dataSourceConfig, "dbQuery", new PostgreSqlQuery() {
-				/**
-				 * 修复主键查询BUG
-				 */
-				@Override
-				public String tableFieldsSql() {
-					return "SELECT A.attname AS name,format_type (A.atttypid,A.atttypmod) AS type,col_description (A.attrelid,A.attnum) AS comment,\n"
-							+ "(CASE WHEN (SELECT COUNT (*) FROM pg_constraint AS PC WHERE PC.conrelid = C.oid AND A.attnum = PC.conkey[1] AND PC.contype = 'p') > 0 THEN 'PRI' ELSE '' END) AS key \n"
-							+ "FROM pg_class AS C,pg_attribute AS A WHERE A.attrelid='\"%s\"'::regclass AND A.attrelid= C.oid AND A.attnum> 0 AND NOT A.attisdropped ORDER  BY A.attnum";
-				}
-			});
-		}
 		return dataSourceConfig;
 	}
 
