@@ -62,7 +62,7 @@ public class MyGeneratorUtil {
 	private static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
 	private static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	private static final String EntityTemplatePath 		= "config/Entity.java";
-	private static final String serviceImplTemplatePath = "config/ServiceImpl.java";
+	private static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
 
 	/**
 	 * 读取配置并运行
@@ -82,7 +82,7 @@ public class MyGeneratorUtil {
 			});
 		});
 	}
-	
+
 	/**
 	 * 查询数据库信息
 	 * 
@@ -147,7 +147,8 @@ public class MyGeneratorUtil {
 	 */
 	private static final DataSourceConfig dataSourceConfig(GeneratorConfig conf, String schema) {
 		DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(conf.url, conf.username, conf.password)
-				.schema(schema).build();
+				.schema(schema)
+				.build();
 		return dataSourceConfig;
 	}
 
@@ -163,10 +164,10 @@ public class MyGeneratorUtil {
 		map.put("nameOfDS", DS.class.getName());
 		map.put("dsName", conf.dsName);
 		map.put("blobTypeHandler", !BooleanUtil.isFalse(table.getBlobTypeHandler()));
-		
+
 		Map<String, String> customFile = new HashMap<>();
 		customFile.put(excelXmlName, excelXmlTemplatePath);
-		
+
 		return new InjectionConfig.Builder()
 				.customMap(map)
 				.customFile(customFile)
@@ -237,12 +238,12 @@ public class MyGeneratorUtil {
 				.author(table.author)
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE);
-		if(BooleanUtil.isTrue(module.isEnableSwagger())) {
+		if (BooleanUtil.isTrue(module.isEnableSwagger())) {
 			globalConfigBuilder.enableSwagger();
 		}
 		return globalConfigBuilder.build();
 	}
-	
+
 	/**
 	 * 数据库信息
 	 */
@@ -382,4 +383,5 @@ public class MyGeneratorUtil {
 		private Boolean blobTypeHandler;
 
 	}
+
 }
