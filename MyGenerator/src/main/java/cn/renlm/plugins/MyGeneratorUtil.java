@@ -45,11 +45,11 @@ import lombok.Getter;
  * 	spring-boot
  * 		2.5.3
  *  mybatis-plus-boot-starter
- *  	3.4.3.4
+ *  	3.5.3.1
  *  dynamic-datasource-spring-boot-starter
- *  	3.5.1
+ *  	3.6.1
  *  mybatis-plus-generator
- *  	3.5.1
+ *  	3.5.3.1
  *  freemarker
  *  	2.3.31
  * 
@@ -239,7 +239,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final PackageConfig packageConfig(GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
-		pathInfo.put(OutputFile.mapperXml, mapperOutputDir + SLASH + module.name + SLASH);
+		pathInfo.put(OutputFile.xml, mapperOutputDir + SLASH + module.name + SLASH);
 		pathInfo.put(OutputFile.other, otherOutputDir + SLASH + module.name + SLASH);
 		return new PackageConfig.Builder()
 				.parent(module.pkg)
