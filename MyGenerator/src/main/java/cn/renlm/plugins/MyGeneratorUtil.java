@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.querys.PostgreSqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -59,7 +60,7 @@ import lombok.Getter;
 public class MyGeneratorUtil {
 	private static final String excelXmlName 			= "excel.xml";
 	private static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
-	private static final String otherOutputDir 			= ConstVal.resourcesDir + "/excel";
+	private static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
 	private static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	private static final String EntityTemplatePath 		= "config/Entity.java";
 	private static final String serviceImplTemplatePath = "config/ServiceImpl.java";
@@ -121,29 +122,17 @@ public class MyGeneratorUtil {
 		autoGenerator.global(globalConfig(module, table));
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
 			/**
-			 * 是否强制覆盖实体类
-			 */
-			@Override
-			protected void outputEntity(@NotNull TableInfo tableInfo, @NotNull Map<String, Object> objectMap) {
-				GlobalConfig globalConfig = this.getConfigBuilder().getGlobalConfig();
-				boolean fileOverride = globalConfig.isFileOverride();
-				ReflectUtil.setFieldValue(globalConfig, "fileOverride", table.coverEntity ? table.coverEntity : fileOverride);
-				super.outputEntity(tableInfo, objectMap);
-				ReflectUtil.setFieldValue(globalConfig, "fileOverride", fileOverride);
-			}
-
-			/**
 			 * 是否生成表格配置
 			 */
 			@Override
-			protected void outputCustomFile(@NotNull Map<String, String> customFile, @NotNull TableInfo tableInfo,
+			protected void outputCustomFile(@NotNull List<CustomFile> customFiles, @NotNull TableInfo tableInfo,
 					@NotNull Map<String, Object> objectMap) {
 				if (table.configExcel) {
 					String entityName = tableInfo.getEntityName();
-					String otherPath = getPathInfo(OutputFile.other);
-					customFile.forEach((key, value) -> {
-						String fileName = otherPath + File.separator + entityName + StrUtil.DOT + key;
-						outputFile(new File(fileName), objectMap, value);
+					String excelXmlPath = excelXmlOutputDir + SLASH + module.name + SLASH;
+					customFiles.forEach(customFile -> {
+						String fileName = excelXmlPath + entityName + StrUtil.DOT + customFile.getFileName();
+						outputFile(new File(fileName), objectMap, customFile.getTemplatePath(), customFile.isFileOverride());
 					});
 				}
 			}
@@ -240,7 +229,6 @@ public class MyGeneratorUtil {
 	private static final PackageConfig packageConfig(GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
 		pathInfo.put(OutputFile.xml, mapperOutputDir + SLASH + module.name + SLASH);
-		pathInfo.put(OutputFile.other, otherOutputDir + SLASH + module.name + SLASH);
 		return new PackageConfig.Builder()
 				.parent(module.pkg)
 				.moduleName(module.name)
