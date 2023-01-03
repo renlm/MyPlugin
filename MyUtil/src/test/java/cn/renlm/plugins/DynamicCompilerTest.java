@@ -1,6 +1,6 @@
 package cn.renlm.plugins;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.ReflectUtil;

@@ -1,6 +1,6 @@
 package cn.renlm.plugins;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 插件打印
