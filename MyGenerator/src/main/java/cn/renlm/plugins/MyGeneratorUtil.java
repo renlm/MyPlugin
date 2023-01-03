@@ -24,6 +24,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
+import com.baomidou.mybatisplus.generator.config.builder.Entity.Builder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -192,7 +193,7 @@ public class MyGeneratorUtil {
 	 * @return
 	 */
 	private static final StrategyConfig strategyConfig(GeneratorTable table) {
-		return new StrategyConfig.Builder()
+		Builder builder = new StrategyConfig.Builder()
 				.addInclude(table.name)
 				.entityBuilder()
 				.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
@@ -200,8 +201,11 @@ public class MyGeneratorUtil {
 				.enableLombok()
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
-				.columnNaming(NamingStrategy.underline_to_camel)
-				.build();
+				.columnNaming(NamingStrategy.underline_to_camel);
+		if (table.coverEntity) {
+			builder.enableFileOverride();
+		}
+		return builder.build();
 	}
 
 	/**
