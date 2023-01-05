@@ -21,11 +21,11 @@
 
 	<properties>
 		<compile.version>1.8</compile.version>
-		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<hutool.version>5.8.11</hutool.version>
-		<webmagic.version>0.7.6</webmagic.version>
-		<selenium-chrome-driver.version>3.141.59</selenium-chrome-driver.version>
+		<webmagic.version>0.8.0</webmagic.version>
+		<selenium-chrome-driver.version>4.5.3</selenium-chrome-driver.version>
 	</properties>
 
 	<dependencyManagement>
@@ -81,7 +81,7 @@
 			<dependency>
 				<groupId>redis.clients</groupId>
 				<artifactId>jedis</artifactId>
-				<version>3.6.3</version>
+				<version>4.3.1</version>
 			</dependency>
 
 			<dependency>
