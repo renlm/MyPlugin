@@ -16,6 +16,12 @@ public enum StatusCode {
 	BAD_REQUEST(400, "Bad Request"),
 	// 401
 	UNAUTHORIZED(401, "Unauthorized"),
+	// 402
+	PAYMENT_REQUIRED(402, "Payment Required"),
+	// 403
+	FORBIDDEN(403, "Forbidden"),
+	// 404
+	NOT_FOUND(404, "Not Found"),
 	// 500
 	INTERNAL_SERVER_ERROR(500, "Internal Server Error");
 
