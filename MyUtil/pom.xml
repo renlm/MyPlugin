@@ -35,5 +35,12 @@
 			<artifactId>xstream</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-extension</artifactId>
+			<version>${mybatis-plus-boot-starter.version}</version>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>

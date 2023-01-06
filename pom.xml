@@ -31,7 +31,36 @@
 		<easyexcel.version>3.1.4</easyexcel.version>
 		<jedis.version>4.3.1</jedis.version>
 		<xstream.version>1.4.20</xstream.version>
+		<mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
+		<dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
+		<mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
+		<mysql-connector-j.version>8.0.31</mysql-connector-j.version>
+		<postgresql.version>42.5.1</postgresql.version>
+		<freemarker.version>2.3.31</freemarker.version>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.4.5</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.9.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
@@ -94,31 +123,44 @@
 				<artifactId>xstream</artifactId>
 				<version>${xstream.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus-boot-starter.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+				<version>${dynamic-datasource-spring-boot-starter.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>${mybatis-plus-generator.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.mysql</groupId>
+				<artifactId>mysql-connector-j</artifactId>
+				<version>${mysql-connector-j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${freemarker.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.11</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.9.1</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
 
 	<issueManagement>
 		<system>Github Issue</system>
