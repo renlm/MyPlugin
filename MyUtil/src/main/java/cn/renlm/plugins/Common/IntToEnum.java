@@ -28,4 +28,5 @@ public class IntToEnum<T extends Enum<T> & IntToEnum.IntValue> {
 	public T valueToEnum(final int i) {
 		return this.map.get(i);
 	}
+
 }

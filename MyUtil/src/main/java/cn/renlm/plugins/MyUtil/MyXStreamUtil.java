@@ -25,8 +25,7 @@ public final class MyXStreamUtil {
 	 */
 	@SuppressWarnings("unchecked")
 	public static final <C> C read(final Class<C> type, String resource) {
-		InputStream in = MyXStreamUtil.class.getClassLoader()
-				.getResourceAsStream(resource);
+		InputStream in = MyXStreamUtil.class.getClassLoader().getResourceAsStream(resource);
 		XStream xstream = create(type);
 		return (C) xstream.fromXML(in);
 	}
@@ -44,4 +43,5 @@ public final class MyXStreamUtil {
 		xstream.ignoreUnknownElements();
 		return xstream;
 	}
+
 }

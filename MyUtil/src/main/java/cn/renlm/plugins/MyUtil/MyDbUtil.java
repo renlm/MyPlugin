@@ -30,8 +30,8 @@ public class MyDbUtil {
 	 * @param types
 	 * @return
 	 */
-	public static final List<Table> getTableMetas(String jdbcUrl,
-			String username, String password, TableType... types) {
+	public static final List<Table> getTableMetas(String jdbcUrl, String username, String password,
+			TableType... types) {
 		Setting setting = new Setting();
 		setting.set(DSFactory.KEY_ALIAS_URL[0], jdbcUrl);
 		setting.set(DSFactory.KEY_ALIAS_USER[0], username);
@@ -58,8 +58,8 @@ public class MyDbUtil {
 	 * @param types
 	 * @return
 	 */
-	public static final List<Table> getTableMetas(String jdbcUrl, String schema,
-			String username, String password, TableType... types) {
+	public static final List<Table> getTableMetas(String jdbcUrl, String schema, String username, String password,
+			TableType... types) {
 		Setting setting = new Setting();
 		setting.set(DSFactory.KEY_ALIAS_URL[0], jdbcUrl);
 		setting.set(DSFactory.KEY_ALIAS_USER[0], username);
@@ -69,12 +69,11 @@ public class MyDbUtil {
 		DSFactory dsf = DSFactory.create(setting);
 		DataSource ds = dsf.getDataSource();
 		List<Table> tables = CollUtil.newArrayList();
-		MetaUtil.getTables(dsf.getDataSource(), schema, types)
-				.forEach(tableName -> {
-					Table table = MetaUtil.getTableMeta(ds, null, schema,
-							tableName);
-					tables.add(table);
-				});
+		MetaUtil.getTables(dsf.getDataSource(), schema, types).forEach(tableName -> {
+			Table table = MetaUtil.getTableMeta(ds, null, schema, tableName);
+			tables.add(table);
+		});
 		return tables;
 	}
+
 }

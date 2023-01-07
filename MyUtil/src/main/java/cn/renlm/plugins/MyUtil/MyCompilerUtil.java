@@ -189,4 +189,5 @@ public class MyCompilerUtil {
 		Pattern pattern = Pattern.compile(NoteMultiLineRegex, Pattern.DOTALL);
 		return pattern.matcher(javaCode).replaceAll(StrUtil.EMPTY);
 	}
+
 }

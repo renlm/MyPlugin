@@ -13,14 +13,14 @@ public class ConstVal {
 
 	public static final String AUTHOR 			= "Renlm";
 	public static final String VERSION 			= "2.6.2";
-	
+
 	public static final String NAME 			= ConstVal.class.getName();
-	
+
 	public static final String userDir 			= System.getProperty("user.dir");
 	public static final String javaDir 			= userDir + "/src/main/java";
-	public static final String resourcesDir		= userDir + "/src/main/resources";
+	public static final String resourcesDir 	= userDir + "/src/main/resources";
 	public static final String javaTestDir 		= userDir + "/src/test/java";
-	public static final String resourcesTestDir	= userDir + "/src/test/resources";
+	public static final String resourcesTestDir = userDir + "/src/test/resources";
 
 	/**
 	 * 默认字体，宋体
