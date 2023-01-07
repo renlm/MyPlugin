@@ -41,4 +41,5 @@ public class MyPlugin {
 		}
 		consoleTable.print();
 	}
+
 }
