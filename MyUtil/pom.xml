@@ -21,6 +21,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15to18</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>net.openhft</groupId>
 			<artifactId>compiler</artifactId>
 		</dependency>
