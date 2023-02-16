@@ -18,7 +18,7 @@
 			<xsd:element name="url" />
 			<xsd:element name="username" />
 			<xsd:element name="password" />
-			<xsd:element name="config" type="Config" minOccurs="0" 
+			<xsd:element name="config" type="MyGeneratorConf" minOccurs="0" 
 				maxOccurs="1" />
 			<xsd:element name="module" type="Module" minOccurs="0" 
 				maxOccurs="unbounded" />
@@ -28,13 +28,13 @@
 			use="optional" />
 	</xsd:complexType>
 	
-		<!-- 代码生成配置 -->
-	<xsd:complexType name="Config">
-		<xsd:sequence>
+	<!-- 代码生成配置 -->
+	<xsd:complexType name="MyGeneratorConf">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="template" type="TemplateConfig" maxOccurs="1" />
 			<xsd:element name="package" type="PackageConfig" maxOccurs="1" />
 			<xsd:element name="strategy" type="StrategyConfig" maxOccurs="1" />
-		</xsd:sequence>
+		</xsd:choice>
 	</xsd:complexType>
 
 	<!-- 模板配置 -->
@@ -49,17 +49,17 @@
 	<xsd:complexType name="PackageConfig">
 		<xsd:sequence>
 			<!-- Controller包名 -->
-			<xsd:element name="controller" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="controller" type="xsd:string" maxOccurs="1" default="api" />
 			<!-- Service Impl包名 -->
-			<xsd:element name="serviceImpl" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="serviceImpl" type="xsd:string" maxOccurs="1" default="service.impl" />
 			<!-- Service包名 -->
-			<xsd:element name="service" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="service" type="xsd:string" maxOccurs="1" default="service" />
 			<!-- Entity包名 -->
-			<xsd:element name="entity" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="entity" type="xsd:string" maxOccurs="1" default="entity" />
 			<!-- Mapper包名 -->
-			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="dao" />
 			<!-- Mapper XML包名 -->
-			<xsd:element name="xml" type="xsd:string" maxOccurs="1" />
+			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper" />
 		</xsd:sequence>
 	</xsd:complexType>
 
