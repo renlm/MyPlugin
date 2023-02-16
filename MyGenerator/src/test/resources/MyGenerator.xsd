@@ -47,9 +47,9 @@
 
 	<!-- 包配置 -->
 	<xsd:complexType name="PackageConfig">
-		<xsd:sequence>
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<!-- Controller包名 -->
-			<xsd:element name="controller" type="xsd:string" maxOccurs="1" default="api" />
+			<xsd:element name="controller" type="xsd:string" maxOccurs="1" default="controller" />
 			<!-- Service Impl包名 -->
 			<xsd:element name="serviceImpl" type="xsd:string" maxOccurs="1" default="service.impl" />
 			<!-- Service包名 -->
@@ -60,7 +60,7 @@
 			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="dao" />
 			<!-- Mapper XML包名 -->
 			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper" />
-		</xsd:sequence>
+		</xsd:choice>
 	</xsd:complexType>
 
 	<!-- 策略配置 -->

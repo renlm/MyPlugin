@@ -9,15 +9,11 @@
 
 	<config>
 		<template>
-			<controller>false</controller>
+			<controller>true</controller>
 		</template>
 		<package>
 			<controller>api</controller>
-			<serviceImpl>service.impl</serviceImpl>
-			<service>service</service>
 			<entity>domain</entity>
-			<mapper>dao</mapper>
-			<xml>mapper</xml>
 		</package>
 		<strategy>
 			<entity>

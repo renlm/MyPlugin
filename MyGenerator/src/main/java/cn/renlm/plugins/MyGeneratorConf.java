@@ -56,7 +56,7 @@ public class MyGeneratorConf {
 		/**
 		 * Controller包名
 		 */
-		private String controller = "api";
+		private String controller = "controller";
 
 		/**
 		 * Service Impl包名
