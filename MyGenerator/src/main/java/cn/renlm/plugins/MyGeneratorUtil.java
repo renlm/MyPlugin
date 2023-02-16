@@ -115,9 +115,9 @@ public class MyGeneratorUtil {
 			GeneratorTable table) {
 		AutoGenerator autoGenerator = new AutoGenerator(dsc);
 		autoGenerator.injection(injectionConfig(conf, table));
-		autoGenerator.template(templateConfig());
-		autoGenerator.strategy(strategyConfig(table));
-		autoGenerator.packageInfo(packageConfig(module));
+		autoGenerator.template(templateConfig(conf));
+		autoGenerator.strategy(strategyConfig(conf, table));
+		autoGenerator.packageInfo(packageConfig(conf, module));
 		autoGenerator.global(globalConfig(module, table));
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
 			/**
@@ -177,9 +177,10 @@ public class MyGeneratorUtil {
 	/**
 	 * 模板配置
 	 * 
+	 * @param conf
 	 * @return
 	 */
-	private static final TemplateConfig templateConfig() {
+	private static final TemplateConfig templateConfig(GeneratorConfig conf) {
 		return new TemplateConfig.Builder()
 				.entity(EntityTemplatePath)
 				.serviceImpl(serviceImplTemplatePath)
@@ -190,10 +191,11 @@ public class MyGeneratorUtil {
 	/**
 	 * 策略配置
 	 * 
+	 * @param conf
 	 * @param table
 	 * @return
 	 */
-	private static final StrategyConfig strategyConfig(GeneratorTable table) {
+	private static final StrategyConfig strategyConfig(GeneratorConfig conf, GeneratorTable table) {
 		Builder builder = new StrategyConfig.Builder()
 				.addInclude(table.name)
 				.entityBuilder()
@@ -212,10 +214,11 @@ public class MyGeneratorUtil {
 	/**
 	 * 包配置
 	 * 
+	 * @param conf
 	 * @param module
 	 * @return
 	 */
-	private static final PackageConfig packageConfig(GeneratorModule module) {
+	private static final PackageConfig packageConfig(GeneratorConfig conf, GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
 		pathInfo.put(OutputFile.xml, mapperOutputDir + SLASH + module.name + SLASH);
 		return new PackageConfig.Builder()
