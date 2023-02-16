@@ -290,6 +290,11 @@ public class MyGeneratorUtil {
 		private String password;
 
 		/**
+		 * 基础配置
+		 */
+		private MyGeneratorConf config;
+
+		/**
 		 * 模块集
 		 */
 		@XStreamImplicit(itemFieldName = "module")

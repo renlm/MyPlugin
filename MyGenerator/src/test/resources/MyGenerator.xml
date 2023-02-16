@@ -7,8 +7,34 @@
 	<username>username</username>
 	<password>password</password>
 
+	<config>
+		<template>
+			<controller>disable</controller>
+		</template>
+		<package>
+			<controller>api</controller>
+			<serviceImpl>service.impl</serviceImpl>
+			<service>service</service>
+			<entity>domain</entity>
+			<mapper>dao</mapper>
+			<xml>mapper</xml>
+		</package>
+		<strategy>
+			<entity>
+				<superClass>cn.renlm.plugins.MyGeneratorConf</superClass>
+				<superEntityColumns>
+					<column>id</column>
+					<column>createdAt</column>
+					<column>updatedAt</column>
+					<column>deleted</column>
+				</superEntityColumns>
+			</entity>
+		</strategy>
+	</config>
+
 	<module name="sys" package="cn.renlm.crawler">
 		<table schema="public" author="Renlm" name="sys_const" entity="true" excel="true" />
 		<table schema="public" author="Renlm" name="sys_file" idType="ASSIGN_ID" />
 	</module>
+
 </generator>
