@@ -68,7 +68,7 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="entity" maxOccurs="1">
 				<xsd:complexType mixed="true">
-					<xsd:sequence>
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
 						<!-- 父类（全路径名称） -->
 						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
 						<!-- 禁用生成serialVersionUID -->
@@ -81,7 +81,7 @@
 								</xsd:choice>
 							</xsd:complexType>
 						</xsd:element>
-					</xsd:sequence>
+					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:choice>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyGenerator.xsd">
 
 	<url>jdbc:postgresql://localhost:5432/db</url>
 	<username>username</username>
@@ -17,12 +17,11 @@
 		</package>
 		<strategy>
 			<entity>
-				<superClass>cn.renlm.plugins.MyGeneratorConf</superClass>
+				<superClass>cn.xxx.base.Model</superClass>
 				<disableSerialVersionUID>true</disableSerialVersionUID>
 				<superEntityColumns>
-					<column>id</column>
-					<column>createdAt</column>
-					<column>updatedAt</column>
+					<column>created_at</column>
+					<column>updated_at</column>
 					<column>deleted</column>
 				</superEntityColumns>
 			</entity>
