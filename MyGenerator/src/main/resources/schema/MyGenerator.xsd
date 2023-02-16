@@ -18,12 +18,71 @@
 			<xsd:element name="url" />
 			<xsd:element name="username" />
 			<xsd:element name="password" />
-			<xsd:element name="module" type="Module" minOccurs="0"
+			<xsd:element name="config" type="Module" minOccurs="0" 
+				maxOccurs="1" />
+			<xsd:element name="module" type="Module" minOccurs="0" 
 				maxOccurs="unbounded" />
 		</xsd:sequence>
 		<!-- 使用多数据源时，数据源名称 -->
 		<xsd:attribute name="dsName" type="xsd:string"
 			use="optional" />
+	</xsd:complexType>
+	
+		<!-- 代码生成配置 -->
+	<xsd:complexType name="config">
+		<xsd:sequence>
+			<xsd:element name="template" type="Module" maxOccurs="1" />
+			<xsd:element name="package" type="Module" maxOccurs="1" />
+			<xsd:element name="strategy" type="Module" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 模板配置 -->
+	<xsd:complexType name="template">
+		<xsd:sequence>
+			<!-- 是否生成Controller（默认否） -->
+			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 包配置 -->
+	<xsd:complexType name="package">
+		<xsd:sequence>
+			<!-- Controller包名 -->
+			<xsd:element name="controller" type="xsd:string" maxOccurs="1" />
+			<!-- Service Impl包名 -->
+			<xsd:element name="serviceImpl" type="xsd:string" maxOccurs="1" />
+			<!-- Service包名 -->
+			<xsd:element name="service" type="xsd:string" maxOccurs="1" />
+			<!-- Entity包名 -->
+			<xsd:element name="entity" type="xsd:string" maxOccurs="1" />
+			<!-- Mapper包名 -->
+			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" />
+			<!-- Mapper XML包名 -->
+			<xsd:element name="xml" type="xsd:string" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 策略配置 -->
+	<xsd:complexType name="strategy">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="entity" maxOccurs="1">
+				<xsd:complexType mixed="true">
+					<xsd:sequence>
+						<!-- 父类（全路径名称） -->
+						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
+						<!-- 父类字段集 -->
+						<xsd:element name="superEntityColumns">
+							<xsd:complexType mixed="true">
+								<xsd:choice minOccurs="0" maxOccurs="unbounded">
+									<xsd:element name="column" type="xsd:string" maxOccurs="1" />
+								</xsd:choice>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
 	</xsd:complexType>
 
 	<!-- 模块 -->

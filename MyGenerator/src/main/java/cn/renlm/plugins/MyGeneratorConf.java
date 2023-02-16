@@ -38,7 +38,7 @@ public class MyGeneratorConf {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * 生成Controller
+		 * 是否生成Controller（默认否）
 		 */
 		@XStreamAlias("controller")
 		private boolean enableController;
