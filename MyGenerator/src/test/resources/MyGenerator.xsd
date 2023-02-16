@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="qualified">
+	<!-- 根节点定义 -->
+	<xsd:element name="generator" type="Generator">
+		<!-- 分模块按包路径+模块名为唯一约束 -->
+		<xsd:key name="module">
+			<xsd:selector xpath="module"></xsd:selector>
+			<xsd:field xpath="@package"></xsd:field>
+			<xsd:field xpath="@name"></xsd:field>
+		</xsd:key>
+	</xsd:element>
+
+	<!-- 生成器 -->
+	<xsd:complexType name="Generator">
+		<!-- 数据源及模块列表 -->
+		<xsd:sequence>
+			<xsd:element name="url" />
+			<xsd:element name="username" />
+			<xsd:element name="password" />
+			<xsd:element name="config" type="Module" minOccurs="0" 
+				maxOccurs="1" />
+			<xsd:element name="module" type="Module" minOccurs="0" 
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+		<!-- 使用多数据源时，数据源名称 -->
+		<xsd:attribute name="dsName" type="xsd:string"
+			use="optional" />
+	</xsd:complexType>
+	
+		<!-- 代码生成配置 -->
+	<xsd:complexType name="config">
+		<xsd:sequence>
+			<xsd:element name="template" type="Module" maxOccurs="1" />
+			<xsd:element name="package" type="Module" maxOccurs="1" />
+			<xsd:element name="strategy" type="Module" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 模板配置 -->
+	<xsd:complexType name="template">
+		<xsd:sequence>
+			<!-- 是否生成Controller（默认否） -->
+			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 包配置 -->
+	<xsd:complexType name="package">
+		<xsd:sequence>
+			<!-- Controller包名 -->
+			<xsd:element name="controller" type="xsd:string" maxOccurs="1" />
+			<!-- Service Impl包名 -->
+			<xsd:element name="serviceImpl" type="xsd:string" maxOccurs="1" />
+			<!-- Service包名 -->
+			<xsd:element name="service" type="xsd:string" maxOccurs="1" />
+			<!-- Entity包名 -->
+			<xsd:element name="entity" type="xsd:string" maxOccurs="1" />
+			<!-- Mapper包名 -->
+			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" />
+			<!-- Mapper XML包名 -->
+			<xsd:element name="xml" type="xsd:string" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- 策略配置 -->
+	<xsd:complexType name="strategy">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="entity" maxOccurs="1">
+				<xsd:complexType mixed="true">
+					<xsd:sequence>
+						<!-- 父类（全路径名称） -->
+						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
+						<!-- 父类字段集 -->
+						<xsd:element name="superEntityColumns">
+							<xsd:complexType mixed="true">
+								<xsd:choice minOccurs="0" maxOccurs="unbounded">
+									<xsd:element name="column" type="xsd:string" maxOccurs="1" />
+								</xsd:choice>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<!-- 模块 -->
+	<xsd:complexType name="Module">
+		<!-- 数据库表集 -->
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="table">
+				<xsd:complexType mixed="true">
+					<!-- 表归属 -->
+					<xsd:attribute name="schema" type="xsd:string"
+						use="optional" />
+					<!-- 创建人 -->
+					<xsd:attribute name="author" type="xsd:string"
+						use="required" />
+					<!-- 表名 -->
+					<xsd:attribute name="name" type="xsd:string"
+						use="required" />
+					<!-- 主键类型 -->
+					<xsd:attribute name="idType" use="optional"
+						default="AUTO">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="AUTO" />
+								<xsd:enumeration value="NONE" />
+								<xsd:enumeration value="INPUT" />
+								<xsd:enumeration value="ASSIGN_ID" />
+								<xsd:enumeration value="ASSIGN_UUID" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<!-- 是否覆盖已存在的实体类（默认false） -->
+					<xsd:attribute name="entity" type="xsd:boolean"
+						use="optional" default="false" />
+					<!-- 是否配置Excel表格（默认false） -->
+					<xsd:attribute name="excel" type="xsd:boolean"
+						use="optional" default="false" />
+					<!-- 是否添加Blob字段转换（默认是） -->
+					<xsd:attribute name="blobTypeHandler" type="xsd:boolean"
+						use="optional" default="true" />
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+		<!-- 模块名 -->
+		<xsd:attribute name="name" type="xsd:string"
+			use="required" />
+		<!-- 包路径 -->
+		<xsd:attribute name="package" type="xsd:string"
+			use="required" />
+		<!-- 开启 swagger 模式 -->
+		<xsd:attribute name="enableSwagger" type="xsd:boolean"
+			use="optional" default="false" />
+	</xsd:complexType>
+</xsd:schema>
