@@ -185,15 +185,17 @@ public class MyGeneratorUtil {
 	 * @return
 	 */
 	private static final TemplateConfig templateConfig(GeneratorConfig conf) {
-		boolean enableController = conf.getConfig() != null 
-				&& conf.getConfig().getTemplateConfig() != null
-				&& conf.getConfig().getTemplateConfig().isEnableController();
 		TemplateConfig.Builder builder = new TemplateConfig.Builder()
 				.entity(EntityTemplatePath)
 				.serviceImpl(serviceImplTemplatePath);
+		/** ================== 自定义配置项 Start ================== */
+		boolean enableController = conf.getConfig() != null 
+				&& conf.getConfig().getTemplateConfig() != null
+				&& conf.getConfig().getTemplateConfig().isEnableController();
 		if (!enableController) {
 			builder.disable(TemplateType.CONTROLLER);
 		}
+		/** ================== 自定义配置项 End ================== */
 		return builder.build();
 	}
 
@@ -214,22 +216,29 @@ public class MyGeneratorUtil {
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel);
-		boolean enableSuperClass = conf.getConfig() != null 
+		/** ================== 自定义配置项 Start ================== */
+		boolean enableStrategyConfigEntity = conf.getConfig() != null 
 				&& conf.getConfig().getStrategyConfig() != null 
-				&& conf.getConfig().getStrategyConfig().getEntity() != null 
-				&& StrUtil.isNotBlank(conf.getConfig().getStrategyConfig().getEntity().getSuperClass());
-		if (enableSuperClass) {
+				&& conf.getConfig().getStrategyConfig().getEntity() != null;
+		if (enableStrategyConfigEntity) {
 			_Entity entity = conf.getConfig().getStrategyConfig().getEntity();
-			builder.superClass(entity.getSuperClass());
-			if (entity.getSuperEntityColumns() != null && CollUtil.isNotEmpty(entity.getSuperEntityColumns().getSuperEntityColumns())) {
-				List<String> columns = entity.getSuperEntityColumns().getSuperEntityColumns().stream().map(it -> it.getText()).collect(Collectors.toList());
-				CollUtil.removeBlank(columns);
-				columns = CollUtil.distinct(columns);
-				if (CollUtil.isNotEmpty(columns)) {
-					builder.addSuperEntityColumns(columns);
+			if (entity.isDisableSerialVersionUID()) {
+				builder.disableSerialVersionUID();
+			}
+			boolean enableSuperClass = StrUtil.isNotBlank(entity.getSuperClass());
+			if (enableSuperClass) {
+				builder.superClass(entity.getSuperClass());
+				if (entity.getSuperEntityColumns() != null && CollUtil.isNotEmpty(entity.getSuperEntityColumns().getSuperEntityColumns())) {
+					List<String> columns = entity.getSuperEntityColumns().getSuperEntityColumns().stream().map(it -> it.getText()).collect(Collectors.toList());
+					CollUtil.removeBlank(columns);
+					columns = CollUtil.distinct(columns);
+					if (CollUtil.isNotEmpty(columns)) {
+						builder.addSuperEntityColumns(columns);
+					}
 				}
 			}
 		}
+		/** ================== 自定义配置项 End ================== */
 		if (table.coverEntity) {
 			builder.enableFileOverride();
 		}
@@ -250,6 +259,7 @@ public class MyGeneratorUtil {
 				.parent(module.pkg)
 				.moduleName(module.name)
 				.pathInfo(pathInfo);
+		/** ================== 自定义配置项 Start ================== */
 		if (conf.getConfig() != null && conf.getConfig().getPackageConfig() != null) {
 			_PackageConfig packageConfig = conf.getConfig().getPackageConfig();
 			if (StrUtil.isNotBlank(packageConfig.getController())) {
@@ -271,6 +281,7 @@ public class MyGeneratorUtil {
 				builder.xml(packageConfig.getXml());
 			}
 		}
+		/** ================== 自定义配置项 End ================== */
 		return builder.build();
 	}
 

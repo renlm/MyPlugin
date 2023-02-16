@@ -71,6 +71,8 @@
 					<xsd:sequence>
 						<!-- 父类（全路径名称） -->
 						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
+						<!-- 禁用生成serialVersionUID -->
+						<xsd:element name="disableSerialVersionUID" type="xsd:boolean" maxOccurs="1" />
 						<!-- 父类字段集 -->
 						<xsd:element name="superEntityColumns">
 							<xsd:complexType mixed="true">

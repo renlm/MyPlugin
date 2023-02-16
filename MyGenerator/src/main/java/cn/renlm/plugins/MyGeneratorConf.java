@@ -106,9 +106,14 @@ public class MyGeneratorConf {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * 父类
+		 * 父类（全路径名称）
 		 */
 		private String superClass;
+
+		/**
+		 * 禁用生成serialVersionUID
+		 */
+		private boolean disableSerialVersionUID;
 
 		/**
 		 * 父类字段集

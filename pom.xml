@@ -20,7 +20,7 @@
 	</modules>
 
 	<properties>
-		<compile.version>1.8</compile.version>
+		<compile.version>11</compile.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 版本管理 -->

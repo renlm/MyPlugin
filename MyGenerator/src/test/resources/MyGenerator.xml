@@ -18,6 +18,7 @@
 		<strategy>
 			<entity>
 				<superClass>cn.renlm.plugins.MyGeneratorConf</superClass>
+				<disableSerialVersionUID>true</disableSerialVersionUID>
 				<superEntityColumns>
 					<column>id</column>
 					<column>createdAt</column>
