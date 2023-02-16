@@ -38,6 +38,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyGeneratorConf._Entity;
+import cn.renlm.plugins.MyGeneratorConf._PackageConfig;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -245,11 +246,32 @@ public class MyGeneratorUtil {
 	private static final PackageConfig packageConfig(GeneratorConfig conf, GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
 		pathInfo.put(OutputFile.xml, mapperOutputDir + SLASH + module.name + SLASH);
-		return new PackageConfig.Builder()
+		PackageConfig.Builder builder = new PackageConfig.Builder()
 				.parent(module.pkg)
 				.moduleName(module.name)
-				.pathInfo(pathInfo)
-				.build();
+				.pathInfo(pathInfo);
+		if (conf.getConfig() != null && conf.getConfig().getPackageConfig() != null) {
+			_PackageConfig packageConfig = conf.getConfig().getPackageConfig();
+			if (StrUtil.isNotBlank(packageConfig.getController())) {
+				builder.controller(packageConfig.getController());
+			}
+			if (StrUtil.isNotBlank(packageConfig.getServiceImpl())) {
+				builder.serviceImpl(packageConfig.getServiceImpl());
+			}
+			if (StrUtil.isNotBlank(packageConfig.getService())) {
+				builder.service(packageConfig.getService());
+			}
+			if (StrUtil.isNotBlank(packageConfig.getEntity())) {
+				builder.entity(packageConfig.getEntity());
+			}
+			if (StrUtil.isNotBlank(packageConfig.getMapper())) {
+				builder.mapper(packageConfig.getMapper());
+			}
+			if (StrUtil.isNotBlank(packageConfig.getXml())) {
+				builder.xml(packageConfig.getXml());
+			}
+		}
+		return builder.build();
 	}
 
 	/**
