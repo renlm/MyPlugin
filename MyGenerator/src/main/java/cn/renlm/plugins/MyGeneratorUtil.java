@@ -181,11 +181,16 @@ public class MyGeneratorUtil {
 	 * @return
 	 */
 	private static final TemplateConfig templateConfig(GeneratorConfig conf) {
-		return new TemplateConfig.Builder()
+		boolean enableController = conf.getConfig() != null 
+				&& conf.getConfig().getTemplateConfig() != null
+				&& conf.getConfig().getTemplateConfig().isEnableController();
+		TemplateConfig.Builder builder = new TemplateConfig.Builder()
 				.entity(EntityTemplatePath)
-				.serviceImpl(serviceImplTemplatePath)
-				.disable(TemplateType.CONTROLLER)
-				.build();
+				.serviceImpl(serviceImplTemplatePath);
+		if (!enableController) {
+			builder.disable(TemplateType.CONTROLLER);
+		}
+		return builder.build();
 	}
 
 	/**
