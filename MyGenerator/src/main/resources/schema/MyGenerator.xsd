@@ -41,7 +41,7 @@
 	<xsd:complexType name="TemplateConfig">
 		<xsd:sequence>
 			<!-- 是否生成Controller（默认否） -->
-			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" />
+			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" default="false" />
 		</xsd:sequence>
 	</xsd:complexType>
 
@@ -72,7 +72,7 @@
 						<!-- 父类（全路径名称） -->
 						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
 						<!-- 禁用生成serialVersionUID -->
-						<xsd:element name="disableSerialVersionUID" type="xsd:boolean" maxOccurs="1" />
+						<xsd:element name="disableSerialVersionUID" type="xsd:boolean" maxOccurs="1" default="false" />
 						<!-- 父类字段集 -->
 						<xsd:element name="superEntityColumns">
 							<xsd:complexType mixed="true">
