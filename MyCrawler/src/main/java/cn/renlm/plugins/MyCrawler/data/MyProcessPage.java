@@ -9,7 +9,7 @@ import us.codecraft.webmagic.Page;
 /**
  * Processor Page
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Getter

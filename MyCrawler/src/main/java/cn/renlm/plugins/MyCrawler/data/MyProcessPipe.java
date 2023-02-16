@@ -10,7 +10,7 @@ import us.codecraft.webmagic.Task;
 /**
  * Pipeline Data
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Getter

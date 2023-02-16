@@ -19,7 +19,7 @@ import net.openhft.compiler.CompilerUtils;
 /**
  * 代码编译（自动识别）
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @UtilityClass

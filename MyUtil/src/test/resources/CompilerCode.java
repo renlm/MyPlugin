@@ -6,7 +6,7 @@ import cn.hutool.core.util.ReUtil;
 /**
  * 编译代码
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class CompilerCode implements Runnable {

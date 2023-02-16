@@ -14,7 +14,7 @@ import us.codecraft.webmagic.scheduler.RedisPriorityScheduler;
 /**
  * 分布式Url调度
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplicateVerify {

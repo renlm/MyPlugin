@@ -19,7 +19,7 @@ import us.codecraft.webmagic.selector.Html;
 /**
  * 爬虫测试
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MyCrawlerTest {

@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
 /**
  * 插件集
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @UtilityClass

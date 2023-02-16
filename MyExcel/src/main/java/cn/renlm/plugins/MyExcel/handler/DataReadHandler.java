@@ -16,7 +16,7 @@ import cn.renlm.plugins.MyExcel.entity.CheckResult;
 /**
  * 行数据读取处理
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @FunctionalInterface

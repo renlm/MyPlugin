@@ -17,7 +17,7 @@ import us.codecraft.webmagic.utils.UrlUtils;
 /**
  * 页面链接类型
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public enum PageUrlType implements IntToEnum.IntValue {

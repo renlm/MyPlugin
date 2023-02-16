@@ -57,7 +57,7 @@ import lombok.Getter;
  *  freemarker
  *  	2.3.31
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MyGeneratorUtil {

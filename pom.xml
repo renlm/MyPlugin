@@ -6,7 +6,7 @@
 
 	<groupId>cn.renlm.plugins</groupId>
 	<artifactId>MyPlugin-parent</artifactId>
-	<version>2.6.5</version>
+	<version>2.7.1</version>
 	<name>MyPlugin</name>
 	<description>Java简化开发套路</description>
 	<url>https://github.com/renlm/MyPlugin</url>
@@ -24,12 +24,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 版本管理 -->
-		<hutool.version>5.8.11</hutool.version>
+		<hutool.version>5.8.12</hutool.version>
 		<bcpkix-jdk15to18.version>1.72</bcpkix-jdk15to18.version>
 		<webmagic.version>0.8.0</webmagic.version>
 		<selenium-chrome-driver.version>4.5.3</selenium-chrome-driver.version>
 		<compiler.version>2.4.1</compiler.version>
-		<easyexcel.version>3.1.5</easyexcel.version>
+		<easyexcel.version>3.2.1</easyexcel.version>
 		<jedis.version>4.3.1</jedis.version>
 		<xstream.version>1.4.20</xstream.version>
 		<mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
@@ -310,8 +310,8 @@
 		</plugins>
 	</build>
 
-	<!-- mvn versions:set -DnewVersion=2.6.5 -->
-	<!-- mvn versions:set -DnewVersion=2.6.5-SNAPSHOT -->
+	<!-- mvn versions:set -DnewVersion=2.7.1 -->
+	<!-- mvn versions:set -DnewVersion=2.7.1-SNAPSHOT -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>

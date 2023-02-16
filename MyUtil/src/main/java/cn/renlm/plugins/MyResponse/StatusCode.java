@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * 响应状态码
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public enum StatusCode {

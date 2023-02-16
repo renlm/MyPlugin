@@ -6,7 +6,7 @@ import us.codecraft.webmagic.Task;
 /**
  * 任务请求验重
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public interface MyDuplicateVerify {

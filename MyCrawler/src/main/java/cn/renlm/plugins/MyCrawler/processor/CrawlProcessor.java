@@ -5,7 +5,7 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPage;
 /**
  * 数据抓取
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public interface CrawlProcessor<T> {

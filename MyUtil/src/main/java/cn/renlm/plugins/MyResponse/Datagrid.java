@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 /**
  * EasyUI 数据表格
  *
- * @author Renlm
+ * @author RenLiMing(任黎明)
  */
 @Data
 @Accessors(chain = true)

@@ -22,7 +22,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 /**
  * 爬虫
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MySpider extends Spider {

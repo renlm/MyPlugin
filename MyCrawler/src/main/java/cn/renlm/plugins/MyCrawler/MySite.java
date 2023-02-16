@@ -12,7 +12,7 @@ import us.codecraft.webmagic.Site;
 /**
  * 站点配置
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Data

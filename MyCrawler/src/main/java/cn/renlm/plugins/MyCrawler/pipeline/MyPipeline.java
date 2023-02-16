@@ -5,7 +5,7 @@ import cn.renlm.plugins.MyCrawler.data.MyProcessPipe;
 /**
  * 结果处理
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @FunctionalInterface

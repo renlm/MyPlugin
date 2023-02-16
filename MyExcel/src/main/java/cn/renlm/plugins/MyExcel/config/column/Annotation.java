@@ -11,7 +11,7 @@ import lombok.Data;
 /**
  * 列配置-标注
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Data

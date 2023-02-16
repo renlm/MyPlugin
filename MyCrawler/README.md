@@ -9,7 +9,7 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyCrawler</artifactId>
-    <version>2.6.5</version>
+    <version>2.7.1</version>
 </dependency>
 ```
 
@@ -19,7 +19,7 @@
 /**
  * 爬虫测试
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MyCrawlerTest {

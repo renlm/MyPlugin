@@ -17,7 +17,7 @@ import lombok.Getter;
 /**
  * 列配置-字典
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Data

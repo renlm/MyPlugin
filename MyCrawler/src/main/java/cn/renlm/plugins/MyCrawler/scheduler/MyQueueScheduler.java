@@ -13,7 +13,7 @@ import us.codecraft.webmagic.scheduler.component.HashSetDuplicateRemover;
 /**
  * 默认Url调度
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class MyQueueScheduler extends QueueScheduler implements MyDuplicateVerify {

@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 /**
  * 检查结果
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Data

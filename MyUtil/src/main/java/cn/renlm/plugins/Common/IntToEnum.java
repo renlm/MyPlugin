@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 枚举对象
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  * @param <T>
  */

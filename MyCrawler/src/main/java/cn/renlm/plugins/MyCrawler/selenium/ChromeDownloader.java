@@ -36,7 +36,7 @@ import us.codecraft.webmagic.utils.HttpConstant;
 /**
  * 使用Selenium调用浏览器进行渲染
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 public class ChromeDownloader implements Downloader, Closeable {

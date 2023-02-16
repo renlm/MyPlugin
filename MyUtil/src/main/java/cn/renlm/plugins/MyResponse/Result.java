@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 /**
  * 响应结果
  *
- * @author Renlm
+ * @author RenLiMing(任黎明)
  */
 @Data
 @NoArgsConstructor

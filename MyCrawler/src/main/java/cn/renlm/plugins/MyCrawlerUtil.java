@@ -27,7 +27,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 /**
  * 爬虫工具
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @Slf4j

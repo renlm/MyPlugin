@@ -5,14 +5,14 @@ import lombok.experimental.UtilityClass;
 /**
  * 常量池
  * 
- * @author Renlm
+ * @author RenLiMing(任黎明)
  *
  */
 @UtilityClass
 public class ConstVal {
 
-	public static final String AUTHOR 			= "Renlm";
-	public static final String VERSION 			= "2.6.5";
+	public static final String AUTHOR 			= "RenLiMing(任黎明)";
+	public static final String VERSION 			= "2.7.1";
 
 	public static final String NAME 			= ConstVal.class.getName();
 
