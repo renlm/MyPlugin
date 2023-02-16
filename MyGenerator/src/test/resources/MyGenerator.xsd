@@ -18,7 +18,7 @@
 			<xsd:element name="url" />
 			<xsd:element name="username" />
 			<xsd:element name="password" />
-			<xsd:element name="config" type="Module" minOccurs="0" 
+			<xsd:element name="config" type="Config" minOccurs="0" 
 				maxOccurs="1" />
 			<xsd:element name="module" type="Module" minOccurs="0" 
 				maxOccurs="unbounded" />
@@ -29,16 +29,16 @@
 	</xsd:complexType>
 	
 		<!-- 代码生成配置 -->
-	<xsd:complexType name="config">
+	<xsd:complexType name="Config">
 		<xsd:sequence>
-			<xsd:element name="template" type="Module" maxOccurs="1" />
-			<xsd:element name="package" type="Module" maxOccurs="1" />
-			<xsd:element name="strategy" type="Module" maxOccurs="1" />
+			<xsd:element name="template" type="TemplateConfig" maxOccurs="1" />
+			<xsd:element name="package" type="PackageConfig" maxOccurs="1" />
+			<xsd:element name="strategy" type="StrategyConfig" maxOccurs="1" />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<!-- 模板配置 -->
-	<xsd:complexType name="template">
+	<xsd:complexType name="TemplateConfig">
 		<xsd:sequence>
 			<!-- 是否生成Controller（默认否） -->
 			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" />
@@ -46,7 +46,7 @@
 	</xsd:complexType>
 
 	<!-- 包配置 -->
-	<xsd:complexType name="package">
+	<xsd:complexType name="PackageConfig">
 		<xsd:sequence>
 			<!-- Controller包名 -->
 			<xsd:element name="controller" type="xsd:string" maxOccurs="1" />
@@ -64,7 +64,7 @@
 	</xsd:complexType>
 
 	<!-- 策略配置 -->
-	<xsd:complexType name="strategy">
+	<xsd:complexType name="StrategyConfig">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="entity" maxOccurs="1">
 				<xsd:complexType mixed="true">
