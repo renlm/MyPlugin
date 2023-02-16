@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,8 +34,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.renlm.plugins.MyGeneratorConf._Entity;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -210,6 +213,22 @@ public class MyGeneratorUtil {
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel);
+		boolean enableSuperClass = conf.getConfig() != null 
+				&& conf.getConfig().getStrategyConfig() != null 
+				&& conf.getConfig().getStrategyConfig().getEntity() != null 
+				&& StrUtil.isNotBlank(conf.getConfig().getStrategyConfig().getEntity().getSuperClass());
+		if (enableSuperClass) {
+			_Entity entity = conf.getConfig().getStrategyConfig().getEntity();
+			builder.superClass(entity.getSuperClass());
+			if (entity.getSuperEntityColumns() != null && CollUtil.isNotEmpty(entity.getSuperEntityColumns().getSuperEntityColumns())) {
+				List<String> columns = entity.getSuperEntityColumns().getSuperEntityColumns().stream().map(it -> it.getText()).collect(Collectors.toList());
+				CollUtil.removeBlank(columns);
+				columns = CollUtil.distinct(columns);
+				if (CollUtil.isNotEmpty(columns)) {
+					builder.addSuperEntityColumns(columns);
+				}
+			}
+		}
 		if (table.coverEntity) {
 			builder.enableFileOverride();
 		}
