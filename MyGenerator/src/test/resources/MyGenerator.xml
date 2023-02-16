@@ -9,7 +9,7 @@
 
 	<config>
 		<template>
-			<controller>disable</controller>
+			<controller>false</controller>
 		</template>
 		<package>
 			<controller>api</controller>
