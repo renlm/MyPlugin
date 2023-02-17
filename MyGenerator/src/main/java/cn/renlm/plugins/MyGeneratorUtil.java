@@ -5,6 +5,8 @@ import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
 
 import java.io.File;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.builder.Entity.Builder;
+import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableField.MetaInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -39,10 +42,14 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.BooleanUtil;
+import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyGeneratorConf._Controller;
 import cn.renlm.plugins.MyGeneratorConf._Entity;
+import cn.renlm.plugins.MyGeneratorConf._JavaSqlType;
 import cn.renlm.plugins.MyGeneratorConf._Mapper;
 import cn.renlm.plugins.MyGeneratorConf._PackageConfig;
 import cn.renlm.plugins.MyGeneratorConf._Service;
@@ -164,8 +171,12 @@ public class MyGeneratorUtil {
 					
 					@Override
 					public @NotNull IColumnType convert(GlobalConfig globalConfig, TypeRegistry typeRegistry, MetaInfo metaInfo) {
-						
-						return typeRegistry.getColumnType(metaInfo);
+						IColumnType type = conf.getColumnType(metaInfo);
+						if (type == null) {
+							return typeRegistry.getColumnType(metaInfo);
+						} else {
+							return type;
+						}
 					}
 					
 				})
@@ -393,6 +404,8 @@ public class MyGeneratorUtil {
 	public static final class GeneratorConfig implements Serializable {
 		private static final long serialVersionUID = 1L;
 
+		private final Map<Integer, IColumnType> typeMap = new HashMap<>();
+
 		/**
 		 * 数据源-名称（多数据源时使用）
 		 */
@@ -424,6 +437,44 @@ public class MyGeneratorUtil {
 		 */
 		@XStreamImplicit(itemFieldName = "module")
 		private List<GeneratorModule> modules;
+
+		/**
+		 * 获取自定义类型转换
+		 * 
+		 * @param metaInfo
+		 * @return
+		 */
+		public IColumnType getColumnType(TableField.MetaInfo metaInfo) {
+			if (metaInfo == null || metaInfo.getJdbcType() == null) {
+				return null;
+			}
+			if (MapUtil.isEmpty(typeMap) && this.config != null && this.config.getTypeConvert() != null) {
+				List<_JavaSqlType> javaSqlTypes = this.config.getTypeConvert().getJavaSqlTypes();
+				if (CollUtil.isNotEmpty(javaSqlTypes)) {
+					javaSqlTypes.forEach(type -> {
+						if (StrUtil.isNotBlank(type.getName()) && StrUtil.isNotBlank(type.getType())) {
+							Field field = ReflectUtil.getField(Types.class, type.getName());
+							int javaSqlType = Convert.toInt(ReflectUtil.getStaticFieldValue(field));
+							typeMap.put(javaSqlType, new IColumnType() {
+
+								@Override
+								public String getType() {
+									return type.getType();
+								}
+
+								@Override
+								public String getPkg() {
+									return type.getPkg();
+								}
+
+							});
+						}
+					});
+				}
+			}
+			int typeCode = metaInfo.getJdbcType().TYPE_CODE;
+			return this.typeMap.get(typeCode);
+		}
 
 	}
 
