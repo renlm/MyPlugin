@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="MyGenerator.xsd">
 
 	<url>jdbc:postgresql://localhost:5432/db</url>
 	<username>username</username>
@@ -25,6 +25,17 @@
 					<column>deleted</column>
 				</superEntityColumns>
 			</entity>
+			<controller>
+				<formatFileName>{entityName}Api</formatFileName>
+			</controller>
+			<service>
+				<formatServiceFileName>{entityName}Service</formatServiceFileName>
+				<formatServiceImplFileName>{entityName}ServiceImpl</formatServiceImplFileName>
+			</service>
+			<mapper>
+				<formatMapperFileName>{entityName}Mapper</formatMapperFileName>
+				<formatXmlFileName>{entityName}Mapper</formatXmlFileName>
+			</mapper>
 		</strategy>
 	</config>
 
