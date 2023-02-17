@@ -1,5 +1,6 @@
 package cn.renlm.plugins;
 
+import static cn.renlm.plugins.MyGeneratorConf.entityPlaceholder;
 import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
 
 import java.io.File;
@@ -36,8 +37,11 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.renlm.plugins.MyGeneratorConf._Controller;
 import cn.renlm.plugins.MyGeneratorConf._Entity;
+import cn.renlm.plugins.MyGeneratorConf._Mapper;
 import cn.renlm.plugins.MyGeneratorConf._PackageConfig;
+import cn.renlm.plugins.MyGeneratorConf._Service;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -216,12 +220,16 @@ public class MyGeneratorUtil {
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
 				.columnNaming(NamingStrategy.underline_to_camel);
-		/** ================== 自定义配置项 Start ================== */
+		
+		/** ================== Entity 配置 Start ================== */
 		boolean enableStrategyConfigEntity = conf.getConfig() != null 
 				&& conf.getConfig().getStrategyConfig() != null 
 				&& conf.getConfig().getStrategyConfig().getEntity() != null;
 		if (enableStrategyConfigEntity) {
 			_Entity entity = conf.getConfig().getStrategyConfig().getEntity();
+			if (StrUtil.isNotBlank(entity.getFormatFileName())) {
+				builder.formatFileName(entityPlaceholder(entity.getFormatFileName()));
+			}
 			if (entity.isDisableSerialVersionUID()) {
 				builder.disableSerialVersionUID();
 			}
@@ -238,10 +246,53 @@ public class MyGeneratorUtil {
 				}
 			}
 		}
-		/** ================== 自定义配置项 End ================== */
 		if (table.coverEntity) {
 			builder.enableFileOverride();
 		}
+		/** ================== Entity 配置 End ================== */
+		
+		/** ================== Controller 配置 Start ================== */
+		boolean enableStrategyConfigController = conf.getConfig() != null 
+				&& conf.getConfig().getStrategyConfig() != null 
+				&& conf.getConfig().getStrategyConfig().getController() != null;
+		if (enableStrategyConfigController) {
+			_Controller controller = conf.getConfig().getStrategyConfig().getController();
+			if (StrUtil.isNotBlank(controller.getFormatFileName())) {
+				builder.controllerBuilder().formatFileName(entityPlaceholder(controller.getFormatFileName()));
+			}
+		}
+		/** ================== Controller 配置 End ================== */
+		
+		/** ================== Service 配置 Start ================== */
+		boolean enableStrategyConfigService = conf.getConfig() != null 
+				&& conf.getConfig().getStrategyConfig() != null 
+				&& conf.getConfig().getStrategyConfig().getService() != null;
+		if (enableStrategyConfigService) {
+			_Service service = conf.getConfig().getStrategyConfig().getService();
+			if (StrUtil.isNotBlank(service.getFormatServiceFileName())) {
+				builder.serviceBuilder().formatServiceFileName(entityPlaceholder(service.getFormatServiceFileName()));
+			}
+			if (StrUtil.isNotBlank(service.getFormatServiceImplFileName())) {
+				builder.serviceBuilder().formatServiceImplFileName(entityPlaceholder(service.getFormatServiceImplFileName()));
+			}
+		}
+		/** ================== Service 配置 End ================== */
+		
+		/** ================== Mapper 配置 Start ================== */
+		boolean enableStrategyConfigMapper = conf.getConfig() != null 
+				&& conf.getConfig().getStrategyConfig() != null 
+				&& conf.getConfig().getStrategyConfig().getMapper() != null;
+		if (enableStrategyConfigMapper) {
+			_Mapper mapper = conf.getConfig().getStrategyConfig().getMapper();
+			if (StrUtil.isNotBlank(mapper.getFormatMapperFileName())) {
+				builder.mapperBuilder().formatMapperFileName(entityPlaceholder(mapper.getFormatMapperFileName()));
+			}
+			if (StrUtil.isNotBlank(mapper.getFormatXmlFileName())) {
+				builder.mapperBuilder().formatXmlFileName(entityPlaceholder(mapper.getFormatXmlFileName()));
+			}
+		}
+		/** ================== Mapper 配置 End ================== */
+		
 		return builder.build();
 	}
 

@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
 /**
@@ -20,6 +21,8 @@ import lombok.Data;
 @XStreamAlias("config")
 public class MyGeneratorConf {
 
+	private static final String ENTITY_PLACEHOLDER = "{entityName}";
+
 	@XStreamAlias("template")
 	private _TemplateConfig templateConfig;
 
@@ -28,6 +31,16 @@ public class MyGeneratorConf {
 
 	@XStreamAlias("strategy")
 	private _StrategyConfig strategyConfig;
+
+	/**
+	 * 实体类名称占位符转换
+	 * 
+	 * @param format
+	 * @return
+	 */
+	public static final String entityPlaceholder(String format) {
+		return StrUtil.replace(format, ENTITY_PLACEHOLDER, "%s");
+	}
 
 	/**
 	 * 模板配置
@@ -94,6 +107,12 @@ public class MyGeneratorConf {
 		private static final long serialVersionUID = 1L;
 
 		private _Entity entity;
+
+		private _Controller controller;
+
+		private _Service service;
+
+		private _Mapper mapper;
 
 	}
 
