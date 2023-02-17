@@ -16,13 +16,13 @@
 		<!-- 数据源及模块列表 -->
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="url" type="xsd:string" 
-				minOccurs="0" maxOccurs="1" />
+				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="schema" type="xsd:string" 
 				maxOccurs="1" />
 			<xsd:element name="username" type="xsd:string" 
-				minOccurs="0" maxOccurs="1" />
+				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="password" type="xsd:string" 
-				minOccurs="0" maxOccurs="1" />
+				minOccurs="1" maxOccurs="1" />
 			<xsd:element name="config" type="MyGeneratorConf" 
 				maxOccurs="1" />
 			<xsd:element name="module" type="Module" 
