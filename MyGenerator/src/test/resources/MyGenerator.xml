@@ -8,6 +8,9 @@
 	<password>password</password>
 
 	<config>
+		<typeConvert>
+			<javaSqlType name="BIGINT" type="BigInteger" pkg="java.math.BigInteger" />
+		</typeConvert>
 		<template>
 			<controller>true</controller>
 		</template>

@@ -26,10 +26,14 @@ import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.builder.Entity.Builder;
+import com.baomidou.mybatisplus.generator.config.po.TableField.MetaInfo;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.mybatisplus.generator.type.ITypeConvertHandler;
+import com.baomidou.mybatisplus.generator.type.TypeRegistry;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
@@ -156,6 +160,15 @@ public class MyGeneratorUtil {
 	private static final DataSourceConfig dataSourceConfig(GeneratorConfig conf, String schema) {
 		DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(conf.url, conf.username, conf.password)
 				.schema(schema)
+				.typeConvertHandler(new ITypeConvertHandler() {
+					
+					@Override
+					public @NotNull IColumnType convert(GlobalConfig globalConfig, TypeRegistry typeRegistry, MetaInfo metaInfo) {
+						
+						return typeRegistry.getColumnType(metaInfo);
+					}
+					
+				})
 				.build();
 		return dataSourceConfig;
 	}

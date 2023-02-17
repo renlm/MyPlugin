@@ -31,9 +31,33 @@
 	<!-- 代码生成配置 -->
 	<xsd:complexType name="MyGeneratorConf">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="typeConvert" type="TypeConvert" maxOccurs="1" />
 			<xsd:element name="template" type="TemplateConfig" maxOccurs="1" />
 			<xsd:element name="package" type="PackageConfig" maxOccurs="1" />
 			<xsd:element name="strategy" type="StrategyConfig" maxOccurs="1" />
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<!-- 字段类型转换 -->
+	<xsd:complexType name="TypeConvert">
+		<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="javaSqlType">
+				<xsd:complexType mixed="true">
+			  		<!-- java.sql.Types -->
+			  		<xsd:attribute name="name" use="optional" default="BIGINT">
+	                    <xsd:simpleType>
+	                    	<xsd:restriction base="xsd:string">
+	                            <xsd:enumeration value="BIGINT"/>
+	                        	<xsd:enumeration value="TINYINT"/>
+	                        </xsd:restriction>
+	                    </xsd:simpleType>
+	             	</xsd:attribute>
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
+		            <xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
+		            <xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:choice>
 	</xsd:complexType>
 
@@ -66,6 +90,7 @@
 	<!-- 策略配置 -->
 	<xsd:complexType name="StrategyConfig">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <!-- Entity 配置 -->
 			<xsd:element name="entity" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -86,6 +111,7 @@
 					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
+            <!-- Controller 配置 -->
 			<xsd:element name="controller" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -94,6 +120,7 @@
 					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
+            <!-- Service 配置 -->
 			<xsd:element name="service" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
@@ -104,6 +131,7 @@
 					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
+            <!-- Mapper 配置 -->
 			<xsd:element name="mapper" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">

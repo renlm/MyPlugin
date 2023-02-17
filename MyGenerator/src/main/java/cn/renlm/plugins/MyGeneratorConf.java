@@ -23,6 +23,8 @@ public class MyGeneratorConf {
 
 	private static final String ENTITY_PLACEHOLDER = "{entityName}";
 
+	private _TypeConvert typeConvert;
+
 	@XStreamAlias("template")
 	private _TemplateConfig templateConfig;
 
@@ -40,6 +42,44 @@ public class MyGeneratorConf {
 	 */
 	public static final String entityPlaceholder(String format) {
 		return StrUtil.replace(format, ENTITY_PLACEHOLDER, "%s");
+	}
+
+	/**
+	 * 字段类型转换
+	 */
+	@Data
+	public static final class _TypeConvert implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		@XStreamImplicit(itemFieldName = "javaSqlType")
+		private List<_JavaSqlType> javaSqlTypes;
+
+	}
+
+	/**
+	 * 字段类型映射
+	 */
+	@Data
+	public static final class _JavaSqlType implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * java.sql.Types
+		 */
+		private String name;
+
+		/**
+		 * com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type
+		 */
+		private String type;
+
+		/**
+		 * com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg
+		 */
+		private String pkg;
+
 	}
 
 	/**
