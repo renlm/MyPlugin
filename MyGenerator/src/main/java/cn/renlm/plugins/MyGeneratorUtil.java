@@ -330,6 +330,7 @@ public class MyGeneratorUtil {
 			}
 			if (StrUtil.isNotBlank(packageConfig.getXml())) {
 				builder.xml(packageConfig.getXml());
+				pathInfo.put(OutputFile.xml, ConstVal.resourcesDir + SLASH + packageConfig.getXml() + SLASH + module.name + SLASH);
 			}
 		}
 		/** ================== 自定义配置项 End ================== */
