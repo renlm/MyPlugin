@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -67,6 +66,7 @@ public class MyGeneratorUtil {
 	private static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	private static final String EntityTemplatePath 		= "config/Entity.java";
 	private static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
+	private static final String DS_CLASS_NAME 			= "com.baomidou.dynamic.datasource.annotation.DS";
 
 	/**
 	 * 读取配置并运行
@@ -165,7 +165,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final InjectionConfig injectionConfig(GeneratorConfig conf, GeneratorTable table) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("nameOfDS", DS.class.getName());
+		map.put("nameOfDS", DS_CLASS_NAME);
 		map.put("dsName", conf.dsName);
 		map.put("blobTypeHandler", !BooleanUtil.isFalse(table.getBlobTypeHandler()));
 
