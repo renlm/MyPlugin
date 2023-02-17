@@ -14,26 +14,59 @@
 	<!-- 生成器 -->
 	<xsd:complexType name="Generator">
 		<!-- 数据源及模块列表 -->
-		<xsd:sequence>
-			<xsd:element name="url" />
-			<xsd:element name="username" />
-			<xsd:element name="password" />
-			<xsd:element name="config" type="MyGeneratorConf" minOccurs="0" 
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="url" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="schema" type="xsd:string" 
 				maxOccurs="1" />
-			<xsd:element name="module" type="Module" minOccurs="0" 
+			<xsd:element name="username" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="password" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="config" type="MyGeneratorConf" 
+				maxOccurs="1" />
+			<xsd:element name="module" type="Module" 
 				maxOccurs="unbounded" />
-		</xsd:sequence>
+		</xsd:choice>
 		<!-- 使用多数据源时，数据源名称 -->
-		<xsd:attribute name="dsName" type="xsd:string"
-			use="optional" />
+		<xsd:attribute name="dsName" type="xsd:string" 
+				use="optional" />
 	</xsd:complexType>
 	
 	<!-- 代码生成配置 -->
 	<xsd:complexType name="MyGeneratorConf">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<xsd:element name="template" type="TemplateConfig" maxOccurs="1" />
-			<xsd:element name="package" type="PackageConfig" maxOccurs="1" />
-			<xsd:element name="strategy" type="StrategyConfig" maxOccurs="1" />
+			<xsd:element name="typeConvert" type="TypeConvert" 
+				maxOccurs="1" />
+			<xsd:element name="template" type="TemplateConfig" 
+				maxOccurs="1" />
+			<xsd:element name="package" type="PackageConfig" 
+				maxOccurs="1" />
+			<xsd:element name="strategy" type="StrategyConfig" 
+				maxOccurs="1" />
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<!-- 字段类型转换 -->
+	<xsd:complexType name="TypeConvert">
+		<xsd:choice minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="javaSqlType">
+				<xsd:complexType mixed="true">
+			  		<!-- java.sql.Types -->
+			  		<xsd:attribute name="name" use="optional" default="BIGINT">
+	                    <xsd:simpleType>
+	                    	<xsd:restriction base="xsd:string">
+	                            <xsd:enumeration value="BIGINT"/>
+	                        	<xsd:enumeration value="TINYINT"/>
+	                        </xsd:restriction>
+	                    </xsd:simpleType>
+	             	</xsd:attribute>
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
+		            <xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
+		            <xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:choice>
 	</xsd:complexType>
 
@@ -57,7 +90,7 @@
 			<!-- Entity包名 -->
 			<xsd:element name="entity" type="xsd:string" maxOccurs="1" default="entity" />
 			<!-- Mapper包名 -->
-			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="dao" />
+			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="mapper" />
 			<!-- Mapper XML包名 -->
 			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper" />
 		</xsd:choice>
@@ -66,9 +99,12 @@
 	<!-- 策略配置 -->
 	<xsd:complexType name="StrategyConfig">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <!-- Entity 配置 -->
 			<xsd:element name="entity" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- Entity 格式化名称 -->
+						<xsd:element name="formatFileName" type="xsd:string" maxOccurs="1" default="{entityName}" />
 						<!-- 父类（全路径名称） -->
 						<xsd:element name="superClass" type="xsd:string" maxOccurs="1" />
 						<!-- 禁用生成serialVersionUID -->
@@ -84,6 +120,37 @@
 					</xsd:choice>
 				</xsd:complexType>
 			</xsd:element>
+            <!-- Controller 配置 -->
+			<xsd:element name="controller" maxOccurs="1">
+				<xsd:complexType mixed="true">
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- Controller 格式化名称 -->
+						<xsd:element name="formatFileName" type="xsd:string" maxOccurs="1" default="{entityName}Controller" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+            <!-- Service 配置 -->
+			<xsd:element name="service" maxOccurs="1">
+				<xsd:complexType mixed="true">
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- Service 格式化名称 -->
+						<xsd:element name="formatServiceFileName" type="xsd:string" maxOccurs="1" default="I{entityName}Service" />
+						<!-- Service Impl 格式化名称 -->
+						<xsd:element name="formatServiceImplFileName" type="xsd:string" maxOccurs="1" default="{entityName}ServiceImpl" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
+            <!-- Mapper 配置 -->
+			<xsd:element name="mapper" maxOccurs="1">
+				<xsd:complexType mixed="true">
+					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- Mapper 格式化名称 -->
+						<xsd:element name="formatMapperFileName" type="xsd:string" maxOccurs="1" default="{entityName}Mapper" />
+						<!-- Mapper XML 格式化名称 -->
+						<xsd:element name="formatXmlFileName" type="xsd:string" maxOccurs="1" default="{entityName}Mapper" />
+					</xsd:choice>
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:choice>
 	</xsd:complexType>
 
@@ -93,9 +160,6 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="table">
 				<xsd:complexType mixed="true">
-					<!-- 表归属 -->
-					<xsd:attribute name="schema" type="xsd:string"
-						use="optional" />
 					<!-- 创建人 -->
 					<xsd:attribute name="author" type="xsd:string"
 						use="required" />
