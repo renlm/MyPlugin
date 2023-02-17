@@ -94,7 +94,7 @@ public class MyGeneratorConf {
 		/**
 		 * Mapper XML包名
 		 */
-		private String xml = "mapper.xml";
+		private String xml = "mapper";
 
 	}
 

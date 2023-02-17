@@ -59,7 +59,7 @@
 			<!-- Mapper包名 -->
 			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="mapper" />
 			<!-- Mapper XML包名 -->
-			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper.xml" />
+			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper" />
 		</xsd:choice>
 	</xsd:complexType>
 

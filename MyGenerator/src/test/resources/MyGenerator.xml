@@ -17,7 +17,7 @@
 			<service>service</service>
 			<entity>entity</entity>
 			<mapper>mapper</mapper>
-			<xml>mapper.xml</xml>
+			<xml>mapper</xml>
 		</package>
 		<strategy>
 			<entity>
