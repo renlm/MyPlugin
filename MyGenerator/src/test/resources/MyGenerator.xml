@@ -3,6 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="MyGenerator.xsd">
 
+	<module name="sys" package="cn.renlm.example" enableSwagger="true">
+		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
+		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
+	</module>
+
 	<url>jdbc:postgresql://localhost:5432/db</url>
 	<username>username</username>
 	<password>password</password>
@@ -46,10 +51,5 @@
 			</mapper>
 		</strategy>
 	</config>
-
-	<module name="sys" package="cn.renlm.example" enableSwagger="true">
-		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
-		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
-	</module>
 
 </generator>

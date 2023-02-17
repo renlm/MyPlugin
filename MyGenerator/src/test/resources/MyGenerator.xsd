@@ -14,28 +14,36 @@
 	<!-- 生成器 -->
 	<xsd:complexType name="Generator">
 		<!-- 数据源及模块列表 -->
-		<xsd:sequence>
-			<xsd:element name="url" />
-			<xsd:element name="schema" />
-			<xsd:element name="username" />
-			<xsd:element name="password" />
-			<xsd:element name="config" type="MyGeneratorConf" minOccurs="0" 
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="url" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="schema" type="xsd:string" 
 				maxOccurs="1" />
-			<xsd:element name="module" type="Module" minOccurs="0" 
+			<xsd:element name="username" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="password" type="xsd:string" 
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element name="config" type="MyGeneratorConf" 
+				maxOccurs="1" />
+			<xsd:element name="module" type="Module" 
 				maxOccurs="unbounded" />
-		</xsd:sequence>
+		</xsd:choice>
 		<!-- 使用多数据源时，数据源名称 -->
-		<xsd:attribute name="dsName" type="xsd:string"
-			use="optional" />
+		<xsd:attribute name="dsName" type="xsd:string" 
+				use="optional" />
 	</xsd:complexType>
 	
 	<!-- 代码生成配置 -->
 	<xsd:complexType name="MyGeneratorConf">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<xsd:element name="typeConvert" type="TypeConvert" maxOccurs="1" />
-			<xsd:element name="template" type="TemplateConfig" maxOccurs="1" />
-			<xsd:element name="package" type="PackageConfig" maxOccurs="1" />
-			<xsd:element name="strategy" type="StrategyConfig" maxOccurs="1" />
+			<xsd:element name="typeConvert" type="TypeConvert" 
+				maxOccurs="1" />
+			<xsd:element name="template" type="TemplateConfig" 
+				maxOccurs="1" />
+			<xsd:element name="package" type="PackageConfig" 
+				maxOccurs="1" />
+			<xsd:element name="strategy" type="StrategyConfig" 
+				maxOccurs="1" />
 		</xsd:choice>
 	</xsd:complexType>
 	
