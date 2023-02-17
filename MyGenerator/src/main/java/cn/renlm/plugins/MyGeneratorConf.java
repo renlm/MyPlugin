@@ -76,12 +76,12 @@ public class MyGeneratorConf {
 		/**
 		 * Mapper包名
 		 */
-		private String mapper = "dao";
+		private String mapper = "mapper";
 
 		/**
 		 * Mapper XML包名
 		 */
-		private String xml = "mapper";
+		private String xml = "mapper.xml";
 
 	}
 
@@ -98,12 +98,17 @@ public class MyGeneratorConf {
 	}
 
 	/**
-	 * 实体配置
+	 * Entity 配置
 	 */
 	@Data
 	public static final class _Entity implements Serializable {
 
 		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Entity 格式化名称
+		 */
+		private String formatFileName = "{entityName}";
 
 		/**
 		 * 父类（全路径名称）
@@ -139,6 +144,61 @@ public class MyGeneratorConf {
 		private static final long serialVersionUID = 1L;
 
 		private String text;
+
+	}
+
+	/**
+	 * Controller 配置
+	 */
+	@Data
+	public static final class _Controller implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Controller 格式化名称
+		 */
+		private String formatFileName = "{entityName}Controller";
+
+	}
+
+	/**
+	 * Service 配置
+	 */
+	@Data
+	public static final class _Service implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Service 格式化名称
+		 */
+		private String formatServiceFileName = "I{entityName}Service";
+
+		/**
+		 * Service Impl 格式化名称
+		 */
+		private String formatServiceImplFileName = "{entityName}ServiceImpl";
+
+	}
+
+	/**
+	 * Mapper 配置
+	 */
+	@Data
+	public static final class _Mapper implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Mapper 格式化名称
+		 */
+		private String formatMapperFileName = "{entityName}Mapper";
+
+		/**
+		 * Mapper XML 格式化名称
+		 */
+		private String formatXmlFileName = "{entityName}Mapper";
 
 	}
 
