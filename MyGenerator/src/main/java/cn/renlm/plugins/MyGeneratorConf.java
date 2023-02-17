@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
@@ -68,16 +69,19 @@ public class MyGeneratorConf {
 		/**
 		 * java.sql.Types
 		 */
+		@XStreamAsAttribute
 		private String name;
 
 		/**
 		 * com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type
 		 */
+		@XStreamAsAttribute
 		private String type;
 
 		/**
 		 * com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg
 		 */
+		@XStreamAsAttribute
 		private String pkg;
 
 	}
