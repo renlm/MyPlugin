@@ -16,6 +16,7 @@
 		<!-- 数据源及模块列表 -->
 		<xsd:sequence>
 			<xsd:element name="url" />
+			<xsd:element name="schema" />
 			<xsd:element name="username" />
 			<xsd:element name="password" />
 			<xsd:element name="config" type="MyGeneratorConf" minOccurs="0" 
@@ -151,9 +152,6 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="table">
 				<xsd:complexType mixed="true">
-					<!-- 表归属 -->
-					<xsd:attribute name="schema" type="xsd:string"
-						use="optional" />
 					<!-- 创建人 -->
 					<xsd:attribute name="author" type="xsd:string"
 						use="required" />

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Types;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,14 +91,10 @@ public class MyGeneratorUtil {
 	 */
 	public static final void run(String xml) {
 		GeneratorConfig conf = MyXStreamUtil.read(GeneratorConfig.class, xml);
-		DataSourceConfig dsc = dataSourceConfig(conf, null);
+		DataSourceConfig dsc = dataSourceConfig(conf, conf.getSchema());
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
-				if (StrUtil.isNotBlank(table.getSchema())) {
-					create(conf, dataSourceConfig(conf, table.getSchema()), module, table);
-				} else {
-					create(conf, dsc, module, table);
-				}
+				create(conf, dsc, module, table);
 			});
 		});
 	}
@@ -168,9 +165,10 @@ public class MyGeneratorUtil {
 		DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder(conf.url, conf.username, conf.password)
 				.schema(schema)
 				.typeConvertHandler(new ITypeConvertHandler() {
-					
+
 					@Override
-					public @NotNull IColumnType convert(GlobalConfig globalConfig, TypeRegistry typeRegistry, MetaInfo metaInfo) {
+					public @NotNull IColumnType convert(GlobalConfig globalConfig, TypeRegistry typeRegistry,
+							MetaInfo metaInfo) {
 						IColumnType type = conf.getColumnType(metaInfo);
 						if (type == null) {
 							return typeRegistry.getColumnType(metaInfo);
@@ -178,9 +176,8 @@ public class MyGeneratorUtil {
 							return type;
 						}
 					}
-					
-				})
-				.build();
+
+				}).build();
 		return dataSourceConfig;
 	}
 
@@ -403,8 +400,7 @@ public class MyGeneratorUtil {
 	@XStreamAlias("generator")
 	public static final class GeneratorConfig implements Serializable {
 		private static final long serialVersionUID = 1L;
-
-		private final Map<Integer, IColumnType> typeMap = new HashMap<>();
+		private static final Map<Integer, IColumnType> typeMap = Collections.synchronizedMap(new HashMap<>());
 
 		/**
 		 * 数据源-名称（多数据源时使用）
@@ -416,6 +412,11 @@ public class MyGeneratorUtil {
 		 * 数据源-数据库地址
 		 */
 		private String url;
+
+		/**
+		 * 表归属
+		 */
+		private String schema;
 
 		/**
 		 * 数据源-用户名
@@ -473,7 +474,7 @@ public class MyGeneratorUtil {
 				}
 			}
 			int typeCode = metaInfo.getJdbcType().TYPE_CODE;
-			return this.typeMap.get(typeCode);
+			return typeMap.get(typeCode);
 		}
 
 	}
@@ -518,12 +519,6 @@ public class MyGeneratorUtil {
 	@Data
 	public static final class GeneratorTable implements Serializable {
 		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 表归属
-		 */
-		@XStreamAsAttribute
-		private String schema;
 
 		/**
 		 * 创建人
