@@ -57,9 +57,9 @@
 			<!-- Entity包名 -->
 			<xsd:element name="entity" type="xsd:string" maxOccurs="1" default="entity" />
 			<!-- Mapper包名 -->
-			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="dao" />
+			<xsd:element name="mapper" type="xsd:string" maxOccurs="1" default="mapper" />
 			<!-- Mapper XML包名 -->
-			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper" />
+			<xsd:element name="xml" type="xsd:string" maxOccurs="1" default="mapper.xml" />
 		</xsd:choice>
 	</xsd:complexType>
 

@@ -12,8 +12,12 @@
 			<controller>true</controller>
 		</template>
 		<package>
-			<controller>api</controller>
-			<entity>domain</entity>
+			<controller>controller</controller>
+			<serviceImpl>service.impl</serviceImpl>
+			<service>service</service>
+			<entity>entity</entity>
+			<mapper>mapper</mapper>
+			<xml>mapper.xml</xml>
 		</package>
 		<strategy>
 			<entity>
@@ -27,10 +31,10 @@
 				</superEntityColumns>
 			</entity>
 			<controller>
-				<formatFileName>{entityName}Api</formatFileName>
+				<formatFileName>{entityName}Controller</formatFileName>
 			</controller>
 			<service>
-				<formatServiceFileName>{entityName}Service</formatServiceFileName>
+				<formatServiceFileName>I{entityName}Service</formatServiceFileName>
 				<formatServiceImplFileName>{entityName}ServiceImpl</formatServiceImplFileName>
 			</service>
 			<mapper>
@@ -40,9 +44,9 @@
 		</strategy>
 	</config>
 
-	<module name="sys" package="cn.renlm.crawler">
-		<table schema="public" author="Renlm" name="sys_const" entity="true" excel="true" />
-		<table schema="public" author="Renlm" name="sys_file" idType="ASSIGN_ID" />
+	<module name="sys" package="cn.renlm.example" enableSwagger="true">
+		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
+		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
 	</module>
 
 </generator>
