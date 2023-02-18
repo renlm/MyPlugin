@@ -184,6 +184,11 @@ public class MyGeneratorConf {
 		private boolean tableFieldAnnotationEnable;
 
 		/**
+		 * 乐观锁字段名称（数据库字段）
+		 */
+		private String versionColumnName;
+
+		/**
 		 * 逻辑删除字段名称（数据库字段）
 		 */
 		private String logicDeleteColumnName;

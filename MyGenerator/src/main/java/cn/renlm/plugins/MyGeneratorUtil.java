@@ -256,6 +256,9 @@ public class MyGeneratorUtil {
 			if (entity.isTableFieldAnnotationEnable()) {
 				builder.enableTableFieldAnnotation();
 			}
+			if (StrUtil.isNotBlank(entity.getVersionColumnName())) {
+				builder.versionColumnName(entity.getVersionColumnName());
+			}
 			if (StrUtil.isNotBlank(entity.getLogicDeleteColumnName())) {
 				builder.logicDeleteColumnName(entity.getLogicDeleteColumnName());
 			}
