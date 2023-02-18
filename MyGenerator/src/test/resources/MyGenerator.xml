@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyGenerator.xsd">
 
 	<module name="sys" package="cn.renlm.example" enableSwagger="true">
 		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
@@ -31,7 +31,7 @@
 			<entity>
 				<formatFileName>{entityName}</formatFileName>
 				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
-				<disableSerialVersionUID>true</disableSerialVersionUID>
+				<disableSerialVersionUID>false</disableSerialVersionUID>
 				<superEntityColumns>
 					<column>created_at</column>
 					<column>updated_at</column>
