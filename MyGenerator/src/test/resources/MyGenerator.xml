@@ -8,7 +8,8 @@
 		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
 	</module>
 
-	<url>jdbc:postgresql://localhost:5432/db</url>
+	<url>jdbc:postgresql://postgres:5432/db</url>
+	<schema>public</schema>
 	<username>username</username>
 	<password>password</password>
 
