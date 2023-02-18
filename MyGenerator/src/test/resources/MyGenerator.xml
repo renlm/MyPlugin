@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyGenerator.xsd">
 
-	<module name="sys" package="cn.renlm.example" enableSwagger="true">
+	<module name="sys" package="cn.renlm.example" enableSwagger="false">
 		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
 		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
 	</module>
@@ -31,10 +31,10 @@
 		<strategy>
 			<entity>
 				<formatFileName>{entityName}</formatFileName>
-				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
 				<disableSerialVersionUID>false</disableSerialVersionUID>
 				<tableFieldAnnotationEnable>false</tableFieldAnnotationEnable>
 				<logicDeleteColumnName>deleted</logicDeleteColumnName>
+				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
 				<superEntityColumns>
 					<column>created_at</column>
 					<column>updated_at</column>

@@ -174,11 +174,6 @@ public class MyGeneratorConf {
 		private String formatFileName = "{entityName}";
 
 		/**
-		 * 父类（全路径名称）
-		 */
-		private String superClass;
-
-		/**
 		 * 禁用生成serialVersionUID
 		 */
 		private boolean disableSerialVersionUID;
@@ -192,6 +187,11 @@ public class MyGeneratorConf {
 		 * 逻辑删除字段名称（数据库字段）
 		 */
 		private String logicDeleteColumnName;
+
+		/**
+		 * 父类（全路径名称）
+		 */
+		private String superClass;
 
 		/**
 		 * 父类字段集

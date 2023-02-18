@@ -253,6 +253,12 @@ public class MyGeneratorUtil {
 			if (entity.isDisableSerialVersionUID()) {
 				builder.disableSerialVersionUID();
 			}
+			if (entity.isTableFieldAnnotationEnable()) {
+				builder.enableTableFieldAnnotation();
+			}
+			if (StrUtil.isNotBlank(entity.getLogicDeleteColumnName())) {
+				builder.logicDeleteColumnName(entity.getLogicDeleteColumnName());
+			}
 			boolean enableSuperClass = StrUtil.isNotBlank(entity.getSuperClass());
 			if (enableSuperClass) {
 				builder.superClass(entity.getSuperClass());
@@ -264,12 +270,6 @@ public class MyGeneratorUtil {
 						builder.addSuperEntityColumns(columns);
 					}
 				}
-			}
-			if (entity.isTableFieldAnnotationEnable()) {
-				builder.enableTableFieldAnnotation();
-			}
-			if (StrUtil.isNotBlank(entity.getLogicDeleteColumnName())) {
-				builder.logicDeleteColumnName(entity.getLogicDeleteColumnName());
 			}
 		}
 		if (table.coverEntity) {
