@@ -236,7 +236,6 @@ public class MyGeneratorUtil {
 				.addInclude(table.name)
 				.entityBuilder()
 				.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
-				.enableTableFieldAnnotation()
 				.enableLombok()
 				.enableChainModel()
 				.naming(NamingStrategy.underline_to_camel)
@@ -265,6 +264,12 @@ public class MyGeneratorUtil {
 						builder.addSuperEntityColumns(columns);
 					}
 				}
+			}
+			if (entity.isTableFieldAnnotationEnable()) {
+				builder.enableTableFieldAnnotation();
+			}
+			if (StrUtil.isNotBlank(entity.getLogicDeleteColumnName())) {
+				builder.logicDeleteColumnName(entity.getLogicDeleteColumnName());
 			}
 		}
 		if (table.coverEntity) {

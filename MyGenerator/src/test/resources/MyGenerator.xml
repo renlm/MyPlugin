@@ -33,6 +33,8 @@
 				<formatFileName>{entityName}</formatFileName>
 				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
 				<disableSerialVersionUID>false</disableSerialVersionUID>
+				<tableFieldAnnotationEnable>false</tableFieldAnnotationEnable>
+				<logicDeleteColumnName>deleted</logicDeleteColumnName>
 				<superEntityColumns>
 					<column>created_at</column>
 					<column>updated_at</column>

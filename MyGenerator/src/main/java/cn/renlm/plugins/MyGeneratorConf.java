@@ -184,6 +184,16 @@ public class MyGeneratorConf {
 		private boolean disableSerialVersionUID;
 
 		/**
+		 * 是否生成实体时，生成字段注解（默认 false）
+		 */
+		private boolean tableFieldAnnotationEnable;
+
+		/**
+		 * 逻辑删除字段名称（数据库字段）
+		 */
+		private String logicDeleteColumnName;
+
+		/**
 		 * 父类字段集
 		 */
 		private _SuperEntityColumns superEntityColumns;
