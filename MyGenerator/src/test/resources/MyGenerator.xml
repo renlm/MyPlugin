@@ -30,7 +30,7 @@
 		<strategy>
 			<entity>
 				<formatFileName>{entityName}</formatFileName>
-				<superClass>cn.xxx.base.Model</superClass>
+				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
 				<disableSerialVersionUID>true</disableSerialVersionUID>
 				<superEntityColumns>
 					<column>created_at</column>
