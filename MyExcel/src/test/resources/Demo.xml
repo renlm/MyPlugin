@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <excel name="Demo" csv-charset="GBK" ref="备注.xlsx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyExcel.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyExcel.xsd">
 	<sheet name="农村家庭情况调查表">
 		<column field="year">
 			<title>年度</title>

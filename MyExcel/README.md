@@ -16,13 +16,13 @@ Excel、Csv表格读取，Xlsx表格导出。
 ## 使用
 ### 配置Xml
 可读取Xls、Xlsx、Csv三种表格，导出表格为Xlsx，支持大数据量表格读取导出且不会造成内存溢出，支持多级表头，别名配置，格式化读取与导出，多sheet页及标注与下拉选生成等。<br/>
-详细规则可查看[MyExcel.xsd](https://renlm.cn/schemas/MyExcel.xsd)，引入约束后可自动提示，简单易用，对代码无侵入。
+详细规则可查看[MyExcel.xsd](https://renlm.gitee.io/schemas/MyExcel.xsd)，引入约束后可自动提示，简单易用，对代码无侵入。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <excel name="Demo" csv-charset="GBK" ref="备注.xlsx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://renlm.cn/schemas/MyExcel.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyExcel.xsd">
 	<sheet name="农村家庭情况调查表">
 		<column field="year">
 			<title>年度</title>
