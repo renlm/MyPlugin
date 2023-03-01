@@ -130,6 +130,8 @@
 			<xsd:element name="controller" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- 开启生成@RestController控制器（默认否） -->
+						<xsd:element name="enableRestStyle" type="xsd:boolean" maxOccurs="1" default="false" />
 						<!-- Controller 格式化名称 -->
 						<xsd:element name="formatFileName" type="xsd:string" maxOccurs="1" default="{entityName}Controller" />
 					</xsd:choice>

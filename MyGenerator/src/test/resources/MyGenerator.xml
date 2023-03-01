@@ -43,6 +43,7 @@
 				</superEntityColumns>
 			</entity>
 			<controller>
+				<enableRestStyle>false</enableRestStyle>
 				<formatFileName>{entityName}Controller</formatFileName>
 			</controller>
 			<service>

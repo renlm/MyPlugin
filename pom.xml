@@ -30,7 +30,6 @@
 		<selenium-chrome-driver.version>4.5.3</selenium-chrome-driver.version>
 		<compiler.version>2.4.1</compiler.version>
 		<easyexcel.version>3.2.1</easyexcel.version>
-		<jedis.version>3.7.1</jedis.version>
 		<xstream.version>1.4.20</xstream.version>
 		<mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
 		<dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
@@ -105,12 +104,6 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>easyexcel</artifactId>
 				<version>${easyexcel.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>redis.clients</groupId>
-				<artifactId>jedis</artifactId>
-				<version>${jedis.version}</version>
 			</dependency>
 
 			<dependency>

@@ -234,6 +234,11 @@ public class MyGeneratorConf {
 		private static final long serialVersionUID = 1L;
 
 		/**
+		 * 开启生成@RestController控制器（默认否）
+		 */
+		private boolean enableRestStyle;
+
+		/**
 		 * Controller 格式化名称
 		 */
 		private String formatFileName = "{entityName}Controller";

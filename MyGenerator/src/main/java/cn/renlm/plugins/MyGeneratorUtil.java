@@ -286,6 +286,9 @@ public class MyGeneratorUtil {
 				&& conf.getConfig().getStrategyConfig().getController() != null;
 		if (enableStrategyConfigController) {
 			_Controller controller = conf.getConfig().getStrategyConfig().getController();
+			if (controller.isEnableRestStyle()) {
+				builder.controllerBuilder().enableRestStyle();
+			}
 			if (StrUtil.isNotBlank(controller.getFormatFileName())) {
 				builder.controllerBuilder().formatFileName(entityPlaceholder(controller.getFormatFileName()));
 			}
