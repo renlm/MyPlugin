@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFComment;
 
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.SneakyThrows;
 
 /**
  * Xlsx 解析
@@ -21,7 +22,12 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 	}
 
 	@Override
+	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		if (in.markSupported()) {
+			in.reset();
+		}
+
 		return this;
 	}
 

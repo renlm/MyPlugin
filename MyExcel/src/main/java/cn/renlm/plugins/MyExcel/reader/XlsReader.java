@@ -7,6 +7,7 @@ import org.apache.poi.hssf.record.Record;
 
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.SneakyThrows;
 
 /**
  * Xls 解析
@@ -21,7 +22,12 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 	}
 
 	@Override
+	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		if (in.markSupported()) {
+			in.reset();
+		}
+
 		return this;
 	}
 

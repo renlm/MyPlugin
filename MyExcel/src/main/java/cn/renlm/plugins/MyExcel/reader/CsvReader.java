@@ -48,6 +48,7 @@ public class CsvReader extends AbstractReader {
 			List<Object> rowList = new ArrayList<>(csvRow.getRawList());
 			super.processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex, rowList);
 		});
+
 		return this;
 	}
 
