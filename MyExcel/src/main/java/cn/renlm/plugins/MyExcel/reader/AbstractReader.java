@@ -81,13 +81,8 @@ public abstract class AbstractReader {
 	final void processRow(MyWorkbook myExcel, List<List<String>> titles, List<String> keys,
 			DataReadHandler dataReadHandler, MySheet sheet, long rowIndex, List<Object> rowList) {
 		final int sheetLevel = sheet.level();
-		final String configSheetName = sheet.getName();
 		final long level = rowIndex - sheet.getStart() + 1;
-		if (this.read.containsKey(configSheetName)) {
-			this.read.put(configSheetName, this.read.get(configSheetName) + 1);
-		} else {
-			this.read.put(configSheetName, 1);
-		}
+		this.read.put(sheet.getName(), this.getRead(sheet.getName()) + 1);
 		if (level >= 1) {
 			if (level <= sheetLevel) { // 标题行，建立[字段-值索引]映射
 				titles.add(MySheet.fillTitle(rowList));
