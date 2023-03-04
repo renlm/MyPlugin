@@ -1,7 +1,12 @@
 package cn.renlm.plugins.MyExcel.reader;
 
+import java.io.InputStream;
+
 import org.apache.poi.xssf.eventusermodel.XSSFSheetXMLHandler;
 import org.apache.poi.xssf.usermodel.XSSFComment;
+
+import cn.renlm.plugins.MyExcel.config.MyWorkbook;
+import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 
 /**
  * Xlsx 解析
@@ -9,7 +14,16 @@ import org.apache.poi.xssf.usermodel.XSSFComment;
  * @author RenLiMing(任黎明)
  *
  */
-public class XlsxReader implements XSSFSheetXMLHandler.SheetContentsHandler {
+public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.SheetContentsHandler {
+
+	public XlsxReader(MyWorkbook myExcel, InputStream in) {
+		super(myExcel, in);
+	}
+
+	@Override
+	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		return this;
+	}
 
 	@Override
 	public void startRow(int rowNum) {

@@ -1,11 +1,8 @@
 package cn.renlm.plugins;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -13,19 +10,18 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.text.csv.CsvReader;
-import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.excel.ExcelFileUtil;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.entity.CellUnit;
-import cn.renlm.plugins.MyExcel.entity.CheckResult;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 import cn.renlm.plugins.MyExcel.handler.DataWriterHandler;
+import cn.renlm.plugins.MyExcel.reader.AbstractReader;
+import cn.renlm.plugins.MyExcel.reader.CsvReader;
+import cn.renlm.plugins.MyExcel.reader.XlsReader;
+import cn.renlm.plugins.MyExcel.reader.XlsxReader;
 import cn.renlm.plugins.MyExcel.util.MergeUtil;
 import cn.renlm.plugins.MyExcel.util.StyleUtil;
 import cn.renlm.plugins.MyUtil.MyXStreamUtil;
@@ -95,67 +91,25 @@ public class MyExcelUtil {
 	 * 读取表格
 	 * 
 	 * @param config
-	 * @param in
+	 * @param inputStream
 	 * @param sheetName
-	 * @param dataReadHandler
+	 * @param handler
 	 * @return
 	 */
-	public static final int read(String config, InputStream in, String sheetName, DataReadHandler dataReadHandler) {
-		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
-		final MySheet sheet = myExcel.getSheetByName(sheetName);
-
-		final List<List<String>> titles = new ArrayList<>();
-		final List<String> keys = new ArrayList<>();
-		final AtomicInteger rows = new AtomicInteger(0);
-
+	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
+			DataReadHandler handler) {
+		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		// Xls
-		if (ExcelFileUtil.isXls(in)) {
-
+		if (ExcelFileUtil.isXls(inputStream)) {
+			return new XlsReader(myExcel, inputStream);
 		}
 		// Xlsx
-		else if (ExcelFileUtil.isXlsx(in)) {
-
+		else if (ExcelFileUtil.isXlsx(inputStream)) {
+			return new XlsxReader(myExcel, inputStream);
 		}
 		// Csv
 		else {
-			CsvReader reader = CsvUtil.getReader();
-			reader.read(IoUtil.getReader(in, Charset.forName(myExcel.getCsvCharset())), csvRow -> {
-				rows.incrementAndGet();
-				long rowIndex = csvRow.getOriginalLineNumber();
-				List<Object> rowList = new ArrayList<>(csvRow.getRawList());
-				processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex, rowList);
-			});
-		}
-		return rows.get();
-	}
-
-	/**
-	 * 行数据处理
-	 * 
-	 * @param myExcel
-	 * @param titles
-	 * @param keys
-	 * @param dataReadHandler
-	 * @param sheet
-	 * @param rowIndex
-	 * @param rowList
-	 */
-	private static final void processRow(MyWorkbook myExcel, List<List<String>> titles, List<String> keys,
-			DataReadHandler dataReadHandler, MySheet sheet, long rowIndex, List<Object> rowList) {
-		final int sheetLevel = sheet.level();
-		final long level = rowIndex - sheet.getStart() + 1;
-		if (level >= 1) {
-			if (level <= sheetLevel) { // 标题行，建立[字段-值索引]映射
-				titles.add(MySheet.fillTitle(rowList));
-				if (level == sheetLevel) {
-					keys.addAll(sheet.generateKeys(titles, dataReadHandler));
-				}
-			} else { // 数据行，取出映射数据
-				Map<String, Object> data = CollUtil.zip(keys, rowList);
-				data.remove(StrUtil.EMPTY);
-				CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
-				dataReadHandler.handle(data, checkResult);
-			}
+			return new CsvReader(myExcel, inputStream);
 		}
 	}
 
