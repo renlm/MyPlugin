@@ -13,15 +13,9 @@ import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.read.builder.ExcelReaderBuilder;
-
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.text.csv.CsvReader;
 import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.util.StrUtil;
@@ -143,26 +137,13 @@ public class MyExcelUtil {
 		final List<String> keys = new ArrayList<>();
 		final AtomicInteger rows = new AtomicInteger(0);
 
-		// Excel
-		if (ExcelFileUtil.isXls(in) || ExcelFileUtil.isXlsx(in)) {
-			ExcelReaderBuilder builder = EasyExcel.read(in, new AnalysisEventListener<Map<Integer, Object>>() {
-				@Override
-				public void invoke(Map<Integer, Object> data, AnalysisContext context) {
-					rows.incrementAndGet();
-					int rowIndex = context.readRowHolder().getRowIndex();
-					data = MapUtil.sort(data, (rowIndex1, rowIndex2) -> {
-						return rowIndex1 - rowIndex2;
-					});
-					processRow(myExcel, titles, keys, dataReadHandler, sheet, rowIndex,
-							CollUtil.newArrayList(data.values()));
-				}
+		// Xls
+		if (ExcelFileUtil.isXls(in)) {
 
-				@Override
-				public void doAfterAllAnalysed(AnalysisContext context) {
+		}
+		// Xlsx
+		else if (ExcelFileUtil.isXlsx(in)) {
 
-				}
-			});
-			builder.sheet(sheetNo, sheetName).headRowNumber(0).doRead();
 		}
 		// Csv
 		else {

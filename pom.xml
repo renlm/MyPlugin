@@ -24,12 +24,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 版本管理 -->
-		<hutool.version>5.8.12</hutool.version>
+		<hutool.version>5.8.13</hutool.version>
 		<bcpkix-jdk15to18.version>1.72</bcpkix-jdk15to18.version>
 		<webmagic.version>0.8.0</webmagic.version>
 		<selenium-chrome-driver.version>4.5.3</selenium-chrome-driver.version>
 		<compiler.version>2.4.1</compiler.version>
-		<easyexcel.version>3.2.1</easyexcel.version>
+		<poi.version>5.2.3</poi.version>
 		<xstream.version>1.4.20</xstream.version>
 		<mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
 		<dynamic-datasource-spring-boot-starter.version>3.6.1</dynamic-datasource-spring-boot-starter.version>
@@ -101,9 +101,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>easyexcel</artifactId>
-				<version>${easyexcel.version}</version>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
 			</dependency>
 
 			<dependency>
