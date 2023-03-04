@@ -1,10 +1,14 @@
 package cn.renlm.plugins.MyExcel.reader;
 
 import java.io.InputStream;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.hutool.core.io.IoUtil;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.Getter;
 
 /**
  * 解析器
@@ -13,6 +17,9 @@ import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
  *
  */
 public abstract class AbstractReader {
+
+	@Getter
+	final Map<String, List<String>> sheetErrors = new LinkedHashMap<>();
 
 	final MyWorkbook myExcel;
 

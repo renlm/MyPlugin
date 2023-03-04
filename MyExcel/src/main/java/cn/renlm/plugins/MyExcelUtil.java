@@ -39,6 +39,32 @@ import lombok.experimental.UtilityClass;
 public class MyExcelUtil {
 
 	/**
+	 * 读取表格
+	 * 
+	 * @param config
+	 * @param inputStream
+	 * @param sheetName
+	 * @param handler
+	 * @return
+	 */
+	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
+			DataReadHandler handler) {
+		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
+		// Xls
+		if (ExcelFileUtil.isXls(inputStream)) {
+			return new XlsReader(myExcel, inputStream);
+		}
+		// Xlsx
+		else if (ExcelFileUtil.isXlsx(inputStream)) {
+			return new XlsxReader(myExcel, inputStream);
+		}
+		// Csv
+		else {
+			return new CsvReader(myExcel, inputStream);
+		}
+	}
+
+	/**
 	 * 创建工作簿
 	 * 
 	 * @param config
@@ -85,32 +111,6 @@ public class MyExcelUtil {
 		workbook.setActiveSheet(0);
 		workbook.setSelectedTab(0);
 		return workbook;
-	}
-
-	/**
-	 * 读取表格
-	 * 
-	 * @param config
-	 * @param inputStream
-	 * @param sheetName
-	 * @param handler
-	 * @return
-	 */
-	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
-			DataReadHandler handler) {
-		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
-		// Xls
-		if (ExcelFileUtil.isXls(inputStream)) {
-			return new XlsReader(myExcel, inputStream);
-		}
-		// Xlsx
-		else if (ExcelFileUtil.isXlsx(inputStream)) {
-			return new XlsxReader(myExcel, inputStream);
-		}
-		// Csv
-		else {
-			return new CsvReader(myExcel, inputStream);
-		}
 	}
 
 }
