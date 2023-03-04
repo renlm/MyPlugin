@@ -12,6 +12,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.SneakyThrows;
 
 /**
  * Csv 解析
@@ -26,7 +27,12 @@ public class CsvReader extends AbstractReader {
 	}
 
 	@Override
+	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		if (in.markSupported()) {
+			in.reset();
+		}
+
 		final List<List<String>> titles = new ArrayList<>();
 		final List<String> keys = new ArrayList<>();
 
