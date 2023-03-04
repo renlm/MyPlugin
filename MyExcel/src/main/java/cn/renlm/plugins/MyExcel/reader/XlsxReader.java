@@ -9,7 +9,7 @@ import org.apache.poi.xssf.usermodel.XSSFComment;
  * @author RenLiMing(任黎明)
  *
  */
-public class XSSFSaxHandler implements XSSFSheetXMLHandler.SheetContentsHandler {
+public class XlsxReader implements XSSFSheetXMLHandler.SheetContentsHandler {
 
 	@Override
 	public void startRow(int rowNum) {

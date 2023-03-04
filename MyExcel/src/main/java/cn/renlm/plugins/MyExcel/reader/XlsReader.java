@@ -9,7 +9,7 @@ import org.apache.poi.hssf.record.Record;
  * @author RenLiMing(任黎明)
  *
  */
-public class HSSFSaxHandler implements HSSFListener {
+public class XlsReader implements HSSFListener {
 
 	@Override
 	public void processRecord(Record record) {
