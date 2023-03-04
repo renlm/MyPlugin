@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.jupiter.api.Test;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Console;
 import cn.renlm.plugins.MyExcel.reader.AbstractReader;
@@ -80,8 +79,9 @@ public class MyExcelTest {
 							sh2.write(data);
 						}
 					});
-					if (CollUtil.isNotEmpty(reader.getSheetErrors())) {
-						Console.log(reader.getSheetErrors());
+					int rows = reader.getRead(sheetName);
+					if (rows == 0) {
+						Console.error("读取行数为0，请检查表格是否符合模板要求");
 					}
 				});
 		workbook.write(stream);

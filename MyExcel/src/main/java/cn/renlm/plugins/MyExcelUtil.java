@@ -44,23 +44,29 @@ public class MyExcelUtil {
 	 * @param config
 	 * @param inputStream
 	 * @param sheetName
-	 * @param handler
+	 * @param dataReadHandler
 	 * @return
 	 */
 	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
-			DataReadHandler handler) {
+			DataReadHandler dataReadHandler) {
 		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		// Xls
 		if (ExcelFileUtil.isXls(inputStream)) {
-			return new XlsReader(myExcel, inputStream);
+			AbstractReader reader = new XlsReader(myExcel, inputStream);
+			reader.read(sheetName, dataReadHandler);
+			return reader;
 		}
 		// Xlsx
 		else if (ExcelFileUtil.isXlsx(inputStream)) {
-			return new XlsxReader(myExcel, inputStream);
+			AbstractReader reader = new XlsxReader(myExcel, inputStream);
+			reader.read(sheetName, dataReadHandler);
+			return reader;
 		}
 		// Csv
 		else {
-			return new CsvReader(myExcel, inputStream);
+			AbstractReader reader = new CsvReader(myExcel, inputStream);
+			reader.read(sheetName, dataReadHandler);
+			return reader;
 		}
 	}
 
