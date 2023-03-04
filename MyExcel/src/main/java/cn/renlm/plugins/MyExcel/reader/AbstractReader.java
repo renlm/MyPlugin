@@ -47,7 +47,7 @@ public abstract class AbstractReader {
 	public abstract AbstractReader read(String sheetName, DataReadHandler dataReadHandler);
 
 	/**
-	 * 获取制定页签读取行数
+	 * 获取指定页签读取行数
 	 * 
 	 * @param sheetName
 	 * @return
