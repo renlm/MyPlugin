@@ -5,8 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
+import cn.renlm.plugins.MyExcel.entity.CheckResult;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 import lombok.Getter;
 
@@ -30,6 +34,36 @@ public abstract class AbstractReader {
 	public AbstractReader(MyWorkbook myExcel, InputStream in) {
 		this.myExcel = myExcel;
 		this.in = IoUtil.toMarkSupportStream(in);
+	}
+
+	/**
+	 * 行数据处理
+	 * 
+	 * @param myExcel
+	 * @param titles
+	 * @param keys
+	 * @param dataReadHandler
+	 * @param sheet
+	 * @param rowIndex
+	 * @param rowList
+	 */
+	final void processRow(MyWorkbook myExcel, List<List<String>> titles, List<String> keys,
+			DataReadHandler dataReadHandler, MySheet sheet, long rowIndex, List<Object> rowList) {
+		final int sheetLevel = sheet.level();
+		final long level = rowIndex - sheet.getStart() + 1;
+		if (level >= 1) {
+			if (level <= sheetLevel) { // 标题行，建立[字段-值索引]映射
+				titles.add(MySheet.fillTitle(rowList));
+				if (level == sheetLevel) {
+					keys.addAll(sheet.generateKeys(titles, dataReadHandler));
+				}
+			} else { // 数据行，取出映射数据
+				Map<String, Object> data = CollUtil.zip(keys, rowList);
+				data.remove(StrUtil.EMPTY);
+				CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
+				dataReadHandler.handle(data, checkResult);
+			}
+		}
 	}
 
 }
