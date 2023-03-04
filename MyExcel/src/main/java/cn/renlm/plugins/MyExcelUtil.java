@@ -92,20 +92,7 @@ public class MyExcelUtil {
 	}
 
 	/**
-	 * 读取（兼容xls、xlsx、csv）
-	 * 
-	 * @param config
-	 * @param in
-	 * @param sheetNo
-	 * @param dataReadHandler
-	 * @return
-	 */
-	public static final int readBySax(String config, InputStream in, Integer sheetNo, DataReadHandler dataReadHandler) {
-		return readBySax(config, in, sheetNo, null, dataReadHandler);
-	}
-
-	/**
-	 * 读取（兼容xls、xlsx、csv）
+	 * 读取表格
 	 * 
 	 * @param config
 	 * @param in
@@ -113,23 +100,7 @@ public class MyExcelUtil {
 	 * @param dataReadHandler
 	 * @return
 	 */
-	public static final int readBySax(String config, InputStream in, String sheetName,
-			DataReadHandler dataReadHandler) {
-		return readBySax(config, in, null, sheetName, dataReadHandler);
-	}
-
-	/**
-	 * 读取（兼容xls、xlsx、csv）
-	 * 
-	 * @param config
-	 * @param in
-	 * @param sheetNo
-	 * @param sheetName
-	 * @param dataReadHandler
-	 * @return
-	 */
-	public static final int readBySax(String config, InputStream in, Integer sheetNo, String sheetName,
-			DataReadHandler dataReadHandler) {
+	public static final int read(String config, InputStream in, String sheetName, DataReadHandler dataReadHandler) {
 		final MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		final MySheet sheet = myExcel.getSheetByName(sheetName);
 
