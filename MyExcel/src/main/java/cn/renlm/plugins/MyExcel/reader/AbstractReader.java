@@ -38,7 +38,7 @@ public abstract class AbstractReader {
 	final InputStream in;
 
 	/**
-	 * 读取页签
+	 * 读取页签（默认按配置页签名称获取，找不到取文件中的第一个页签）
 	 * 
 	 * @param sheetName
 	 * @param dataReadHandler

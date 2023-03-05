@@ -63,39 +63,13 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 	}
 
 	@Override
-	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
-		if (in.markSupported()) {
-			in.reset();
-		}
-		this.sstRecord = null;
-		this.stubWorkbook = null;
-		this.boundSheetRecords.clear();
-		this.rSheetIndex = 0;
-		this.sheetIndex = -1;
-		this.titles.clear();
-		this.keys.clear();
-		this.rowCells.clear();
 		this.mySheet = myExcel.getSheetByName(sheetName);
 		this.dataReadHandler = dataReadHandler;
-		try (POIFSFileSystem fs = new POIFSFileSystem(in)) {
-			formatListener = new FormatTrackingHSSFListener(new MissingRecordAwareHSSFListener(this));
-			final HSSFRequest request = new HSSFRequest();
-			workbookBuildingListener = new SheetRecordCollectingListener(formatListener);
-			request.addListenerForAllRecords(workbookBuildingListener);
-
-			final HSSFEventFactory factory = new HSSFEventFactory();
-			try {
-				factory.processWorkbookEvents(request, fs);
-			} catch (IOException e) {
-				throw new POIException(e);
-			} finally {
-				IoUtil.close(fs);
-			}
-		} catch (IOException e) {
-			throw new POIException(e);
+		this.startProcess(-1);
+		if (this.rSheetIndex == -1) {
+			this.startProcess(0);
 		}
-
 		return this;
 	}
 
@@ -167,6 +141,38 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 				super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, lastCell.getRow(), rowCells);
 				this.rowCells = new ArrayList<>(this.rowCells.size());
 			}
+		}
+	}
+
+	@SneakyThrows
+	private void startProcess(Integer rSheetIndex) {
+		if (in.markSupported()) {
+			in.reset();
+		}
+		this.sstRecord = null;
+		this.stubWorkbook = null;
+		this.boundSheetRecords.clear();
+		this.rSheetIndex = rSheetIndex;
+		this.sheetIndex = -1;
+		this.titles.clear();
+		this.keys.clear();
+		this.rowCells.clear();
+		try (POIFSFileSystem fs = new POIFSFileSystem(in)) {
+			formatListener = new FormatTrackingHSSFListener(new MissingRecordAwareHSSFListener(this));
+			final HSSFRequest request = new HSSFRequest();
+			workbookBuildingListener = new SheetRecordCollectingListener(formatListener);
+			request.addListenerForAllRecords(workbookBuildingListener);
+
+			final HSSFEventFactory factory = new HSSFEventFactory();
+			try {
+				factory.processWorkbookEvents(request, fs);
+			} catch (IOException e) {
+				throw new POIException(e);
+			} finally {
+				IoUtil.close(fs);
+			}
+		} catch (IOException e) {
+			throw new POIException(e);
 		}
 	}
 
