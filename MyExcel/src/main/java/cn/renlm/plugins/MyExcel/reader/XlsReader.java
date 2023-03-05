@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import org.apache.poi.hssf.eventusermodel.EventWorkbookBuilder.SheetRecordCollectingListener;
 import org.apache.poi.hssf.eventusermodel.FormatTrackingHSSFListener;
@@ -62,6 +64,11 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 
 	public XlsReader(MyWorkbook myExcel, InputStream in) {
 		super(myExcel, in);
+	}
+
+	@Override
+	public AbstractReader read(String sheetName, Consumer<List<Map<String, Object>>> datas) {
+		return this;
 	}
 
 	@Override

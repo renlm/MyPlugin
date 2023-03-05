@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -83,6 +84,11 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 		} catch (InvalidFormatException e) {
 			throw new POIException(e);
 		}
+	}
+
+	@Override
+	public AbstractReader read(String sheetName, Consumer<List<Map<String, Object>>> datas) {
+		return this;
 	}
 
 	@Override

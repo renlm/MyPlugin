@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -38,7 +39,22 @@ public abstract class AbstractReader {
 	final byte[] bytes;
 
 	/**
-	 * 读取页签（默认按配置名称获取，找不到取文件第一个）
+	 * 读取页签（适用小文件，内存消耗较大）
+	 * <p>
+	 * 默认按配置名称获取数据，找不到取文件第一个
+	 * </p>
+	 * 
+	 * @param sheetName
+	 * @param dataReadHandler
+	 * @return
+	 */
+	public abstract AbstractReader read(String sheetName, Consumer<List<Map<String, Object>>> datas);
+
+	/**
+	 * 读取页签（适用大文件，Sax模式）
+	 * <p>
+	 * 默认按配置名称获取数据，找不到取文件第一个
+	 * </p>
 	 * 
 	 * @param sheetName
 	 * @param dataReadHandler

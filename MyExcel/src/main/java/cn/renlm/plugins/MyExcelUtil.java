@@ -39,7 +39,44 @@ import lombok.experimental.UtilityClass;
 public class MyExcelUtil {
 
 	/**
-	 * 读取表格
+	 * 读取页签（适用小文件，内存消耗较大）
+	 * <p>
+	 * 默认按配置名称获取，找不到取文件第一个
+	 * </p>
+	 * 
+	 * @param config
+	 * @param inputStream
+	 * @param sheetName
+	 * @param datas
+	 * @return
+	 */
+	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
+			Consumer<List<Map<String, Object>>> datas) {
+		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
+		// Xls
+		if (ExcelFileUtil.isXls(inputStream)) {
+			AbstractReader reader = new XlsReader(myExcel, inputStream);
+			reader.read(sheetName, datas);
+			return reader;
+		}
+		// Xlsx
+		else if (ExcelFileUtil.isXlsx(inputStream)) {
+			AbstractReader reader = new XlsxReader(myExcel, inputStream);
+			reader.read(sheetName, datas);
+			return reader;
+		}
+		// Csv
+		else {
+			AbstractReader reader = new CsvReader(myExcel, inputStream);
+			reader.read(sheetName, datas);
+			return reader;
+		}
+	}
+
+	/**
+	 * 读取页签（适用大文件，Sax模式）
+	 * <p>
+	 * 默认按配置名称获取，找不到取文件第一个
 	 * 
 	 * @param config
 	 * @param inputStream

@@ -6,6 +6,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.text.csv.CsvUtil;
@@ -26,6 +28,11 @@ public class CsvReader extends AbstractReader {
 
 	public CsvReader(MyWorkbook myExcel, InputStream in) {
 		super(myExcel, in);
+	}
+
+	@Override
+	public AbstractReader read(String sheetName, Consumer<List<Map<String, Object>>> datas) {
+		return this;
 	}
 
 	@Override
