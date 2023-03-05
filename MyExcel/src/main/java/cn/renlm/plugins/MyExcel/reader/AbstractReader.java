@@ -38,7 +38,7 @@ public abstract class AbstractReader {
 	final byte[] bytes;
 
 	/**
-	 * 读取页签（默认按名称获取，找不到取第一个）
+	 * 读取页签（默认按配置名称获取，找不到取文件第一个）
 	 * 
 	 * @param sheetName
 	 * @param dataReadHandler
