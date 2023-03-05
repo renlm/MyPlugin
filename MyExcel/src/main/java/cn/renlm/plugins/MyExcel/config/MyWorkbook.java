@@ -2,13 +2,12 @@ package cn.renlm.plugins.MyExcel.config;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
-import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
 /**
@@ -49,14 +48,18 @@ public class MyWorkbook implements Serializable {
 	private List<MySheet> sheets;
 
 	/**
-	 * 根据Sheet名称获取配置
+	 * 根据 sheetName 获取配置
 	 * 
 	 * @param sheetName
 	 * @return
 	 */
 	public MySheet getSheetByName(String sheetName) {
-		Optional<MySheet> filter = sheets.stream().filter(it -> it.getName().equals(sheetName)).findFirst();
-		return filter.isPresent() ? filter.get() : CollUtil.getFirst(sheets);
+		for (MySheet item : this.sheets) {
+			if (StrUtil.equals(sheetName, item.getName())) {
+				return item;
+			}
+		}
+		return null;
 	}
 
 }
