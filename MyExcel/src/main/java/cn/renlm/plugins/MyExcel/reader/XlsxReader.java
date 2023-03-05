@@ -24,10 +24,6 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 	@Override
 	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
-		if (in.markSupported()) {
-			in.reset();
-		}
-
 		return this;
 	}
 

@@ -1,5 +1,6 @@
 package cn.renlm.plugins.MyExcel.reader;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ import cn.hutool.poi.exceptions.POIException;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 /**
@@ -146,9 +148,6 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 
 	@SneakyThrows
 	private void startProcess(Integer rSheetIndex) {
-		if (in.markSupported()) {
-			in.reset();
-		}
 		this.sstRecord = null;
 		this.stubWorkbook = null;
 		this.boundSheetRecords.clear();
@@ -157,6 +156,8 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 		this.titles.clear();
 		this.keys.clear();
 		this.rowCells.clear();
+		@Cleanup
+		InputStream in = new ByteArrayInputStream(bytes);
 		try (POIFSFileSystem fs = new POIFSFileSystem(in)) {
 			formatListener = new FormatTrackingHSSFListener(new MissingRecordAwareHSSFListener(this));
 			final HSSFRequest request = new HSSFRequest();

@@ -35,10 +35,10 @@ public abstract class AbstractReader {
 	/**
 	 * 文件输入流
 	 */
-	final InputStream in;
+	final byte[] bytes;
 
 	/**
-	 * 读取页签（默认按配置页签名称获取，找不到取文件中的第一个页签）
+	 * 读取页签（默认按名称获取，找不到取第一个）
 	 * 
 	 * @param sheetName
 	 * @param dataReadHandler
@@ -64,7 +64,7 @@ public abstract class AbstractReader {
 	 */
 	public AbstractReader(MyWorkbook myExcel, InputStream in) {
 		this.myExcel = myExcel;
-		this.in = IoUtil.toMarkSupportStream(in);
+		this.bytes = IoUtil.readBytes(in);
 	}
 
 	/**

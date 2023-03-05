@@ -1,5 +1,6 @@
 package cn.renlm.plugins.MyExcel.reader;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -12,6 +13,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 /**
@@ -29,9 +31,8 @@ public class CsvReader extends AbstractReader {
 	@Override
 	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
-		if (in.markSupported()) {
-			in.reset();
-		}
+		@Cleanup
+		InputStream in = new ByteArrayInputStream(bytes);
 
 		final List<List<String>> titles = new ArrayList<>();
 		final List<String> keys = new ArrayList<>();
