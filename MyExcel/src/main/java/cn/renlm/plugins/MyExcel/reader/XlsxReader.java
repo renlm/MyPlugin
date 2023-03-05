@@ -4,13 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.util.XMLHelper;
 import org.apache.poi.xssf.eventusermodel.XSSFReader;
@@ -27,7 +28,9 @@ import org.xml.sax.XMLReader;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.poi.exceptions.POIException;
+import cn.renlm.plugins.MyExcel.config.MyColumn;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
@@ -129,6 +132,28 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 			this.rowCells.add(null);
 		}
 		this.rowCells.add(column, value);
+	}
+
+	public class DataFormatter extends org.apache.poi.ss.usermodel.DataFormatter {
+
+		@Override
+		public String formatRawCellContents(double value, int formatIndex, String formatString,
+				boolean use1904Windowing) {
+			if (DateUtil.isADateFormat(formatIndex, formatString)) {
+				if (DateUtil.isValidExcelDate(value)) {
+					String key = keys.get(colNum);
+					if (StrUtil.isNotBlank(key)) {
+						MyColumn myColumn = mySheet.getFieldColMap().get(key);
+						if (myColumn != null && StrUtil.isNotBlank(myColumn.getDateFormat())) {
+							Date date = DateUtil.getJavaDate(value, use1904Windowing);
+							return cn.hutool.core.date.DateUtil.format(date, myColumn.getDateFormat());
+						}
+					}
+				}
+			}
+			return super.formatRawCellContents(value, formatIndex, formatString, use1904Windowing);
+		}
+
 	}
 
 }
