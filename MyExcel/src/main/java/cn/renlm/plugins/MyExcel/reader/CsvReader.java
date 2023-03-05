@@ -30,7 +30,7 @@ public class CsvReader extends AbstractReader {
 
 	@Override
 	@SneakyThrows
-	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+	public AbstractReader readBySax(String sheetName, DataReadHandler dataReadHandler) {
 		@Cleanup
 		InputStream in = new ByteArrayInputStream(bytes);
 

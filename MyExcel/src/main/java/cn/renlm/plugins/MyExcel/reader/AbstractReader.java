@@ -44,7 +44,7 @@ public abstract class AbstractReader {
 	 * @param dataReadHandler
 	 * @return
 	 */
-	public abstract AbstractReader read(String sheetName, DataReadHandler dataReadHandler);
+	public abstract AbstractReader readBySax(String sheetName, DataReadHandler dataReadHandler);
 
 	/**
 	 * 获取指定页签读取行数

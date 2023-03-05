@@ -87,7 +87,7 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 
 	@Override
 	@SneakyThrows
-	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+	public AbstractReader readBySax(String sheetName, DataReadHandler dataReadHandler) {
 		this.mySheet = myExcel.getSheetByName(sheetName);
 		this.dataReadHandler = dataReadHandler;
 		this.startProcess(sheetMap.containsKey(sheetName) ? sheetName : this.firstSheetName);

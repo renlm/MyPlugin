@@ -65,7 +65,7 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 	}
 
 	@Override
-	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+	public AbstractReader readBySax(String sheetName, DataReadHandler dataReadHandler) {
 		this.mySheet = myExcel.getSheetByName(sheetName);
 		this.dataReadHandler = dataReadHandler;
 		this.startProcess(-1);

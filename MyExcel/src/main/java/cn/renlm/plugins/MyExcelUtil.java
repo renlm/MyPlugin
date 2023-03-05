@@ -53,19 +53,19 @@ public class MyExcelUtil {
 		// Xls
 		if (ExcelFileUtil.isXls(inputStream)) {
 			AbstractReader reader = new XlsReader(myExcel, inputStream);
-			reader.read(sheetName, dataReadHandler);
+			reader.readBySax(sheetName, dataReadHandler);
 			return reader;
 		}
 		// Xlsx
 		else if (ExcelFileUtil.isXlsx(inputStream)) {
 			AbstractReader reader = new XlsxReader(myExcel, inputStream);
-			reader.read(sheetName, dataReadHandler);
+			reader.readBySax(sheetName, dataReadHandler);
 			return reader;
 		}
 		// Csv
 		else {
 			AbstractReader reader = new CsvReader(myExcel, inputStream);
-			reader.read(sheetName, dataReadHandler);
+			reader.readBySax(sheetName, dataReadHandler);
 			return reader;
 		}
 	}
