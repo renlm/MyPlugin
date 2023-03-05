@@ -30,6 +30,7 @@ public class CsvReader extends AbstractReader {
 
 	@Override
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		this.readBySax(sheetName, dataReadHandler);
 		return this;
 	}
 
