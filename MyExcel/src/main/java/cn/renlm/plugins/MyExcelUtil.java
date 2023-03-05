@@ -41,7 +41,7 @@ public class MyExcelUtil {
 	/**
 	 * 读取页签（适用小文件，自动拉平合并单元格，内存消耗较大）
 	 * <p>
-	 * 默认按配置名称获取，找不到取文件第一个
+	 * 默认按配置名称获取数据，找不到取文件第一个
 	 * </p>
 	 * 
 	 * @param config
@@ -76,7 +76,7 @@ public class MyExcelUtil {
 	/**
 	 * 读取页签（适用大文件，Sax模式）
 	 * <p>
-	 * 默认按配置名称获取，找不到取文件第一个
+	 * 默认按配置名称获取数据，找不到取文件第一个
 	 * 
 	 * @param config
 	 * @param inputStream
