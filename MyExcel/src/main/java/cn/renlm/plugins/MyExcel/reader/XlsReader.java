@@ -156,24 +156,24 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 		this.titles.clear();
 		this.keys.clear();
 		this.rowCells.clear();
+
 		@Cleanup
 		InputStream in = new ByteArrayInputStream(bytes);
-		try (POIFSFileSystem fs = new POIFSFileSystem(in)) {
-			formatListener = new FormatTrackingHSSFListener(new MissingRecordAwareHSSFListener(this));
-			final HSSFRequest request = new HSSFRequest();
-			workbookBuildingListener = new SheetRecordCollectingListener(formatListener);
-			request.addListenerForAllRecords(workbookBuildingListener);
+		@Cleanup
+		POIFSFileSystem fs = new POIFSFileSystem(in);
 
-			final HSSFEventFactory factory = new HSSFEventFactory();
-			try {
-				factory.processWorkbookEvents(request, fs);
-			} catch (IOException e) {
-				throw new POIException(e);
-			} finally {
-				IoUtil.close(fs);
-			}
+		formatListener = new FormatTrackingHSSFListener(new MissingRecordAwareHSSFListener(this));
+		final HSSFRequest request = new HSSFRequest();
+		workbookBuildingListener = new SheetRecordCollectingListener(formatListener);
+		request.addListenerForAllRecords(workbookBuildingListener);
+
+		final HSSFEventFactory factory = new HSSFEventFactory();
+		try {
+			factory.processWorkbookEvents(request, fs);
 		} catch (IOException e) {
 			throw new POIException(e);
+		} finally {
+			IoUtil.close(fs);
 		}
 	}
 
