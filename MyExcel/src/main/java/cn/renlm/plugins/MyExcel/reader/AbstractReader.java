@@ -23,7 +23,7 @@ import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
 public abstract class AbstractReader {
 
 	/**
-	 * 读取行数（按页签分组）
+	 * 读取行数（key：页签名称，value：行数）
 	 */
 	final Map<String, Integer> read = new LinkedHashMap<>();
 
@@ -38,7 +38,7 @@ public abstract class AbstractReader {
 	final InputStream in;
 
 	/**
-	 * 读取页签（默认按配置页签名称获取，找不到取文件中的第一个页签）
+	 * 读取页签
 	 * 
 	 * @param sheetName
 	 * @param dataReadHandler

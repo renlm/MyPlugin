@@ -53,10 +53,19 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 
 	private final List<BoundSheetRecord> boundSheetRecords = new ArrayList<>();
 
+	/**
+	 * 自定义需要处理的sheet编号
+	 */
 	private Integer rSheetIndex = -1;
 
+	/**
+	 * 当前sheet编号
+	 */
 	private Integer sheetIndex = -1;
 
+	/**
+	 * 行数据
+	 */
 	private List<Object> rowCells = new ArrayList<>();
 
 	public XlsReader(MyWorkbook myExcel, InputStream in) {
