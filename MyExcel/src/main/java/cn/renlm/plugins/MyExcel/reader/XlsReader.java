@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.poi.hssf.eventusermodel.EventWorkbookBuilder.SheetRecordCollectingListener;
 import org.apache.poi.hssf.eventusermodel.FormatTrackingHSSFListener;
@@ -25,15 +26,21 @@ import org.apache.poi.hssf.record.Record;
 import org.apache.poi.hssf.record.SSTRecord;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.cell.CellUtil;
 import cn.hutool.poi.excel.sax.ExcelSaxUtil;
 import cn.hutool.poi.exceptions.POIException;
 import cn.renlm.plugins.MyExcel.config.MySheet;
 import cn.renlm.plugins.MyExcel.config.MyWorkbook;
 import cn.renlm.plugins.MyExcel.handler.DataReadHandler;
+import cn.renlm.plugins.MyExcel.util.MergeUtil;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
@@ -65,7 +72,36 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 	}
 
 	@Override
+	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		this.mySheet = myExcel.getSheetByName(sheetName);
+		this.dataReadHandler = dataReadHandler;
+		@Cleanup
+		InputStream in = new ByteArrayInputStream(bytes);
+		ExcelReader reader = ExcelUtil.getReader(in, 0);
+		List<String> sheetNames = reader.getSheetNames();
+		if (sheetNames.contains(sheetName)) {
+			reader.setSheet(sheetName);
+		} else {
+			reader.setSheet(0);
+		}
+		AtomicInteger rowIndex = new AtomicInteger(0);
+		reader.read((cell, value) -> {
+			int rIndex = cell.getRowIndex();
+			int cIndex = cell.getColumnIndex();
+			if (!NumberUtil.equals(rowIndex.get(), rIndex)) {
+				super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, rIndex, rowCells);
+				this.rowCells.clear();
+			}
+			if (value == null) {
+				this.addToRowCells(rIndex, cIndex, value);
+			} else {
+				Sheet sh = cell.getSheet();
+				Cell _cell = MergeUtil.findFirstCellOfUnitRegion(sh, rIndex, cIndex);
+				Object _value = CellUtil.getCellValue(_cell);
+				this.addToRowCells(rIndex, cIndex, _value);
+			}
+		});
 		return this;
 	}
 
@@ -146,7 +182,7 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 			if (record instanceof LastCellOfRowDummyRecord) {
 				LastCellOfRowDummyRecord lastCell = (LastCellOfRowDummyRecord) record;
 				super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, lastCell.getRow(), rowCells);
-				this.rowCells = new ArrayList<>(this.rowCells.size());
+				this.rowCells.clear();
 			}
 		}
 	}
