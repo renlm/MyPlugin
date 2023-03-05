@@ -47,7 +47,7 @@ public class MyExcelUtil {
 	 * @param dataReadHandler
 	 * @return
 	 */
-	public static final AbstractReader read(String config, InputStream inputStream, String sheetName,
+	public static final AbstractReader readBySax(String config, InputStream inputStream, String sheetName,
 			DataReadHandler dataReadHandler) {
 		MyWorkbook myExcel = MyXStreamUtil.read(MyWorkbook.class, config);
 		// Xls
