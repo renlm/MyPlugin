@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,8 +48,8 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 	protected StylesTable styles;
 	private SharedStrings strings;
 	private String firstSheetName;
-	private Map<String, byte[]> sheetMap;
-	private Map<String, Comments> sheetCommentsMap;
+	private Map<String, byte[]> sheetMap = new LinkedHashMap<>();
+	private Map<String, Comments> sheetCommentsMap = new LinkedHashMap<>();
 
 	private int rowNum;
 	private int colNum;
