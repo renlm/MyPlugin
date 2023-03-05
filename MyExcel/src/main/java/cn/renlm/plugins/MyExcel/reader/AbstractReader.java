@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -45,10 +44,10 @@ public abstract class AbstractReader {
 	 * </p>
 	 * 
 	 * @param sheetName
-	 * @param datas
+	 * @param dataReadHandler
 	 * @return
 	 */
-	public abstract AbstractReader read(String sheetName, Consumer<List<Map<String, Object>>> datas);
+	public abstract AbstractReader read(String sheetName, DataReadHandler dataReadHandler);
 
 	/**
 	 * 读取页签（适用大文件，Sax模式）
