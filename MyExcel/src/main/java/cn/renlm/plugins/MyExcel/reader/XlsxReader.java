@@ -135,13 +135,12 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 	}
 
 	public class DataFormatter extends org.apache.poi.ss.usermodel.DataFormatter {
-
 		@Override
 		public String formatRawCellContents(double value, int formatIndex, String formatString,
 				boolean use1904Windowing) {
 			if (DateUtil.isADateFormat(formatIndex, formatString)) {
 				if (DateUtil.isValidExcelDate(value)) {
-					String key = keys.get(colNum);
+					String key = keys.get(colNum + 1);
 					if (StrUtil.isNotBlank(key)) {
 						MyColumn myColumn = mySheet.getFieldColMap().get(key);
 						if (myColumn != null && StrUtil.isNotBlank(myColumn.getDateFormat())) {
@@ -153,7 +152,6 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 			}
 			return super.formatRawCellContents(value, formatIndex, formatString, use1904Windowing);
 		}
-
 	}
 
 }
