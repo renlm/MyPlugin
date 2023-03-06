@@ -95,6 +95,9 @@ public abstract class AbstractReader {
 	 */
 	final void processRow(MyWorkbook myExcel, List<List<String>> titles, List<String> keys,
 			DataReadHandler dataReadHandler, MySheet sheet, long rowIndex, List<Object> rowList) {
+		if (CollUtil.isEmpty(rowList)) {
+			return;
+		}
 		final int sheetLevel = sheet.level();
 		final long level = rowIndex - sheet.getStart() + 1;
 		this.read.put(sheet.getName(), this.getRead(sheet.getName()) + 1);

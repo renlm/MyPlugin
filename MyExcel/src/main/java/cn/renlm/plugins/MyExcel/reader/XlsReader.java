@@ -90,7 +90,7 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 			int rIndex = cell.getRowIndex();
 			int cIndex = cell.getColumnIndex();
 			if (!NumberUtil.equals(rowIndex.get(), rIndex)) {
-				super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, rIndex, rowCells);
+				super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, rowIndex.getAndIncrement(), rowCells);
 				this.rowCells.clear();
 			}
 			if (value == null) {
