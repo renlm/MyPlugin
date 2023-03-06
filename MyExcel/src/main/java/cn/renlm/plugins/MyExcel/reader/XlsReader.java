@@ -75,6 +75,9 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 	@Override
 	@SneakyThrows
 	public AbstractReader read(String sheetName, DataReadHandler dataReadHandler) {
+		this.titles.clear();
+		this.keys.clear();
+		this.rowCells.clear();
 		this.mySheet = myExcel.getSheetByName(sheetName);
 		this.dataReadHandler = dataReadHandler;
 		@Cleanup
