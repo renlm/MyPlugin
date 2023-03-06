@@ -28,6 +28,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.NumberUtil;
@@ -124,6 +125,10 @@ public class XlsxReader extends AbstractReader implements XSSFSheetXMLHandler.Sh
 				this.addToRowCells(rIndex, cIndex, _value);
 			}
 		});
+		if (CollUtil.isNotEmpty(this.rowCells)) {
+			super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, rowIndex.getAndIncrement(), rowCells);
+			this.rowCells.clear();
+		}
 		return this;
 	}
 

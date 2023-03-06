@@ -29,6 +29,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
@@ -102,6 +103,10 @@ public class XlsReader extends AbstractReader implements HSSFListener {
 				this.addToRowCells(rIndex, cIndex, _value);
 			}
 		});
+		if (CollUtil.isNotEmpty(this.rowCells)) {
+			super.processRow(myExcel, titles, keys, dataReadHandler, mySheet, rowIndex.getAndIncrement(), rowCells);
+			this.rowCells.clear();
+		}
 		return this;
 	}
 

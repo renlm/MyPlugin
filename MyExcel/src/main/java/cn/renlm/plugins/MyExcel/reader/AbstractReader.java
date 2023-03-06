@@ -95,7 +95,13 @@ public abstract class AbstractReader {
 	 */
 	final void processRow(MyWorkbook myExcel, List<List<String>> titles, List<String> keys,
 			DataReadHandler dataReadHandler, MySheet sheet, long rowIndex, List<Object> rowList) {
-		if (CollUtil.isEmpty(rowList)) {
+		boolean isBlank = true;
+		for (Object obj : rowList) {
+			if (!StrUtil.isBlankIfStr(obj)) {
+				isBlank = false;
+			}
+		}
+		if (isBlank) {
 			return;
 		}
 		final int sheetLevel = sheet.level();
