@@ -43,7 +43,7 @@ public class MyRedisScheduler extends RedisPriorityScheduler implements MyDuplic
 	@Override
 	public boolean verifyDuplicate(Boolean forceUpdate, Request request, Task task) {
 		String url = request.getUrl();
-		Integer pageUrlType = ObjectUtil.defaultIfNull(request.getExtra(PageUrlType.extraKey),
+		int pageUrlType = ObjectUtil.defaultIfNull(request.getExtra(PageUrlType.extraKey),
 				PageUrlType.unknown.value());
 		try (Jedis jedis = pool.getResource()) {
 			String cacheKey = Base64.encode(url);
