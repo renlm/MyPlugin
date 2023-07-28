@@ -119,9 +119,11 @@ public abstract class AbstractReader {
 				for (int i = 0; i < CollUtil.size(keys); i++) {
 					data.put(CollUtil.get(keys, i), CollUtil.get(rowList, i));
 				}
-				data.remove(StrUtil.EMPTY);
-				CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
-				dataReadHandler.handle(data, checkResult);
+				{
+					data.remove(StrUtil.EMPTY);
+					CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
+					dataReadHandler.handle(data, checkResult);
+				}
 			}
 		}
 	}
