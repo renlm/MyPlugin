@@ -58,6 +58,7 @@
 	                    	<xsd:restriction base="xsd:string">
 	                            <xsd:enumeration value="BIGINT"/>
 	                        	<xsd:enumeration value="TINYINT"/>
+	                        	<xsd:enumeration value="DOUBLE"/>
 	                        </xsd:restriction>
 	                    </xsd:simpleType>
 	             	</xsd:attribute>
