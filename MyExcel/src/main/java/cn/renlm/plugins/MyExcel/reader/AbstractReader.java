@@ -7,6 +7,7 @@ import java.util.Map;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyExcel.config.MySheet;
@@ -114,7 +115,10 @@ public abstract class AbstractReader {
 					keys.addAll(sheet.generateKeys(titles, dataReadHandler));
 				}
 			} else { // 数据行，取出映射数据
-				Map<String, Object> data = CollUtil.zip(keys, rowList);
+				Map<String, Object> data = MapUtil.newHashMap(true);
+				for (int i = 0; i < CollUtil.size(keys); i++) {
+					data.put(CollUtil.get(keys, i), CollUtil.get(rowList, i));
+				}
 				data.remove(StrUtil.EMPTY);
 				CheckResult checkResult = dataReadHandler.readConvert(sheet, rowIndex, data);
 				dataReadHandler.handle(data, checkResult);
