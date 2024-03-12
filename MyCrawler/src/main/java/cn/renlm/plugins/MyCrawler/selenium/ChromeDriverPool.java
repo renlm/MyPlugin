@@ -55,14 +55,17 @@ class ChromeDriverPool {
 		// https://sites.google.com/a/chromium.org/chromedriver/capabilities
 		// https://peter.sh/experiments/chromium-command-line-switches
 		ChromeOptions options = new ChromeOptions();
-		options.setHeadless(headless);
 		options.addArguments("--no-sandbox");
 		options.addArguments("--disable-gpu");
 		options.addArguments("--disable-dev-shm-usage");
+		options.addArguments("--remote-allow-origins=*");
 		options.addArguments("--window-size=" + windowSize);
 		options.setExperimentalOption("excludeSwitches", CollUtil.newArrayList("enable-automation"));
 		if (StrUtil.isNotBlank(userAgent)) {
 			options.addArguments("--user-agent=" + userAgent);
+		}
+		if (headless) {
+			options.addArguments("--headless");
 		}
 		ChromeDriverService service = ChromeDriverService.createDefaultService();
 		ChromeDriver chromeDriver = new ChromeDriver(service, options);
