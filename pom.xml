@@ -38,19 +38,19 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
+			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.9.1</version>
+			<version>5.10.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
