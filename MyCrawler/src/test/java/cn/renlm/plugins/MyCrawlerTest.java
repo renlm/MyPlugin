@@ -35,13 +35,10 @@ public class MyCrawlerTest {
 	@Test
 	public void test() {
 		MySite site = MySite.me();
-		site.setDomain("mygraph.renlm.cn");
 		site.setEnableSelenuim(true);
-		site.setHeadless(false);
+		site.setHeadless(true);
 		site.setScreenshot(true);
 		site.setChromeSetting(chromeSetting);
-		site.addCookie(site.getDomain(), "XSRF-TOKEN", "a8fa2805-d01c-4373-a1e2-9d34426d2d76");
-		site.addCookie(site.getDomain(), "SESSION", "MGEzMDg4YzAtNzc5OS00MjhlLTgxM2EtMjE4ZTEyNzY0Yzcz");
 		MySpider spider = MyCrawlerUtil.createSpider(site, myPage -> {
 			Page page = myPage.page();
 			Html html = page.getHtml();
@@ -56,7 +53,8 @@ public class MyCrawlerTest {
 				ImgUtil.writePng(screenshot, out);
 			}
 		});
-		spider.addUrl("https://mygraph.renlm.cn/graph/lib");
+		spider.addUrl("https://renlm.gitee.io/");
 		spider.run();
 	}
+
 }
