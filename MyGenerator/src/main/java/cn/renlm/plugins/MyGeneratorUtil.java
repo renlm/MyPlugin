@@ -62,7 +62,7 @@ import lombok.Getter;
 /**
  * 代码生成封装类
  * 	spring-boot
- * 		2.5.3
+ * 		3.2.0
  *  mybatis-plus-boot-starter
  *  	3.5.3.1
  *  dynamic-datasource-spring-boot-starter
@@ -70,7 +70,7 @@ import lombok.Getter;
  *  mybatis-plus-generator
  *  	3.5.3.1
  *  freemarker
- *  	2.3.31
+ *  	2.3.32
  * 
  * @author RenLiMing(任黎明)
  *
