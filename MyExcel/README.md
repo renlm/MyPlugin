@@ -9,7 +9,7 @@ Excel、Csv表格读取，Xlsx表格导出。
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyExcel</artifactId>
-    <version>2.7.11</version>
+    <version>2.8.1</version>
 </dependency>
 ```
 

@@ -2,6 +2,7 @@ package cn.renlm.plugins;
 
 import static cn.renlm.plugins.MyGeneratorConf.entityPlaceholder;
 import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
+import static java.util.Objects.nonNull;
 
 import java.io.File;
 import java.io.Serializable;
@@ -24,8 +25,6 @@ import com.baomidou.mybatisplus.generator.config.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.builder.Entity.Builder;
@@ -62,13 +61,13 @@ import lombok.Getter;
 /**
  * 代码生成封装类
  * 	spring-boot
- * 		3.2.0
+ * 		3.2.4
  *  mybatis-plus-boot-starter
- *  	3.5.3.1
+ *  	3.5.6
  *  dynamic-datasource-spring-boot-starter
- *  	3.6.1
+ *  	4.3.0
  *  mybatis-plus-generator
- *  	3.5.3.1
+ *  	3.5.6
  *  freemarker
  *  	2.3.32
  * 
@@ -131,7 +130,6 @@ public class MyGeneratorUtil {
 			GeneratorTable table) {
 		AutoGenerator autoGenerator = new AutoGenerator(dsc);
 		autoGenerator.injection(injectionConfig(conf, table));
-		autoGenerator.template(templateConfig(conf));
 		autoGenerator.strategy(strategyConfig(conf, table));
 		autoGenerator.packageInfo(packageConfig(conf, module));
 		autoGenerator.global(globalConfig(module, table));
@@ -204,27 +202,6 @@ public class MyGeneratorUtil {
 	}
 
 	/**
-	 * 模板配置
-	 * 
-	 * @param conf
-	 * @return
-	 */
-	private static final TemplateConfig templateConfig(GeneratorConfig conf) {
-		TemplateConfig.Builder builder = new TemplateConfig.Builder()
-				.entity(EntityTemplatePath)
-				.serviceImpl(serviceImplTemplatePath);
-		/** ================== 自定义配置项 Start ================== */
-		boolean enableController = conf.getConfig() != null 
-				&& conf.getConfig().getTemplateConfig() != null
-				&& conf.getConfig().getTemplateConfig().isEnableController();
-		if (!enableController) {
-			builder.disable(TemplateType.CONTROLLER);
-		}
-		/** ================== 自定义配置项 End ================== */
-		return builder.build();
-	}
-
-	/**
 	 * 策略配置
 	 * 
 	 * @param conf
@@ -232,19 +209,25 @@ public class MyGeneratorUtil {
 	 * @return
 	 */
 	private static final StrategyConfig strategyConfig(GeneratorConfig conf, GeneratorTable table) {
+		boolean enableStrategyConfig = nonNull(conf) 
+				&& nonNull(conf.getConfig()) 
+				&& nonNull(conf.getConfig().getStrategyConfig());
 		Builder builder = new StrategyConfig.Builder()
 				.addInclude(table.name)
+				.serviceBuilder()
+					.serviceImplTemplate(serviceImplTemplatePath)
 				.entityBuilder()
-				.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
-				.enableLombok()
-				.enableChainModel()
-				.naming(NamingStrategy.underline_to_camel)
-				.columnNaming(NamingStrategy.underline_to_camel);
+					.javaTemplate(EntityTemplatePath)
+					.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
+					.enableLombok()
+					.enableChainModel()
+					.naming(NamingStrategy.underline_to_camel)
+					.columnNaming(NamingStrategy.underline_to_camel)
+				;
 		
 		/** ================== Entity 配置 Start ================== */
-		boolean enableStrategyConfigEntity = conf.getConfig() != null 
-				&& conf.getConfig().getStrategyConfig() != null 
-				&& conf.getConfig().getStrategyConfig().getEntity() != null;
+		boolean enableStrategyConfigEntity = enableStrategyConfig 
+				&& nonNull(conf.getConfig().getStrategyConfig().getEntity());
 		if (enableStrategyConfigEntity) {
 			_Entity entity = conf.getConfig().getStrategyConfig().getEntity();
 			if (StrUtil.isNotBlank(entity.getFormatFileName())) {
@@ -265,7 +248,7 @@ public class MyGeneratorUtil {
 			boolean enableSuperClass = StrUtil.isNotBlank(entity.getSuperClass());
 			if (enableSuperClass) {
 				builder.superClass(entity.getSuperClass());
-				if (entity.getSuperEntityColumns() != null && CollUtil.isNotEmpty(entity.getSuperEntityColumns().getSuperEntityColumns())) {
+				if (nonNull(entity.getSuperEntityColumns()) && CollUtil.isNotEmpty(entity.getSuperEntityColumns().getSuperEntityColumns())) {
 					List<String> columns = entity.getSuperEntityColumns().getSuperEntityColumns().stream().map(it -> it.getText()).collect(Collectors.toList());
 					CollUtil.removeBlank(columns);
 					columns = CollUtil.distinct(columns);
@@ -281,9 +264,9 @@ public class MyGeneratorUtil {
 		/** ================== Entity 配置 End ================== */
 		
 		/** ================== Controller 配置 Start ================== */
-		boolean enableStrategyConfigController = conf.getConfig() != null 
-				&& conf.getConfig().getStrategyConfig() != null 
-				&& conf.getConfig().getStrategyConfig().getController() != null;
+		boolean enableStrategyConfigController = enableStrategyConfig 
+				&& nonNull(conf.getConfig().getStrategyConfig().getController())
+				&& conf.getConfig().getStrategyConfig().getController().isEnableController();
 		if (enableStrategyConfigController) {
 			_Controller controller = conf.getConfig().getStrategyConfig().getController();
 			if (controller.isEnableRestStyle()) {
@@ -292,13 +275,14 @@ public class MyGeneratorUtil {
 			if (StrUtil.isNotBlank(controller.getFormatFileName())) {
 				builder.controllerBuilder().formatFileName(entityPlaceholder(controller.getFormatFileName()));
 			}
+		} else {
+			builder.controllerBuilder().disable();
 		}
 		/** ================== Controller 配置 End ================== */
 		
 		/** ================== Service 配置 Start ================== */
-		boolean enableStrategyConfigService = conf.getConfig() != null 
-				&& conf.getConfig().getStrategyConfig() != null 
-				&& conf.getConfig().getStrategyConfig().getService() != null;
+		boolean enableStrategyConfigService = enableStrategyConfig 
+				&& nonNull(conf.getConfig().getStrategyConfig().getService());
 		if (enableStrategyConfigService) {
 			_Service service = conf.getConfig().getStrategyConfig().getService();
 			if (StrUtil.isNotBlank(service.getFormatServiceFileName())) {
@@ -311,9 +295,8 @@ public class MyGeneratorUtil {
 		/** ================== Service 配置 End ================== */
 		
 		/** ================== Mapper 配置 Start ================== */
-		boolean enableStrategyConfigMapper = conf.getConfig() != null 
-				&& conf.getConfig().getStrategyConfig() != null 
-				&& conf.getConfig().getStrategyConfig().getMapper() != null;
+		boolean enableStrategyConfigMapper = enableStrategyConfig 
+				&& nonNull(conf.getConfig().getStrategyConfig().getMapper());
 		if (enableStrategyConfigMapper) {
 			_Mapper mapper = conf.getConfig().getStrategyConfig().getMapper();
 			if (StrUtil.isNotBlank(mapper.getFormatMapperFileName())) {

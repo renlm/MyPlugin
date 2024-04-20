@@ -26,9 +26,6 @@ public class MyGeneratorConf {
 
 	private _TypeConvert typeConvert;
 
-	@XStreamAlias("template")
-	private _TemplateConfig templateConfig;
-
 	@XStreamAlias("package")
 	private _PackageConfig packageConfig;
 
@@ -83,22 +80,6 @@ public class MyGeneratorConf {
 		 */
 		@XStreamAsAttribute
 		private String pkg;
-
-	}
-
-	/**
-	 * 模板配置
-	 */
-	@Data
-	public static final class _TemplateConfig implements Serializable {
-
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 是否生成Controller（默认否）
-		 */
-		@XStreamAlias("controller")
-		private boolean enableController;
 
 	}
 
@@ -232,6 +213,12 @@ public class MyGeneratorConf {
 	public static final class _Controller implements Serializable {
 
 		private static final long serialVersionUID = 1L;
+
+		/**
+		 * 是否生成Controller（默认否）
+		 */
+		@XStreamAlias("controller")
+		private boolean enableController;
 
 		/**
 		 * 开启生成@RestController控制器（默认否）

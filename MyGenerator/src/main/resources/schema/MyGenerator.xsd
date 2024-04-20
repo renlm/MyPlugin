@@ -38,8 +38,6 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="typeConvert" type="TypeConvert" 
 				maxOccurs="1" />
-			<xsd:element name="template" type="TemplateConfig" 
-				maxOccurs="1" />
 			<xsd:element name="package" type="PackageConfig" 
 				maxOccurs="1" />
 			<xsd:element name="strategy" type="StrategyConfig" 
@@ -69,14 +67,6 @@
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:choice>
-	</xsd:complexType>
-
-	<!-- 模板配置 -->
-	<xsd:complexType name="TemplateConfig">
-		<xsd:sequence>
-			<!-- 是否生成Controller（默认否） -->
-			<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" default="false" />
-		</xsd:sequence>
 	</xsd:complexType>
 
 	<!-- 包配置 -->
@@ -131,6 +121,8 @@
 			<xsd:element name="controller" maxOccurs="1">
 				<xsd:complexType mixed="true">
 					<xsd:choice minOccurs="0" maxOccurs="unbounded">
+						<!-- 是否生成Controller（默认否） -->
+						<xsd:element name="controller" type="xsd:boolean" maxOccurs="1" default="false" />
 						<!-- 开启生成@RestController控制器（默认否） -->
 						<xsd:element name="enableRestStyle" type="xsd:boolean" maxOccurs="1" default="false" />
 						<!-- Controller 格式化名称 -->

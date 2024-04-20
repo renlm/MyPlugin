@@ -16,7 +16,7 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyGenerator</artifactId>
-    <version>2.7.11</version>
+    <version>2.8.1</version>
 </dependency>
 ```
 
@@ -30,14 +30,60 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyGenerator.xsd">
 
-	<url>jdbc:postgresql://localhost:5432/db</url>
+	<module name="sys" package="cn.renlm.example" enableSwagger="false">
+		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
+		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
+	</module>
+
+	<url>jdbc:postgresql://postgres:5432/db</url>
+	<schema>public</schema>
 	<username>username</username>
 	<password>password</password>
 
-	<module name="sys" package="cn.renlm.crawler">
-		<table schema="public" author="Renlm" name="sys_const" entity="true" excel="true" />
-		<table schema="public" author="Renlm" name="sys_file" idType="ASSIGN_ID" />
-	</module>
+	<config>
+		<typeConvert>
+			<javaSqlType name="BIGINT" type="BigInteger" pkg="java.math.BigInteger" />
+			<javaSqlType name="TINYINT" type="Boolean" />
+			<javaSqlType name="DOUBLE" type="Double" />
+		</typeConvert>
+		<package>
+			<controller>controller</controller>
+			<serviceImpl>service.impl</serviceImpl>
+			<service>service</service>
+			<entity>entity</entity>
+			<mapper>mapper</mapper>
+			<xml>mapper</xml>
+		</package>
+		<strategy>
+			<entity>
+				<formatFileName>{entityName}</formatFileName>
+				<disableSerialVersionUID>false</disableSerialVersionUID>
+				<tableFieldAnnotationEnable>false</tableFieldAnnotationEnable>
+				<versionColumnName>version</versionColumnName>
+				<logicDeleteColumnName>deleted</logicDeleteColumnName>
+				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>
+				<superEntityColumns>
+					<column>created_at</column>
+					<column>updated_at</column>
+					<column>deleted</column>
+				</superEntityColumns>
+			</entity>
+			<controller>
+				<controller>true</controller>
+				<enableRestStyle>false</enableRestStyle>
+				<formatFileName>{entityName}Controller</formatFileName>
+			</controller>
+			<service>
+				<formatServiceFileName>I{entityName}Service</formatServiceFileName>
+				<formatServiceImplFileName>{entityName}ServiceImpl</formatServiceImplFileName>
+			</service>
+			<mapper>
+				<formatMapperFileName>{entityName}Mapper</formatMapperFileName>
+				<formatXmlFileName>{entityName}Mapper</formatXmlFileName>
+			</mapper>
+		</strategy>
+	</config>
+
 </generator>
 ```
 

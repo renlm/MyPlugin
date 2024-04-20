@@ -19,9 +19,6 @@
 			<javaSqlType name="TINYINT" type="Boolean" />
 			<javaSqlType name="DOUBLE" type="Double" />
 		</typeConvert>
-		<template>
-			<controller>true</controller>
-		</template>
 		<package>
 			<controller>controller</controller>
 			<serviceImpl>service.impl</serviceImpl>
@@ -45,6 +42,7 @@
 				</superEntityColumns>
 			</entity>
 			<controller>
+				<controller>true</controller>
 				<enableRestStyle>false</enableRestStyle>
 				<formatFileName>{entityName}Controller</formatFileName>
 			</controller>
