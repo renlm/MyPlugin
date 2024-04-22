@@ -5,7 +5,12 @@
 
 	<module name="sys" package="cn.renlm.example" enableSwagger="false">
 		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
-		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
+		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID">
+			<column name="file_content">
+				<typeHandler>org.apache.ibatis.type.BlobTypeHandler</typeHandler>
+				<typeConvert type="byte[]" />
+			</column>
+		</table>
 	</module>
 
 	<url>jdbc:postgresql://postgres:5432/db</url>

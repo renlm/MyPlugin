@@ -155,12 +155,36 @@
 		</xsd:choice>
 	</xsd:complexType>
 
+	<!-- Column -->
+	<xsd:complexType name="Column">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<!-- typeHandler -->
+			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="unbounded" default="org.apache.ibatis.type.BlobTypeHandler" />
+			<!-- typeConvert -->
+			<xsd:element name="typeConvert" minOccurs="0" maxOccurs="1">
+				<xsd:complexType mixed="true">
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
+		            <xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
+		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
+		            <xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:choice>
+		<!-- name -->
+		<xsd:attribute name="name" type="xsd:string"
+			use="required" />
+	</xsd:complexType>
+
 	<!-- 模块 -->
 	<xsd:complexType name="Module">
 		<!-- 数据库表集 -->
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<xsd:element name="table">
 				<xsd:complexType mixed="true">
+			    	<!-- Column -->
+			        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+			            <xsd:element name="column" type="Column" minOccurs="0" maxOccurs="unbounded"/>
+			        </xsd:choice>
 					<!-- 创建人 -->
 					<xsd:attribute name="author" type="xsd:string"
 						use="required" />
