@@ -74,7 +74,7 @@
 				</superEntityColumns>
 			</entity>
 			<controller>
-				<controller>true</controller>
+				<controller>false</controller>
 				<enableRestStyle>false</enableRestStyle>
 				<formatFileName>{entityName}Controller</formatFileName>
 			</controller>
