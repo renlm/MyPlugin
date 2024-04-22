@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeUtil;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -14,7 +15,7 @@ import lombok.experimental.UtilityClass;
  *
  */
 @UtilityClass
-public class MyTreeExtraUtil {
+public class MyTreeUtil extends TreeUtil {
 
 	/**
 	 * 遍历树

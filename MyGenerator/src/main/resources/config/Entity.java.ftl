@@ -77,13 +77,13 @@ public class ${entity} {
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
-    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if typeHandler?default("")?trim?length gt 0>, typeHandler = ${typeHandler}.class</#if>)
         <#else>
-    @TableField(fill = FieldFill.${field.fill}<#if blobTypeHandler && field.propertyType = "Blob">, typeHandler = org.apache.ibatis.type.BlobTypeHandler.class</#if>)
+    @TableField(fill = FieldFill.${field.fill}<#if typeHandler?default("")?trim?length gt 0>, typeHandler = ${typeHandler}.class</#if>)
         </#if>
     <#elseif field.convert>
-    	<#if blobTypeHandler && field.propertyType = "Blob">
-    @TableField(value = "${field.annotationColumnName}", typeHandler = org.apache.ibatis.type.BlobTypeHandler.class)
+    	<#if typeHandler?default("")?trim?length gt 0>
+    @TableField(value = "${field.annotationColumnName}", typeHandler = ${typeHandler}.class)
     	<#else>
     @TableField("${field.annotationColumnName}")
     	</#if>

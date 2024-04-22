@@ -1,11 +1,16 @@
 ## 简介
 针对SpringBoot、Mybatis-Plus及多数据源的一套代码生成
 ```
-	spring-boot
-	mybatis-plus-boot-starter
+	spring-boot 
+		3.2.4
+	mybatis-plus-boot-starter 
+		3.5.6
+	dynamic-datasource-spring-boot-starter 
+		4.3.0
 	mybatis-plus-generator
-	dynamic-datasource-spring-boot-starter
+		3.5.6
 	freemarker
+		2.3.32
 ```
 
 ## 安装
@@ -16,7 +21,7 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyGenerator</artifactId>
-    <version>2.8.1</version>
+    <version>2.8.2</version>
 </dependency>
 ```
 

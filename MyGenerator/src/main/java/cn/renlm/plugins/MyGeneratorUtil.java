@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.type.BlobTypeHandler;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -190,7 +191,8 @@ public class MyGeneratorUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nameOfDS", DS_CLASS_NAME);
 		map.put("dsName", conf.dsName);
-		map.put("blobTypeHandler", !BooleanUtil.isFalse(table.getBlobTypeHandler()));
+		map.put("typeHandler", table.getTypeHandler());
+		map.put("blobTypeHandler", BlobTypeHandler.class.getName().equals(table.getTypeHandler()));
 
 		Map<String, String> customFile = new HashMap<>();
 		customFile.put(excelXmlName, excelXmlTemplatePath);
@@ -547,10 +549,10 @@ public class MyGeneratorUtil {
 		private boolean configExcel;
 
 		/**
-		 * 是否添加Blob字段转换（默认是）
+		 * 类型处理器（全路径类名）
 		 */
 		@XStreamAsAttribute
-		private Boolean blobTypeHandler;
+		private String typeHandler;
 
 	}
 
