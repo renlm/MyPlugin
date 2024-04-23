@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.ibatis.type.BlobTypeHandler;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.mybatisplus.annotation.DbType;
@@ -188,11 +187,16 @@ public class MyGeneratorUtil {
 	 * @return
 	 */
 	private static final InjectionConfig injectionConfig(GeneratorConfig conf, GeneratorTable table) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
+		Map<String, String> columnTypeHandlerMap = new HashMap<>();
 		map.put("nameOfDS", DS_CLASS_NAME);
 		map.put("dsName", conf.dsName);
-		map.put("typeHandler", table.getTypeHandler());
-		map.put("blobTypeHandler", BlobTypeHandler.class.getName().equals(table.getTypeHandler()));
+		map.put("columnTypeHandlerMap", columnTypeHandlerMap);
+		if (CollUtil.isNotEmpty(table.getColumns())) {
+			for (GeneratorTableColumn column : table.getColumns()) {
+				columnTypeHandlerMap.put(column.getName(), column.getTypeHandler());
+			}
+		}
 
 		Map<String, String> customFile = new HashMap<>();
 		customFile.put(excelXmlName, excelXmlTemplatePath);
@@ -549,10 +553,26 @@ public class MyGeneratorUtil {
 		private boolean configExcel;
 
 		/**
-		 * 类型处理器（全路径类名）
+		 * 字段定义（特殊处理）
 		 */
+		@XStreamImplicit(itemFieldName = "column")
+		private List<GeneratorTableColumn> columns;
+
+	}
+
+	/**
+	 * 字段定义（特殊处理）
+	 */
+	@Data
+	public static final class GeneratorTableColumn implements Serializable {
+		private static final long serialVersionUID = 1L;
+
 		@XStreamAsAttribute
+		private String name;
+
 		private String typeHandler;
+
+		private _JavaSqlType javaSqlType;
 
 	}
 
