@@ -276,8 +276,8 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- mvn versions:set -DnewVersion=2.8.1 -->
-	<!-- mvn versions:set -DnewVersion=2.8.1-SNAPSHOT -->
+	<!-- mvn versions:set -DnewVersion=2.8.2 -->
+	<!-- mvn versions:set -DnewVersion=2.8.2-SNAPSHOT -->
 	<!-- mvn clean deploy -Dmaven.test.skip=true -P profileId -->
 	<profiles>
 		<profile>
