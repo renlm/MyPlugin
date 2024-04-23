@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
@@ -448,6 +449,40 @@ public class MyGeneratorUtil {
 		public IColumnType getColumnType(TableField.MetaInfo metaInfo) {
 			if (metaInfo == null || metaInfo.getJdbcType() == null) {
 				return null;
+			}
+			String tableName = metaInfo.getTableName();
+			String columnName = metaInfo.getColumnName();
+			if (CollUtil.isNotEmpty(modules)) {
+				for (GeneratorModule gm : modules) {
+					if (CollUtil.isNotEmpty(gm.getTables())) {
+						for (GeneratorTable gt : gm.getTables()) {
+							if (StrUtil.equals(tableName, gt.getName())) {
+								if (CollUtil.isNotEmpty(gt.getColumns())) {
+									for (GeneratorTableColumn gtc : gt.getColumns()) {
+										if (StrUtil.equals(columnName, gtc.getName())) {
+											if (Objects.nonNull(gtc.getJavaSqlType())) {
+												_JavaSqlType jst = gtc.getJavaSqlType();
+												return new IColumnType() {
+
+													@Override
+													public String getType() {
+														return jst.getType();
+													}
+
+													@Override
+													public String getPkg() {
+														return jst.getPkg();
+													}
+
+												};
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (MapUtil.isEmpty(typeMap) && this.config != null && this.config.getTypeConvert() != null) {
 				List<_JavaSqlType> javaSqlTypes = this.config.getTypeConvert().getJavaSqlTypes();
