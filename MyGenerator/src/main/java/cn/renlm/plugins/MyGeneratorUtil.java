@@ -205,13 +205,13 @@ public class MyGeneratorUtil {
 	 */
 	private static final InjectionConfig injectionConfig(GeneratorConfig conf, GeneratorTable table) {
 		Map<String, Object> map = new HashMap<>();
-		Map<String, String> columnTypeHandlerMap = new HashMap<>();
+		Map<String, String> typeHandlerMap = new HashMap<>();
 		map.put("nameOfDS", DS_CLASS_NAME);
 		map.put("dsName", conf.dsName);
-		map.put("columnTypeHandlerMap", columnTypeHandlerMap);
+		map.put("typeHandlerMap", typeHandlerMap);
 		if (CollUtil.isNotEmpty(table.getColumns())) {
 			for (GeneratorTableColumn column : table.getColumns()) {
-				columnTypeHandlerMap.put(column.getName(), column.getTypeHandler());
+				typeHandlerMap.put(column.getName(), column.getTypeHandler());
 			}
 		}
 
