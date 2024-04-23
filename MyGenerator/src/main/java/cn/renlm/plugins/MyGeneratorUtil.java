@@ -46,7 +46,6 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyGeneratorConf._Controller;
@@ -134,7 +133,7 @@ public class MyGeneratorUtil {
 		autoGenerator.injection(injectionConfig(conf, table));
 		autoGenerator.strategy(strategyConfig(conf, table));
 		autoGenerator.packageInfo(packageConfig(conf, module));
-		autoGenerator.global(globalConfig(module, table));
+		autoGenerator.global(globalConfig(conf, module, table));
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
 			/**
 			 * 是否生成表格配置
@@ -384,18 +383,24 @@ public class MyGeneratorUtil {
 	/**
 	 * 全局配置
 	 * 
+	 * @param conf
 	 * @param module
 	 * @param table
 	 * @return
 	 */
-	private static final GlobalConfig globalConfig(GeneratorModule module, GeneratorTable table) {
+	private static final GlobalConfig globalConfig(GeneratorConfig conf, GeneratorModule module, GeneratorTable table) {
 		GlobalConfig.Builder globalConfigBuilder = new GlobalConfig.Builder()
 				.outputDir(ConstVal.javaDir)
 				.author(table.author)
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE);
-		if (BooleanUtil.isTrue(module.isEnableSwagger())) {
-			globalConfigBuilder.enableSwagger();
+		if (Objects.nonNull(conf.config)) {
+			if (conf.config.isSpringdoc()) {
+				globalConfigBuilder.enableSpringdoc();
+			}
+			if (conf.config.isSwagger()) {
+				globalConfigBuilder.enableSwagger();
+			}
 		}
 		return globalConfigBuilder.build();
 	}
@@ -555,12 +560,6 @@ public class MyGeneratorUtil {
 		@XStreamAsAttribute
 		@XStreamAlias("package")
 		private String pkg;
-
-		/**
-		 * 开启 swagger 模式
-		 */
-		@XStreamAsAttribute
-		private boolean enableSwagger;
 
 		/**
 		 * 数据库表集

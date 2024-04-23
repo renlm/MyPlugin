@@ -31,6 +31,18 @@ public class MyGeneratorConf {
 
 	@XStreamAlias("strategy")
 	private _StrategyConfig strategyConfig;
+    
+    /**
+     * 开启 springdoc 模式（默认 false 与 swagger 不可同时使用，优先于 swagger）
+     */
+	@XStreamAsAttribute
+    private boolean springdoc;
+	
+	/**
+     * 开启 swagger 模式（默认 false 与 springdoc 不可同时使用）
+     */
+	@XStreamAsAttribute
+    private boolean swagger;
 
 	/**
 	 * 实体类名称占位符转换

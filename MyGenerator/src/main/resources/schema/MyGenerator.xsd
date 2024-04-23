@@ -43,6 +43,12 @@
 			<xsd:element name="strategy" type="StrategyConfig" 
 				maxOccurs="1" />
 		</xsd:choice>
+		<!-- 开启 springdoc 模式（默认 false 与 swagger 不可同时使用，优先于 swagger） -->
+		<xsd:attribute name="springdoc" type="xsd:boolean" 
+				use="optional" default="false" />
+		<!-- 开启 swagger 模式（默认 false 与 springdoc 不可同时使用） -->
+		<xsd:attribute name="swagger" type="xsd:boolean" 
+				use="optional" default="false" />
 	</xsd:complexType>
 	
 	<!-- 字段类型转换 -->
@@ -193,19 +199,6 @@
 		</xsd:choice>
 	</xsd:complexType>
 
-	<!-- Column -->
-	<xsd:complexType name="Column">
-		<xsd:choice minOccurs="0" maxOccurs="unbounded">
-			<!-- typeHandler -->
-			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="1" default="org.apache.ibatis.type.BlobTypeHandler" />
-			<!-- javaSqlType -->
-			<xsd:element name="javaSqlType" type="JavaSqlType" minOccurs="0" maxOccurs="1" />
-		</xsd:choice>
-		<!-- name -->
-		<xsd:attribute name="name" type="xsd:string"
-			use="required" />
-	</xsd:complexType>
-
 	<!-- 模块 -->
 	<xsd:complexType name="Module">
 		<!-- 数据库表集 -->
@@ -253,8 +246,18 @@
 		<!-- 包路径 -->
 		<xsd:attribute name="package" type="xsd:string"
 			use="required" />
-		<!-- 开启 swagger 模式 -->
-		<xsd:attribute name="enableSwagger" type="xsd:boolean"
-			use="optional" default="false" />
+	</xsd:complexType>
+
+	<!-- Column -->
+	<xsd:complexType name="Column">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<!-- typeHandler -->
+			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="1" default="org.apache.ibatis.type.BlobTypeHandler" />
+			<!-- javaSqlType -->
+			<xsd:element name="javaSqlType" type="JavaSqlType" minOccurs="0" maxOccurs="1" />
+		</xsd:choice>
+		<!-- name -->
+		<xsd:attribute name="name" type="xsd:string"
+			use="required" />
 	</xsd:complexType>
 </xsd:schema>
