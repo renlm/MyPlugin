@@ -46,26 +46,64 @@
 	</xsd:complexType>
 	
 	<!-- 字段类型转换 -->
+	<xsd:complexType name="JavaSqlType">
+		<!-- java.sql.Types -->
+  		<xsd:attribute name="name" use="optional" default="BIGINT">
+        	<xsd:simpleType>
+         		<xsd:restriction base="xsd:string">
+               		<xsd:enumeration value="BIT"/>
+					<xsd:enumeration value="TINYINT"/>
+					<xsd:enumeration value="SMALLINT"/>
+					<xsd:enumeration value="INTEGER"/>
+					<xsd:enumeration value="BIGINT"/>
+					<xsd:enumeration value="FLOAT"/>
+					<xsd:enumeration value="REAL"/>
+					<xsd:enumeration value="DOUBLE"/>
+					<xsd:enumeration value="NUMERIC"/>
+					<xsd:enumeration value="DECIMAL"/>
+					<xsd:enumeration value="CHAR"/>
+					<xsd:enumeration value="VARCHAR"/>
+					<xsd:enumeration value="LONGVARCHAR"/>
+					<xsd:enumeration value="DATE"/>
+					<xsd:enumeration value="TIME"/>
+					<xsd:enumeration value="TIMESTAMP"/>
+					<xsd:enumeration value="BINARY"/>
+					<xsd:enumeration value="VARBINARY"/>
+					<xsd:enumeration value="LONGVARBINARY"/>
+					<xsd:enumeration value="NULL"/>
+					<xsd:enumeration value="OTHER"/>
+					<xsd:enumeration value="JAVA_OBJECT"/>
+					<xsd:enumeration value="DISTINCT"/>
+					<xsd:enumeration value="STRUCT"/>
+					<xsd:enumeration value="ARRAY"/>
+					<xsd:enumeration value="BLOB"/>
+					<xsd:enumeration value="CLOB"/>
+					<xsd:enumeration value="REF"/>
+					<xsd:enumeration value="DATALINK"/>
+					<xsd:enumeration value="BOOLEAN"/>
+					<xsd:enumeration value="ROWID"/>
+					<xsd:enumeration value="NCHAR"/>
+					<xsd:enumeration value="NVARCHAR"/>
+					<xsd:enumeration value="LONGNVARCHAR"/>
+					<xsd:enumeration value="NCLOB"/>
+					<xsd:enumeration value="SQLXML"/>
+					<xsd:enumeration value="REF_CURSOR"/>
+					<xsd:enumeration value="TIME_WITH_TIMEZONE"/>
+					<xsd:enumeration value="TIMESTAMP_WITH_TIMEZONE"/>
+           		</xsd:restriction>
+ 			</xsd:simpleType>
+		</xsd:attribute>
+		<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
+		<xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
+ 		<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
+		<xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
+	</xsd:complexType>
+	
+	<!-- 字段类型转换 -->
 	<xsd:complexType name="TypeConvert">
 		<xsd:choice minOccurs="1" maxOccurs="unbounded">
-			<xsd:element name="javaSqlType">
-				<xsd:complexType mixed="true">
-			  		<!-- java.sql.Types -->
-			  		<xsd:attribute name="name" use="optional" default="BIGINT">
-	                    <xsd:simpleType>
-	                    	<xsd:restriction base="xsd:string">
-	                            <xsd:enumeration value="BIGINT"/>
-	                        	<xsd:enumeration value="TINYINT"/>
-	                        	<xsd:enumeration value="DOUBLE"/>
-	                        </xsd:restriction>
-	                    </xsd:simpleType>
-	             	</xsd:attribute>
-		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
-		            <xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
-		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
-		            <xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
-				</xsd:complexType>
-			</xsd:element>
+			<!-- JavaSqlType -->
+			<xsd:element name="javaSqlType" type="JavaSqlType" />
 		</xsd:choice>
 	</xsd:complexType>
 
@@ -160,15 +198,8 @@
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<!-- typeHandler -->
 			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="unbounded" default="org.apache.ibatis.type.BlobTypeHandler" />
-			<!-- typeConvert -->
-			<xsd:element name="typeConvert" minOccurs="0" maxOccurs="1">
-				<xsd:complexType mixed="true">
-		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.type -->
-		            <xsd:attribute name="type" type="xsd:string" use="optional" default="BigInteger"/>
-		  			<!-- com.baomidou.mybatisplus.generator.config.rules.DbColumnType.pkg -->
-		            <xsd:attribute name="pkg" type="xsd:string" use="optional" default="java.math.BigInteger" />
-				</xsd:complexType>
-			</xsd:element>
+			<!-- javaSqlType -->
+			<xsd:element name="javaSqlType" type="JavaSqlType" minOccurs="0" maxOccurs="1" />
 		</xsd:choice>
 		<!-- name -->
 		<xsd:attribute name="name" type="xsd:string"
