@@ -162,6 +162,13 @@ public class MyGeneratorUtil {
 									tableInfo.getImportPackages().add(com.baomidou.mybatisplus.annotation.TableField.class.getName());
 								}
 							}
+							if (field.isKeyFlag()) {
+								IdType idType = StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType);
+								objectMap.put("idType", idType.toString());
+								if (field.isKeyIdentityFlag()) {
+									ReflectUtil.setFieldValue(field, "keyIdentityFlag", IdType.AUTO == idType);
+								}
+							}
 						}
 					}
 				}
@@ -241,7 +248,6 @@ public class MyGeneratorUtil {
 					.serviceImplTemplate(serviceImplTemplatePath)
 				.entityBuilder()
 					.javaTemplate(EntityTemplatePath)
-					.idType(StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType))
 					.enableLombok()
 					.enableChainModel()
 					.naming(NamingStrategy.underline_to_camel)
