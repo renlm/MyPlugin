@@ -234,9 +234,6 @@
 					<!-- 是否配置Excel表格（默认false） -->
 					<xsd:attribute name="excel" type="xsd:boolean"
 						use="optional" default="false" />
-					<!-- 类型处理器（全路径类名） -->
-					<xsd:attribute name="typeHandler" type="xsd:string"
-						use="optional" default="org.apache.ibatis.type.BlobTypeHandler" />
 				</xsd:complexType>
 			</xsd:element>
 		</xsd:choice>
