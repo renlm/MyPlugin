@@ -8,7 +8,7 @@
 		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID">
 			<column name="file_content">
 				<typeHandler>org.apache.ibatis.type.BlobTypeHandler</typeHandler>
-				<typeConvert type="byte[]" />
+				<javaSqlType type="byte[]" />
 			</column>
 		</table>
 	</module>

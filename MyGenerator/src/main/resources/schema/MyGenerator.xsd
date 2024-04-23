@@ -197,7 +197,7 @@
 	<xsd:complexType name="Column">
 		<xsd:choice minOccurs="0" maxOccurs="unbounded">
 			<!-- typeHandler -->
-			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="unbounded" default="org.apache.ibatis.type.BlobTypeHandler" />
+			<xsd:element name="typeHandler" type="xsd:string" minOccurs="0" maxOccurs="1" default="org.apache.ibatis.type.BlobTypeHandler" />
 			<!-- javaSqlType -->
 			<xsd:element name="javaSqlType" type="JavaSqlType" minOccurs="0" maxOccurs="1" />
 		</xsd:choice>
