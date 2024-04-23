@@ -35,9 +35,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyGenerator.xsd">
 
-	<module name="sys" package="cn.renlm.example" enableSwagger="false">
+	<module name="sys" package="cn.renlm.example">
 		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
-		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID" />
+		<table author="RenLiMing(任黎明)" name="sys_file" idType="ASSIGN_ID">
+			<column name="file_content">
+				<typeHandler>org.apache.ibatis.type.BlobTypeHandler</typeHandler>
+				<javaSqlType type="byte[]" />
+			</column>
+		</table>
 	</module>
 
 	<url>jdbc:postgresql://postgres:5432/db</url>
@@ -45,7 +50,7 @@
 	<username>username</username>
 	<password>password</password>
 
-	<config>
+	<config springdoc="false" swagger="false">
 		<typeConvert>
 			<javaSqlType name="BIGINT" type="BigInteger" pkg="java.math.BigInteger" />
 			<javaSqlType name="TINYINT" type="Boolean" />
