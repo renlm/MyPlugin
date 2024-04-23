@@ -1,8 +1,8 @@
 package ${package.Entity};
 
-<#list table.importPackages as pkg>
+<#list table.importPackages as pkg><#if superEntityClass?? && pkg == "java.io.Serializable"><#else>
 import ${pkg};
-</#list>
+</#if></#list>
 <#if springdoc>
 import io.swagger.v3.oas.annotations.media.Schema;
 <#elseif swagger>
