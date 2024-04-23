@@ -88,7 +88,7 @@ public class ${entity} {
     @TableField(fill = FieldFill.${field.fill})
         </#if>
     <#elseif field.convert>
-    @TableField("${field.annotationColumnName}")
+    @TableField(value = "${field.annotationColumnName}")
     </#if>
     <#-- 乐观锁注解 -->
     <#if field.versionField>
