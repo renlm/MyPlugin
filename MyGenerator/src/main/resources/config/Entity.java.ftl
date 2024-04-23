@@ -83,9 +83,9 @@ public class ${entity} {
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
-    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>, typeHandler = ${typeHandlerMap[field.annotationColumnName]}.class</#if>)
         <#else>
-    @TableField(fill = FieldFill.${field.fill})
+    @TableField(fill = FieldFill.${field.fill}<#if typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>, typeHandler = ${typeHandlerMap[field.annotationColumnName]}.class</#if>)
         </#if>
     <#elseif field.convert>
     @TableField(value = "${field.annotationColumnName}"<#if typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>, typeHandler = ${typeHandlerMap[field.annotationColumnName]}.class</#if>)
