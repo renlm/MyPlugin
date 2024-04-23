@@ -1,9 +1,11 @@
 package ${package.Entity};
 
-<#list table.importPackages as pkg><#if !blobTypeHandler || (blobTypeHandler && pkg != "java.sql.Blob")>
+<#list table.importPackages as pkg>
 import ${pkg};
-</#if></#list>
-<#if swagger>
+</#list>
+<#if springdoc>
+import io.swagger.v3.oas.annotations.media.Schema;
+<#elseif swagger>
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
@@ -33,11 +35,13 @@ import lombok.experimental.Accessors;
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
 </#if>
-<#if swagger>
+<#if springdoc>
+@Schema(name = "${entity}", description = "${table.comment!}")
+<#elseif swagger>
 @ApiModel(value = "${entity}对象", description = "${table.comment!}")
 </#if>
 <#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if><#if entitySerialVersionUID> implements Serializable</#if> {
+public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
 <#elseif activeRecord>
 public class ${entity} extends Model<${entity}> {
 <#elseif entitySerialVersionUID>
@@ -56,7 +60,9 @@ public class ${entity} {
     </#if>
 
     <#if field.comment!?length gt 0>
-        <#if swagger>
+        <#if springdoc>
+    @Schema(description = "${field.comment}")
+        <#elseif swagger>
     @ApiModelProperty("${field.comment}")
         <#else>
     /**
@@ -77,16 +83,12 @@ public class ${entity} {
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
         <#if field.convert>
-    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill}<#if typeHandler?default("")?trim?length gt 0>, typeHandler = ${typeHandler}.class</#if>)
+    @TableField(value = "${field.annotationColumnName}", fill = FieldFill.${field.fill})
         <#else>
-    @TableField(fill = FieldFill.${field.fill}<#if typeHandler?default("")?trim?length gt 0>, typeHandler = ${typeHandler}.class</#if>)
+    @TableField(fill = FieldFill.${field.fill})
         </#if>
     <#elseif field.convert>
-    	<#if typeHandler?default("")?trim?length gt 0>
-    @TableField(value = "${field.annotationColumnName}", typeHandler = ${typeHandler}.class)
-    	<#else>
     @TableField("${field.annotationColumnName}")
-    	</#if>
     </#if>
     <#-- 乐观锁注解 -->
     <#if field.versionField>
@@ -96,10 +98,9 @@ public class ${entity} {
     <#if field.logicDeleteField>
     @TableLogic
     </#if>
-    private <#if blobTypeHandler && field.propertyType = "Blob">byte[]<#else>${field.propertyType}</#if> ${field.propertyName};
+    private ${field.propertyType} ${field.propertyName};
 </#list>
 <#------------  END 字段循环遍历  ---------->
-
 <#if !entityLombokModel>
     <#list table.fields as field>
         <#if field.propertyType == "boolean">
@@ -107,6 +108,7 @@ public class ${entity} {
         <#else>
             <#assign getprefix="get"/>
         </#if>
+
     public ${field.propertyType} ${getprefix}${field.capitalName}() {
         return ${field.propertyName};
     }
@@ -123,14 +125,14 @@ public class ${entity} {
     }
     </#list>
 </#if>
-
 <#if entityColumnConstant>
     <#list table.fields as field>
-    public static final String ${field.name?upper_case} = "${field.name}";
 
+    public static final String ${field.name?upper_case} = "${field.name}";
     </#list>
 </#if>
 <#if activeRecord>
+
     @Override
     public Serializable pkVal() {
     <#if keyPropertyName??>
@@ -139,17 +141,17 @@ public class ${entity} {
         return null;
     </#if>
     }
-
 </#if>
 <#if !entityLombokModel>
+
     @Override
     public String toString() {
         return "${entity}{" +
     <#list table.fields as field>
         <#if field_index==0>
-            "${field.propertyName}=" + ${field.propertyName} +
+            "${field.propertyName} = " + ${field.propertyName} +
         <#else>
-            ", ${field.propertyName}=" + ${field.propertyName} +
+            ", ${field.propertyName} = " + ${field.propertyName} +
         </#if>
     </#list>
         "}";
