@@ -1,5 +1,6 @@
 package cn.renlm.plugins;
 
+import static cn.hutool.core.text.CharSequenceUtil.EMPTY;
 import static cn.renlm.plugins.MyGeneratorConf.entityPlaceholder;
 import static com.baomidou.mybatisplus.core.toolkit.StringPool.SLASH;
 import static java.util.Objects.nonNull;
@@ -283,7 +284,7 @@ public class MyGeneratorUtil {
 				builder.controllerBuilder().formatFileName(entityPlaceholder(controller.getFormatFileName()));
 			}
 		} else {
-			builder.controllerBuilder().disable();
+			builder.controllerBuilder().convertFileName(entityName -> EMPTY).disable();
 		}
 		/** ================== Controller 配置 End ================== */
 		
