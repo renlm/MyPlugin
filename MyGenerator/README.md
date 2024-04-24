@@ -21,7 +21,8 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyGenerator</artifactId>
-    <version>2.8.2</version>
+    <version>2.8.3</version>
+	<scope>test</scope>
 </dependency>
 ```
 
