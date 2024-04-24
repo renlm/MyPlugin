@@ -87,8 +87,10 @@ public class ${entity} {
         <#else>
     @TableField(fill = FieldFill.${field.fill}<#if typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>, typeHandler = ${typeHandlerMap[field.annotationColumnName]}.class</#if>)
         </#if>
-    <#elseif field.convert>
+    <#elseif field.convert && typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>
     @TableField(value = "${field.annotationColumnName}"<#if typeHandlerMap??&&typeHandlerMap[field.annotationColumnName]??>, typeHandler = ${typeHandlerMap[field.annotationColumnName]}.class</#if>)
+    <#elseif field.convert>
+    @TableField("${field.annotationColumnName}")
     </#if>
     <#-- 乐观锁注解 -->
     <#if field.versionField>
@@ -157,4 +159,5 @@ public class ${entity} {
         "}";
     }
 </#if>
+
 }
