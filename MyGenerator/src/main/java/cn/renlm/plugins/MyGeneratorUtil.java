@@ -46,6 +46,7 @@ import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyGeneratorConf._Controller;
@@ -268,7 +269,7 @@ public class MyGeneratorUtil {
 			if (entity.isDisableSerialVersionUID()) {
 				builder.disableSerialVersionUID();
 			}
-			if (entity.isTableFieldAnnotationEnable()) {
+			if (!BooleanUtil.isFalse(entity.getTableFieldAnnotationEnable())) {
 				builder.enableTableFieldAnnotation();
 			}
 			if (StrUtil.isNotBlank(entity.getVersionColumnName())) {

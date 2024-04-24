@@ -172,9 +172,9 @@ public class MyGeneratorConf {
 		private boolean disableSerialVersionUID;
 
 		/**
-		 * 是否生成实体时，生成字段注解（默认 false）
+		 * 是否生成实体时，生成字段注解（默认 true）
 		 */
-		private boolean tableFieldAnnotationEnable;
+		private Boolean tableFieldAnnotationEnable = true;
 
 		/**
 		 * 乐观锁字段名称（数据库字段）

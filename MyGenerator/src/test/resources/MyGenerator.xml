@@ -36,7 +36,7 @@
 			<entity>
 				<formatFileName>{entityName}</formatFileName>
 				<disableSerialVersionUID>false</disableSerialVersionUID>
-				<tableFieldAnnotationEnable>false</tableFieldAnnotationEnable>
+				<tableFieldAnnotationEnable>true</tableFieldAnnotationEnable>
 				<versionColumnName>version</versionColumnName>
 				<logicDeleteColumnName>deleted</logicDeleteColumnName>
 				<superClass>cn.renlm.plugins.Common.BaseModel</superClass>

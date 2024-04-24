@@ -142,8 +142,8 @@
 						<xsd:element name="formatFileName" type="xsd:string" maxOccurs="1" default="{entityName}" />
 						<!-- 禁用生成serialVersionUID -->
 						<xsd:element name="disableSerialVersionUID" type="xsd:boolean" maxOccurs="1" default="false" />
-						<!-- 是否生成实体时，生成字段注解（默认 false） -->
-						<xsd:element name="tableFieldAnnotationEnable" type="xsd:boolean" maxOccurs="1" default="false" />
+						<!-- 是否生成实体时，生成字段注解（默认 true） -->
+						<xsd:element name="tableFieldAnnotationEnable" type="xsd:boolean" maxOccurs="1" default="true" />
 						<!-- 乐观锁字段名称（数据库字段） -->
 						<xsd:element name="versionColumnName" type="xsd:string" maxOccurs="1" default="version" />
 						<!-- 逻辑删除字段名称（数据库字段） -->
