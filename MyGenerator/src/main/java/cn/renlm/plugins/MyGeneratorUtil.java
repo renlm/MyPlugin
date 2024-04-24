@@ -155,10 +155,12 @@ public class MyGeneratorUtil {
 					if (StrUtil.equals(tableName, table.getName())) {
 						for (TableField field : tableInfo.getFields()) {
 							String columnName = field.getColumnName();
-							for (GeneratorTableColumn column : table.columns) {
-								if (StrUtil.equals(columnName, column.getName())) {
-									ReflectUtil.setFieldValue(field, "convert", true);
-									tableInfo.getImportPackages().add(com.baomidou.mybatisplus.annotation.TableField.class.getName());
+							if (CollUtil.isNotEmpty(table.columns)) {
+								for (GeneratorTableColumn column : table.columns) {
+									if (StrUtil.equals(columnName, column.getName())) {
+										ReflectUtil.setFieldValue(field, "convert", true);
+										tableInfo.getImportPackages().add(com.baomidou.mybatisplus.annotation.TableField.class.getName());
+									}
 								}
 							}
 							if (field.isKeyFlag()) {
