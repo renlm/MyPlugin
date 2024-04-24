@@ -165,6 +165,7 @@ public class MyGeneratorUtil {
 							}
 							if (field.isKeyFlag()) {
 								tableInfo.getImportPackages().add(IdType.class.getName());
+								tableInfo.getImportPackages().add(com.baomidou.mybatisplus.annotation.TableId.class.getName());
 								IdType idType = StrUtil.isBlank(table.idType) ? IdType.AUTO : IdType.valueOf(table.idType);
 								objectMap.put("idType", idType.toString());
 								if (field.isKeyIdentityFlag()) {
