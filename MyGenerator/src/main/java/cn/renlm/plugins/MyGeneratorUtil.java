@@ -291,6 +291,8 @@ public class MyGeneratorUtil {
 					}
 				}
 			}
+		} else {
+			builder.enableTableFieldAnnotation();
 		}
 		if (table.coverEntity) {
 			builder.enableFileOverride();
