@@ -256,7 +256,6 @@ public class MyGeneratorUtil {
 					.enableChainModel()
 					.naming(NamingStrategy.underline_to_camel)
 					.columnNaming(NamingStrategy.underline_to_camel)
-					.enableTableFieldAnnotation()
 				;
 		
 		/** ================== Entity 配置 Start ================== */
