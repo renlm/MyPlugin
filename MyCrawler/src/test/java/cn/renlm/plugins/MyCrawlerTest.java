@@ -53,7 +53,7 @@ public class MyCrawlerTest {
 				ImgUtil.writePng(screenshot, out);
 			}
 		});
-		spider.addUrl("https://renlm.gitee.io/");
+		spider.addUrl("https://renlm.github.io/");
 		spider.run();
 	}
 

@@ -9,7 +9,7 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyCrawler</artifactId>
-    <version>2.8.5</version>
+    <version>2.8.6</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ public class MyCrawlerTest {
 				ImgUtil.writePng(screenshot, out);
 			}
 		});
-		spider.addUrl("https://renlm.gitee.io/");
+		spider.addUrl("https://renlm.github.io/");
 		spider.run();
 	}
 

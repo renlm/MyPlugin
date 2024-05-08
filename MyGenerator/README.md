@@ -21,20 +21,20 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>MyGenerator</artifactId>
-    <version>2.8.5</version>
+    <version>2.8.6</version>
 	<scope>test</scope>
 </dependency>
 ```
 
 ## 使用
 ### 配置Xml
-详细规则可查看[MyGenerator.xsd](https://renlm.gitee.io/schemas/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
+详细规则可查看[MyGenerator.xsd](https://renlm.github.io/schemas/MyGenerator.xsd)，引入约束后可自动提示，简单易用。
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <generator dsName="pg"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://renlm.gitee.io/schemas/MyGenerator.xsd">
+	xsi:noNamespaceSchemaLocation="https://renlm.github.io/schemas/MyGenerator.xsd">
 
 	<module name="sys" package="cn.renlm.example">
 		<table author="RenLiMing(任黎明)" name="sys_const" entity="true" excel="true" />
