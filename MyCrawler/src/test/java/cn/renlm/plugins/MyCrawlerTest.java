@@ -23,6 +23,7 @@ import us.codecraft.webmagic.selector.Html;
  *
  */
 public class MyCrawlerTest {
+	// https://googlechromelabs.github.io/chrome-for-testing/
 	static final String driverPath = FileUtil.normalize(ConstVal.resourcesTestDir + "/chromedriver.exe");
 	static final String settingPath = FileUtil.normalize(ConstVal.resourcesTestDir + "/chrome.setting");
 	static final Setting chromeSetting = new Setting(settingPath);
