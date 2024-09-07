@@ -20,19 +20,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- 版本管理 -->
-		<hutool.version>5.8.29</hutool.version>
+		<hutool.version>5.8.32</hutool.version>
 		<compiler.version>2.4.1</compiler.version>
 		<xstream.version>1.4.20</xstream.version>
 		<bcpkix-jdk15to18.version>1.78.1</bcpkix-jdk15to18.version>
-		<mybatis-plus-boot-starter.version>3.5.6</mybatis-plus-boot-starter.version>
-		<dynamic-datasource-spring-boot-starter.version>4.3.0</dynamic-datasource-spring-boot-starter.version>
-		<mybatis-plus-generator.version>3.5.6</mybatis-plus-generator.version>
+		<mybatis-plus-boot-starter.version>3.5.7</mybatis-plus-boot-starter.version>
+		<dynamic-datasource-spring-boot-starter.version>4.3.1</dynamic-datasource-spring-boot-starter.version>
+		<mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
 		<mysql-connector-j.version>8.3.0</mysql-connector-j.version>
 		<postgresql.version>42.6.2</postgresql.version>
-		<freemarker.version>2.3.32</freemarker.version>
+		<freemarker.version>2.3.33</freemarker.version>
 		<poi.version>4.1.2</poi.version>
-		<commons-compress.version>1.26.1</commons-compress.version>
-		<commons-io.version>2.15.1</commons-io.version>
+		<commons-compress.version>1.27.1</commons-compress.version>
+		<commons-io.version>2.16.1</commons-io.version>
 		<webmagic.version>1.0.0</webmagic.version>
 		<selenium-chrome-driver.version>4.14.1</selenium-chrome-driver.version>
 	</properties>

@@ -63,15 +63,15 @@ import lombok.Getter;
 /**
  * 代码生成封装类
  * 	spring-boot
- * 		3.2.4
+ * 		3.2.7
  *  mybatis-plus-boot-starter
- *  	3.5.6
+ *  	3.5.7
  *  dynamic-datasource-spring-boot-starter
- *  	4.3.0
+ *  	4.3.1
  *  mybatis-plus-generator
- *  	3.5.6
+ *  	3.5.7
  *  freemarker
- *  	2.3.32
+ *  	2.3.33
  * 
  * @author RenLiMing(任黎明)
  *
