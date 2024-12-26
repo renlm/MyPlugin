@@ -29,6 +29,7 @@
 		<mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
 		<mysql-connector-j.version>8.3.0</mysql-connector-j.version>
 		<postgresql.version>42.6.2</postgresql.version>
+		<sqlite.version>3.43.2.0</sqlite.version>
 		<freemarker.version>2.3.33</freemarker.version>
 		<poi.version>4.1.2</poi.version>
 		<commons-compress.version>1.27.1</commons-compress.version>
@@ -122,6 +123,11 @@
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
 				<version>${postgresql.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xerial</groupId>
+		    	<artifactId>sqlite-jdbc</artifactId>
+				<version>${sqlite.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.freemarker</groupId>
