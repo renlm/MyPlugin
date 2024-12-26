@@ -47,6 +47,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.BooleanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.renlm.plugins.MyGeneratorConf._Controller;
@@ -488,6 +489,24 @@ public class MyGeneratorUtil {
 		 */
 		@XStreamImplicit(itemFieldName = "module")
 		private List<GeneratorModule> modules;
+		
+		/**
+		 * Java代码输出目录
+		 * 
+		 * @return
+		 */
+		public String getJavaOutputDir() {
+			return ObjectUtil.defaultIfBlank(this.output, ConstVal.userDir) + "/src/main/java";
+		}
+		
+		/**
+		 * 资源文件输出目录
+		 * 
+		 * @return
+		 */
+		public String getResourcesOutputDir() {
+			return ObjectUtil.defaultIfBlank(this.output, ConstVal.userDir) + "/src/main/resources";
+		}
 
 		/**
 		 * 获取自定义类型转换
