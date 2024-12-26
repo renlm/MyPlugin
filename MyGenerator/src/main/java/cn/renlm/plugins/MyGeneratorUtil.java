@@ -451,6 +451,12 @@ public class MyGeneratorUtil {
 		 */
 		@XStreamAsAttribute
 		private String dsName;
+		
+		/**
+		 * 文件输出目录（默认当前项目）
+		 */
+		@XStreamAsAttribute
+		private String output;
 
 		/**
 		 * 数据源-数据库地址

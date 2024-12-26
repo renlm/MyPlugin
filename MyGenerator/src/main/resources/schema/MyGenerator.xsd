@@ -31,6 +31,9 @@
 		<!-- 使用多数据源时，数据源名称 -->
 		<xsd:attribute name="dsName" type="xsd:string" 
 				use="optional" />
+		<!-- 文件输出目录（默认当前项目） -->
+		<xsd:attribute name="output" type="xsd:string" 
+				use="optional" />
 	</xsd:complexType>
 	
 	<!-- 代码生成配置 -->
