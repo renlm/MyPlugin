@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import com.thoughtworks.xstream.XStream;
 
+import cn.hutool.core.io.FileUtil;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -14,6 +15,21 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public final class MyXStreamUtil {
+	
+	/**
+	 * 读取
+	 * 
+	 * @param <C>
+	 * @param type
+	 * @param filePath
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public static final <C> C readFromFile(final Class<C> type, String filePath) {
+		InputStream in = FileUtil.getInputStream(filePath);
+		XStream xstream = create(type);
+		return (C) xstream.fromXML(in);
+	}
 
 	/**
 	 * 读取
