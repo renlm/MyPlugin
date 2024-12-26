@@ -86,12 +86,21 @@ public class MyGeneratorUtil {
 	private static final String DS_CLASS_NAME 			= "com.baomidou.dynamic.datasource.annotation.DS";
 
 	/**
-	 * 读取配置并运行
+	 * 读取配置并生成代码
 	 * 
 	 * @param xml
 	 */
 	public static final void run(String xml) {
 		GeneratorConfig conf = MyXStreamUtil.read(GeneratorConfig.class, xml);
+		run(conf);
+	}
+	
+	/**
+	 * 根据配置生成代码
+	 * 
+	 * @param conf
+	 */
+	public static final void run(GeneratorConfig conf) {
 		DataSourceConfig dsc = dataSourceConfig(conf, conf.getSchema());
 		conf.modules.forEach(module -> {
 			module.tables.forEach(table -> {
