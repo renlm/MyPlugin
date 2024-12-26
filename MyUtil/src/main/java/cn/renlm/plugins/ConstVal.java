@@ -12,7 +12,7 @@ import lombok.experimental.UtilityClass;
 public class ConstVal {
 
 	public static final String AUTHOR 			= "RenLiMing(任黎明)";
-	public static final String VERSION 			= "2.8.9";
+	public static final String VERSION 			= "2.8.10";
 
 	public static final String NAME 			= ConstVal.class.getName();
 
