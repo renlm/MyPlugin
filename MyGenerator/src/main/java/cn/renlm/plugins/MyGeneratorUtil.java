@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Types;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,8 @@ import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.db.meta.Column;
+import cn.hutool.db.meta.Table;
 import cn.renlm.plugins.MyGeneratorConf._Controller;
 import cn.renlm.plugins.MyGeneratorConf._Entity;
 import cn.renlm.plugins.MyGeneratorConf._JavaSqlType;
@@ -145,13 +148,37 @@ public class MyGeneratorUtil {
 		autoGenerator.global(globalConfig(conf, module, table));
 		ConfigBuilder config = new ConfigBuilder(autoGenerator.getPackageInfo(), autoGenerator.getDataSource(), autoGenerator.getStrategy(), null, autoGenerator.getGlobalConfig(), autoGenerator.getInjection());
 		autoGenerator.config(config);
-		if (Objects.nonNull(conf.tableInfoList)) { // 手动设置表信息
-			List<TableInfo> tableInfoList = conf.tableInfoList.get(table.name);
-			if (CollUtil.isNotEmpty(tableInfoList)) {
-				@SuppressWarnings("unchecked")
-				List<TableInfo> list = (List<TableInfo>) ReflectUtil.getFieldValue(config, "tableInfoList");
-				list.clear();
-				list.addAll(tableInfoList);
+		if (Objects.nonNull(conf.tableInfoMap)) { // 手动设置表信息（注释）
+			Table tableInfo = conf.tableInfoMap.get(table.name);
+			if (Objects.nonNull(tableInfo)) {
+				List<TableInfo> list = config.getTableInfoList();
+				if (CollUtil.isNotEmpty(list)) {
+					Collection<Column> columns = tableInfo.getColumns();
+					if (CollUtil.isNotEmpty(columns)) {
+						Map<String, List<Column>> cmap = columns.stream().collect(Collectors.groupingBy(Column::getName));
+						for (TableInfo info : list) {
+							if (StrUtil.equals(tableInfo.getTableName(), info.getName())) {
+								info.setComment(tableInfo.getComment());
+								if (CollUtil.isNotEmpty(info.getCommonFields())) {
+									info.getCommonFields().forEach(it -> {
+										Column column = CollUtil.getFirst(cmap.get(it.getName()));
+										if (Objects.nonNull(column)) {
+											it.setComment(column.getComment());
+										}
+									});
+								}
+								if (CollUtil.isNotEmpty(info.getFields())) {
+									info.getFields().forEach(it -> {
+										Column column = CollUtil.getFirst(cmap.get(it.getName()));
+										if (Objects.nonNull(column)) {
+											it.setComment(column.getComment());
+										}
+									});
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
@@ -502,7 +529,7 @@ public class MyGeneratorUtil {
 		/**
 		 * 表信息集合
 		 */
-		private Map<String, List<TableInfo>> tableInfoList = MapUtil.newHashMap(true);
+		private Map<String, Table> tableInfoMap = MapUtil.newHashMap(true);
 		
 		/**
 		 * Java代码输出目录
