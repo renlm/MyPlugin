@@ -62,7 +62,7 @@ public class ChromeDownloader implements Downloader, Closeable {
 		String url = request.getUrl();
 		logger.info("downloading page " + url);
 		this.checkInit();
-		Page page = Page.fail(request);
+		Page page = Page.ofFailure(request);
 		MyChromeDriver myChromeDriver;
 		ChromeDriver webDriver;
 		try {
