@@ -24,9 +24,9 @@
 		<compiler.version>2.4.1</compiler.version>
 		<xstream.version>1.4.21</xstream.version>
 		<bcpkix-jdk15to18.version>1.78.1</bcpkix-jdk15to18.version>
-		<mybatis-plus-boot-starter.version>3.5.7</mybatis-plus-boot-starter.version>
+		<mybatis-plus-boot-starter.version>3.5.9</mybatis-plus-boot-starter.version>
 		<dynamic-datasource-spring-boot-starter.version>4.3.1</dynamic-datasource-spring-boot-starter.version>
-		<mybatis-plus-generator.version>3.5.7</mybatis-plus-generator.version>
+		<mybatis-plus-generator.version>3.5.9</mybatis-plus-generator.version>
 		<mysql-connector-j.version>8.3.0</mysql-connector-j.version>
 		<postgresql.version>42.6.2</postgresql.version>
 		<sqlite.version>3.43.2.0</sqlite.version>

@@ -66,11 +66,11 @@ import lombok.Getter;
  * 	spring-boot
  * 		3.2.7
  *  mybatis-plus-boot-starter
- *  	3.5.7
+ *  	3.5.9
  *  dynamic-datasource-spring-boot-starter
  *  	4.3.1
  *  mybatis-plus-generator
- *  	3.5.7
+ *  	3.5.9
  *  freemarker
  *  	2.3.33
  * 
@@ -143,6 +143,17 @@ public class MyGeneratorUtil {
 		autoGenerator.strategy(strategyConfig(conf, table));
 		autoGenerator.packageInfo(packageConfig(conf, module));
 		autoGenerator.global(globalConfig(conf, module, table));
+		ConfigBuilder config = new ConfigBuilder(autoGenerator.getPackageInfo(), autoGenerator.getDataSource(), autoGenerator.getStrategy(), null, autoGenerator.getGlobalConfig(), autoGenerator.getInjection());
+		autoGenerator.config(config);
+		if (Objects.nonNull(conf.tableInfoList)) { // 手动设置表信息
+			List<TableInfo> tableInfoList = conf.tableInfoList.get(table.name);
+			if (CollUtil.isNotEmpty(tableInfoList)) {
+				@SuppressWarnings("unchecked")
+				List<TableInfo> list = (List<TableInfo>) ReflectUtil.getFieldValue(config, "tableInfoList");
+				list.clear();
+				list.addAll(tableInfoList);
+			}
+		}
 		autoGenerator.execute(new FreemarkerTemplateEngine() {
 			/**
 			 * 是否生成表格配置
@@ -487,6 +498,11 @@ public class MyGeneratorUtil {
 		 */
 		@XStreamImplicit(itemFieldName = "module")
 		private List<GeneratorModule> modules;
+		
+		/**
+		 * 表信息集合
+		 */
+		private Map<String, List<TableInfo>> tableInfoList = MapUtil.newHashMap(true);
 		
 		/**
 		 * Java代码输出目录

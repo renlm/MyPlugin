@@ -30,7 +30,7 @@ public class MyFreemarkerUtil {
 		cfg.setClassForTemplateLoading(MyFreemarkerUtil.class, File.separator);
 		cfg.setClassLoaderForTemplateLoading(MyFreemarkerUtil.class.getClassLoader(), File.separator);
 	}
-	
+
 	/**
 	 * 解析模板
 	 * 
@@ -48,6 +48,21 @@ public class MyFreemarkerUtil {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		template.process(value, new OutputStreamWriter(out));
 		return new String(out.toByteArray(), StandardCharsets.UTF_8.name());
+	}
+
+	/**
+	 * 解析模板
+	 * 
+	 * @param filePath
+	 * @param key
+	 * @param value
+	 * @return
+	 */
+	@SneakyThrows
+	public final static String readFromFile(String filePath, String key, Object value) {
+		Map<String, Object> dataModel = new HashMap<>();
+		dataModel.put(key, value);
+		return readFromFile(filePath, value);
 	}
 
 	/**
@@ -77,10 +92,7 @@ public class MyFreemarkerUtil {
 	public final static String read(String path, String key, Object value) {
 		Map<String, Object> dataModel = new HashMap<>();
 		dataModel.put(key, value);
-		Template template = cfg.getTemplate(FileUtil.normalize(path));
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		template.process(dataModel, new OutputStreamWriter(out));
-		return new String(out.toByteArray(), StandardCharsets.UTF_8.name());
+		return read(path, value);
 	}
 
 }
