@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.hutool.core.io.FileUtil;
+import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.SneakyThrows;
@@ -28,6 +29,25 @@ public class MyFreemarkerUtil {
 		cfg.setClassicCompatible(true);
 		cfg.setClassForTemplateLoading(MyFreemarkerUtil.class, File.separator);
 		cfg.setClassLoaderForTemplateLoading(MyFreemarkerUtil.class.getClassLoader(), File.separator);
+	}
+	
+	/**
+	 * 解析模板
+	 * 
+	 * @param filePath
+	 * @param value
+	 * @return
+	 */
+	@SneakyThrows
+	public final static String readFromFile(String filePath, Object value) {
+		File templateFile = new File(filePath);
+		FileTemplateLoader templateLoader = new FileTemplateLoader(templateFile.getParentFile());
+		Configuration configuration = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
+		configuration.setTemplateLoader(templateLoader);
+		Template template = configuration.getTemplate(FileUtil.normalize(FileUtil.getName(templateFile)));
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		template.process(value, new OutputStreamWriter(out));
+		return new String(out.toByteArray(), StandardCharsets.UTF_8.name());
 	}
 
 	/**
