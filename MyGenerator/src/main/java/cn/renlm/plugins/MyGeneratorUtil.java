@@ -79,8 +79,6 @@ import lombok.Getter;
  */
 public class MyGeneratorUtil {
 	private static final String excelXmlName 			= "excel.xml";
-	private static final String mapperOutputDir 		= ConstVal.resourcesDir + "/mapper";
-	private static final String excelXmlOutputDir 		= ConstVal.resourcesDir + "/excel";
 	private static final String excelXmlTemplatePath 	= "config/Excel.xml.ftl";
 	private static final String EntityTemplatePath 		= "config/Entity.java";
 	private static final String serviceImplTemplatePath	= "config/ServiceImpl.java";
@@ -154,7 +152,7 @@ public class MyGeneratorUtil {
 					@NotNull Map<String, Object> objectMap) {
 				if (table.configExcel) {
 					String entityName = tableInfo.getEntityName();
-					String excelXmlPath = excelXmlOutputDir + SLASH + module.name + SLASH;
+					String excelXmlPath = conf.getResourcesOutputDir() + "/excel" + SLASH + module.name + SLASH;
 					customFiles.forEach(customFile -> {
 						String fileName = excelXmlPath + entityName + StrUtil.DOT + customFile.getFileName();
 						outputFile(new File(fileName), objectMap, customFile.getTemplatePath(), customFile.isFileOverride());
@@ -365,7 +363,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final PackageConfig packageConfig(GeneratorConfig conf, GeneratorModule module) {
 		Map<OutputFile, String> pathInfo = new HashMap<>();
-		pathInfo.put(OutputFile.xml, mapperOutputDir + SLASH + module.name + SLASH);
+		pathInfo.put(OutputFile.xml, conf.getResourcesOutputDir() + "/mapper" + SLASH + module.name + SLASH);
 		PackageConfig.Builder builder = new PackageConfig.Builder()
 				.parent(module.pkg)
 				.moduleName(module.name)
@@ -390,7 +388,7 @@ public class MyGeneratorUtil {
 			}
 			if (StrUtil.isNotBlank(packageConfig.getXml())) {
 				builder.xml(packageConfig.getXml());
-				pathInfo.put(OutputFile.xml, ConstVal.resourcesDir + SLASH + packageConfig.getXml() + SLASH + module.name + SLASH);
+				pathInfo.put(OutputFile.xml, conf.getResourcesOutputDir() + SLASH + packageConfig.getXml() + SLASH + module.name + SLASH);
 			}
 		}
 		/** ================== 自定义配置项 End ================== */
@@ -407,7 +405,7 @@ public class MyGeneratorUtil {
 	 */
 	private static final GlobalConfig globalConfig(GeneratorConfig conf, GeneratorModule module, GeneratorTable table) {
 		GlobalConfig.Builder globalConfigBuilder = new GlobalConfig.Builder()
-				.outputDir(ConstVal.javaDir)
+				.outputDir(conf.getJavaOutputDir())
 				.author(table.author)
 				.disableOpenDir()
 				.dateType(DateType.ONLY_DATE);
