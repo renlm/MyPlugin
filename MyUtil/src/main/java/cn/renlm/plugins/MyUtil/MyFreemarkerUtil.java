@@ -62,7 +62,7 @@ public class MyFreemarkerUtil {
 	public final static String readFromFile(String filePath, String key, Object value) {
 		Map<String, Object> dataModel = new HashMap<>();
 		dataModel.put(key, value);
-		return readFromFile(filePath, value);
+		return readFromFile(filePath, dataModel);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class MyFreemarkerUtil {
 	public final static String read(String path, String key, Object value) {
 		Map<String, Object> dataModel = new HashMap<>();
 		dataModel.put(key, value);
-		return read(path, value);
+		return read(path, dataModel);
 	}
 
 }

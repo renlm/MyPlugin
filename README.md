@@ -19,6 +19,6 @@
 <dependency>
     <groupId>cn.renlm.plugins</groupId>
     <artifactId>My-Plugin</artifactId>
-    <version>2.8.10</version>
+    <version>2.8.11</version>
 </dependency>
 ```
